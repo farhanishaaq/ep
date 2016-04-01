@@ -1085,20 +1085,20 @@ ul.error-container li{
     position: relative;
 }
 
-.login-card input[type=text], input[type=email], input[type=password] {
-    height: 44px;
-    font-size: 1.3em;
-    width: 100%;
-    margin-bottom: 10px;
-    -webkit-appearance: none;
-    background: #fff;
+/*.login-card input[type=text], input[type=email], input[type=password] {*/
+    /*height: 44px;*/
+    /*font-size: 1.3em;*/
+    /*width: 100%;*/
+    /*margin-bottom: 10px;*/
+    /*-webkit-appearance: none;*/
+    /*background: #fff;*/
     /*border: 1px solid #d9d9d9;*/
     /*border-top: 1px solid #c0c0c0;*/
     /* border-radius: 2px; */
-    padding: 0 8px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-}
+    /*padding: 0 8px;*/
+    /*box-sizing: border-box;*/
+    /*-moz-box-sizing: border-box;*/
+/*}*/
 
 .login-card input[type=text]:hover,input[type=email]:hover, input[type=password]:hover {
     /*border: 1px solid #b9b9b9;*/
@@ -1164,8 +1164,35 @@ ul.error-container li{
 /****************************************************/
 /************ Login Page STYLES *****************/
 
+.form-Section {
+    /*margin: 50px;*/
+    /*width: 90%;*/
+    /*height: 92%;*/
+    -webkit-overflow-scrolling: touch;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
+    border: 1px solid rgba(20,53,80,0.14);
+}
+.form-Section .form-group .col-xs-6{
+    height: 55px;
+}
+.form-Section .form-group .control-label{
+    padding-top: 0px;
+}
+/* Start: Error styles*/
+span.field-validation-msg {
+    margin: -21px 0 0 1px;
+    color: #E82200;
+    display: none;
+    font-size: 12px;
+    font-weight: bold;
+    /*display: none;*/
+}
 
-
+.invalid-data {
+    /*color: #a94442;*/
+    color: #E82200;
+}
 
 /*
 ****************************************************************************************************
@@ -1327,8 +1354,8 @@ ul.error-container li{
 .form-control {
     display: block;
     width: 100%;
-    /*height: 34px;*/
-    height: 30px;
+    height: 38px;
+    /*height: 30px;*/
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;
@@ -1689,9 +1716,8 @@ ul.error-container li{
     padding-left: 10px;
 }
 
-.pR10 {
-    padding-right: 10px;
-}
+.pR0 {padding-right: 0px;}
+.pR10 {padding-right: 10px;}
 .pR72 {
     padding-right: 72px;
 }
@@ -2002,9 +2028,10 @@ ul.error-container li{
     height: 392px;
 }
 
-.h400 {
-    height: 400px;
-}
+.h400 {height: 400px;}
+.h695 {height: 695px;}
+.h700 {height: 700px;}
+.h800 {height: 800px;}
 
 
 
