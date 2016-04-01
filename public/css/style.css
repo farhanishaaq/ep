@@ -160,6 +160,13 @@ img {
 .color_7 {
     color: #D4DE19;
 }
+
+.color_8 {
+    color: #fff;
+}
+.color_8 a{
+    color: inherit;
+}
 /*============  Backgrounds  =============*/
 .bg_1 {
   background: #fdfdfc;
@@ -1617,6 +1624,10 @@ ul.error-container li{
 
 /*Start Padding Bottom*/
 .pB10{padding-bottom: 10px}
+.pB20{padding-bottom: 20px}
+.pB30{padding-bottom: 30px}
+.pB40{padding-bottom: 40px}
+.pB50{padding-bottom: 50px}
 
 /*Padding Bottom Important*/
 .pB0i{padding-bottom: 0px !important;}
@@ -1628,9 +1639,8 @@ ul.error-container li{
     padding: 0;
 }
 
-.p10 {
-    padding: 10px;
-}
+.p10 {  padding: 10px;}
+.p15 {  padding: 15px;}
 
 .pT10{padding-top: 10px}
 

@@ -18,7 +18,7 @@
         {{ HTML::style('css/dashboard.css') }}
         {{ HTML::style('/css/pagination.css') }}
 
-        {{ HTML::script('js/jquery.js') }}
+        {{ HTML::script('js/jquery.min.js') }}
         {{ HTML::script('js/jquery-migrate-1.2.1.js') }}
         {{ HTML::script('js/jquery.equalheights.js') }}
         {{ HTML::script('js/modal.js') }}

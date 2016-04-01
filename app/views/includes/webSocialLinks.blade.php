@@ -1,4 +1,4 @@
-<div class="row wrap_4 wrap_10">
+<div class="row pB10">
     <div class="grid_12">
         <div class="header_1 wrap_3 color_3">
             Get in Touch

@@ -12,7 +12,6 @@
        {{ HTML::style('/css/grid.css') }}
        {{ HTML::style('/css/bootstrap.min.css') }}
        {{ HTML::style('/css/style.css') }}
-       {{--<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">--}}
        {{ HTML::style('css/breadcrumbs.css') }}
        {{ HTML::style('/css/isotope.css') }}
        {{ HTML::style('/css/contact-form.css') }}
@@ -27,7 +26,7 @@
    =========================================================-->
 
        {{--{{ HTML::script('js/user_validation.js') }}--}}
-       {{ HTML::script('js/jquery.js') }}
+       {{ HTML::script('js/jquery.min.js') }}
        {{ HTML::script('js/bootstrap.min.js') }}
 
        {{ HTML::script('js/jquery-migrate-1.2.1.js') }}
@@ -87,7 +86,7 @@
             {{--@yield('sliderContent')--}}
             @section('redBar')
             <div class = "user_logo">
-                <div class="header_1 wrap_3 color_3 login-bar">Easy Physician</div>
+                <div class="header_1 wrap_3 color_3 login-bar">Welcome to Easy Physician</div>
             </div>
             @show
 

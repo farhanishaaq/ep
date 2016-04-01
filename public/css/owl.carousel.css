@@ -67,10 +67,11 @@
   z-index: 3;
 }
 .owl-controls .owl-buttons .owl-prev {
-  left: -129px;
+  left: 0px;
 }
 .owl-controls .owl-buttons .owl-next {
-  right: -129px;
+  /*right: -129px;*/
+  right: 0px;
 }
 @media (max-width: 1199px) {
   .owl-controls .owl-buttons {
