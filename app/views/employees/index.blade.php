@@ -20,8 +20,10 @@
                           CONTENT
 =========================================================-->
 @section('content')
-<div class="container">
-    <section id="content">
+<div class="container-fluid mT20">
+    <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'">Users List</h1>
+    <hr class="w100p fL mT0" />
+    <section id="form-Section">
         <!--========================================================
                                  Data Table
         =========================================================-->
@@ -48,9 +50,9 @@
                         <td>{{{ $employee->branch }}}</td>
                         <td>{{{ $employee->status }}}</td>
                         <td>
-                        {{ link_to_route('employees.show', 'View', [$employee->id], ['class' => 'data_table_btn', 'style' => 'margin-bottom: 2px'])}}
+                        {{ link_to_route('employees.show', 'View', [$employee->id], ['class' => 'btn_1 mT5',])}}
                         @if($employee->role != 'Administrator' && $employee->role != 'Super User')
-                            {{ link_to_route('employees.edit', 'Edit', [$employee->id], ['class' => 'data_table_btn'])}}
+                            {{ link_to_route('employees.edit', 'Edit', [$employee->id], ['class' => 'btn_1 mT5'])}}
                         @endif
                         </td>
                     </tr>

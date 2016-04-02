@@ -30,7 +30,7 @@ class="current"
 @section('content')
     <section id="content">
 		<div class="login">
-			<div class="login-card">
+			<div class="login-card login-page">
 				@if(count($errors))
                     <ul class="error-container">
                         <li>Solve Following Errors!</li>
