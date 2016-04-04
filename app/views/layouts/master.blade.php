@@ -49,6 +49,7 @@
        {{ HTML::script('js/jquery.mobilemenu.js') }}
        {{ HTML::script('js/jquery.unveil.js') }}
        {{ HTML::script('js/script.js') }}
+       {{ HTML::script('js/jquery.dataTables.min.js') }}
 
 
 
