@@ -23,10 +23,13 @@ class CheckupfeesController extends \BaseController {
 	 */
 	public function create()
 	{
-		$appointment = Appointment::find(Input::get('id'));
-        $patient_id = $appointment->patient->id;
+//            PLEASE DON NOT REMOVE THE COMMENTED CODE OF THIS FUNCTION 
+//            
+//            $appointment = Appointment::find(Input::get('id'));
+//            $patient_id = $appointment->patient->id;
         
-        return View::make('checkupfees.create', compact('appointment', 'patient_id'));
+            return View::make('checkupfees.create');
+//            return View::make('checkupfees.create', compact('appointment', 'patient_id'));
 	}
 
 	/**
