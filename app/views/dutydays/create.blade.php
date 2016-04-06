@@ -1,4 +1,5 @@
 @extends('dutydays.layouts.master')
+
 <!--========================================================
                           TITLE
 =========================================================-->
@@ -10,16 +11,11 @@ Create Schedule
 <!--========================================================
                           CONTENT
 =========================================================-->
-@section('content1')
-    <section id="content">
-        
-		<div class = "user_logo">
-			<div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                        Create Doctor Schedule
-            </div>
-		</div>
-		<br><br><br>
-@stop
+@section('redBar')
+    <div class = "user_logo">
+        <div class="header_1 wrap_3 color_3 login-bar">ABCCCCC</div>
+    </div>
+@show
 
 
 @section('content2')
