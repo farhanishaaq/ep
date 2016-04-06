@@ -28,7 +28,7 @@ Create Appointment
         @endforeach
         
         <div class="container">
-            {{ Form::open(array('action' => 'AppointmentsController@store', 'style' => 'padding: 40px', 'id' => 'regForm')) }}
+            {{ Form::open(array('action' => 'AppointmentsController@store', 'class' => 'form-horizontal w100p', 'id' => 'regForm')) }}
             <h3 class="mT10 mB0 c3">Create Appointment Form</h3>
             <hr class="w95p fL mT0" />
             <p class="col-xs-12 fL taR">Required Fields <kbd>*</kbd></p>
