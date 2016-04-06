@@ -1,4 +1,4 @@
-@extends('allergies.layouts.master')
+@extends('layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
@@ -6,63 +6,86 @@
     Manage Allergy
 @stop
 
+@section('redBar')
+<div class = "user_logo">
+    <div class="header_1 wrap_3 color_3 login-bar">Easy Physician
+        {{--<div class="col-md-12 mL25 taL">Easy Physician</div>--}}
+    </div>
+</div>
+@stop
 
+@section('sliderContent')
+@stop
 <!--========================================================
                           CONTENT
 =========================================================-->
-@section('content2')
-    <section id="content">
-        
-		<div class = "user_logo">
-			<div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                        Manage Allergy
-            </div>
-		</div>
+@section('content')
+<?php
+$pId = ($patient) ? $patient->id : "";
+?>
+<div class="container mT20">
+    <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'">Users List</h1>
+    <hr class="w100p fL mT0" />
+    <section id="form-Section">
+        <!--========================================================
+                                 Data Table
+        =========================================================-->
 
-
-		<!--========================================================
-                                     Data Table
-            =========================================================-->
-            <center style="margin-top: 7%;">
-            
-        @if(Auth::user()->role != 'Doctor')    
-            <center>{{ link_to_route('allergies.create', 'Add New Allergy', ['id' => $patient->id], ['class' => 'btn_1'])}}</center>
-            		<br>
+        @if(Auth::user()->role != 'Doctor')
+            {{ link_to_route('allergies.create', 'Add New Allergy', ['id' => $pId], ['class' => 'btn_1'])}}
         @endif
-                <table id="example" style=" border: 1px solid black" class="display" cellspacing="0" width="80%">
-                <thead>
-                    <tr>
-                        <th style="width: 20%">Allergy Name</th>
-                        <th>Allergy Note</th>
-
-                        
-                        <th style="width: 25%">Manage</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                 @if(($allergies) != null)
+        <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
+            <thead>
+                <tr>
+                    <th>Allergy Name</th>
+                    <th>Allergy Note</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(($allergies) != null)
                     @foreach($allergies as $allergy)
-                        <tr>
+                        <tr class="row-data">
                             <td>{{{ $allergy->allergy_name }}}</td>
                             <td>{{{ substr($allergy->allergy_note, 0, 50) }}}</td>
-
-                            
                             <td>
-                            {{ link_to_route('allergies.show', 'View', [$allergy->id], ['class' => 'data_table_btn', 'style' => 'margin-bottom: 2px'])}}
-                        @if(Auth::user()->role != 'Doctor') 
-                            {{ link_to_route('allergies.edit', 'Edit', [$allergy->id], ['class' => 'data_table_btn'])}}
-                        @endif
+                            {{ link_to_route('allergies.show', '', [$allergy->id], ['class' => 'btn-view-icon fL','title'=> 'View Record'])}}
+
+                            @if(Auth::user()->role != 'Doctor')
+                                <span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('allergies.edit', '', [$allergy->id], ['class' => 'btn-edit-icon fL', 'title'=> 'Edit Record'])}}
+                            @else
+                                <span class="fL">&nbsp;|&nbsp;</span><a href="javascript:void(0)" class="btn-edit-disable-icon fL" title="Edit Record not allowed"></a>
+                            @endif
                             </td>
                         </tr>
                     @endforeach
+                @else
+                <tr>
+                    <td colspan="3"> There is no record found</td>
+                </tr>
                 @endif
-                </tbody>
-            </table>
-            {{ $allergies->appends(array('id' => $patient->id))->links('partials.pagination') }}
-            </center>
-
-     
+            </tbody>
+        </table>
+        @if($allergies)
+            {{ $allergies->appends(array('id' => $pId))->links('partials.pagination') }}
+        @endif
+    </section>
+</div>
 @stop
 
+@section('scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+
+    if($('#tblRecordsList tr.row-data').length){
+        $('#tblRecordsList').DataTable({
+            "columnDefs": [ {
+            "targets": 2,
+            "orderable": false
+            } ]
+        });
+    }
+
+} );
+</script>
+@stop

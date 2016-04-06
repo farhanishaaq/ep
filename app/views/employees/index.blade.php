@@ -41,8 +41,9 @@
                 </tr>
             </thead>
             <tbody>
+            @if(($employees) != null)
                 @foreach($employees as $employee)
-                    <tr>
+                    <tr class="row-data">
                         <td>{{{ $employee->name }}}</td>
                         <td>{{{ $employee->email }}}</td>
                         <td>{{{ $employee->gender }}}</td>
@@ -59,6 +60,11 @@
                         </td>
                     </tr>
                 @endforeach
+                @else
+                    <tr>
+                        <td colspan="7"> There is no record found</td>
+                    </tr>
+                @endif
             </tbody>
         </table>
         {{ $employees->links('partials.pagination') }}
@@ -69,12 +75,14 @@
 @section('scripts')
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#tblRecordsList').DataTable({
-        "columnDefs": [ {
-        "targets": 6,
-        "orderable": false
-        } ]
-    });
+    if($('#tblRecordsList tr.row-data').length){
+        $('#tblRecordsList').DataTable({
+            "columnDefs": [ {
+            "targets": 6,
+            "orderable": false
+            } ]
+        });
+    }
 } );
 </script>
 @stop
