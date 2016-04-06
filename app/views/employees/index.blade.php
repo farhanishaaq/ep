@@ -42,6 +42,7 @@
             </thead>
             <tbody>
             @if(($employees) != null)
+                @if(($employees->count()))
                 @foreach($employees as $employee)
                     <tr class="row-data">
                         <td>{{{ $employee->name }}}</td>
@@ -65,6 +66,11 @@
                         <td colspan="7"> There is no record found</td>
                     </tr>
                 @endif
+            @else
+                <tr>
+                    <td colspan="7"> There is no record found</td>
+                </tr>
+            @endif
             </tbody>
         </table>
         {{ $employees->links('partials.pagination') }}

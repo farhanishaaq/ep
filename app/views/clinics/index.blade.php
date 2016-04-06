@@ -6,6 +6,16 @@
     Manage Clinics
 @stop
 
+@section('redBar')
+<div class = "user_logo">
+    <div class="header_1 wrap_3 color_3 login-bar">Easy Physician
+        {{--<div class="col-md-12 mL25 taL">Easy Physician</div>--}}
+    </div>
+</div>
+@stop
+
+@section('sliderContent')
+@stop
 
 <!--========================================================
                           CONTENT
@@ -35,7 +45,7 @@
                              <td> {{$clinic->name}}</td>
                              <td>{{ $clinic->address }}</td>
                               <td>
-                                  {{ link_to_route('clinics.show', '', [$clinic->id], ['class' => 'data_table_btn', 'title'=> 'View Record'])}}
+                                  {{ link_to_route('clinics.show', '', [$clinic->id], ['class' => 'btn-view-icon fL', 'title'=> 'View Record'])}}
                                   <span class="fL">&nbsp;|&nbsp;</span> {{ link_to_route('clinics.edit', '', [$clinic->id], ['class' => 'btn-edit-icon fL','title'=> 'Edit Record'])}}
                                   {{ Form::model($clinic, ['route' => ['clinics.destroy', $clinic->id], 'method' => 'delete', 'style' => 'display: inline'] )}}
                                       {{ Form::button('Delete', ['type' => 'submit', 'class' => 'data_table_submit_btn']) }}
@@ -43,12 +53,12 @@
                               </td>
                           </tr>
                       @endforeach
-                     @else
-                         <tr>
-                             <td colspan="3"> There is no record found</td>
-                         </tr>
-                     @endif
                  @else
+                     <tr>
+                         <td colspan="3"> There is no record found</td>
+                     </tr>
+                 @endif
+             @else
                  <tr>
                       <td colspan="3"> There is no record found</td>
                  </tr>
