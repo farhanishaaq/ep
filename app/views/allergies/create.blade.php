@@ -1,4 +1,4 @@
-@extends('allergies.layouts.master')
+@extends('layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
@@ -10,59 +10,55 @@ Add New Allergy
 <!--========================================================
                           CONTENT
 =========================================================-->
-@section('content1')
-    <section id="content">
-        
-		<div class = "user_logo">
-			<div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                        Add New Allergy
-            </div>
-		</div>
-		<br><br><br>
+@section('redBar')
+    <div class = "user_logo">
+        <div class="header_1 wrap_3 color_3 login-bar">Add New Allergy
+        </div>
+    </div>
 @stop
 
+@section('sliderContent')
+@stop
 
-@section('content2')
-
-
-        @foreach($errors->all("<p class='error'>:message</p>") as $message)
-	    {{ $message }}
-		@endforeach
-
-		<br/>
-	   <center>
-            <div style="border: 4px solid #129894; width: 800px; border-radius: 10px; background-color: #EBEBEB">
-
-            {{ Form::open(array('action' => 'AllergiesController@store', 'style' => 'padding: 40px', 'id' => 'regForm')) }}
-                <table width="621" height="300" border="0">
-              <tr>
-                <td width="272" height="55"><label>Allergy Name*</label> </td>
-                <td width="333">
-                    {{ Form::input('text', 'allergy_name', null, array('required' => 'true')) }}
-                </td>
+@section('content')
 
 
-                <tr>
-                <td width="272"><label>Allergy Note:</label></td>
-                <td width="333" height="200">{{ Form::textarea('allergy_note', null, array('rows' => '7', 'cols' => '20', 'placeholder' => 'note', "style" => "font-size: 1.2em; margin-top: 2px; resize: none;") ) }}</td>
-                </tr>
-                <tr> 
-                    <input name="patient_id" type="hidden" value="{{ $patient_id }}">
-                <td colspan="2"> 
-                    <center>
-                    <div class="btn-wrap">
-                        <a class="btn_3" href="javascript:document.getElementById('regForm').reset();" data-type="reset">Reset</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                        <input type="submit" value="Save" class="submit" />
+    @foreach($errors->all("<p class='error'>:message</p>") as $message)
+        {{ $message }}
+    @endforeach
+
+    <div class="container">
+        {{ Form::open(array('action' => 'AppointmentsController@store', 'class' => 'form-horizontal w100p', 'id' => 'regForm')) }}
+            <h3 class="mT10 mB0 c3">Create Allergy Form</h3>
+            <hr class="w95p fL mT0" />
+            <p class="col-xs-12 fL taR">Required Fields <kbd>*</kbd></p>
+               <section class="form-Section col-md-12 h400 fL">
+                <div class="container w100p">
+                    <h3 class="mT15 mB0 c3">Allergy Basic Info</h3>
+                    <hr class="w95p fL mT0" />
+                    <hr class="w95p fL mT0" />
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label asterisk">Allergy Name*</label>
+                        <div class="col-xs-8">
+                            <input type="text" id="allergy_name" name="allergy_name" required="true" value="{{{ Form::getValueAttribute('allergy_name', null) }}}" class="form-control" placeholder="Allergy Name">
+                            <span id="errorAllergyName" class="field-validation-msg"></span>
+                        </div>
                     </div>
-                </center>
-                </td>
-                </tr>
-            </table>
-            {{ Form::close() }}
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label asterisk">Allergy Note</label>
+                        <div class="col-xs-8">
+                            <textarea type="text" id="allergy_note" name="allergy_note" rows="7" cols="20" class="form-control" placeholder="note">{{{ Form::getValueAttribute('allergy_note', null) }}}</textarea>
+                            <span id="errorAllergyNote" class="field-validation-msg"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="col-xs-12 taR pR0 mT20">
+                <input type="reset" id="reset" value="Reset" class="submit" />
+                <input type="submit" id="create" value="Save && Close" class="submit" />
+                <input type="submit" id="create" value="Save && Continue" class="submit" />
+                <input type="submit" id="cancel" value="Cancel" class="submit" />
             </div>
-        </center>
-		
-		<br><br>
-
-     
+        {{ Form::close() }}
+    </div>
 @stop

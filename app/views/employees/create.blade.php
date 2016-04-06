@@ -187,7 +187,7 @@ Employee Registration
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Additional Info</label>
                     <div class="col-xs-6">
-                        <textarea type="text" id="note" name="note" rows="7" cols="20" class="form-control" placeholder="note">{{{ Form::getValueAttribute('cnic', null) }}}</textarea>
+                        <textarea type="text" id="note" name="note" rows="7" cols="20" class="form-control" placeholder="note">{{{ Form::getValueAttribute('note', null) }}}</textarea>
                         <span id="errorNote" class="field-validation-msg"></span>
                     </div>
                 </div>
