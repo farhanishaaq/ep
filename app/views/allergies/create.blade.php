@@ -22,7 +22,6 @@ Add New Allergy
 
 @section('content')
 
-
     @foreach($errors->all("<p class='error'>:message</p>") as $message)
         {{ $message }}
     @endforeach
