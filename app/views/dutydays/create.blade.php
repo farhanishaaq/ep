@@ -1,193 +1,142 @@
-@extends('dutydays.layouts.master')
+@extends('layouts.master')
 
 <!--========================================================
                           TITLE
 =========================================================-->
 @section('title')
-Create Schedule
+    Create Schedule
 @stop
 
-
-<!--========================================================
+@section('sliderContent')
+    @stop
+            <!--========================================================
                           CONTENT
 =========================================================-->
 @section('redBar')
-    <div class = "user_logo">
-        <div class="header_1 wrap_3 color_3 login-bar">ABCCCCC</div>
+    <div class="user_logo">
+        <div class="header_1 wrap_3 color_3 login-bar">Easy Physician
+            {{--<div class="col-md-12 mL25 taL">Easy Physician</div>--}}
+        </div>
     </div>
 @show
 
 
-@section('content2')
+@section('content')
 
-        @foreach($errors->all("<p class='error'>:message</p>") as $message)
-	         {{ $message }}
-		    @endforeach
+    @foreach($errors->all("<p class='error'>:message</p>") as $message)
+        {{ $message }}
+    @endforeach
 
-		<br/>
-	   <center>
-            <div style="border: 4px solid #129894; width: 800px; border-radius: 10px; background-color: #EBEBEB">
+    <br/>
+    <div class="container">
+        {{ Form::open(array('action' => 'DutydaysController@store', 'style' => 'padding: 40px', 'id' => 'regForm')) }}
+        <section class="form-Section col-md-12 h695 fL">
+            <div class="container w100p">
+                <hr class="w95p fL mT0"/>
+                <p class="col-xs-12 fL taR">Required Fields <kbd>*</kbd></p>
 
-            {{ Form::open(array('action' => 'DutydaysController@store', 'style' => 'padding: 40px', 'id' => 'regForm')) }}
-                <table width="621" height="720" border="0">
-              <tr>
-                <td width="272" height="55"><label>Select Doctor:</label> </td>
-                <td width="333">
+                <h3 class="mT10 mB0 c3 taL">Enter Duty Days</h3>
+                <hr class="w95p fL mT0"/>
+                <label class="col-xs-3 control-label asterisk fL">Select Doctors*</label>
+
+                <div class="col-xs-8 fL">
 
                     {{--Employee id will be stored in workingdays table as FK--}}
                     {{ Form::select('employee_id', $doctors->lists('name', 'id'), null, ['required' => 'true', 'id' => 'employee_id'] ); }}
-                </td>
-                </tr>
-                <tr><td><br></td><td></td></tr>
-               <tr>
-                   <td width="272" height="55"><label>Sunday:</label> </td>
-                   <td width="333">
-                      {{ Form::checkbox('Sunday', 'Sunday', null, ['id' => 'sunday']) }}
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>Start Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'sun_start_time', null, ['class' => 'timepicker', 'id' => 'sun_start_time']) }}
+                </div>
+                <div class="form-group">
+                    {{--<label class="col-xs-3 control-label asterisk fL">Select Doctors*</label>--}}
 
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>End Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'sun_end_time', null, ['class' => 'timepicker', 'id' => 'sun_end_time']) }}
-                   </td>
-                </tr>
-                 <tr><td><br></td><td></td></tr>
-                <tr>
-                   <td width="272" height="55"><label>Monday:</label> </td>
-                   <td width="333">
-                      {{ Form::checkbox('Monday', 'Monday', null, ['id' => 'monday']) }}
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>Start Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'mon_start_time', null, ['class' => 'timepicker', 'id' => 'mon_start_time']) }}
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>End Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'mon_end_time', null, ['class' => 'timepicker', 'id' => 'mon_end_time']) }}
-                   </td>
-                </tr>
-                 <tr><td><br></td><td></td></tr>
-                <tr>
-                   <td width="272" height="55"><label>Tuesday:</label> </td>
-                   <td width="333">
-                      {{ Form::checkbox('Tuesday', 'Tuesday', null, ['id' => 'tuesday']) }}
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>Start Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'tue_start_time', null, ['class' => 'timepicker', 'id' => 'tue_start_time']) }}
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>End Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'tue_end_time', null, ['class' => 'timepicker', 'id' => 'tue_end_time']) }}
-                   </td>
-                </tr>
-                 <tr><td><br></td><td></td></tr>
-                <tr>
-                   <td width="272" height="55"><label>Wednesday:</label> </td>
-                   <td width="333">
-                      {{ Form::checkbox('Wednesday', 'Wednesday', null, ['id' => 'wednesday']) }}
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>Start Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'wed_start_time', null, ['class' => 'timepicker', 'id' => 'wed_start_time']) }}
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>End Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'wed_end_time', null, ['class' => 'timepicker', 'id' => 'wed_end_time']) }}
-                   </td>
-                </tr>
-                 <tr><td><br></td><td></td></tr>
-                <tr>
-                   <td width="272" height="55"><label>Thursday:</label> </td>
-                   <td width="333">
-                      {{ Form::checkbox('Thursday', 'Thursday', null, ['id' => 'thursday']) }}
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>Start Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'thu_start_time', null, ['class' => 'timepicker', 'id' => 'thu_start_time']) }}
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>End Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'thu_end_time', null, ['class' => 'timepicker', 'id' => 'thu_end_time']) }}
-                   </td>
-                </tr>
-                 <tr><td><br></td><td></td></tr>
-                <tr>
-                   <td width="272" height="55"><label>Friday:</label> </td>
-                   <td width="333">
-                      {{ Form::checkbox('Friday', 'Friday', null, ['id' => 'friday']) }}
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>Start Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'fri_start_time', null, ['class' => 'timepicker', 'id' => 'fri_start_time']) }}
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>End Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'fri_end_time', null, ['class' => 'timepicker', 'id' => 'fri_end_time']) }}
-                   </td>
-                </tr>
-                 <tr><td><br></td><td></td></tr>
-                <tr>
-                   <td width="272" height="55"><label>Saturday:</label> </td>
-                   <td width="333">
-                      {{ Form::checkbox('Saturday', 'Saturday', null, ['id' => 'saturday']) }}
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>Start Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'sat_start_time', null, ['class' => 'timepicker', 'id' => 'sat_start_time']) }}
-                   </td>
-                </tr>
-                <tr>
-                   <td width="272" height="55"><label>End Time:</label> </td>
-                   <td width="333">
-                      {{ Form::input('text', 'sat_end_time', null, ['class' => 'timepicker', 'id' => 'sat_end_time']) }}
-                   </td>
-                </tr>
-                <tr><td><br></td><td></td></tr>
-                <tr>
-                <td colspan="2">
-                    <center>
-                    <div class="btn-wrap">
-                        <a class="btn_3" href="javascript:document.getElementById('regForm').reset();" data-type="reset">Reset</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                        <input type="submit" value="Save" class="submit" />
+                    {{--<div class="col-xs-8 fL">--}}
+
+                        {{--Employee id will be stored in workingdays table as FK--}}
+                        {{--{{ Form::select('employee_id', $doctors->lists('name', 'id'), null, ['required' => 'true', 'id' => 'employee_id'] ); }}--}}
+                    {{--</div>--}}
+                    <label class="col-xs-3 control-label asterisk fL">Sunday</label>
+
+                    <div class="col-xs-8 fL">
+
+                        {{ Form::checkbox('Sunday', 'Sunday', null, ['id' => 'sunday']) }}
+                        {{ Form::input('text', 'sun_start_time', null, ['class' => 'timepicker', 'id' => 'sun_start_time']) }}
+                        {{ Form::input('text', 'sun_end_time', null, ['class' => 'timepicker', 'id' => 'sun_end_time']) }}
                     </div>
-                </center>
-                </td>
-                </tr>
-            </table>
-            {{ Form::close() }}
-            </div>
-        </center>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label asterisk fL">Monday</label>
 
-		<br><br>
-      
+                    <div class="col-xs-8 fL">
+
+                        {{ Form::checkbox('Monday', 'Monday', null, ['id' => 'monday']) }}
+                        {{ Form::input('text', 'mon_start_time', null, ['class' => 'timepicker', 'id' => 'mon_start_time']) }}
+                        {{ Form::input('text', 'mon_end_time', null, ['class' => 'timepicker', 'id' => 'mon_end_time']) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label asterisk fL">Tuesday</label>
+
+                    <div class="col-xs-8 fL">
+
+                        {{ Form::checkbox('Tuesday', 'Tuesday', null, ['id' => 'tuesday']) }}
+                        {{ Form::input('text', 'tue_start_time', null, ['class' => 'timepicker', 'id' => 'tue_start_time']) }}
+                        {{ Form::input('text', 'tue_end_time', null, ['class' => 'timepicker', 'id' => 'tue_end_time']) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label asterisk fL">Wednesday</label>
+
+                    <div class="col-xs-8 fL">
+
+                        {{ Form::checkbox('Wednesday', 'Wednesday', null, ['id' => 'wednesday']) }}
+                        {{ Form::input('text', 'wed_start_time', null, ['class' => 'timepicker', 'id' => 'wed_start_time']) }}
+                        {{ Form::input('text', 'wed_end_time', null, ['class' => 'timepicker', 'id' => 'wed_end_time']) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label asterisk fL">Thursday</label>
+
+                    <div class="col-xs-8 fL">
+
+                        {{ Form::checkbox('Wednesday', 'Wednesday', null, ['id' => 'wednesday']) }}
+                        {{ Form::input('text', 'thu_start_time', null, ['class' => 'timepicker', 'id' => 'thu_start_time']) }}
+                        {{ Form::input('text', 'thu_end_time', null, ['class' => 'timepicker', 'id' => 'thu_end_time']) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label asterisk fL">Friday</label>
+
+                    <div class="col-xs-8 fL">
+
+                        {{ Form::checkbox('Friday', 'Friday', null, ['id' => 'friday']) }}
+                        {{ Form::input('text', 'fri_start_time', null, ['class' => 'timepicker', 'id' => 'fri_start_time']) }}
+                        {{ Form::input('text', 'fri_end_time', null, ['class' => 'timepicker', 'id' => 'fri_end_time']) }}
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label asterisk fL">Saturday</label>
+
+                    <div class="col-xs-8 fL">
+
+                        {{ Form::checkbox('Saturday', 'Saturday', null, ['id' => 'saturday']) }}
+                        {{ Form::input('text', 'sat_start_time', null, ['class' => 'timepicker', 'id' => 'sat_start_time']) }}
+                        {{ Form::input('text', 'sat_end_time', null, ['class' => 'timepicker', 'id' => 'sat_end_time']) }}
+
+                    </div>
+                </div>
+
+                <div class="col-xs-12 taR pR0 mT20">
+                    <input type="reset" id="reset" value="Reset" class="submit"/>
+                    <input type="submit" id="create" value="Save && Close" class="submit"/>
+                    <input type="submit" id="create" value="Save && Continue" class="submit"/>
+                    <input type="submit" id="cancel" value="Cancel" class="submit"/>
+                </div>
+                {{ Form::close() }}
+            </div>
+        </section>
+    </div>
+
+    </center>
+
+    <br><br>
+
 @stop
