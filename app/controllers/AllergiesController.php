@@ -11,8 +11,10 @@ class AllergiesController extends \BaseController {
 	{
 		$patient_id = Input::get('id');
         $patient = Patient::find($patient_id);
-        $allergies = $patient->allergies()->paginate(10);
-
+        $allergies = null;
+        if($patient){
+            $allergies = $patient->allergies()->paginate(10);
+        }
 		return View::make('allergies.index', compact('allergies', 'patient'));
 	}
 

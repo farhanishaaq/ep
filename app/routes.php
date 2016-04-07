@@ -79,7 +79,7 @@ Route::group(array('before' => 'auth'), function(){
     ////////////////////// Super User Routes START ///////////////////////
     Route::group(array('before' => 'Super'), function(){
 //        Route::get('/super_home', 'HomeController@showSuper_home');
-        Route::get('superHome', array('as'=>'superHome','HomeController@showSuper_home'));
+        Route::get('superHome', array('as'=>'superHome', 'uses' =>'HomeController@showSuper_home'));
 
         Route::resource('employees', 'EmployeesController');
 
@@ -157,7 +157,8 @@ Route::group(array('before' => 'auth'), function(){
 
 
     /////////////////// Receptionist Routes START /////////////////
-    Route::get('/receptionist_home', array('before' => 'Receptionist', 'uses' => 'HomeController@showReceptionist_home'));
+    Route::get('receptionistHome', array('before' => 'Receptionist', 'as'=>'receptionistHome', 'uses' => 'HomeController@showReceptionist_home'));
+
     Route::get('receptionist_about', function(){
         return View::make('receptionist.about');
     });

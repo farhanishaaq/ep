@@ -28,7 +28,7 @@ Create Appointment
         @endforeach
         
         <div class="container">
-            {{ Form::open(array('action' => 'AppointmentsController@store', 'style' => 'padding: 40px', 'id' => 'regForm')) }}
+            {{ Form::open(array('action' => 'AppointmentsController@store', 'class' => 'form-horizontal w100p', 'id' => 'regForm')) }}
             <h3 class="mT10 mB0 c3">Create Appointment Form</h3>
             <hr class="w95p fL mT0" />
             <p class="col-xs-12 fL taR">Required Fields <kbd>*</kbd></p>
@@ -54,7 +54,7 @@ Create Appointment
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Select Time Slot</label>
                         <div class="col-xs-6">
-                            {{ Form::select('timeslot_id', [], null, ['required' => 'true', 'id' => 'time_slot_id'] ); }}
+                            {{ Form::select('timeslot_id', [1=>'19:36:57'], null, ['required' => 'true', 'id' => 'time_slot_id'] ); }}
                             <span id="errorTimeslotId" class="field-validation-msg"></span>
                         </div>
                     </div>

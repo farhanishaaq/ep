@@ -1,4 +1,4 @@
-@extends('appointments.layouts.master')
+@extends('layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
@@ -6,29 +6,32 @@
     Manage Appointments
 @stop
 
+@section('redBar')
+<div class = "user_logo">
+    <div class="header_1 wrap_3 color_3 login-bar">Easy Physician
+        {{--<div class="col-md-12 mL25 taL">Easy Physician</div>--}}
+    </div>
+</div>
+@stop
+
+@section('sliderContent')
+@stop
 
 <!--========================================================
                           CONTENT
 =========================================================-->
-@section('content2')
-    <section id="content">
-        
-		<div class = "user_logo">
-			<div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                        Manage Appointments
-            </div>
-		</div>
-
-
-		<!--========================================================
+@section('content')
+    <div class="container mT20">
+    <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'">Users List</h1>
+    <hr class="w100p fL mT0" />
+    <section id="form-Section">
+            <!--========================================================
                                      Data Table
             =========================================================-->
-            <center style="margin-top: 7%;">
             @if(Auth::user()->role == 'Administrator' || Auth::user()->role == 'Receptionist')
-            <center>{{ link_to_route('appointments.create', 'Create Appointment', '', ['class' => 'btn_1'])}}</center>
+                {{ link_to_route('appointments.create', 'Create Appointment', '', ['class' => 'btn_1'])}}
             @endif
-            		<br>
-                <table id="example" style=" border: 1px solid black" class="display" cellspacing="0" width="80%">
+            <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
                 <thead>
                     <tr>
                         <th>Patient Name</th>
@@ -36,14 +39,14 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Status</th>
-                        <th style="width: 25%">Action</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
-
                 <tbody>
-
+                @if(($appointments) != null)
+                    @if(($appointments->count()))
                     @foreach($appointments as $appointment)
-                        <tr>
+                        <tr class="row-data">
                             <td>{{{ $appointment->patient->name }}}</td>
                             <td>{{{ $appointment->employee->name }}}</td>
                             <td>{{{ date('j F, Y', strtotime($appointment->date)) }}}</td>
@@ -64,21 +67,48 @@
                                 @endif
                             </td>
                             <td>
-                            {{ link_to_route('appointments.show', 'View', [$appointment->id], ['class' => 'data_table_btn', 'style' => 'margin-bottom: 2px'])}}
-
-                        @if(Auth::user()->role != 'Doctor')
-                        @if($appointment->status == 0 || $appointment->status == 1 || $appointment->status == 2)
-                            {{ link_to_route('appointments.edit', 'Edit', [$appointment->id], ['class' => 'data_table_btn'])}}
-                        @endif
-                        @endif
+                                {{ link_to_route('appointments.show', '', [$appointment->id], ['class' => 'btn-view-icon fL', 'title'=> 'View Record'])}}
+                                @if(Auth::user()->role != 'Doctor')
+                                    @if($appointment->status == 0 || $appointment->status == 1 || $appointment->status == 2)
+                                        <span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('appointments.edit', '', [$appointment->id], ['class' => 'btn-edit-icon fL'])}}
+                                    @else
+                                        <span class="fL">&nbsp;|&nbsp;</span><a href="javascript:void(0)" class="btn-edit-disable-icon fL" title="Edit Record not allowed"></a>
+                                    @endif
+                                @else
+                                    <span class="fL">&nbsp;|&nbsp;</span><a href="javascript:void(0)" class="btn-edit-disable-icon fL" title="Edit Record not allowed"></a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
-
+                    @else
+                        <tr>
+                            <td colspan="6"> There is no record found</td>
+                        </tr>
+                    @endif
+                @else
+                    <tr>
+                        <td colspan="6"> There is no record found</td>
+                    </tr>
+                @endif
                 </tbody>
             </table>
             {{ $appointments->links('partials.pagination') }}
-            </center>
+        </section>
+    </div>
+@stop
 
+@section('scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+    if($('#tblRecordsList tr.row-data').length){
+        $('#tblRecordsList').DataTable({
+            "columnDefs": [ {
+            "targets": 5,
+            "orderable": false
+            } ]
+        });
+    }
+});
+</script>
 @stop
 
