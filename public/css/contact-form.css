@@ -1,32 +1,32 @@
 /* Contact Form Basic Styles 
 ========================================================*/
 #contact-form {
-  position: relative;
-  padding-top: 8px;
+  /*position: relative;
+  padding-top: 8px;*/
 }
 #contact-form label {
-  position: relative;
+ /* position: relative;
   max-width: 420px;
   letter-spacing: normal;
   display: block;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin-bottom: 21px;
+  margin-bottom: 21px;*/
 }
 #contact-form label.message {
-  max-width: 100%;
+ /* max-width: 100%;
   margin-left: 0;
   width: 100%;
-  margin-bottom: 39px;
+  margin-bottom: 39px;*/
 }
 #contact-form fieldset {
-  border: none;
+  /*border: none;*/
 }
 /* Contact Form Placeholder Styles 
 ========================================================*/
 #contact-form ._placeholder {
-  width: 100% !important;
+  /*width: 100% !important;
   position: absolute;
   left: 0;
   top: 0;
@@ -41,22 +41,22 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   border-radius: 0;
-  cursor: text;
+  cursor: text;*/
 }
 #contact-form ._placeholder.focused {
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+  /*opacity: 0.4;
+  filter: alpha(opacity=40);*/
 }
 #contact-form ._placeholder.hidden {
-  display: none;
+  /*display: none;*/
 }
 #contact-form .file ._placeholder {
-  display: none;
+  /*display: none;*/
 }
 /* Contact Form Input 
 ========================================================*/
 #contact-form input[type='text'] {
-  width: 100%;
+  /*width: 100%;
   background-color: #ffffff;
   border-radius: 0;
   line-height: 19px;
@@ -72,23 +72,23 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   margin: 0;
-  -webkit-appearance: none;
+  -webkit-appearance: none;*/
 }
 /* Contact Form Buttons
 ========================================================*/
 #contact-form .btn-wrap {
-  text-align: right;
-  letter-spacing: normal;
+  /*text-align: right;
+  letter-spacing: normal;*/
 }
 #contact-form .btn-wrap .btn_3 {
-  margin-left: 5px;
+  /*margin-left: 5px;
   padding-left: 37px;
-  padding-right: 37px;
+  padding-right: 37px;*/
 }
 /* Contact Form Textarea 
 ========================================================*/
 #contact-form textarea {
-  width: 100%;
+  /*width: 100%;
   background-color: #ffffff;
   border-radius: 0;
   line-height: 19px;
@@ -104,7 +104,7 @@
   resize: none;
   height: 221px!important;
   -webkit-appearance: none;
-  overflow: auto;
+  overflow: auto;*/
 }
 /* Contact Form Error messages
 ========================================================*/

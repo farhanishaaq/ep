@@ -25,9 +25,9 @@ class="current"
 <section id="content">
     <div class="container">
     <div class="row pT0 ">
-        <div class="grid_7">
-            <h2 class="header_2 pT28 color_3">About the EMR</h2>
-            <div class="box_4">
+        <div class="col-md-12">
+            <h2 class="header_2 pT28 color_3">About the Easy Physician</h2>
+            <div class="col-md-6">
                 <p class="text_3" style="text-align: justify;">
                     Electronic Medical Records is a fully funcitonal service providor system, 
                     that is commited to the actual needs of the Clinics.
@@ -37,14 +37,12 @@ class="current"
                     User we try to overcome difficulty of your daily intensive tasks in Clinics.
                 </p>
             </div>
-        </div>
-        <div class="grid_5">
-            <div class="img-wrap">
-                <img data-src="images/about_1.jpg" class="img_1" src="images/preloader.gif" alt="Image 1"/>
-                <img data-src="images/about_2.jpg" class="img_1" src="images/preloader.gif" alt="Image 2"/>
+            <div class="col-md-6">
+                <img data-src="images/about_1.jpg" class="col-md-6" src="images/preloader.gif" alt="Image 1" />
+                <img data-src="images/about_2.jpg" class="col-md-6" src="images/preloader.gif" alt="Image 2" />
             </div>
-            <div class="clearfix"></div>
         </div>
+
     </div>
 </div>
 </section>
@@ -113,7 +111,7 @@ class="current"
         </div>
     </div>
     <div class="row pB10">
-        <div class="grid_4">
+        <div class="col-md-4">
             <div class="box_5" data-index="1">
                 <h3 class="text_2 color_2"><a href="#">Data across Branches</a></h3>
                 <p class="text_3" style="text-align: justify;">
@@ -123,7 +121,7 @@ class="current"
                 </p>
             </div>
         </div>
-        <div class="grid_4">
+        <div class="col-md-4">
             <div class="box_5" data-index="2">
                 <h3 class="text_2 color_2"><a href="#">Online Medical Record</a></h3>
                 <p class="text_3" style="text-align: justify;">
@@ -133,7 +131,7 @@ class="current"
                 </p>
             </div>
         </div>
-        <div class="grid_4">
+        <div class="col-md-4">
             <div class="box_5" data-index="3">
                 <h3 class="text_2 color_2"><a href="#">Easy Administration</a></h3>
                 <p class="text_3" style="text-align: justify;">
