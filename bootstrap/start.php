@@ -24,9 +24,14 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment( function() use($app){
-    return getenv('ENV') ? : 'local';
-});
+//$env = $app->detectEnvironment( function() use($app){
+//    return getenv('ENV') ? : 'local';
+//});
+
+$env = $app->detectEnvironment( array(
+    'local'         => array('mrashid'),
+    'production'    => array('http://www.easyphysicians.com/','easyphysicians.com')
+));
 
 /*
 |--------------------------------------------------------------------------

@@ -185,7 +185,7 @@ class EmployeesController extends \BaseController {
                 return Redirect::to('accountantHome');
             }
             else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Super User'){
-                return Redirect::to('super_home');
+                return Redirect::to('superHome');
             }else{
                 return View::make('login')->withErrors('You are not Activated!');
                 Auth::logout();
