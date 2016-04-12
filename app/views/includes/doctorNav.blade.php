@@ -4,6 +4,6 @@
         <li @yield('current_services')><a href="/search_pmr">Medical Records</a></li>
         <li @yield('current_about')><a href="/app_vitals">Vital Signs</a></li>
         <li @yield('current_contacts')><a href="/appointments">Appointments</a></li>
-        <li><a href="/logout">Logout</a></li>
+        <li><a href="{{route('logout')}}">Logout</a></li>
     </ul>
 </nav>

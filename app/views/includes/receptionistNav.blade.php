@@ -19,6 +19,6 @@
                 <li><a href="/app_test_print">Print Reports</a></li>
             </ul>
         </li>
-        <li><a href="/logout">Logout</a></li>
+        <li><a href="{{route('logout')}}">Logout</a></li>
     </ul>
 </nav>

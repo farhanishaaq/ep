@@ -50,10 +50,8 @@ Route::post('doLogin', array('as'=>'doLogin','uses'=>'EmployeesController@doLogi
 Route::get('remind', array('as'=>'remind','uses'=>'RemindersController@getRemind'));
 Route::controller('password', 'RemindersController');
 
-Route::get('/logout', array('before' => 'auth', function(){
-    Auth::logout();
-    return View::make('login');
-}));
+Route::get('logout', array('before' => 'auth', 'as'=>'logout','uses'=>'EmployeeController@logout'));
+
 
 Route::post('contact/messages',function(){
 

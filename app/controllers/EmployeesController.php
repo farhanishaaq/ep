@@ -201,4 +201,10 @@ class EmployeesController extends \BaseController {
         }
 
     }
+
+    public function logout(){
+        Auth::logout();
+//        \Illuminate\Support\Facades\Session::flush();
+    }
+
 }
