@@ -1192,9 +1192,9 @@ ul.error-container li{
     position: relative;
 }
 
-.login-card.login-page input[type=text], input[type=email], input[type=password] {
-height: 44px;
-font-size: 1.3em;
+div.login-card.login-page input[type=text], input[type=email], input[type=password] {
+/*height: 44px;*/
+/*font-size: 1.3em;*/
 width: 100%;
 margin-bottom: 10px;
 -webkit-appearance: none;
@@ -1317,6 +1317,41 @@ span.field-validation-msg {
     /*color: #a94442;*/
     color: #E82200;
 }
+
+/*
+****************************************************************************************************
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START SELECT2 CHANGES >>>>>>>>>>>>>>>>>>>>>>>>>>>
+****************************************************************************************************
+*/
+
+.select2.select2-container{
+    height: 44px;
+    font-size: 1.3em;
+    width: 100% !important;
+    margin-bottom: 10px;
+    -webkit-appearance: none;
+    background: #fff !important;
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid #c0c0c0;
+    border-radius: 2px;
+    box-shadow: 0 1px 6px 1px rgba(0,0,0,.08), 0 3px 2px rgba(0,0,0,.2);
+    padding: 0 8px;
+    box-sizing: border-box;
+}
+.select2.select2-container span.selection span.select2-selection{
+    border: none;
+    border-radius: 0px;
+    margin-top: 7px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+    top: 8px;
+}
+/*
+****************************************************************************************************
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< END SELECT2 CHANGES >>>>>>>>>>>>>>>>>>>>>>>>>>>
+****************************************************************************************************
+*/
+
 
 /*
 ****************************************************************************************************
@@ -2656,3 +2691,11 @@ table.dataTable thead .sorting_desc {
     background-image: url("../images/sort_desc.png");
 }
 
+/*
+****************************************************************************************************
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< End DataTable Style >>>>>>>>>>>>>>>>>>>>>>>>>>>
+****************************************************************************************************
+*/
+.clrB{
+    clear: both;
+}

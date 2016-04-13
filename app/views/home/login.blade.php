@@ -32,16 +32,19 @@ class="current"
 		<div class="login">
 			<div class="login-card login-page">
 				@if(count($errors))
-                    <ul class="error-container">
+				    <div class="col-md-12">
+                    <ul class="error-container m10">
                         <li>Solve Following Errors!</li>
                         <li>
                             <ul>
                                 @foreach($errors->all("<li>:message</li>") as $message)
-                                        {{ $message }}
+                                    {{ $message }}
                                 @endforeach
                             </ul>
                         </li>
                     </ul>
+				    </div>
+
                 @endif
 				{{ Form::open(array('url' => 'doLogin')) }}
                     <input type="email" id = "email" name="email" placeholder="Email" required="true">
