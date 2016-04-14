@@ -14,6 +14,7 @@
 
 @section('sliderContent')
 @stop
+
 <!--========================================================
                           CONTENT
 =========================================================-->
@@ -25,9 +26,9 @@
         <!--========================================================
                                  Data Table
         =========================================================-->
-        @if(Auth::user()->role != 'Doctor')
+<!--        @if(Auth::user()->role != 'Doctor')
             {{ link_to_route('allergies.create', 'Add New Allergy', ['id' => $pId], ['class' => 'btn_1'])}}
-        @endif
+        @endif-->
         <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
             <thead>
                 <tr>

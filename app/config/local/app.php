@@ -26,8 +26,8 @@ return array(
 	|
 	*/
 
-//	'url' => 'http://localhost',
-	'url' => 'http://localhost:8585',
+	'url' => 'http://localhost',
+//	'url' => 'http://localhost:8585',
 
 	/*
 	|--------------------------------------------------------------------------

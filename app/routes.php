@@ -50,7 +50,7 @@ Route::post('doLogin', array('as'=>'doLogin','uses'=>'EmployeesController@doLogi
 Route::get('remind', array('as'=>'remind','uses'=>'RemindersController@getRemind'));
 Route::controller('password', 'RemindersController');
 
-Route::get('logout', array('before' => 'auth', 'as'=>'logout','uses'=>'EmployeeController@logout'));
+Route::get('logout', array('before' => 'auth', 'as'=>'logout','uses'=>'EmployeesController@logout'));
 
 
 Route::post('contact/messages',function(){
@@ -242,6 +242,11 @@ Route::group(array('before' => 'auth'), function(){
             $appointments = Appointment::has('vitalsign')->where('employee_id', Auth::id())->paginate(10);
         }
         $flag = "vitals";
+        foreach($appointments as $appointment){
+            print_r($appointment);exit;
+            
+        }
+        
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
     });
 

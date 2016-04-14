@@ -29,7 +29,7 @@ $app = new Illuminate\Foundation\Application;
 //});
 
 $env = $app->detectEnvironment( array(
-    'local'         => array('mrashid'),
+    'local'         => array('mrashid','waqas-pc'),
     'production'    => array('http://www.easyphysicians.com/','easyphysicians.com')
 ));
 
