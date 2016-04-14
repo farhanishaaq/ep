@@ -11,13 +11,14 @@
        {{--{{ HTML::style('/css/user_reg_form.css') }}--}}
        {{ HTML::style('/css/grid.css') }}
        {{ HTML::style('/css/bootstrap.min.css') }}
-       {{ HTML::style('/css/style.css') }}
        {{ HTML::style('css/breadcrumbs.css') }}
        {{ HTML::style('/css/isotope.css') }}
        {{ HTML::style('/css/contact-form.css') }}
        {{ HTML::style('/login_css/style.css') }}
        {{ HTML::style('/css/camera.css') }}
        {{ HTML::style('/css/owl.carousel.css') }}
+       {{ HTML::style('/css/select2.min.css') }}
+       {{ HTML::style('/css/style.css') }}
 
 
 
@@ -49,6 +50,7 @@
        {{ HTML::script('js/jquery.mobilemenu.js') }}
        {{ HTML::script('js/jquery.unveil.js') }}
        {{ HTML::script('js/script.js') }}
+       {{ HTML::script('js/select2.full.min.js') }}
        {{ HTML::script('js/jquery.dataTables.min.js') }}
 
 

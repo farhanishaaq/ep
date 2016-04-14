@@ -1,4 +1,6 @@
 <?php
+use App\Globals\Ep;
+use App\Globals\GobalsConst;
 
 class EmployeesController extends \BaseController {
 
@@ -32,6 +34,7 @@ class EmployeesController extends \BaseController {
 	public function store()
 	{
         $data = Input::all();
+        $data['status'] = Ep::getSwitchButtonVal(Input::get('status'),GobalsConst::STATUS_ON,GobalsConst::STATUS_OFF);
         $validator = Validator::make($data, array('password' => 'min:6','email' => 'unique:employees', 'status' => 'required', 'role' => 'required'));
 
         if ($validator->fails())
@@ -44,7 +47,7 @@ class EmployeesController extends \BaseController {
         $employee->clinic_id = Auth::user()->clinic_id;
         $employee->password = Hash::make(Input::get('password'));
         $employee->email = Input::get('email');
-        $employee->gender = Input::get('gender');
+        $employee->gender = Ep::getSwitchButtonVal(Input::get('gender'),GobalsConst::MALE,GobalsConst::FEMALE);
         $employee->age = Input::get('age');
         $employee->city = Input::get('city');
         $employee->country = Input::get('country');
@@ -74,7 +77,7 @@ class EmployeesController extends \BaseController {
             $employee->note = Input::get('note');
         }
 
-        $employee->status = Input::get('status');
+        $employee->status = Ep::getSwitchButtonVal(Input::get('status'),GobalsConst::STATUS_ON,GobalsConst::STATUS_OFF);
         $employee->role = Input::get('role');
         $employee->save();
 
@@ -157,7 +160,6 @@ class EmployeesController extends \BaseController {
 	public function destroy($id)
 	{
 		Employee::destroy($id);
-
 		return Redirect::route('employees.index');
 	}
 
@@ -204,6 +206,7 @@ class EmployeesController extends \BaseController {
 
     public function logout(){
         Auth::logout();
+        return Redirect::route('login');
 //        \Illuminate\Support\Facades\Session::flush();
     }
 

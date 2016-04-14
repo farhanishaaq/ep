@@ -23,15 +23,27 @@ Employee Registration
 
 
 @section('content')
-    @foreach($errors->all("<p class='error'>:message</p>") as $message)
-    {{ $message }}
-    @endforeach
+
     <div class="container">
 
         {{ Form::open(array('action' => 'EmployeesController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm', 'onsubmit' => 'checkForm()')) }}
         <h3 class="mT10 mB0 c3">Create Employee Form</h3>
         <hr class="w95p fL mT0" />
         <p class="col-xs-12 fL taR">Required Fields <kbd>*</kbd></p>
+        {{-- Start Errors Code Container Block --}}
+        @if(count($errors))
+        <ul class="error-container">
+            <li>Solve Following Errors!</li>
+            <li>
+                <ul>
+                    @foreach($errors->all("<li>:message</li>") as $message)
+                            {{ $message }}
+                    @endforeach
+                </ul>
+            </li>
+        </ul>
+        @endif
+        {{-- End Errors Code Container Block --}}
         <section class="form-Section col-md-6 h695 fL">
             <div class="container w100p">
                 <h3 class="mT15 mB0 c3">User Info</h3>
@@ -56,7 +68,7 @@ Employee Registration
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Confirm Password</label>
                     <div class="col-xs-6">
-                        <input type="password" id="confirm_password" name="confirm_password" required="true" value="{{{ Form::getValueAttribute('password', null) }}}" class="form-control" placeholder="Password">
+                        <input type="password" id="confirm_password" name="confirm_password" required="true" value="{{{ Form::getValueAttribute('password', null) }}}" class="form-control" placeholder="Confirm Password">
                         <span id="errorPassword" class="field-validation-msg"></span>
                     </div>
                 </div>
@@ -64,7 +76,7 @@ Employee Registration
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Email</label>
                     <div class="col-xs-6">
-                        <input type="email" id="email" name="email" required="true" value="{{{ Form::getValueAttribute('password', null) }}}" class="form-control" placeholder="Password">
+                        <input type="email" id="email" name="email" required="true" value="{{{ Form::getValueAttribute('password', null) }}}" class="form-control" placeholder="Email">
                         <span id="errorPassword" class="field-validation-msg"></span>
                     </div>
                 </div>
@@ -73,8 +85,7 @@ Employee Registration
                     <label class="col-xs-5 control-label">Gender</label>
                     <div class="col-xs-6">
                         <label class="switch switch-green">
-                            <input type="checkbox" required="true" class="switch-input">
-                            {{--<span class="switch-label" data-on="Yes" data-off="No"></span>--}}
+                            <input type="checkbox" id="gender" name="gender" required="true" class="switch-input">
                             <span class="switch-label" data-on="Male" data-off="Female"></span>
                             <span class="switch-handle"></span>
                         </label>
@@ -102,7 +113,8 @@ Employee Registration
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Country</label>
                     <div class="col-xs-6">
-                        <select id="country" name="country" required="true" value="{{{ Form::getValueAttribute('country', null) }}}" class="form-control" placeholder="country">
+                        <select id="country" name="country" required="true" value="{{{ Form::getValueAttribute('country', null) }}}" class="" placeholder="country">
+                            @include('includes.countries')
                         </select>
                         <span id="errorCity" class="field-validation-msg"></span>
                     </div>
@@ -158,7 +170,7 @@ Employee Registration
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Branch Name</label>
                     <div class="col-xs-6">
-                        <select id="bole" name="branch" required="true">
+                        <select id="branch" name="branch" required="true">
                             <option value="N/A" selected disabled>Select Branch</option>
                             <option value="DHA">DHA</option>
                             <option value="Gulberg">Gulberg</option>
@@ -175,8 +187,7 @@ Employee Registration
                     <label class="col-xs-5 control-label">Status</label>
                     <div class="col-xs-6">
                         <label class="switch switch-green">
-                            <input type="checkbox" required="true" class="switch-input">
-                            {{--<span class="switch-label" data-on="Yes" data-off="No"></span>--}}
+                            <input type="checkbox" id="status" name="status" class="switch-input">
                             <span class="switch-label" data-on="Active" data-off="Inactive"></span>
                             <span class="switch-handle"></span>
                         </label>
@@ -202,4 +213,22 @@ Employee Registration
         </div>
         {{ Form::close() }}
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        $(document).ready(function(){
+
+           //**** For Country
+           $("#country").select2();
+
+
+           //**** For Role
+           $("#role").select2();
+
+
+           //**** For Branch
+          $("#branch").select2();
+        });
+    </script>
 @stop

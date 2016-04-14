@@ -119,5 +119,15 @@ class AppointmentsController extends \BaseController {
 
 		return Redirect::route('appointments.index');
 	}
+        
+        public function fetchVitalSign(){
+        if(Auth::user()->role == 'Administrator' || Auth::user()->role == 'Receptionist'){
+            $appointments = Appointment::has('vitalsign', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        }elseif(Auth::user()->role == 'Doctor'){
+            $appointments = Appointment::has('vitalsign')->where('employee_id', Auth::id())->paginate(10);
+        }
+        $flag = "vitals";
+        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
+    }
 
 }
