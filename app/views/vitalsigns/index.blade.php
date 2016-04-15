@@ -1,61 +1,82 @@
-@extends('vitalsigns.layouts.master')
+@extends('layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
 @section('title')
-    Select Appointment
+Manage Vital Signs
 @stop
+
+@section('redBar')
+<div class = "user_logo">
+    <div class="header_1 wrap_3 color_3 login-bar">Easy Physician
+        {{--<div class="col-md-12 mL25 taL">Easy Physician</div>--}}
+    </div>
+</div>
+@stop
+
+@section('sliderContent')
+@stop
+
 
 
 <!--========================================================
                           CONTENT
 =========================================================-->
-@section('content2')
-    <section id="content">
-
-        <div class = "user_logo">
-            <div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                       Select Appointment
-            </div>
-        </div>
-
-
+@section('content')
+<div class="container mT20">
+    <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'">ADD Vital Sign</h1>
+    <hr class="w100p fL mT0" />
+    <section id="form-Section">
         <!--========================================================
-                                     Data Table
-            =========================================================-->
-            <center style="margin-top: 7%;">
+                                 Data Table
+        =========================================================-->
+        <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
+            <thead>
+                <tr >
+                    <th>Patient Name</th>
+                    <th>Doctor Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th style="width: 25%">Action</th>
+                </tr>
+            </thead>
 
-                    <br>
-                <table id="example" style=" border: 1px solid black" class="display" cellspacing="0" width="80%">
-                <thead>
-                    <tr>
-                        <th>Patient Name</th>
-                        <th>Doctor Name</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th style="width: 25%">Action</th>
-                    </tr>
-                </thead>
+            <tbody>
+                @if(($appointments) != null)
+                @foreach($appointments as $appointment)
+                <tr class="row-data">
+                    <td>{{{ $appointment->patient->name }}}</td>
+                    <td>{{{ $appointment->employee->name }}}</td>
+                    <td>{{{ $appointment->date }}}</td>
+                    <td>{{{ $appointment->timeslot->slot }}}</td>
+                    <td>
+                        @if(Auth::user()->role == 'Receptionist')
+                        {{ link_to_route('vitalsigns.create', 'Create', ['id' => $appointment->id], ['class' => 'data_table_btn'])}}
+                        @elseif( Auth::user()->role == 'Doctor')
+                        {{ link_to_route('vitalsigns.show', 'Show Vital Signs', ['id' => $appointment->id], ['class' => 'data_table_btn'])}}
+                        @endif
+                    </td>
+                </tr>
+                @endforeach
+                @endif
 
-                <tbody>
-
-                    @foreach($appointments as $appointment)
-                        <tr>
-                            <td>{{{ $appointment->patient->name }}}</td>
-                            <td>{{{ $appointment->employee->name }}}</td>
-                            <td>{{{ $appointment->date }}}</td>
-                            <td>{{{ $appointment->timeslot->slot }}}</td>
-                            <td>
-                                {{ link_to_route('vitalsigns.show', 'View', ['id' => $appointment->id], ['class' => 'data_table_btn'])}}
-                                {{ link_to_route('vitalsigns.edit', 'Edit', [$appointment->id], ['class' => 'data_table_btn'])}}
-                            </td>
-                        </tr>
-                    @endforeach
-
-                </tbody>
-            </table>
-            {{ $appointments->appends(['id' => $patient_id])->links('partials.pagination') }}
-            </center>
-
+            </tbody>
+        </table>
+        {{ $appointments->appends(['id' => $patient_id])->links('partials.pagination') }}
+    </section>
+</div>
 @stop
-
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($('#tblRecordsList tr.row-data').length) {
+            $('#tblRecordsList').DataTable({
+                "columnDefs": [{
+                        "targets": 5,
+                        "orderable": false
+                    }]
+            });
+        }
+    });
+</script>
+@stop

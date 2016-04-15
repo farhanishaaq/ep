@@ -237,6 +237,12 @@ Route::group(array('before' => 'auth'), function(){
     Route::resource('appointments', 'AppointmentsController');
 
     Route::get('vitalSign', array('before' => 'Doctor', 'as'=>'vitalSign', 'uses' => 'AppointmentsController@fetchVitalSign'));
+    Route::get('addVitalSign', 'VitalsignsController@create');
+    Route::get('showVitalSign', 'VitalsignsController@index');
+//    Route::get('vitalSign', function(){
+//        
+//        echo "i m ahsas";exit;
+//    });
 
     Route::get('app_prescription', function(){
         $appointments = Appointment::has('prescription', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);

@@ -10,7 +10,8 @@ class VitalsignsController extends \BaseController {
     public function index() {
         $patient_id = Input::get('id');
         $patient = Patient::find($patient_id);
-        $appointments = $patient->appointments()->has('vitalsign')->paginate(1);
+        $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+//        $appointments = $patient->appointments()->has('vitalsign')->paginate(1);
 
         return View::make('vitalsigns.index', compact('appointments', 'patient_id'));
     }

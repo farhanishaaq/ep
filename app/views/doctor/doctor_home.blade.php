@@ -29,7 +29,7 @@ class="current"
 				<div class="menu" style="margin-left: 10%; margin-right: 10%">
 					
 					<a class="purple" href="search_pmr">View Medical Record</a>
-					<a class="blue" href="app_vitals">View Vital Signs</a>
+					<a class="blue" href="showVitalSign">View Vital Signs</a>
 					<a class="orange" href="appointments">View Appointments</a>
 					
 					
