@@ -226,7 +226,8 @@ Route::group(array('before' => 'auth'), function(){
     Route::resource('medicines', 'MedicinesController');
 
     // Medical Record Routes
-    Route::get('search_pmr', 'HomeController@showSearchPMR');
+    Route::get('search_pmr', array('before' => 'Doctor', 'as'=>'searchPmr', 'uses' => 'HomeController@showSearchPMR'));
+    
     Route::any('view_pmr', 'HomeController@showViewPMR');
 
     Route::resource('dutydays', 'DutydaysController');
@@ -235,15 +236,7 @@ Route::group(array('before' => 'auth'), function(){
 
     Route::resource('appointments', 'AppointmentsController');
 
-    Route::get('app_vitals', function(){
-        if(Auth::user()->role == 'Administrator' || Auth::user()->role == 'Receptionist'){
-            $appointments = Appointment::has('vitalsign', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        }elseif(Auth::user()->role == 'Doctor'){
-            $appointments = Appointment::has('vitalsign')->where('employee_id', Auth::id())->paginate(10);
-        }
-        $flag = "vitals";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    });
+    Route::get('vitalSign', array('before' => 'Doctor', 'as'=>'vitalSign', 'uses' => 'AppointmentsController@fetchVitalSign'));
 
     Route::get('app_prescription', function(){
         $appointments = Appointment::has('prescription', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
