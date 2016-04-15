@@ -23,3 +23,14 @@ function branch_drop_down(){
     ksort($branchesData);
     return Form::select('branch',$branchesData,Form::getValueAttribute('branch', null),['id'=>"branch",'required'=>'true']);
 }
+
+/**
+ * branch_drop_down | This function is used to make branch dropdown
+ * @return mixed
+ */
+function country_drop_down(){
+    $dataset = GobalsConst::$COUNTRIES;
+    $dataset[""] = "Select Country";
+    ksort($dataset);
+    return Form::select('country',$dataset,Form::getValueAttribute('country', null),['id'=>"country",'required'=>'true']);
+}

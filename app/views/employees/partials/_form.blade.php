@@ -89,9 +89,7 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Country</label>
                     <div class="col-xs-6">
-                        <select id="country" name="country" required="true" value="{{{ Form::getValueAttribute('country', null) }}}" class="" placeholder="country">
-                            @include('includes.countries')
-                        </select>
+                        {{country_drop_down()}}
                         <span id="errorCity" class="field-validation-msg"></span>
                     </div>
                 </div>
