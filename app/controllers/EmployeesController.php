@@ -23,7 +23,8 @@ class EmployeesController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('employees.create');
+        $formMode = GobalsConst::FORM_CREATE;
+		return View::make('employees.create')->nest('_form','employees.partials._form',compact('formMode'));
 	}
 
 	/**
@@ -112,9 +113,9 @@ class EmployeesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+        $formMode = GobalsConst::FORM_EDIT;
 		$employee = Employee::find($id);
-
-		return View::make('employees.edit', compact('employee'));
+		return View::make('employees.edit')->nest('_form','employees.partials._form',compact('formMode','employee'));
 	}
 
 	/**
