@@ -9,9 +9,9 @@ class DutydaysController extends \BaseController {
 	 */
 	public function index()
 	{
-		$dutydays = Dutyday::where('clinic_id', Auth::user()->clinic_id)->groupBy('employee_id')->paginate(10);
+        $dutyDays = Dutyday::where('clinic_id', Auth::user()->clinic_id)->groupBy('employee_id')->paginate(10);
 
-		return View::make('dutydays.index', compact('dutydays'));
+		return View::make('dutydays.index', compact('dutyDays'));
 	}
 
 	/**

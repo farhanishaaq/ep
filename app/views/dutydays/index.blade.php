@@ -1,58 +1,82 @@
-@extends('dutydays.layouts.master')
+@extends('layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
 @section('title')
-    Doctors' Schedules
+    Manage Employees
+@stop
+
+@section('redBar')
+<div class = "user_logo">
+    <div class="header_1 wrap_3 color_3 login-bar">Easy Physician
+    </div>
+</div>
+@stop
+
+@section('sliderContent')
 @stop
 
 
 <!--========================================================
                           CONTENT
 =========================================================-->
-@section('content2')
-    <section id="content">
-        
-		<div class = "user_logo">
-			<div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                        Manage Doctors' Schedules
-            </div>
-		</div>
-
-
-		<!--========================================================
-                                     Data Table
-            =========================================================-->
-            <center style="margin-top: 7%;">
-            <center>{{ link_to_route('dutydays.create', 'Create Schedule', '', ['class' => 'btn_1'])}}</center>
-            		<br>
-                <table id="example" style=" border: 1px solid black" class="display" cellspacing="0" width="80%">
-                <thead>
-                    <tr>
-                        <th style="width: 20%">Doctor Name</th>
-
-                        <th style="width: 25%">Action</th>
+@section('content')
+<div class="container mT20">
+    <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'">Duty Days</h1>
+    <hr class="w100p fL mT0" />
+    <section id="form-Section">
+        <!--========================================================
+                                 Data Table
+        =========================================================-->
+        {{ link_to_route('dutydays.create', 'Create Duty Days', '', ['class' => 'btn_1'])}}
+        <table id="tblRecordsList" class="mT20 table table-hover table-striped display w100p">
+            <thead>
+                <tr>
+                    <th>Doctor Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            @if(($dutyDays) != null)
+                @if(($dutyDays->count()))
+                @foreach($dutyDays as $dutyDay)
+                    <tr class="row-data">
+                        <td>{{{ $dutyDay->employee->name }}}</td>
+                        <td>
+                        {{ link_to_route('dutydays.show', '', [$dutyDay->employee->id], ['class' => 'btn-view-icon fL','title'=> 'View Record'])}}
+                        <span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('dutydays.edit', '', [$dutyDay->employee->id], ['class' => 'btn-edit-icon fL','title'=> 'Edit Record'])}}
+                        </td>
                     </tr>
-                </thead>
-
-                <tbody>
-
-                @if(isset($dutydays))
-                    @foreach($dutydays as $dutyday)
-                        <tr>
-                            <td>{{{ $dutyday->employee->name}}}</td>
-                           
-                            <td>
-                            {{ link_to_route('dutydays.show', 'View', [$dutyday->employee->id], ['class' => 'data_table_btn', 'style' => 'margin-bottom: 2px'])}}
-                            {{ link_to_route('dutydays.edit', 'Edit', [$dutyday->employee->id], ['class' => 'data_table_btn'])}}
-                            </td>
-                        </tr>
-                    @endforeach
+                @endforeach
+                @else
+                    <tr>
+                        <td colspan="7"> There is no record found</td>
+                    </tr>
                 @endif
-                </tbody>
-            </table>
-            {{ $dutydays->links('partials.pagination') }}
-            </center>
-      
+            @else
+                <tr>
+                    <td colspan="7"> There is no record found</td>
+                </tr>
+            @endif
+            </tbody>
+        </table>
+        {{ $dutyDays->links('partials.pagination') }}
+    </section>
+</div>
+@stop
+
+@section('scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+    if($('#tblRecordsList tr.row-data').length){
+        $('#tblRecordsList').DataTable({
+            "columnDefs": [ {
+            "targets": 1,
+            "orderable": false
+            } ]
+        });
+    }
+} );
+</script>
 @stop
 

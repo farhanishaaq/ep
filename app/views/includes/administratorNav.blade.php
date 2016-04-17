@@ -3,8 +3,8 @@
         <li @yield('current_admin_home')><a href="{{URL::route('adminHome')}}">Home</a></li>
         <li @yield('current_services')><a style="cursor: pointer">Management</a>
             <ul>
-                <li> <a href="/employees">Manage Employees</a></li>
-                <li><a href="/dutydays">Doctor Schedules</a></li>
+                <li> <a href="{{URL::route('employees.index')}}">Manage Employees</a></li>
+                <li><a href="{{URL::route('dutydays.index')}}">Doctor Schedules</a></li>
                 <li><a href="/medicines">Manage Medicines</a></li>
             </ul>
         </li>
