@@ -60,12 +60,8 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label">Gender</label>
                     <div class="col-xs-6">
-                        <label class="switch switch-green">
-                            <input type="checkbox" id="gender" name="gender" required="true" class="switch-input">
-                            <span class="switch-label" data-on="Male" data-off="Female"></span>
-                            <span class="switch-handle"></span>
-                        </label>
-                        <span id="errorGender" class="field-validation-msg"></span>
+
+                        {{radio_btn_group(array( 'Male' => 'Male', 'None' => '' , 'Female' => 'Female' ),'gender')}}
                     </div>
                 </div>
 
@@ -146,12 +142,7 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label">Status</label>
                     <div class="col-xs-6">
-                        <label class="switch switch-green">
-                            <input type="checkbox" id="status" name="status" class="switch-input">
-                            <span class="switch-label" data-on="Active" data-off="Inactive"></span>
-                            <span class="switch-handle"></span>
-                        </label>
-                        <span id="errorStatus" class="field-validation-msg"></span>
+                        {{switch_btn_group(['fieldName'=>'status', 'onVal'=>'Active', 'offVal'=>'Inactive'])}}
                     </div>
                 </div>
 
@@ -167,8 +158,8 @@
         </section>
         <div class="col-xs-12 taR pR0 mT20">
             <input type="reset" id="reset" value="Reset" class="submit" />
-            <input type="submit" id="create" value="Save && Close" class="submit" />
-            <input type="submit" id="create" value="Save && Continue" class="submit" />
+            <input type="submit" id="createClose" value="Save and Close" class="submit" />
+            <input type="submit" id="createContinue" name="createContinue" value="Save and Continue" class="submit" />
             <input type="submit" id="cancel" value="Cancel" class="submit" />
         </div>
         {{ Form::close() }}

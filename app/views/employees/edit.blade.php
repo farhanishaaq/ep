@@ -30,19 +30,12 @@ Employee Registration
 @stop
 
 @section('scripts')
+    <script src="{{asset('js/view-pages/employees/EmployeeForm.js')}}"></script>
     <script>
         $(document).ready(function(){
-
-           //**** For Country
-           $("#country").select2();
-
-
-           //**** For Role
-           $("#role").select2();
-
-
-           //**** For Branch
-          $("#branch").select2();
+            var options = {};
+            var employeeForm = new EmployeeForm(window,document,options);
+            employeeForm.initializeAll();
         });
     </script>
 @stop

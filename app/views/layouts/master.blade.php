@@ -51,7 +51,10 @@
        {{ HTML::script('js/jquery.unveil.js') }}
        {{ HTML::script('js/script.js') }}
        {{ HTML::script('js/select2.full.min.js') }}
-       {{ HTML::script('js/jquery.dataTables.min.js') }}
+       {{ HTML::script('js/jquery-plugins/jquery.dataTables.min.js') }}
+       {{ HTML::script('js/jquery-plugins/jquery.validate.js') }}
+       {{ HTML::script('js/jquery-plugins/jquery.validate.extension.js') }}
+       {{ HTML::script('js/all.js') }}
 
 
 
@@ -76,7 +79,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/ie.css">
     <![endif]-->
     <!-- About Page End -->
-    
+    @yield('headScript')
 </head>
     <body>
     
