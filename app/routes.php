@@ -226,29 +226,15 @@ Route::group(array('before' => 'auth'), function(){
     Route::resource('medicines', 'MedicinesController');
 
     // Medical Record Routes
-    Route::get('search_pmr', array('before' => 'Doctor', 'as'=>'searchPmr', 'uses' => 'HomeController@showSearchPMR'));
-    
+    Route::get('searchPmr', array('before' => 'Doctor', 'as'=>'searchPmr', 'uses' => 'HomeController@showSearchPMR'));
     Route::any('view_pmr', 'HomeController@showViewPMR');
-
     Route::resource('dutydays', 'DutydaysController');
-
     Route::resource('timeslots', 'TimeslotsController');
-
     Route::resource('appointments', 'AppointmentsController');
-
     Route::get('vitalSign', array('before' => 'Doctor', 'as'=>'vitalSign', 'uses' => 'AppointmentsController@fetchVitalSign'));
-    Route::get('addVitalSign', 'VitalsignsController@create');
-    Route::get('showVitalSign', 'VitalsignsController@index');
-//    Route::get('vitalSign', function(){
-//        
-//        echo "i m ahsas";exit;
-//    });
 
-    Route::get('app_prescription', function(){
-        $appointments = Appointment::has('prescription', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        $flag = "prescription";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    });
+
+    Route::get('app_prescription',  array('as'=>'appPrescription', 'uses' => 'AppointmentsController@addPrescriptions'));
 
     Route::get('app_tests', function(){
         if(Input::get('id') !== null){

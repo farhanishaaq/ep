@@ -18,6 +18,7 @@
        {{ HTML::style('/css/camera.css') }}
        {{ HTML::style('/css/owl.carousel.css') }}
        {{ HTML::style('/css/select2.min.css') }}
+       {{ HTML::script('plugins/clock-picker/css/bootstrap-clockpicker.min.css') }}
        {{ HTML::style('/css/style.css') }}
 
 
@@ -54,6 +55,7 @@
        {{ HTML::script('js/jquery-plugins/jquery.dataTables.min.js') }}
        {{ HTML::script('js/jquery-plugins/jquery.validate.js') }}
        {{ HTML::script('js/jquery-plugins/jquery.validate.extension.js') }}
+       {{ HTML::script('plugins/clock-picker/js/bootstrap-clockpicker.min.js') }}
        {{ HTML::script('js/all.js') }}
 
 

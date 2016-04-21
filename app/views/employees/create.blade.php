@@ -25,7 +25,7 @@ Employee Registration
 @section('content')
 
     <div class="container">
-        {{$form}}
+        {{$_form}}
     </div>
 @stop
 
