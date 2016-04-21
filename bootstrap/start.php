@@ -30,6 +30,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment( array(
     'local'         => array('mrashid','waqas-pc'),
+    'staging'         => array('WIN-1GP1HP4AQNA'),
     'production'    => array('http://www.easyphysicians.com/','easyphysicians.com')
 ));
 
