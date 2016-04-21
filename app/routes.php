@@ -232,7 +232,6 @@ Route::group(array('before' => 'auth'), function(){
     Route::resource('timeslots', 'TimeslotsController');
     Route::resource('appointments', 'AppointmentsController');
     Route::get('vitalSign', array('before' => 'Doctor', 'as'=>'vitalSign', 'uses' => 'AppointmentsController@fetchVitalSign'));
-    Route::get('addVitalSign', 'VitalsignsController@create');
 
 
     Route::get('app_prescription',  array('as'=>'appPrescription', 'uses' => 'AppointmentsController@addPrescriptions'));
