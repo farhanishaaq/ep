@@ -93,22 +93,22 @@ Route::filter('Doctor', function()
 { 
   if ( Auth::user()->role !== 'Doctor') {
 	    if ( Auth::user()->role == 'Administrator'){
-	    	return Redirect::to('admin_home'); 
+	    	return Redirect::to('adminHome');
 	 	}
 	 	else if ( Auth::user()->role == 'Accountant'){
-	    	return Redirect::to('accountant_home'); 
+	    	return Redirect::to('accountantHome');
 	 	}
 	 	else if ( Auth::user()->role == 'Lab Manager'){
-	    	return Redirect::to('labmanager_home'); 
+	    	return Redirect::to('labManagerHome');
 	 	}
 	 	else if ( Auth::user()->role == 'Receptionist'){
-	    	return Redirect::to('receptionist_home'); 
+	    	return Redirect::to('receptionistHome');
 	 	}
         else if ( Auth::user()->role == 'Super'){
-            return Redirect::to('super_home');
+            return Redirect::to('superHome');
         }
 	}else{
-		Redirect::to('doctor_home');
+		Redirect::to('doctorHome');
 	}
 });
 
@@ -116,18 +116,18 @@ Route::filter('Super', function()
 {
     if ( Auth::user()->role !== 'Super User') {
         if ( Auth::user()->role == 'Doctor'){
-            return Redirect::to('doctor_home');
+            return Redirect::to('doctorHome');
         }
         else if ( Auth::user()->role == 'Accountant'){
-            return Redirect::to('accountant_home');
+            return Redirect::to('accountantHome');
         }
         else if ( Auth::user()->role == 'Lab Manager'){
-            return Redirect::to('labmanager_home');
+            return Redirect::to('labManagerHome');
         }
         else if ( Auth::user()->role == 'Receptionist'){
-            return Redirect::to('receptionist_home');
+            return Redirect::to('receptionistHome');
         }else if ( Auth::user()->role == 'Administrator'){
-            return Redirect::to('admin_home');
+            return Redirect::to('adminHome');
         }
     }
 });
@@ -136,19 +136,19 @@ Route::filter('Administrator', function()
 {
     if ( Auth::user()->role !== 'Administrator') {
         if ( Auth::user()->role == 'Doctor'){
-            return Redirect::to('doctor_home');
+            return Redirect::to('doctorHome');
         }
         else if ( Auth::user()->role == 'Accountant'){
-            return Redirect::to('accountant_home');
+            return Redirect::to('accountantHome');
         }
         else if ( Auth::user()->role == 'Lab Manager'){
-            return Redirect::to('labmanager_home');
+            return Redirect::to('labManagerHome');
         }
         else if ( Auth::user()->role == 'Receptionist'){
-            return Redirect::to('receptionist_home');
+            return Redirect::to('receptionistHome');
         }
         else if ( Auth::user()->role == 'Super'){
-            return Redirect::to('super_home');
+            return Redirect::to('superHome');
         }
     }
 });
@@ -157,19 +157,19 @@ Route::filter('Accountant', function()
 { 
   if ( Auth::user()->role !== 'Accountant') {
     if ( Auth::user()->role == 'Doctor'){
-    	return Redirect::to('doctor_home'); 
+    	return Redirect::to('doctorHome');
  	}
  	else if ( Auth::user()->role == 'Administrator'){
-    	return Redirect::to('admin_home'); 
+    	return Redirect::to('adminHome');
  	}
  	else if ( Auth::user()->role == 'Lab Manager'){
-    	return Redirect::to('labmanager_home'); 
+    	return Redirect::to('labManagerHome');
  	}
  	else if ( Auth::user()->role == 'Receptionist'){
-    	return Redirect::to('receptionist_home'); 
+    	return Redirect::to('receptionistHome');
  	}
     else if ( Auth::user()->role == 'Super'){
-        return Redirect::to('super_home');
+        return Redirect::to('superHome');
     }
 }});
 
@@ -177,19 +177,19 @@ Route::filter('Lab', function()
 { 
   if ( Auth::user()->role !== 'Lab Manager') {
     if ( Auth::user()->role == 'Doctor'){
-    	return Redirect::to('doctor_home'); 
+    	return Redirect::to('doctorHome');
  	}
  	else if ( Auth::user()->role == 'Administrator'){
-    	return Redirect::to('admin_home'); 
+    	return Redirect::to('adminHome');
  	}
  	else if ( Auth::user()->role == 'Accountant'){
-    	return Redirect::to('accountant_home'); 
+    	return Redirect::to('accountantHome');
  	}
  	else if ( Auth::user()->role == 'Receptionist'){
-    	return Redirect::to('receptionist_home'); 
+    	return Redirect::to('receptionistHome');
  	}
     else if ( Auth::user()->role == 'Super'){
-        return Redirect::to('super_home');
+        return Redirect::to('superHome');
     }
 }});
 
@@ -197,18 +197,18 @@ Route::filter('Receptionist', function()
 { 
   if ( Auth::user()->role !== 'Receptionist') {
     if ( Auth::user()->role == 'Doctor'){
-    	return Redirect::to('doctor_home'); 
+    	return Redirect::to('doctorHome');
  	}
  	else if ( Auth::user()->role == 'Administrator'){
-    	return Redirect::to('admin_home'); 
+    	return Redirect::to('adminHome');
  	}
  	else if ( Auth::user()->role == 'Accountant'){
-    	return Redirect::to('accountant_home'); 
+    	return Redirect::to('accountantHome');
  	}
  	else if ( Auth::user()->role == 'Lab Manager'){
-    	return Redirect::to('labmanager_home'); 
+    	return Redirect::to('labManagerHome');
  	}
     else if ( Auth::user()->role == 'Super'){
-        return Redirect::to('super_home');
+        return Redirect::to('superHome');
     }
 }});

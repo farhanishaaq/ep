@@ -20,11 +20,17 @@ class GobalsConst {
 
     //Roles
     const ADMINISTRATOR = "Administrator";
-    public static $ROLES = ['Administrator'=>'Administrator',
-                            'Doctor'=>'Doctor',
-                            'Accountant'=>'Accountant',
-                            'Receptionist'=>'Receptionist',
-                            'Lab Manager'=>'Lab Manager'];
+    const DOCTOR = "Doctor";
+    const ACCOUNTANT = "Accountant";
+    const RECEPTIONIST = "Receptionist";
+    const LAB_MANAGER = "Lab Manager";
+
+    public static $ROLES = ['Administrator'=>self::ADMINISTRATOR,
+                            'Doctor'=>self::DOCTOR,
+                            'Accountant'=>self::ACCOUNTANT,
+                            'Receptionist'=>self::RECEPTIONIST,
+                            'Lab Manager'=>self::LAB_MANAGER
+    ];
 
     //Branches
     const DHA = "DHA";
@@ -32,11 +38,32 @@ class GobalsConst {
     const CANAL_VIEW = "Canal View";
     const GARDEN_TOWN = "Garden Town";
     const JOHAR_TOWN = "Johar Town";
-    public static $BRANCHES = ['DHA'=>'DHA',
-        'Gulberg'=>'Gulberg',
-        'Canal View'=>'Canal View',
-        'Garden Town'=>'Garden Town',
-        'Johar Town'=>'Johar Town'];
+
+    public static $BRANCHES = ['DHA'=>self::DHA,
+                                'Gulberg'=>self::GULBERG,
+                                'Canal View'=>self::CANAL_VIEW,
+                                'Garden Town'=>self::GARDEN_TOWN,
+                                'Johar Town'=>self::JOHAR_TOWN
+                                ];
+
+
+
+    //Days
+    const SUNDAY = "Sunday";
+    const MONDAY = "Monday";
+    const TUESDAY = "Tuesday";
+    const WEDNESDAY = "Wednesday";
+    const THURSDAY = "Thursday";
+    const FRIDAY = "Friday";
+    const SATURDAY = "Saturday";
+
+    public static $DAYS = ['Sunday'=>self::SUNDAY,
+        'Monday'=>self::MONDAY,
+        'Tuesday'=>self::TUESDAY,
+        'Wednesday'=>self::WEDNESDAY,
+        'Thursday'=>self::THURSDAY,
+        'Friday'=>self::FRIDAY,
+        'Saturday'=>self::SATURDAY];
 
 
     //Countries

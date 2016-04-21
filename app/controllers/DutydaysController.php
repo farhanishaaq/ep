@@ -1,5 +1,5 @@
 <?php
-
+use App\Globals\GobalsConst;
 class DutydaysController extends \BaseController {
 
 	/**
@@ -21,7 +21,7 @@ class DutydaysController extends \BaseController {
 	 */
 	public function create()
 	{
-		$doctors = Employee::has('dutydays', '=', 0)->where('role', 'Doctor')
+		$doctors = Employee::has('dutydays', '=', 0)->where('role', GobalsConst::DOCTOR)
                 ->where('status', 'Active')->where('clinic_id', Auth::user()->clinic_id)->get();
         return View::make('dutydays.create', compact('doctors'));
 	}

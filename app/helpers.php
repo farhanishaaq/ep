@@ -94,3 +94,16 @@ function switch_btn_group(array $params)
               <span id="errorStatus" class="field-validation-msg"></span>';
     return $html;
 }
+
+
+/**
+ * days_drop_down | This function is used to draw days select  box
+ * @return mixed
+ */
+function days_drop_down()
+{
+    $dataset = GobalsConst::$DAYS;
+    $dataset[""] = "Select Branch";
+//    ksort($dataset);
+    return Form::select('day',$dataset,Form::getValueAttribute('day', null),['id'=>"day",'required'=>'true']);
+}

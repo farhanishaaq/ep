@@ -8,11 +8,11 @@
         </li>
         <li @yield('current_about')><a style="cursor: pointer">Patients</a>
             <ul>
-                <li><a href="/appointments">Appointments</a></li>
-                <li><a href="/patients">Patients</a></li>
-                <li><a href="/search_pmr">Medical Records</a></li>
-                <li><a href="/app_vitals">Vital Signs</a></li>
-                <li><a href="/app_prescription">Add Prescriptions</a></li>
+                <li><a href="{{route('appointments.index')}}">Appointments</a></li>
+                <li><a href="{{route('patients.index')}}">Patients</a></li>
+                <li><a href="{{route('searchPmr')}}">Medical Records</a></li>
+                <li><a href="{{route('vitalsigns.index')}}">Vital Signs</a></li>
+                <li><a href="{{URL::route('appPrescription')}}">Add Prescriptions</a></li>
                 <li><a href="/app_pres_print">Print Prescription</a></li>
                 {{--<li><a href="/app_proc">Add Procedures</a></li>--}}
                 <li><a href="/app_tests">Test Reports</a></li>
