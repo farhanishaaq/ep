@@ -412,4 +412,10 @@ class PrescriptionsController extends \BaseController {
 		return Redirect::route('prescriptions.index');
 	}
 
+    public function printPrescription(){
+        $appointments = Appointment::has('prescription')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        $flag = "pres_print";
+        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
+    }
+
 }

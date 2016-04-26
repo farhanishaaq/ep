@@ -15,17 +15,17 @@
                 <li><a href="{{URL::route('searchPmr')}}">Medical Records</a></li>
                 <li><a href="{{URL::route('vitalSign')}}">Vital Signs</a></li>
                 <li><a href="{{URL::route('appPrescription')}}">Add Prescriptions</a></li>
-                <li><a href="/app_pres_print">Print Prescription</a></li>
+                <li><a href="{{URL::route('printPrescription')}}">Print Prescription</a></li>
                 {{--<li><a href="/app_proc">Add Procedures</a></li>--}}
-                <li><a href="/app_tests">Test Reports</a></li>
-                <li><a href="/app_test_print">Print Reports</a></li>
+                <li><a href="{{URL::route('showTestReports')}}">Test Reports</a></li>
+                <li><a href="{{URL::route('printTestReports')}}">Print Reports</a></li>
             </ul>
         </li>
         <li @yield('current_contacts')><a style="cursor: pointer">Billing</a>
             <ul>
-                <li><a href="/app_check_fee">Add Checkup Fee</a></li>
-                <li><a href="/app_checkup_fee_print">Checkup Fee Invoice</a></li>
-                <li><a href="/app_test_fee">Add Test Fee</a></li>
+                <li><a href="{{URL::route('addCheckUpFee')}}">Add Checkup Fee</a></li>
+                <li><a href="{{URL::route('addCheckUpFee')}}/app_checkup_fee_print">Checkup Fee Invoice</a></li>
+                <li><a href="{{URL::route('addTestFee')}}">Add Test Fee</a></li>
                 <li><a href="/app_test_fee_print">Test Fee Invoice</a></li>
             </ul>
         </li>

@@ -3,7 +3,7 @@
         <li @yield('current_rec_home')><a href="/receptionist_home">Home</a></li>
         <li @yield('current_services')><a style="cursor: pointer">Management</a>
             <ul>
-                <li><a href="/dutydays">Doctor Schedules</a></li>
+                <li><a href="{{URL::route('dutydays.index')}}">Doctor Schedules</a></li>
             </ul>
         </li>
         <li @yield('current_about')><a style="cursor: pointer">Patients</a>
