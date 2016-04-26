@@ -49,7 +49,7 @@ class="current"
 					<a class="purple" href="dutydays">Doctor Schedules </a>
 					<a class="orange" href="patients" >Manage Patients </a>
 					<a class="pink" href="search_pmr">Manage Medical Record</a>
-					<a class="green" href="app_vitals">Add Vital Signs</a>
+					<a class="green" href="vitalSign">Add Vital Signs</a>
 					<a class="ferozi" href="app_prescription">Prepare Prescription</a>
 					{{--<a class="green" href="app_proc"> Diagnostic Procedures	</a>--}}
 					<a class="blue" href="app_pres_print" >Print Prescription </a>
