@@ -1,6 +1,6 @@
 <nav class="nav put-right">
     <ul class="sf-menu">
-        <li @yield('current_rec_home')><a href="/receptionist_home">Home</a></li>
+        <li @yield('current_rec_home')><a href="{{route('receptionistHome')}}">Home</a></li>
         <li @yield('current_services')><a style="cursor: pointer">Management</a>
             <ul>
                 <li><a href="{{URL::route('dutydays.index')}}">Doctor Schedules</a></li>
