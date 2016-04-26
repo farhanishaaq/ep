@@ -174,5 +174,17 @@ class AppointmentsController extends \BaseController {
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
     }
 
+    public function testFeeInvoice(){
+        $appointments = Appointment::has('labtests')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        $flag = "test_invoice";
+        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
+    }
+
+    public function checkupFeeInvoice(){
+        $appointments = Appointment::has('checkupfee')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        $flag = "checkup_invoice";
+        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
+    }
+
 
 }

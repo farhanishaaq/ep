@@ -24,14 +24,14 @@
         <li @yield('current_contacts')><a style="cursor: pointer">Billing</a>
             <ul>
                 <li><a href="{{URL::route('addCheckUpFee')}}">Add Checkup Fee</a></li>
-                <li><a href="{{URL::route('addCheckUpFee')}}/app_checkup_fee_print">Checkup Fee Invoice</a></li>
+                <li><a href="{{URL::route('checkupFeeInvoice')}}">Checkup Fee Invoice</a></li>
                 <li><a href="{{URL::route('addTestFee')}}">Add Test Fee</a></li>
-                <li><a href="/app_test_fee_print">Test Fee Invoice</a></li>
+                <li><a href="{{URL::route('testFeeInvoice')}}">Test Fee Invoice</a></li>
             </ul>
         </li>
         <li @yield('current_reporting')><a style="cursor: pointer">Reporting</a>
             <ul>
-                <li> <a href="/patients_reporting">Checked Patients</a></li>
+                <li> <a href="{{URL::route('patientsReporting')}}">Checked Patients</a></li>
             </ul>
         </li>
         <li><a href="{{route('logout')}}">Logout</a></li>
