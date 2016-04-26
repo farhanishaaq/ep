@@ -25,10 +25,11 @@ class AppointmentsController extends \BaseController {
 	 */
 	public function create()
 	{
+        $formMode = GobalsConst::FORM_CREATE;
         $doctors = Employee::where('role', 'Doctor')->where('status', 'active')
                     ->where('clinic_id', Auth::user()->clinic_id)->get();
         $patients = Patient::where('clinic_id', Auth::user()->clinic_id)->get();
-		return View::make('appointments.create', compact('doctors', 'patients'));
+		return View::make('appointments.create', compact('doctors', 'patients'))->nest('_form','appointments.partials._form',compact('formMode'));;
 	}
 
 	/**
@@ -72,12 +73,13 @@ class AppointmentsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+        $formMode = GobalsConst::FORM_EDIT;
 		$doctors = Employee::where('role', 'Doctor')->where('status', 'active')->get();
         $patients = Patient::where('clinic_id', Auth::user()->clinic_id)->get();
 		$appointment = Appointment::find($id);
         $timeslot = $appointment->timeslot->first()->where('dutyday_id', $appointment->timeslot->dutyday_id)->lists('slot','id');
 
-		return View::make('appointments.edit', compact('timeslot','appointment', 'doctors', 'patients'));
+		return View::make('appointments.edit', compact('timeslot','appointment', 'doctors', 'patients'))->nest('_form','appointments.partials._form',compact('formMode','employee'));
 	}
 
 	/**

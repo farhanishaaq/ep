@@ -109,7 +109,7 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Mobile</label>
                     <div class="col-xs-6">
-                        <input type="text" id="mobile" name="mobile" required="true" value="{{{ Form::getValueAttribute('mobile', null) }}}" class="form-control" placeholder="Mobile">
+                        <input type="text" id="phone" name="phone" value="{{{ Form::getValueAttribute('phone', null) }}}" class="form-control" placeholder="Mobile">
                         <span id="errorAddress" class="field-validation-msg"></span>
                     </div>
                 </div>
