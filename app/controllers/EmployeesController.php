@@ -201,7 +201,7 @@ class EmployeesController extends \BaseController {
             if ($validator->fails())
             {
                 Auth::logout();
-                return View::make('home.login')->withErrors($validator);
+                return Redirect::to('login')->withErrors($validator);
             }
         }
 
