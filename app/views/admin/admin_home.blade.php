@@ -52,7 +52,7 @@ class="current"
 					<a class="green" href="vitalSign">Add Vital Signs</a>
 					<a class="ferozi" href="app_prescription">Prepare Prescription</a>
 					{{--<a class="green" href="app_proc"> Diagnostic Procedures	</a>--}}
-					<a class="blue" href="app_pres_print" >Print Prescription </a>
+					<a class="blue" href="printPrescription" >Print Prescription </a>
 					<a class="purple" href="app_tests">Manage Test Reports</a>
 					<a class="orange" href="app_test_print">Print Test Report</a>
   					<a class="pink" href="app_check_fee">Add Checkup Fee</a>
