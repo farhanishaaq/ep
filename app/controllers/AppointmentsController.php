@@ -137,4 +137,42 @@ class AppointmentsController extends \BaseController {
         $flag = "prescription";
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
     }
+
+    public function showTestReports(){
+        if(Input::get('id') !== null){
+            $appointments = Appointment::where('patient_id', Input::get('id'))->paginate(10);
+        }else{
+            $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        }
+        $flag = "test";
+        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
+    }
+
+    public function printTestReports(){
+        $appointments = Appointment::has('labtests')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        $flag = "test_print";
+        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
+    }
+
+    public function addCheckUpFee(){
+        if(Auth::user()->role == "Accountant"){
+            $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        }else{
+            $appointments = Appointment::has('checkupfee', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        }
+        $flag = "check_fee";
+        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
+    }
+
+    public function addTestFee(){
+        if(Input::get('id') !== null){
+            $appointments = Appointment::where('patient_id', Input::get('id'))->paginate(10);
+        }else{
+            $appointments = Appointment::has('labtests')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        }
+        $flag = "test_fee";
+        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
+    }
+
+
 }
