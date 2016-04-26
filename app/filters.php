@@ -93,7 +93,7 @@ Route::filter('Doctor', function()
 { 
   if ( Auth::user()->role !== 'Doctor') {
 	    if ( Auth::user()->role == 'Administrator'){
-	    	return Redirect::to('adminHome');
+//	    	return Redirect::to('adminHome');
 	 	}
 	 	else if ( Auth::user()->role == 'Accountant'){
 	    	return Redirect::to('accountantHome');
