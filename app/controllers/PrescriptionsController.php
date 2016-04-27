@@ -24,7 +24,7 @@ class PrescriptionsController extends \BaseController {
 	public function create()
 	{
 		$appointment = Appointment::find(Input::get('id'));
-        $patient_id = $appointment->patient->id;
+        $patient_id = $appointment->patient_id;
         $doctors = Employee::where('role', 'Doctor')->where('status', 'Active')
                     ->where('clinic_id', Auth::user()->clinic_id)->get();
         $medicine1 = $medicine2 = $medicine3 = $medicine4 = $medicine5 = $medicine6 = Medicine::where('clinic_id', Auth::user()->clinic_id)
