@@ -195,20 +195,21 @@ Route::filter('Lab', function()
 
 Route::filter('Receptionist', function()
 { 
-  if ( Auth::user()->role !== 'Receptionist') {
-    if ( Auth::user()->role == 'Doctor'){
-    	return Redirect::to('doctorHome');
- 	}
- 	else if ( Auth::user()->role == 'Administrator'){
-    	return Redirect::to('adminHome');
- 	}
- 	else if ( Auth::user()->role == 'Accountant'){
-    	return Redirect::to('accountantHome');
- 	}
- 	else if ( Auth::user()->role == 'Lab Manager'){
-    	return Redirect::to('labManagerHome');
- 	}
-    else if ( Auth::user()->role == 'Super'){
-        return Redirect::to('superHome');
-    }
-}});
+//  if ( Auth::user()->role !== 'Receptionist') {
+//    if ( Auth::user()->role == 'Doctor'){
+//    	return Redirect::to('doctorHome');
+// 	}
+// 	else if ( Auth::user()->role == 'Administrator'){
+//    	return Redirect::to('adminHome');
+// 	}
+// 	else if ( Auth::user()->role == 'Accountant'){
+//    	return Redirect::to('accountantHome');
+// 	}
+// 	else if ( Auth::user()->role == 'Lab Manager'){
+//    	return Redirect::to('labManagerHome');
+// 	}
+//    else if ( Auth::user()->role == 'Super'){
+//        return Redirect::to('superHome');
+//    }
+//}
+});

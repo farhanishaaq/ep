@@ -1,4 +1,6 @@
 <?php
+use App\Globals\Ep;
+use App\Globals\GlobalsConst;
 
 class PatientsController extends \BaseController {
 
@@ -106,9 +108,9 @@ class PatientsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+		$formMode = GlobalsConst::FORM_EDIT;
 		$patient = Patient::find($id);
-
-		return View::make('patients.edit', compact('patient'));
+		return View::make('patients.edit')->nest('_form','patients.partials._form',compact('formMode','patient'));
 	}
 
 	/**

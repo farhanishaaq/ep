@@ -1,9 +1,9 @@
         @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-            {{ Form::open(array('action' => 'EmployeesController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm', 'onsubmit' => 'checkForm()')) }}
+            {{ Form::open(array('action' => 'PatientsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm', 'onsubmit' => 'checkForm()')) }}
         @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-            {{Form::model($employee, ['route' => ['employees.update', $employee->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
+            {{Form::model($patient, ['route' => ['patients.update', $patient->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
         @endif
-        <h3 class="mT10 mB0 c3">Create Employee Form</h3>
+        <h3 class="mT10 mB0 c3">Create Patient Form</h3>
         <hr class="w95p fL mT0" />
         <p class="col-xs-12 fL taR">Required Fields <kbd>*</kbd></p>
         {{-- Start Errors Code Container Block --}}
@@ -26,22 +26,29 @@
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
                 <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Employee Name</label>
+                    <label class="col-xs-5 control-label asterisk">Patient Name</label>
                     <div class="col-xs-6">
                         <input type="text" id="name" name="name" required="true" value="{{{ Form::getValueAttribute('name', null) }}}" class="form-control" placeholder="Employee Name">
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
-                @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
                 <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Password</label>
+                    <label class="col-xs-5 control-label asterisk">Date of Birth</label>
                     <div class="col-xs-6">
-                        <input type="password" id="password" name="password" required="true" value="{{{ Form::getValueAttribute('password', null) }}}" class="form-control" placeholder="Password">
-                        <span id="errorPassword" class="field-validation-msg"></span>
+                        <input type="text" id="dob" name="dob" required="true" value="{{{ Form::getValueAttribute('dob', null) }}}" class="form-control" placeholder="Date of Birth">
+                        <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
+                @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
+                    <div class="form-group">
+                        <label class="col-xs-5 control-label asterisk">Password</label>
+                        <div class="col-xs-6">
+                            <input type="password" id="password" name="password" required="true" value="{{{ Form::getValueAttribute('password', null) }}}" class="form-control" placeholder="Password">
+                            <span id="errorPassword" class="field-validation-msg"></span>
+                        </div>
+                    </div>
 
-                <div class="form-group">
+                    <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Confirm Password</label>
                     <div class="col-xs-6">
                         <input type="password" id="confirm_password" name="confirm_password" required="true" value="{{{ Form::getValueAttribute('password', null) }}}" class="form-control" placeholder="Confirm Password">
@@ -119,30 +126,6 @@
                     <div class="col-xs-6">
                         <input type="text" id="cnic" name="cnic" required="true" value="{{{ Form::getValueAttribute('cnic', null) }}}" class="form-control" placeholder="cnic">
                         <span id="errorAddress" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Role</label>
-                    <div class="col-xs-6">
-                        {{role_drop_down()}}
-                        <span id="errorRole" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Branch Name</label>
-                    <div class="col-xs-6">
-                        {{branch_drop_down()}}
-                        <span id="errorBranch" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label">Status</label>
-                    <div class="col-xs-6">
-                        {{switch_btn_group(['fieldName'=>'status', 'onVal'=>'Active', 'offVal'=>'Inactive'])}}
                     </div>
                 </div>
 

@@ -4,7 +4,7 @@
                           TITLE
 =========================================================-->
 @section('title')
-Employee Registration
+    Employee Registration
 @stop
 
 @section('redBar')

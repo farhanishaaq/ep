@@ -9,7 +9,7 @@
 namespace App\Globals;
 
 
-class GobalsConst {
+class GlobalsConst {
     const STATUS_ON = "Active";
     const STATUS_OFF = "Inactive";
     const MALE = "Male";

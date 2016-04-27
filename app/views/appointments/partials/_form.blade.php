@@ -1,6 +1,6 @@
-        @if($formMode == App\Globals\GobalsConst::FORM_CREATE)
+        @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
             {{ Form::open(array('action' => 'AppointmentsController@store', 'class' => 'form-horizontal w100p', 'id' => 'regForm')) }}
-        @elseif($formMode == App\Globals\GobalsConst::FORM_EDIT)
+        @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
             {{ Form::model($appointment, ['route' => ['appointments.update', $appointment->id], 'method' => 'put' ,'class' => 'form-horizontal w100p ', 'id' => 'regForm'])}}
         @endif
         <h3 class="mT10 mB0 c3">Create Appointment Form</h3>
@@ -28,7 +28,7 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Select Doctor</label>
                         <div class="col-xs-6">
-                            {{ Form::select('employee_id', $doctors->lists('name', 'id'), null, ['required' => 'true', 'id' => 'employee_id'] ); }}
+                    {{ Form::select('employee_id', $doctors->lists('name', 'id'), null, ['required' => 'true', 'id' => 'employee_id'] ); }}
                             <span id="errorEmployeeId" class="field-validation-msg"></span>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                         <label class="col-xs-5 control-label asterisk">Status</label>
                         <div class="col-xs-6">
                             {{ Form::select('status', ['0' => 'Reserved', '1' => 'Waiting',
-                      '2' => 'Check-in', '3' => 'No Show', '4' => 'Cancelled', '5' => 'Closed'], null, ['required' => 'true', 'id' => 'patient_id'] ); }}
+                      '2' => 'Check-in', '3' => 'No Show', '4' => 'Cancelled', '5' => 'Closed'], null, ['required' => 'true', 'id' => 'status'] ); }}
                             <span id="errorStatus" class="field-validation-msg"></span>
                         </div>
                     </div>
