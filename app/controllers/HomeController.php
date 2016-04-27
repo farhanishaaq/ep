@@ -31,31 +31,31 @@ class HomeController extends BaseController {
 	public function showDoctor_home()
 	{
 		$appointments = Auth::user()->appointments()->where('date', date('Y-m-d'))->get();
-		return View::make('doctor.doctor_home', compact('appointments'));
+		return View::make('home.doctor_home', compact('appointments'));
 	}
 
 	public function showReceptionist_home()
 	{
-		return View::make('receptionist.receptionist_home');
+		return View::make('home.receptionist_home');
 	}
 
 	public function showLabmanager_home()
 	{
-		return View::make('lab.labmanager_home');
+		return View::make('home.labmanager_home');
 	}
 
 	public function showAccountant_home()
 	{
-		return View::make('accountant.accountant_home');
+		return View::make('home.accountant_home');
 	}
 
 	public function showAdmin_home()
 	{
-		return View::make('admin.admin_home');
+		return View::make('home.admin_home');
 	}
 
     public function showSuper_home(){
-        return View::make('super.super_home');
+        return View::make('home.super_home');
     }
 
 	public function showUserRegistrationForm(){

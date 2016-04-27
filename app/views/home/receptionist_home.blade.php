@@ -1,4 +1,4 @@
-@extends('receptionist.layouts.master')
+@extends('layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
@@ -9,22 +9,22 @@ Receptionist Home
 <!--========================================================
                           CURRENT MENU
 =========================================================-->
-@section("current_rec_home")
+@section("current_home")
 class="current"
 @stop
 
+@section('redBar')
+<div class = "user_logo">
+    <div class="header_1 wrap_3 color_3 login-bar">Welcome to Receptionist Home</div>
+</div>
+@stop
+
+@section('sliderContent')@stop
 <!--========================================================
                           CONTENT
 =========================================================-->
 @section('content')
     <section id="content">
-        
-		<div class = "user_logo">
-			<div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                        Receptionist Home
-            </div>
-		</div>
-		<br>
 			<div>
 				<div class="menu" style="margin-left: 10%; margin-right: 10%">
 					<a class="ferozi" href="appointments">Manage Appointments</a>
@@ -40,5 +40,5 @@ class="current"
 				</div>
 			</div>
 		
-       
+       </section>
 @stop
