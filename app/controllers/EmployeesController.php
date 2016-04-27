@@ -1,6 +1,6 @@
 <?php
 use App\Globals\Ep;
-use App\Globals\GobalsConst;
+use App\Globals\GlobalsConst;
 
 class EmployeesController extends \BaseController {
 
@@ -23,7 +23,7 @@ class EmployeesController extends \BaseController {
 	 */
 	public function create()
 	{
-        $formMode = GobalsConst::FORM_CREATE;
+        $formMode = GlobalsConst::FORM_CREATE;
 		return View::make('employees.create')->nest('_form','employees.partials._form',compact('formMode'));
 	}
 
@@ -35,7 +35,7 @@ class EmployeesController extends \BaseController {
 	public function store()
 	{
         $data = Input::all();
-        $data['status'] = Ep::getSwitchButtonVal(Input::get('status'),GobalsConst::STATUS_ON,GobalsConst::STATUS_OFF);
+        $data['status'] = Ep::getSwitchButtonVal(Input::get('status'),GlobalsConst::STATUS_ON,GlobalsConst::STATUS_OFF);
         $validator = Validator::make($data, array('password' => 'min:6','email' => 'unique:employees', 'status' => 'required', 'role' => 'required'));
 
         if ($validator->fails())
@@ -48,7 +48,7 @@ class EmployeesController extends \BaseController {
         $employee->clinic_id = Auth::user()->clinic_id;
         $employee->password = Hash::make(Input::get('password'));
         $employee->email = Input::get('email');
-//        $employee->gender = Ep::getSwitchButtonVal(Input::get('gender'),GobalsConst::MALE,GobalsConst::FEMALE);
+//        $employee->gender = Ep::getSwitchButtonVal(Input::get('gender'),GlobalsConst::MALE,GlobalsConst::FEMALE);
         $employee->gender = Input::get('gender');
         $employee->age = Input::get('age');
         $employee->city = Input::get('city');
@@ -79,7 +79,7 @@ class EmployeesController extends \BaseController {
             $employee->note = Input::get('note');
         }
 
-        $employee->status = Ep::getSwitchButtonVal(Input::get('status'),GobalsConst::STATUS_ON,GobalsConst::STATUS_OFF);
+        $employee->status = Ep::getSwitchButtonVal(Input::get('status'),GlobalsConst::STATUS_ON,GlobalsConst::STATUS_OFF);
         $employee->role = Input::get('role');
         $employee->save();
 
@@ -114,7 +114,7 @@ class EmployeesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-        $formMode = GobalsConst::FORM_EDIT;
+        $formMode = GlobalsConst::FORM_EDIT;
 		$employee = Employee::find($id);
 		return View::make('employees.edit')->nest('_form','employees.partials._form',compact('formMode','employee'));
 	}
@@ -147,8 +147,8 @@ class EmployeesController extends \BaseController {
         {
             return Redirect::back()->withErrors($validator)->withInput();
         }
-        $data['status'] = Ep::getSwitchButtonVal(Input::get('status'),GobalsConst::STATUS_ON,GobalsConst::STATUS_OFF);
-//        $data['gender'] = Ep::getSwitchButtonVal(Input::get('gender'),GobalsConst::MALE,GobalsConst::FEMALE);
+        $data['status'] = Ep::getSwitchButtonVal(Input::get('status'),GlobalsConst::STATUS_ON,GlobalsConst::STATUS_OFF);
+//        $data['gender'] = Ep::getSwitchButtonVal(Input::get('gender'),GlobalsConst::MALE,GlobalsConst::FEMALE);
 		$employee->update($data);
 
 		return Redirect::route('employees.index');
