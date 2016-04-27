@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
@@ -9,23 +9,21 @@ Administrator Home
 <!--========================================================
                           CURRENT MENU
 =========================================================-->
-@section("current_admin_home")
+@section("current_home")
 class="current"
 @stop
 
+@section('redBar')
+<div class = "user_logo">
+    <div class="header_1 wrap_3 color_3 login-bar">Welcome to Admin Home</div>
+</div>
+@stop
+
+@section('sliderContent')@stop
 <!--========================================================
                           CONTENT-1
 =========================================================-->
-@section('content1')
-	
-    <section id="content">
-        
-		<div class = "user_logo">
-			<div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                        Administrator Home
-            </div>
-		</div>
-@stop
+
 
 <!---------------- Breadcrumbs ------------------>
 {{--@section('breadcrumbs')--}}
@@ -41,26 +39,26 @@ class="current"
 <!---------------End of Breadcrumbs -------------->
 
 
-@section('content2')		
+@section('content')
 			<div>
 				<div class="menu" style="margin-left: 10%; margin-right: 10%">
 					<a class="ferozi" href="employees">Manage Employees</a>
 					<a class="blue" href="appointments">Manage Appointments</a>
 					<a class="purple" href="dutydays">Doctor Schedules </a>
 					<a class="orange" href="patients" >Manage Patients </a>
-					<a class="pink" href="search_pmr">Manage Medical Record</a>
+					<a class="pink" href="searchPmr">Manage Medical Record</a>
 					<a class="green" href="vitalSign">Add Vital Signs</a>
-					<a class="ferozi" href="app_prescription">Prepare Prescription</a>
+					<a class="ferozi" href="appPrescription">Prepare Prescription</a>
 					{{--<a class="green" href="app_proc"> Diagnostic Procedures	</a>--}}
 					<a class="blue" href="printPrescription" >Print Prescription </a>
-					<a class="purple" href="app_tests">Manage Test Reports</a>
-					<a class="orange" href="app_test_print">Print Test Report</a>
-  					<a class="pink" href="app_check_fee">Add Checkup Fee</a>
-					<a class="green" href="app_checkup_fee_print">Print Checkup Invoice</a>
+					<a class="purple" href="showTestReports">Manage Test Reports</a>
+					<a class="orange" href="printTestReports">Print Test Report</a>
+  					<a class="pink" href="addCheckUpFee">Add Checkup Fee</a>
+					<a class="green" href="checkupFeeInvoice">Print Checkup Invoice</a>
 					<a class="ferozi" href="addTestFee" >Add Lab Test Fee </a>
-					<a class="blue" href="app_test_fee_print">Print Test Invoice</a>
+					<a class="blue" href="testFeeInvoice">Print Test Invoice</a>
 					<a class="orange" href="medicines" >Manage Medicines </a>
-					<a class="orange" href="patients_reporting" >View Checked Patients</a>
+					<a class="orange" href="patientsReporting" >View Checked Patients</a>
 				</div>
 			</div>
 
