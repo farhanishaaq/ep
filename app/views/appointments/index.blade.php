@@ -67,6 +67,9 @@
                                 @endif
                             </td>
                             <td>
+
+{{--                                {{ link_to_route('prescriptions.create', 'Add Prescription', [$appointment->id], ['class' => 'btn_1', 'title'=> 'Add Prescription'])}}--}}
+                                <a href="{{route('prescriptions.create')}}?id={{$appointment->id}}">Add Prescription</a>
                                 {{ link_to_route('appointments.show', '', [$appointment->id], ['class' => 'btn-view-icon fL', 'title'=> 'View Record'])}}
                                 @if(Auth::user()->role != 'Doctor')
                                     @if($appointment->status == 0 || $appointment->status == 1 || $appointment->status == 2)
