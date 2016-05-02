@@ -139,7 +139,7 @@ class AppointmentsController extends \BaseController {
     public function addPrescriptions(){
         $appointments = Appointment::has('prescription', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
         $flag = "prescription";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
+        return View::make('appointments.index', compact('appointments', 'flag'));
     }
 
     public function showTestReports(){

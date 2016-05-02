@@ -41,6 +41,7 @@ class PrescriptionsController extends \BaseController {
 	 */
 	public function store()
 	{
+
 		$validator = Validator::make($data = Input::all(), Prescription::$rules);
 
 		if ($validator->fails())
@@ -130,7 +131,7 @@ class PrescriptionsController extends \BaseController {
 
 		Prescription::create($data);
 
-        return Redirect::to('/app_prescription');
+        return Redirect::route('appointments.index');
 	}
 
 	/**

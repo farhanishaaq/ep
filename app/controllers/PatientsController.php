@@ -23,7 +23,8 @@ class PatientsController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('patients.create');
+		$formMode = GlobalsConst::FORM_CREATE;
+		return View::make('patients.create')->nest('_form','patients.partials._form',compact('formMode','patient'));
 	}
 
 	/**
@@ -39,7 +40,6 @@ class PatientsController extends \BaseController {
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
-
         $patient = new Patient();
         $patient->name = Input::get('name');
         $patient->dob = Input::get('dob');
@@ -48,6 +48,7 @@ class PatientsController extends \BaseController {
         }else{
             $patient->email = 'N/A';
         }
+
         $patient->gender = Input::get('gender');
         $patient->age = Input::get('age');
         $patient->city = Input::get('city');

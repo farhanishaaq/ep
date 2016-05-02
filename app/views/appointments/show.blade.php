@@ -1,4 +1,4 @@
-@extends('appointments.layouts.master')
+@extends('layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
@@ -6,22 +6,12 @@
 Appointment Details
 @stop
 
-
+@section('sliderContent')
+@stop
 <!--========================================================
                           CONTENT
 =========================================================-->
-@section('content1')
-    <section id="content">
-
-		<div class = "user_logo">
-			<div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                        Appointment Details
-            </div>
-		</div>
-		<br><br><br>
-@stop
-
-@section('content2')
+@section('content')
 
 	   <center>
             <div id="regForm" style="border-radius: 10px; border: 4px solid #129894; width: 800px; height: 100%; background-color: #EBEBEB">
@@ -61,7 +51,10 @@ Appointment Details
 
                 </label></td>
                 </tr>
-
+                <tr>
+                    <td width="272" height="55"><label>Checkup Fee:</label></td>
+                    <td width="333"><label>{{ $appointment->fee }}</label></td>
+                </tr>
                 <tr>
                 <td width="272"><label>Checkup Reason:</label></td>
                 <td width="333"><label><div style="width: 333px; word-wrap: break-word">{{{ $appointment->checkup_reason }}}</div></label></td>
@@ -70,7 +63,7 @@ Appointment Details
             </table>
             <center>
                   <section style="margin-bottom: 10%">
-                     <input type="submit" onclick="back()" value="Back" class="submit" />
+                      {{ link_to_route('appointments.index', 'Back', '', ['class' => 'btn_3']) }}
                   </section>
              </center>
             </div>

@@ -20,7 +20,7 @@
         </ul>
         @endif
         {{-- End Errors Code Container Block --}}
- <section class="form-Section col-md-6 h400 fL">
+ <section class="form-Section col-md-6 h450 fL">
                 <div class="container w100p">
                     <h3 class="mT15 mB0 c3">Appointment Basic Info</h3>
                     <hr class="w95p fL mT0" />
@@ -63,11 +63,19 @@
                     </div>
                 </div>
             </section>
-            <section class="form-Section col-md-6 h400 fL">
+            <section class="form-Section col-md-6 h450 fL">
                 <div class="container w100p">
                     <h3 class="mT15 mB0 c3">&nbsp;</h3>
                     <hr class="w95p fL mT0" />
                     <hr class="w95p fL mT0" />
+
+                    <div class="form-group">
+                        <label class="col-xs-5 control-label asterisk">Checkup Fee</label>
+                        <div class="col-xs-6">
+                            <input type="number" id="fee" name="fee" required="true" value="{{{ Form::getValueAttribute('fee', null) }}}" class="form-control" placeholder="0">
+                            <span id="errorFee" class="field-validation-msg"></span>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Checkup Reason</label>
@@ -85,3 +93,13 @@
                 <input type="submit" id="cancel" value="Cancel" class="submit" />
             </div>
         {{ Form::close() }}
+        @section('scripts')
+            <script src="{{asset('js/view-pages/appointments/AppointmentForm.js')}}"></script>
+            <script>
+                $(document).ready(function(){
+                    var options = {};
+                    var appointmentForm = new AppointmentForm(window,document,options);
+                    appointmentForm.initializeAll();
+                });
+            </script>
+        @stop

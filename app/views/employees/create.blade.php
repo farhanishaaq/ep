@@ -30,7 +30,7 @@ Employee Registration
 @stop
 
 @section('scripts')
-    <script src="{{asset('AppointmentForm.js.js')}}"></script>
+    <script src="{{asset('js/view-pages/employees/EmployeeForm.js')}}"></script>
     <script>
         $(document).ready(function(){
             var options = {};
