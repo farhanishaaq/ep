@@ -39,6 +39,7 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Status</th>
+                        <th>Fee</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -66,6 +67,7 @@
                                     Closed
                                 @endif
                             </td>
+                            <td>{{ $appointment->fee }}</td>
                             <td>
 
                                 <a href="{{route('prescriptions.create')}}?id={{$appointment->id}}">Add Prescription</a>
