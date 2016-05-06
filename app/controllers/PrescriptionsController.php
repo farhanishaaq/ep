@@ -75,49 +75,11 @@ class PrescriptionsController extends \BaseController
      */
     public function show($id)
     {
-        $prescription = Prescription::where('appointment_id', $id)->get()->first();
+        $prescription = Prescription::with('medicines')->where('appointment_id', $id)->first();
         if (Input::get('flag') != null) {
             $flag = Input::get('flag');
         }
-
-        $medicines = [];
-
-
-        if ($prescription->medicine1_id) {
-            $name = $prescription->medicine1->name;
-            $qty = $prescription->med1_qty;
-            array_push($medicines, ['name' => $name, 'qty' => $qty]);
-        }
-
-        if ($prescription->medicine2_id) {
-            $name = $prescription->medicine2->name;
-            $qty = $prescription->med2_qty;
-            array_push($medicines, ['name' => $name, 'qty' => $qty]);
-        }
-
-        if ($prescription->medicine3_id) {
-            $name = $prescription->medicine3->name;
-            $qty = $prescription->med3_qty;
-            array_push($medicines, ['name' => $name, 'qty' => $qty]);
-        }
-
-        if ($prescription->medicine4_id) {
-            $name = $prescription->medicine4->name;
-            $qty = $prescription->med4_qty;
-            array_push($medicines, ['name' => $name, 'qty' => $qty]);
-        }
-
-        if ($prescription->medicine5_id) {
-            $name = $prescription->medicine5->name;
-            $qty = $prescription->med5_qty;
-            array_push($medicines, ['name' => $name, 'qty' => $qty]);
-        }
-
-        if ($prescription->medicine6_id) {
-            $name = $prescription->medicine6->name;
-            $qty = $prescription->med6_qty;
-            array_push($medicines, ['name' => $name, 'qty' => $qty]);
-        }
+        $medicines = $prescription->medicines()->get();
 
         return View::make('prescriptions.show', compact('prescription', 'flag', 'medicines'));
     }

@@ -70,7 +70,8 @@
                             <td>{{ $appointment->fee }}</td>
                             <td>
 
-                                <a href="{{route('prescriptions.create')}}?id={{$appointment->id}}">Add Prescription</a>
+                               | <a href="{{route('prescriptions.create')}}?id={{$appointment->id}}">Add Prescription</a> |
+                                <a href="{{route('prescriptions.index')}}?id={{$appointment->patient_id}}">Prescription History</a>
                                 {{ link_to_route('appointments.show', '', [$appointment->id], ['class' => 'btn-view-icon fL', 'title'=> 'View Record'])}}
                                 @if(Auth::user()->role != 'Doctor')
                                     @if($appointment->status == 0 || $appointment->status == 1 || $appointment->status == 2)
