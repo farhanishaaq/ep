@@ -51,7 +51,8 @@
                             <td>{{{ $appointment->patient->name }}}</td>
                             <td>{{{ $appointment->employee->name }}}</td>
                             <td>{{{ date('j F, Y', strtotime($appointment->date)) }}}</td>
-                            <td>{{{ $appointment->timeslot->slot }}}</td>
+                            {{--<td>{{{ $appointment->timeslot->slot }}}</td>--}}
+                            <td>{{{ '2:00:00 Pm' }}}</td>
                             <td>
                                 @if($appointment->status == 0)
                                     Reserved
