@@ -48,7 +48,7 @@
                             <td>
                             {{ link_to_route('prescriptions.show', 'View', [$appointment->id], ['class' => 'data_table_btn', 'style' => 'margin-bottom: 2px'])}}
                         @if(Auth::user()->role != 'Doctor') 
-                            {{ link_to_route('prescriptions.edit', 'Edit', [$appointment->id], ['class' => 'data_table_btn'])}}
+                            {{--{{ link_to_route('prescriptions.edit', 'Edit', [$appointment->id], ['class' => 'data_table_btn'])}}--}}
                         @endif
                             </td>
                         </tr>

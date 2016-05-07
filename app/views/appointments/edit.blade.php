@@ -29,13 +29,3 @@
     </div>
 @stop
 
-@section('scripts')
-    <script src="{{asset('js/view-pages/appointments/AppointmentForm.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            var options = {};
-            var appointmentForm = new AppointmentForm(window,document,options);
-            appointmentForm.initializeAll();
-        });
-    </script>
-@stop

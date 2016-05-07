@@ -59,7 +59,7 @@ var PatientsForm = function(win,doc, options){
 
         // ***For gender Radio Selection
         $('.btn.btn-primary-2.gender').click(function(){
-            // setRadioValInHidden('gender',$(this));
+            setRadioValInHidden('gender',$(this));
         });
 
         /**

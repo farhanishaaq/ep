@@ -67,7 +67,6 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label">Gender</label>
                     <div class="col-xs-6">
-
                         {{radio_btn_group(array( 'Male' => 'Male', 'None' => '' , 'Female' => 'Female' ),'gender')}}
                     </div>
                 </div>

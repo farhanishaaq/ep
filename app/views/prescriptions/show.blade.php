@@ -47,9 +47,9 @@ Prescription Details
                 <tr>
                 <td width="272"><label>Medicines:</label></td>
                 <td width="333"><label><div style="width: 333px; word-wrap: break-word">
-                    @foreach($medicines as $index => $medicine)
-                        {{ $index+1 .' - '.$medicine['name'] }}, Qty: {{ $medicine['qty'] }} <br/>
-                    @endforeach
+                            @foreach($medicines as $index => $medicine)
+                                {{ $index+1 .' - '.$medicine->name }}, Qty: {{ $medicine->pivot->quantity }} <br/>
+                            @endforeach
                     </div></label></td>
                 </tr>
 
