@@ -65,6 +65,14 @@ class GlobalsConst {
         'Friday'=>self::FRIDAY,
         'Saturday'=>self::SATURDAY];
 
+    public static $DP_DAYS = ['2013-03-24'=>self::SUNDAY,
+        '2013-03-25'=>self::MONDAY,
+        '2013-03-26'=>self::TUESDAY,
+        '2013-03-27'=>self::WEDNESDAY,
+        '2013-03-28'=>self::THURSDAY,
+        '2013-03-29'=>self::FRIDAY,
+        '2013-03-30'=>self::SATURDAY];
+
 
     //Countries
     public static $COUNTRIES = [

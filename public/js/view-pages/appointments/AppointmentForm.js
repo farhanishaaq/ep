@@ -56,6 +56,8 @@ var AppointmentForm = function(win,doc, options){
         //**** For Branch
         $("#status").select2();
 
+        //$('#date').clockpicker();
+
     }
 
     /**

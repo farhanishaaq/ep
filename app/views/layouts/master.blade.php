@@ -4,6 +4,10 @@
     <title>@yield('title')</title>
        <meta charset="utf-8">
        <meta name="format-detection" content="telephone=no"/>
+       <script>
+       window.YES = true;
+       window.NO = false;
+       </script>
        <link rel="icon" href="/images/icon.jpg" type="image/x-icon">
 
        {{--{{ HTML::style('/login_css/style.css') }}--}}
@@ -18,7 +22,7 @@
        {{ HTML::style('/css/camera.css') }}
        {{ HTML::style('/css/owl.carousel.css') }}
        {{ HTML::style('/css/select2.min.css') }}
-       {{ HTML::script('plugins/clock-picker/css/bootstrap-clockpicker.min.css') }}
+       {{ HTML::style('plugins/clock-picker/css/bootstrap-clockpicker.min.css') }}
        {{ HTML::style('/css/style.css') }}
 
 
@@ -34,7 +38,6 @@
        {{ HTML::script('js/jquery-migrate-1.2.1.js') }}
        {{ HTML::script('js/jquery.equalheights.js') }}
        {{ HTML::script('js/isotope.min.js') }}
-       {{ HTML::script('js/modal.js') }}
        {{ HTML::script('js/TMForm.js') }}
        {{ HTML::script('js/jquery.mobile.customized.min.js') }}
        {{ HTML::script('js/camera.js') }}
@@ -160,5 +163,6 @@
 
             @yield('scripts')
         </div>
+        <div class="userSuccMSG dN"></div>
     </body>
 </html>

@@ -3,8 +3,12 @@
 class Dutyday extends \Eloquent {
 
 	// Add your validation rules here
+
 	public static $rules = [
-		// 'title' => 'required'
+        'employee_id' => 'required',
+        'day' => 'required|unique:dutydays,day,NULL,id,employee_id,3',
+        'start' => 'required',
+        'end' => 'required',
 	];
 
 	// Don't forget to fill this array
