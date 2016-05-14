@@ -13,6 +13,7 @@ class EmployeesTableSeeder extends Seeder {
             'gender' => 'Male', 'age' => '23', 'city' => 'Lahore', 'country' => 'Pakistan', 'address' => '10 Down Street', 'phone' => '03344050495',
             'cnic' => '1234679', 'role' => 'Super User', 'status' => 'Active', 'branch' => 'DHA', 'note' => 'MBBS Qualified']);
 
+        /*
         DB::table('employees')->where('email', 'admin@gmail.com')->delete();
 	    Employee::create(['name' => 'Shah', 'password' => Hash::make('123456'), 'email' => 'admin@gmail.com',
         'gender' => 'Male', 'age' => '23', 'city' => 'Lahore', 'country' => 'Pakistan', 'address' => '10 Down Street', 'phone' => '03344050495',
@@ -37,7 +38,7 @@ class EmployeesTableSeeder extends Seeder {
 	    Employee::create(['name' => 'Aqeel', 'password' => Hash::make('123456'), 'email' => 'lab@gmail.com',
         'gender' => 'Male', 'age' => '23', 'city' => 'Lahore', 'country' => 'Pakistan', 'address' => '10 Down Street', 'phone' => '03344050495',
         'cnic' => '1234679', 'role' => 'Lab Manager', 'status' => 'Active', 'branch' => 'DHA', 'note' => 'MBBS Qualified', 'clinic_id'  => 1]);
-
+        */
     }
 
 }
