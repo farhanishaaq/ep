@@ -16,6 +16,7 @@ class GlobalsConst {
     const FEMALE = "Female";
     const FORM_CREATE = 1;
     const FORM_EDIT = 2;
+    const TIME_SLOT_INTERVAL = 20;
 
 
     //Roles
@@ -64,6 +65,16 @@ class GlobalsConst {
         'Thursday'=>self::THURSDAY,
         'Friday'=>self::FRIDAY,
         'Saturday'=>self::SATURDAY];
+
+    public static $DAYS_WITH_NUM_KEYS = [
+        '1'=>self::MONDAY,
+        '2'=>self::TUESDAY,
+        '3'=>self::WEDNESDAY,
+        '4'=>self::THURSDAY,
+        '5'=>self::FRIDAY,
+        '6'=>self::SATURDAY,
+        '7'=>self::SUNDAY,
+    ];
 
     public static $DP_DAYS = ['2013-03-24'=>self::SUNDAY,
         '2013-03-25'=>self::MONDAY,

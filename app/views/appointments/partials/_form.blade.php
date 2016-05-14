@@ -19,8 +19,8 @@
             </li>
         </ul>
         @endif
-        {{-- End Errors Code Container Block --}}
- <section class="form-Section col-md-6 h450 fL">
+            {{-- End Errors Code Container Block --}}
+            <section class="form-Section col-md-6 h695 fL">
                 <div class="container w100p">
                     <h3 class="mT15 mB0 c3">Appointment Basic Info</h3>
                     <hr class="w95p fL mT0" />
@@ -32,20 +32,7 @@
                             <span id="errorEmployeeId" class="field-validation-msg"></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-xs-5 control-label asterisk">Select Date</label>
-                        <div class="col-xs-6">
-                            <input type="date" id="date" name="date" required="true" value="{{{ Form::getValueAttribute('date', null) }}}" class="form-control" placeholder="mm/dd/yyyy">
-                            <span id="errorDate" class="field-validation-msg"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-5 control-label asterisk">Select Time Slot</label>
-                        <div class="col-xs-6">
-                            {{ Form::select('timeslot_id', [1=>'19:36:57'], null, ['required' => 'true', 'id' => 'time_slot_id'] ); }}
-                            <span id="errorTimeslotId" class="field-validation-msg"></span>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Select Patient</label>
                         <div class="col-xs-6">
@@ -61,13 +48,6 @@
                             <span id="errorStatus" class="field-validation-msg"></span>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section class="form-Section col-md-6 h450 fL">
-                <div class="container w100p">
-                    <h3 class="mT15 mB0 c3">&nbsp;</h3>
-                    <hr class="w95p fL mT0" />
-                    <hr class="w95p fL mT0" />
 
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Checkup Fee</label>
@@ -86,6 +66,42 @@
                     </div>
                 </div>
             </section>
+            <section class="form-Section col-md-6 h695 fL">
+                <div class="container w100p">
+                    <h3 class="mT15 mB0 c3">&nbsp;</h3>
+                    <hr class="w95p fL mT0" />
+                    <hr class="w95p fL mT0" />
+
+                    <div class="form-group">
+                        <label class="col-xs-5 control-label asterisk">Select Date</label>
+                        <div class="col-xs-6">
+                            {{--<input type="text" id="date" name="date" required="true" value="{{{ Form::getValueAttribute('date', null) }}}" class="form-control" placeholder="mm/dd/yyyy">--}}
+                             <div class="input-group date" data-provide="datepicker">
+                                <input type="text" class="form-control" id="date" name="date" required="true" value="{{{ Form::getValueAttribute('date', null) }}}" readonly >
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                            <span id="errorDate" class="field-validation-msg"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-5 control-label asterisk">Select Time Slot</label>
+                        <div class="col-xs-6">
+                            <select id="timeslot_id" name="timeslot_id" required="true">
+                                <option> Select Time slot </option>
+                            </select>
+                            <span id="errorTimeslotId" class="field-validation-msg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="mL25">Already Booked Slots</label>
+                        <div id="dutyDayCalendar" class="w90pi m0A"></div>
+                    </div>
+
+                </div>
+            </section>
             <div class="col-xs-12 taR pR0 mT20">
                 <input type="reset" id="reset" value="Reset" class="submit" />
                 <input type="submit" id="create" value="Save && Close" class="submit" />
@@ -94,12 +110,23 @@
             </div>
         {{ Form::close() }}
         @section('scripts')
+            <script src="{{asset('plugins/day-pilot-lite/js/daypilot-all.min.js')}}"></script>
             <script src="{{asset('js/view-pages/appointments/AppointmentForm.js')}}"></script>
             <script>
                 $(document).ready(function(){
-                    var options = {};
+                    var options = {urlToFetchTimeSlots : "{{route('fetchTimeSlotsAndBookedAppointments')}}"};
                     var appointmentForm = new AppointmentForm(window,document,options);
                     appointmentForm.initializeAll();
+
+
+
+
                 });
+
+
+                /*$('#date').change(function(){
+                    $(this).val();
+
+                });*/
             </script>
         @stop

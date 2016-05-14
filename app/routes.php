@@ -231,13 +231,31 @@ Route::group(array('before' => 'auth'), function(){
     Route::any('showViewPMR', ['as'=>'showViewPMR','uses'=>'HomeController@showViewPMR']);
     Route::resource('dutydays', 'DutydaysController');
     Route::resource('timeslots', 'TimeslotsController');
+
+
+
+    //***********************Start Appointments
+
     Route::resource('appointments', 'AppointmentsController');
     Route::get('vitalSign', array('before' => 'Doctor|Administrator', 'as'=>'vitalSign', 'uses' => 'AppointmentsController@fetchVitalSign'));
-
-
     Route::get('appPrescription',  array('as'=>'appPrescription', 'uses' => 'AppointmentsController@addPrescriptions'));
-
     Route::get('showTestReports', ['as'=>'showTestReports','uses'=>'AppointmentsController@showTestReports']);
+    Route::get('addCheckUpFee', ['as'=>'addCheckUpFee','uses'=>'AppointmentsController@addCheckUpFee']);
+    Route::get('addTestFee', ['as'=>'addTestFee','uses'=>'AppointmentsController@addTestFee']);
+    Route::get('printTestReports', ['as'=>'printTestReports','uses'=>'AppointmentsController@printTestReports']);
+    Route::get('checkupFeeInvoice', ['as'=>'checkupFeeInvoice','uses'=>'AppointmentsController@checkupFeeInvoice']);
+    Route::get('testFeeInvoice', ['as'=>'testFeeInvoice','uses'=>'AppointmentsController@testFeeInvoice']);
+    Route::get('fetchTimeSlotsAndBookedAppointments',['as'=>'fetchTimeSlotsAndBookedAppointments','uses' => 'AppointmentsController@fetchTimeSlotsAndBookedAppointments']);
+
+    //***********************End Appointments
+
+
+
+
+
+
+
+
 
     Route::get('app_proc', function(){
         $appointments = Appointment::has('diagonosticprocedure', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->get();
@@ -245,9 +263,7 @@ Route::group(array('before' => 'auth'), function(){
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
     });
 
-    Route::get('addCheckUpFee', ['as'=>'addCheckUpFee','uses'=>'AppointmentsController@addCheckUpFee']);
 
-    Route::get('addTestFee', ['as'=>'addTestFee','uses'=>'AppointmentsController@addTestFee']);
 
     Route::resource('checkupfees', 'CheckupfeesController');
 
@@ -315,7 +331,7 @@ Route::group(array('before' => 'auth'), function(){
             compact('prescription', 'date', 'time', 'doctor_name', 'patient', 'medicines'));
     });
 
-    Route::get('printTestReports', ['as'=>'printTestReports','uses'=>'AppointmentsController@printTestReports']);
+
 
     Route::get('test_print', function(){
         $id = Input::get('id');
@@ -329,7 +345,7 @@ Route::group(array('before' => 'auth'), function(){
             compact('test', 'date', 'time', 'doctor_name', 'patient'));
     });
 
-    Route::get('checkupFeeInvoice', ['as'=>'checkupFeeInvoice','uses'=>'AppointmentsController@checkupFeeInvoice']);
+
 
     Route::get('checkup_invoice_print', function(){
         $id = Input::get('id');
@@ -343,7 +359,7 @@ Route::group(array('before' => 'auth'), function(){
             compact('fee', 'date', 'time', 'doctor_name', 'patient'));
     });
 
-    Route::get('testFeeInvoice', ['as'=>'testFeeInvoice','uses'=>'AppointmentsController@testFeeInvoice']);
+
 
     Route::get('test_invoice_print', function(){
         $id = Input::get('id');

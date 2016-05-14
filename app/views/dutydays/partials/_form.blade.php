@@ -69,13 +69,6 @@
 </div>
 <script>
     //***Start Globals
-    window.DP_SUNDAY = "2013-03-24";
-    window.DP_MONDAY = "2013-03-25";
-    window.DP_TUESDAY = "2013-03-26";
-    window.DP_WEDNESDAY = "2013-03-27";
-    window.DP_THURSDAY = "2013-03-28";
-    window.DP_FRIDAY = "2013-03-29";
-    window.DP_SATURDAY = "2013-03-30";
     window.selectedTimeArgsObj;
     window.wanaSave = window.NO;
     //***End Globals
@@ -93,6 +86,7 @@
 
     //***Start DayPilot Calendar
     var dp = new DayPilot.Calendar("dutyDayCalendar");
+
     // view
     dp.startDate =  window.DP_MONDAY;  // or just dp.startDate = "2013-03-25";
     dp.viewType = "Week";

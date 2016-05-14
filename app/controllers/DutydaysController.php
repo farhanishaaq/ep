@@ -50,7 +50,8 @@ class DutydaysController extends \BaseController {
 		}elseif($dayFinal == null){
             $response = ['success'=>false,'error'=>true,'message' => 'Wrong Day provided!'];
         }else{
-            Dutyday::create($data);
+            $dutyDay = Dutyday::create($data);
+            Dutyday::makeSlots($data['start'], $data['end'], $dutyDay->id, $data['employee_id']);
             $response = ['success'=>true,'error'=>false,'message' => 'Day Time has been saved successfully'];
         }
 

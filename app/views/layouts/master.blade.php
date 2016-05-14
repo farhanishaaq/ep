@@ -7,6 +7,13 @@
        <script>
        window.YES = true;
        window.NO = false;
+       window.DP_SUNDAY = "2013-03-24";
+       window.DP_MONDAY = "2013-03-25";
+       window.DP_TUESDAY = "2013-03-26";
+       window.DP_WEDNESDAY = "2013-03-27";
+       window.DP_THURSDAY = "2013-03-28";
+       window.DP_FRIDAY = "2013-03-29";
+       window.DP_SATURDAY = "2013-03-30";
        </script>
        <link rel="icon" href="/images/icon.jpg" type="image/x-icon">
 
@@ -15,6 +22,8 @@
        {{--{{ HTML::style('/css/user_reg_form.css') }}--}}
        {{ HTML::style('/css/grid.css') }}
        {{ HTML::style('/css/bootstrap.min.css') }}
+       {{--{{ HTML::style('/css/bootstrap-datepicker3.standalone.min.css') }}--}}
+       {{ HTML::style('/css/bootstrap-datepicker.standalone.min.css') }}
        {{ HTML::style('css/breadcrumbs.css') }}
        {{ HTML::style('/css/isotope.css') }}
        {{ HTML::style('/css/contact-form.css') }}
@@ -34,6 +43,8 @@
        {{--{{ HTML::script('js/user_validation.js') }}--}}
        {{ HTML::script('js/jquery.min.js') }}
        {{ HTML::script('js/bootstrap.min.js') }}
+       {{ HTML::script('js/moment.js') }}
+       {{ HTML::script('js/bootstrap-datepicker.js') }}
 
        {{ HTML::script('js/jquery-migrate-1.2.1.js') }}
        {{ HTML::script('js/jquery.equalheights.js') }}
