@@ -18,7 +18,7 @@ class EmployeesTableSeeder extends Seeder {
 	    Employee::create(['name' => 'Shah', 'password' => Hash::make('123456'), 'email' => 'admin@gmail.com',
         'gender' => 'Male', 'age' => '23', 'city' => 'Lahore', 'country' => 'Pakistan', 'address' => '10 Down Street', 'phone' => '03344050495',
         'cnic' => '1234679', 'role' => 'Administrator', 'status' => 'Active', 'branch' => 'DHA', 'note' => 'MBBS Qualified', 'clinic_id'  => 1]);
-        
+
         /*
                 DB::table('employees')->where('email', 'doctor@gmail.com')->delete();
                 Employee::create(['name' => 'Ali', 'password' => Hash::make('123456'), 'email' => 'doctor@gmail.com',
