@@ -85,6 +85,14 @@ class GlobalsConst {
         '2013-03-30'=>self::SATURDAY];
 
 
+    public static $APPOINTMENT_STATUSES = [
+                                        1 => 'Advance Booking',
+                                        2 => 'Waiting',
+                                        3 => 'Walk In',
+                                        4 => 'Cancelled',
+                                        ];
+
+
     //Countries
     public static $COUNTRIES = [
         "Afghanistan" => "Afghanistan"

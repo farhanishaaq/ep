@@ -43,8 +43,10 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Status</label>
                         <div class="col-xs-6">
-                            {{ Form::select('status', ['0' => 'Reserved', '1' => 'Waiting',
+                            {{--{{ Form::select('status', ['0' => 'Reserved', '1' => 'Waiting',
                       '2' => 'Check-in', '3' => 'No Show', '4' => 'Cancelled', '5' => 'Closed'], null, ['required' => 'true', 'id' => 'status'] ); }}
+                      --}}
+                      {{ Form::select('status', GlobalsConst::$APPOINTMENT_STATUSES, null, ['required' => 'true', 'id' => 'status'] ); }}
                             <span id="errorStatus" class="field-validation-msg"></span>
                         </div>
                     </div>
@@ -52,7 +54,7 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Checkup Fee</label>
                         <div class="col-xs-6">
-                            <input type="number" id="fee" name="fee" required="true" value="{{{ Form::getValueAttribute('fee', null) }}}" class="form-control" placeholder="0">
+                            <input type="number" id="fee" name="fee" value="{{{ Form::getValueAttribute('fee', null) }}}" class="form-control" placeholder="0">
                             <span id="errorFee" class="field-validation-msg"></span>
                         </div>
                     </div>

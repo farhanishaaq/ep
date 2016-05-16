@@ -107,3 +107,12 @@ function days_drop_down()
 //    ksort($dataset);
     return Form::select('day',$dataset,Form::getValueAttribute('day', null),['id'=>"day",'required'=>'true']);
 }
+
+
+/**
+ * get_appointment_status_name | This function is used to get appointment status name by status id
+ * @return string
+ */
+function get_appointment_status_name($appointmentStatusId){
+    return isset(GlobalsConst::$APPOINTMENT_STATUSES[$appointmentStatusId]) ? GlobalsConst::$APPOINTMENT_STATUSES[$appointmentStatusId] : '';
+}

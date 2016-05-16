@@ -51,22 +51,9 @@
                             <td>{{{ $appointment->patient->name }}}</td>
                             <td>{{{ $appointment->employee->name }}}</td>
                             <td>{{{ date('j F, Y', strtotime($appointment->date)) }}}</td>
-                            {{--<td>{{{ $appointment->timeslot->slot }}}</td>--}}
-                            <td>{{{ '2:00:00 Pm' }}}</td>
+                            <td>{{{ $appointment->timeslot->slot }}}</td>
                             <td>
-                                @if($appointment->status == 0)
-                                    Reserved
-                                @elseif($appointment->status == 1)
-                                    Waiting
-                                @elseif($appointment->status == 2)
-                                    Check-in
-                                @elseif($appointment->status == 3)
-                                    No Show
-                                @elseif($appointment->status == 4)
-                                    Cancelled
-                                @elseif($appointment->status == 5)
-                                    Closed
-                                @endif
+                                {{{ get_appointment_status_name($appointment->status)}}}
                             </td>
                             <td>{{ $appointment->fee }}</td>
                             <td>

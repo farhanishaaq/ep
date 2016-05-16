@@ -13,7 +13,7 @@ class AppointmentsController extends \BaseController {
 	public function index()
 	{
 		if(Auth::user()->role == 'Doctor'){
-			$appointments = Auth::user()->appointments()->paginate(10);
+			$appointments = Auth::user()->appointments()->paginate(50);
 		}else{
 			$appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
 		}
@@ -44,18 +44,14 @@ class AppointmentsController extends \BaseController {
 	public function store()
 	{
 		$validator = Validator::make($data = Input::all(), Appointment::$rules);
-
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
-//		$data['time'] = Timeslot::findOrFail($data['timeslot_id'])->slot;
+        $data['date'] = date('Y-m-d', strtotime($data['date']));
+		$data['time'] = Timeslot::findOrFail($data['timeslot_id'])->slot;
         $data['clinic_id'] = Auth::user()->clinic_id;
-		$dd = Appointment::create($data)->id;
-        dd($dd);
-//        $dataForTimeSlot = ['slot'=>'']
-//        Timeslot::create()
-
+        $appointment = Appointment::create($data);
 		return Redirect::route('appointments.index');
 	}
 

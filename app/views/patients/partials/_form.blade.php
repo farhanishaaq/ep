@@ -35,7 +35,13 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Date of Birth</label>
                     <div class="col-xs-6">
-                        <input type="text" id="dob" name="dob" required="true" value="{{{ Form::getValueAttribute('dob', null) }}}" class="form-control" placeholder="Date of Birth">
+                        <div class="input-group date" data-provide="datepicker">
+                            <input type="text" class="form-control" id="dob" name="dob" required="true" value="{{{ Form::getValueAttribute('dob', null) }}}" readonly >
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
+
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
@@ -145,3 +151,16 @@
             <input type="submit" id="cancel" value="Cancel" class="submit" />
         </div>
         {{ Form::close() }}
+
+        @section('scripts')
+            <script>
+                $('#dob').datepicker();
+
+
+                //***** Rdo btn script
+                //***For gender Radio Selection
+                        $('.btn.btn-primary-2.gender').click(function(){
+                            setRadioValInHidden('gender',$(this));
+                        });
+            </script>
+        @stop
