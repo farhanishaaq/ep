@@ -51,7 +51,7 @@
                             <td>{{{ $appointment->patient->name }}}</td>
                             <td>{{{ $appointment->employee->name }}}</td>
                             <td>{{{ date('j F, Y', strtotime($appointment->date)) }}}</td>
-                            <td>{{{ $appointment->timeslot->slot }}}</td>
+                            <td>{{{ isset($appointment->timeslot) ? $appointment->timeslot->slot : ''}}}</td>
                             <td>
                                 {{{ get_appointment_status_name($appointment->status)}}}
                             </td>

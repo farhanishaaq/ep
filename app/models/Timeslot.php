@@ -1,5 +1,5 @@
 <?php
-use \DB;
+use \Illuminate\Support\Facades\DB;
 class Timeslot extends \Eloquent {
 
 	// Add your validation rules here
