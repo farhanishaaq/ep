@@ -24,14 +24,13 @@ class PrescriptionsController extends \BaseController
      */
     public function create()
     {
+        $formMode = GlobalsConst::FORM_CREATE;
         $appointment = Appointment::find(Input::get('id'));
         $patient_id = $appointment->patient_id;
-        $doctors = Employee::where('role', 'Doctor')->where('status', 'Active')
-            ->where('clinic_id', Auth::user()->clinic_id)->get();
-        $medicine = Medicine::where('clinic_id', Auth::user()->clinic_id)
-            ->get()->lists('name', 'id');
+        $doctors = Employee::where('role', 'Doctor')->where('status', 'Active')->where('clinic_id', Auth::user()->clinic_id)->get();
+        $medicines = Medicine::where('clinic_id', Auth::user()->clinic_id)->get()->lists('name', 'id');
 
-        return View::make('prescriptions.create', compact('medicine', 'appointment', 'patient_id', 'doctors'));
+        return View::make('prescriptions.create')->nest('_form','prescriptions.partials._form', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode'));
     }
 
     /**
@@ -94,11 +93,8 @@ class PrescriptionsController extends \BaseController
     {
         $prescription = Prescription::where('appointment_id', $id)->get()->first();
 
-        $medicine1 = $medicine2 = $medicine3 = $medicine4 = $medicine5 = $medicine6 = Medicine::where('clinic_id', Auth::user()->clinic_id)
-            ->get()->lists('name', 'id');
-
-        return View::make('prescriptions.edit', compact('medicine1', 'medicine2', 'medicine3', 'medicine4',
-            'medicine5', 'medicine6', 'prescription'));
+        $medicines = Medicine::where('clinic_id', Auth::user()->clinic_id)->get()->lists('name', 'id');
+        return View::make('prescriptions.edit', compact('medicines', 'prescription'))->nest('_form','prescriptions.partials._form', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode'));;
 
 
     }

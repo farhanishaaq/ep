@@ -1301,6 +1301,7 @@ box-sizing: border-box;
     /*margin: 50px;*/
     /*width: 90%;*/
     /*height: 92%;*/
+    overflow: auto;
     -webkit-overflow-scrolling: touch;
     background-color: #ffffff;
     box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
@@ -2111,9 +2112,9 @@ span.field-validation-msg {
 */
 
 /* Start: px Width */
-.w450 {
-    width: 450px;
-}
+.w50 {  width: 50px;  }
+.w70 {  width: 70px;  }
+.w450 {  width: 450px;  }
 
 .w500 {
     width: 500px;
@@ -2242,9 +2243,8 @@ span.field-validation-msg {
 
 
 /*Heights Important*/
-.h100i {
-    height: 100px !important;
-}
+.hAi {  height: auto !important;  }
+.h100i {  height: 100px !important;  }
 .h200i{height: 200px !important;}
 /*End Heights */
 /*Style with Important prop */

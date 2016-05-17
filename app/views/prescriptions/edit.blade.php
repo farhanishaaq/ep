@@ -33,7 +33,7 @@ Edit Prescriptions
             <div style="border: 4px solid #129894; width: 800px; border-radius: 10px; background-color: #EBEBEB">
 
             {{ Form::model($prescription, ['route' => ['prescriptions.update', $prescription->id], 'method' => 'put' ,'style' => 'padding: 40px', 'id' => 'regForm'])}}
-                @include('prescriptions._form')
+                @include('partials._form')
             {{ Form::close() }}
             </div>
         </center>

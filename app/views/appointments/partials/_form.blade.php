@@ -119,16 +119,6 @@
                     var options = {urlToFetchTimeSlots : "{{route('fetchTimeSlotsAndBookedAppointments')}}"};
                     var appointmentForm = new AppointmentForm(window,document,options);
                     appointmentForm.initializeAll();
-
-
-
-
                 });
-
-
-                /*$('#date').change(function(){
-                    $(this).val();
-
-                });*/
             </script>
         @stop
