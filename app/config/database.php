@@ -55,9 +55,11 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
+//			'database'  => 'easyphys_db_ep',
+//			'username'  => 'easyphys_user_ep',
 			'database'  => 'easyphys_db_ep',
-			'username'  => 'easyphys_user_ep',
-			'password'  => 'sRww@12345',
+			'username'  => 'root',
+			'password'  => 'srws@!',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
