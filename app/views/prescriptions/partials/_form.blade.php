@@ -31,8 +31,10 @@
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
 
-                <input name="patient_id" type="hidden" value="{{ $appointment->patient->id }}">
-                <input name="appointment_id" type="hidden" value="{{ $appointment->id }}">
+                <input id="patient_id" name="patient_id" type="hidden" value="{{ $appointment->patient->id }}">
+                <input id="appointment_id" name="appointment_id" type="hidden" value="{{ $appointment->id }}">
+                <input id="appointment_date" name="appointment_date" type="hidden" value="{{ date('Ymd', strtotime($appointment->date)) }}">
+                <input id="prescriptionNextCount" name="prescriptionNextCount" type="hidden" value="{{ $prescriptionNextCount }}">
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Current Visit Date*</label>
@@ -59,10 +61,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Inventory Medicines:</label>
+                    <label class="col-xs-5 control-label asterisk">Medicines:</label>
 
                     <div class="col-xs-6 hAi">
-                        {{ Form::select("medicineName[]", [null => 'Select first medicine']+$medicines, null, ['id' => 'medicineName', 'class'=> 'medicinesCss']) }}
+                        {{ Form::select("medicineName[0]", [null => 'Select first medicine']+$medicines, null, ['id' => 'medicineName', 'class'=> 'medicinesCss']) }}
                         <input type="text" class="form-control" name="med_qty[]" placeholder="quantity" />
                         <button class="btn btn-default addButton" type="button"><i class="fa fa-plus"></i></button>
                         <span id="errorName" class="field-validation-msg"></span>
@@ -70,9 +72,9 @@
                 </div>
 
                 <div id="moreMedicine" class="form-group hide actual">
-                    <label class="col-xs-5 control-label asterisk">Inventory Medicines:</label>
+                    <label class="col-xs-5 control-label asterisk">Medicines:</label>
                     <div class="col-xs-6 hAi">
-                        {{ Form::select("medicineName[]", [null => 'Select first medicine']+$medicines, null, ['id' => 'medicineName', 'class'=> 'medicinesCss']) }}
+                        {{ Form::select("medicineName[-1]", [null => 'Select first medicine']+$medicines, null, ['class'=> 'medicinesCss']) }}
                         <input type="text" class="form-control" name="med_qty[]" placeholder="quantity" />
                         <button class="btn btn-default removeButton" type="button"><i class="fa fa-minus"></i></button>
                         <span id="errorName" class="field-validation-msg"></span>
@@ -131,20 +133,22 @@
             bookIndex = 0;
             $('#regForm').on('click', '.addButton', function () {
                 bookIndex++;
-                var $template = $('#moreMedicine'),
-                        $clone = $template
+                var $template = $('#moreMedicine');
+                var $clone = $template
                                 .clone()
                                 .removeClass('hide')
                                 .removeAttr('id')
                                 .attr('data-book-index', bookIndex)
                                 .insertBefore($template);
 
+                console.log($clone);
                 // Update the name attributes
-                $clone.find('[name="medicine"]').attr('name', 'medicineName[' + bookIndex + ']').end().find('[name="med_qty"]').attr('name', 'quantity[' + bookIndex + ']').end();
-                /*$('.medicinesCss').select2({
+                $clone.find('[name="medicineName[-1]"]').attr('name', 'medicineName[' + bookIndex + ']').end().find('[name="med_qty"]').attr('name', 'quantity[' + bookIndex + ']').end();
+
+                $('[name="medicineName['+ bookIndex +']"]').select2({
                     tags: "true",
                     placeholder: "Select an option"
-                 });*/
+                 });
             })
             // Remove button click handler
             .on('click', '.removeButton', function () {
@@ -154,10 +158,17 @@
                 $row.remove();
             });
 
-            $('.medicinesCss').select2({
+            $('#medicineName').select2({
                 tags: "true",
                 placeholder: "Select an option"
              });
+
+            var patientId = $('#patient_id').val();
+            var appointmentId = $('#appointment_id').val();
+            var appointmentDate = $('#appointment_date').val();
+            var prescriptionNextCount = $('#prescriptionNextCount').val();
+            var PrescriptionCode = appointmentDate +'-'+ leftPad(patientId,"000") + leftPad(appointmentId,"000") + leftPad(prescriptionNextCount,"000");
+            $('#code').val(PrescriptionCode);
         });
     </script>
 

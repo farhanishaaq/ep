@@ -58,8 +58,8 @@
                             <td>{{ $appointment->fee }}</td>
                             <td>
 
-                               | <a href="{{route('prescriptions.create')}}?id={{$appointment->id}}">Add Prescription</a> |
-                                <a href="{{route('prescriptions.index')}}?id={{$appointment->patient_id}}">Prescription History</a>
+                               | <a href="{{route('prescriptions.create')}}?appointmentId={{$appointment->id}}">Add Prescription</a> |
+                                <a href="{{route('prescriptions.index')}}?id={{$appointment->patient_id}}">View Prescription</a>
                                 {{ link_to_route('appointments.show', '', [$appointment->id], ['class' => 'btn-view-icon fL', 'title'=> 'View Record'])}}
                                 @if(Auth::user()->role != 'Doctor')
                                     @if($appointment->status == 0 || $appointment->status == 1 || $appointment->status == 2)
@@ -92,6 +92,8 @@
 
 @section('scripts')
 <script type="text/javascript">
+
+
 $(document).ready(function() {
     if($('#tblRecordsList tr.row-data').length){
         $('#tblRecordsList').DataTable({
@@ -101,6 +103,12 @@ $(document).ready(function() {
             } ]
         });
     }
+
+
+    @if(Session::has('appointmentErrorMsg'))
+    showMsg("{{Session::get('appointmentErrorMsg')}}");
+
+    @endif
 });
 </script>
 @stop
