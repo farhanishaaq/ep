@@ -38,3 +38,9 @@ function hideExportMsg(){
 function goTo(url){
     window.location.href = url;
 }
+
+function leftPad(str,pad) {
+    var str = "" + str;
+    var ans = pad.substring(0, pad.length - str.length) + str;
+    return ans;
+}

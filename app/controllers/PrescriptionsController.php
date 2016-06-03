@@ -25,12 +25,17 @@ class PrescriptionsController extends \BaseController
     public function create()
     {
         $formMode = GlobalsConst::FORM_CREATE;
-        $appointment = Appointment::find(Input::get('id'));
+        $appointmentId = Input::get('appointmentId',null);
+        if($appointmentId == null){
+            return Redirect::route('appointments.index')->with('appointmentErrorMsg','Appointment does not exist');
+        }
+        $appointment = Appointment::find(Input::get('appointmentId'));
         $patient_id = $appointment->patient_id;
+        $prescriptionNextCount = (int)(Prescription::where('patient_id','=',$patient_id)->count()) + 1;
         $doctors = Employee::where('role', 'Doctor')->where('status', 'Active')->where('clinic_id', Auth::user()->clinic_id)->get();
         $medicines = Medicine::where('clinic_id', Auth::user()->clinic_id)->get()->lists('name', 'id');
 
-        return View::make('prescriptions.create')->nest('_form','prescriptions.partials._form', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode'));
+        return View::make('prescriptions.create')->nest('_form','prescriptions.partials._form', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount'));
     }
 
     /**
