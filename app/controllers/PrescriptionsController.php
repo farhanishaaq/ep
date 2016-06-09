@@ -79,13 +79,17 @@ class PrescriptionsController extends \BaseController
      */
     public function show($id)
     {
-        $prescription = Prescription::with('medicines')->where('appointment_id', $id)->first();
+//        $prescription = Prescription::with('medicines')->where('appointment_id', $id)->first();
+        $prescription = Prescription::find($id);
+//        die('LLLL');
         if (Input::get('flag') != null) {
             $flag = Input::get('flag');
         }
-        $medicines = $prescription->medicines()->get();
+//        $medicines = $prescription->medicines()->get();
+        $medicines = '';
 
-        return View::make('prescriptions.show', compact('prescription', 'flag', 'medicines'));
+        return View::make('prescriptions.show', compact('prescription', 'flag', 'medicines'))
+                            ->nest('_viewPrescription','prescriptions.partials._viewPrescription', compact('prescription','medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount','flag'));
     }
 
     /**
