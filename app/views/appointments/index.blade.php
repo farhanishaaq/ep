@@ -22,7 +22,7 @@
 =========================================================-->
 @section('content')
     <div class="container mT20">
-    <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'">Users List</h1>
+    <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'">Appointments List</h1>
     <hr class="w100p fL mT0" />
     <section id="form-Section">
             <!--========================================================
@@ -44,22 +44,31 @@
                     </tr>
                 </thead>
                 <tbody>
+
                 @if(($appointments) != null)
                     @if(($appointments->count()))
                     @foreach($appointments as $appointment)
+
                         <tr class="row-data">
                             <td>{{{ $appointment->patient->name }}}</td>
                             <td>{{{ $appointment->employee->name }}}</td>
                             <td>{{{ date('j F, Y', strtotime($appointment->date)) }}}</td>
-                            <td>{{{ isset($appointment->timeslot) ? $appointment->timeslot->slot : ''}}}</td>
+                            <td>{{{$appointment->timeslot->slot}}}</td>
                             <td>
                                 {{{ get_appointment_status_name($appointment->status)}}}
                             </td>
                             <td>{{ $appointment->fee }}</td>
                             <td>
-
-                               | <a href="{{route('prescriptions.create')}}?appointmentId={{$appointment->id}}">Add Prescription</a> |
-                                <a href="{{route('prescriptions.index')}}?id={{$appointment->patient_id}}">View Prescription</a>
+                                <?php
+                                    $prescriptionId = 0;
+                                    if($appointment->prescription)
+                                        $prescriptionId = $appointment->prescription->id;
+                                ?>
+                                @if($prescriptionId)
+                                    | <a href="{{route('prescriptions.show',[$appointment->prescription->id])}}">View Prescription</a>
+                                @else
+                                    | <a href="{{route('prescriptions.create')}}?appointmentId={{$appointment->id}}">Add Prescription</a>
+                                @endif
                                 {{ link_to_route('appointments.show', '', [$appointment->id], ['class' => 'btn-view-icon fL', 'title'=> 'View Record'])}}
                                 @if(Auth::user()->role != 'Doctor')
                                     @if($appointment->status == 0 || $appointment->status == 1 || $appointment->status == 2)
