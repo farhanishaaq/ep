@@ -11,12 +11,12 @@
                 <li><a href="{{route('appointments.index')}}">Appointments</a></li>
                 <li><a href="{{route('patients.index')}}">Patients</a></li>
                 <li><a href="{{route('searchPmr')}}">Medical Records</a></li>
-                <li><a href="{{route('vitalsigns.index')}}">Vital Signs</a></li>
-                <li><a href="{{URL::route('appPrescription')}}">Add Prescriptions</a></li>
-                <li><a href="/app_pres_print">Print Prescription</a></li>
+                {{--<li><a href="{{route('vitalsigns.index')}}">Vital Signs</a></li>--}}
+                {{--<li><a href="{{URL::route('appPrescription')}}">Add Prescriptions</a></li>--}}
+                {{--<li><a href="/app_pres_print">Print Prescription</a></li>--}}
                 {{--<li><a href="/app_proc">Add Procedures</a></li>--}}
-                <li><a href="/app_tests">Test Reports</a></li>
-                <li><a href="/app_test_print">Print Reports</a></li>
+                {{--<li><a href="/app_tests">Test Reports</a></li>--}}
+                {{--<li><a href="/app_test_print">Print Reports</a></li>--}}
             </ul>
         </li>
         <li><a href="{{route('logout')}}">Logout</a></li>
