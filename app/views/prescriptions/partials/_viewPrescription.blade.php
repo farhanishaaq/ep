@@ -87,4 +87,7 @@
         </div>
     </div>
 </section>
+<div class="col-xs-12 taR pR0 mT20">
+    <input type="button" id="cancel" value="Go Back" onclick="goTo('{{URL::previous()}}')" />
+</div>
 
