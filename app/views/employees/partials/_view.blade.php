@@ -1,7 +1,7 @@
         <h3 class="mT10 mB0 c3">Employee View</h3>
         <hr class="w95p fL mT0" />
         <p class="col-xs-12 fL taR"></p>
-        <section class="form-Section col-md-6 h695 fL">
+        <section class="form-Section col-md-6 h475 fL">
             <div class="container w100p">
                 <h3 class="mT15 mB0 c3">User Info</h3>
                 <hr class="w95p fL mT0" />
@@ -52,14 +52,6 @@
                         <span id="errorCity" class="field-validation-msg"></span>
                     </div>
                 </div>
-            </div>
-        </section>
-        <section class="form-Section col-md-6 h695 fL">
-            <div class="container w100p">
-                <h3 class="mT15 mB0 c3">&nbsp;</h3>
-                <hr class="w95p fL mT0" />
-                <hr class="w95p fL mT0" />
-
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Address</label>
@@ -68,6 +60,13 @@
                         <span id="errorAddress" class="field-validation-msg"></span>
                     </div>
                 </div>
+            </div>
+        </section>
+        <section class="form-Section col-md-6 h475 fL">
+            <div class="container w100p">
+                <h3 class="mT15 mB0 c3">&nbsp;</h3>
+                <hr class="w95p fL mT0" />
+                <hr class="w95p fL mT0" />
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Mobile</label>
