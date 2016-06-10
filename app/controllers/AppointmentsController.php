@@ -63,9 +63,13 @@ class AppointmentsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$appointment = Appointment::findOrFail($id);
+        $formMode = GlobalsConst::FORM_EDIT;
+        $doctors = Employee::where('role', 'Doctor')->where('status', 'active')->get();
+        $patients = Patient::where('clinic_id', Auth::user()->clinic_id)->get();
+        $appointment = Appointment::find($id);
+        $timeslot = $appointment->timeslot->first()->where('dutyday_id', $appointment->timeslot->dutyday_id)->lists('slot','id');
 
-		return View::make('appointments.show', compact('appointment'));
+        return View::make('appointments.show', compact('timeslot','appointment', 'doctors', 'patients'))->nest('_view','appointments.partials._view',compact('formMode','employee','appointment','doctors','patients'));
 	}
 
 	/**

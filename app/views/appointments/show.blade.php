@@ -1,9 +1,17 @@
+{{-- employees.layouts.master --}}
 @extends('layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
 @section('title')
-Appointment Details
+    Employee Registration
+@stop
+
+@section('redBar')
+    <div class = "user_logo">
+        <div class="header_1 wrap_3 color_3 login-bar">Easy Physician
+        </div>
+    </div>
 @stop
 
 @section('sliderContent')
@@ -11,65 +19,11 @@ Appointment Details
 <!--========================================================
                           CONTENT
 =========================================================-->
+
+
 @section('content')
 
-	   <center>
-            <div id="regForm" style="border-radius: 10px; border: 4px solid #129894; width: 800px; height: 100%; background-color: #EBEBEB">
-                <table class="row_border" style=" margin: 5%;" width="621" height="720">
-              <tr>
-                <td width="272" height="55"><label>Doctor Name:</label> </td>
-                <td width="333"><label>{{{ $appointment->employee->name }}}</label></td>
-                </tr>
-              <tr>
-                <td width="272" height="55"><label>     Appointment Date:</label></td>
-                <td width="333"><label>{{{ date('j F, Y', strtotime($appointment->date)) }}}</label></td>
-                </tr>
-              <tr>
-                <td width="272" height="55"><label>      Appointment Time:</label></td>
-                <td width="333"><label>{{{ $appointment->timeslot->slot }}}</label> </td>
-                </tr>
-                <tr>
-                <td width="272" height="55"><label>      Patient Name:</label></td>
-                <td width="333"><label>{{{ $appointment->patient->name }}}</label></td>
-                </tr>
-                <tr>
-                <td width="272" height="55"><label>      Status:</label></td>
-                <td width="333"><label>
-                @if($appointment->status == 0)
-                    Reserved
-                @elseif($appointment->status == 1)
-                    Waiting
-                @elseif($appointment->status == 2)
-                    Check-in
-                @elseif($appointment->status == 3)
-                    No Show
-                @elseif($appointment->status == 4)
-                    Cancelled
-                @elseif($appointment->status == 5)
-                    Closed
-                @endif
-
-                </label></td>
-                </tr>
-                <tr>
-                    <td width="272" height="55"><label>Checkup Fee:</label></td>
-                    <td width="333"><label>{{ $appointment->fee }}</label></td>
-                </tr>
-                <tr>
-                <td width="272"><label>Checkup Reason:</label></td>
-                <td width="333"><label><div style="width: 333px; word-wrap: break-word">{{{ $appointment->checkup_reason }}}</div></label></td>
-                </tr>
-
-            </table>
-            <center>
-                  <section style="margin-bottom: 10%">
-                      {{ link_to_route('appointments.index', 'Back', '', ['class' => 'btn_3']) }}
-                  </section>
-             </center>
-            </div>
-        </center>
-
-		<br><br>
-
-     
+    <div class="container">
+        {{$_view}}
+    </div>
 @stop
