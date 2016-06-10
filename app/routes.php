@@ -227,7 +227,7 @@ Route::group(array('before' => 'auth'), function(){
 
     // Medical Record Routes
     Route::get('search_pmr', array('before' => 'Doctor', 'as'=>'searchPmr', 'uses' => 'HomeController@showSearchPMR'));
-    
+
     Route::any('view_pmr', 'HomeController@showViewPMR');
 
     Route::resource('dutydays', 'DutydaysController');
