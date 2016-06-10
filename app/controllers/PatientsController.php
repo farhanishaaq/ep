@@ -97,8 +97,7 @@ class PatientsController extends \BaseController {
 	public function show($id)
 	{
 		$patient = Patient::findOrFail($id);
-
-		return View::make('patients.show', compact('patient'));
+		return View::make('patients.show')->nest('_view','patients.partials._view', compact('patient'));
 	}
 
 	/**

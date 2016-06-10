@@ -102,8 +102,7 @@ class EmployeesController extends \BaseController {
 	public function show($id)
 	{
 		$employee = Employee::findOrFail($id);
-
-		return View::make('employees.show', compact('employee'));
+        return View::make('employees.show')->nest('_view','employees.partials._view', compact('employee'));
 	}
 
 	/**

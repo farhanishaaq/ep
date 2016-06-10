@@ -54,8 +54,8 @@
                             <td>{{{ $patient->phone }}}</td>
                             <td>
                             {{ link_to_route('patients.show', '', [$patient->id], ['class' => 'btn-view-icon fL', 'style' => 'margin-bottom: 2px'])}}
-                        
-                            {{ link_to_route('patients.edit', '', [$patient->id], ['class' => 'btn-edit-icon fL'])}}
+
+                            <span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('patients.edit', '', [$patient->id], ['class' => 'btn-edit-icon fL'])}}
 
                             </td>
                         </tr>
@@ -69,4 +69,17 @@
 
     </div>
 @stop
-
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if($('#tblRecordsList tr.row-data').length){
+                $('#tblRecordsList').DataTable({
+                    "columnDefs": [ {
+                        "targets": 5,
+                        "orderable": false
+                    } ]
+                });
+            }
+        } );
+    </script>
+@stop
