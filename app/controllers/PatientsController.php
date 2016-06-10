@@ -1,4 +1,6 @@
 <?php
+use App\Globals\Ep;
+use App\Globals\GlobalsConst;
 
 class PatientsController extends \BaseController {
 
@@ -21,7 +23,8 @@ class PatientsController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('patients.create');
+		$formMode = GlobalsConst::FORM_CREATE;
+		return View::make('patients.create')->nest('_form','patients.partials._form',compact('formMode','patient'));
 	}
 
 	/**
@@ -37,7 +40,6 @@ class PatientsController extends \BaseController {
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
-
         $patient = new Patient();
         $patient->name = Input::get('name');
         $patient->dob = Input::get('dob');
@@ -46,6 +48,7 @@ class PatientsController extends \BaseController {
         }else{
             $patient->email = 'N/A';
         }
+
         $patient->gender = Input::get('gender');
         $patient->age = Input::get('age');
         $patient->city = Input::get('city');
@@ -106,9 +109,9 @@ class PatientsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+		$formMode = GlobalsConst::FORM_EDIT;
 		$patient = Patient::find($id);
-
-		return View::make('patients.edit', compact('patient'));
+		return View::make('patients.edit')->nest('_form','patients.partials._form',compact('formMode','patient'));
 	}
 
 	/**
@@ -146,7 +149,7 @@ class PatientsController extends \BaseController {
 		return Redirect::route('patients.index');
 	}
 
-    public function patients_reporting(){
+    public function patientsReporting(){
         $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->where('status', 5)->paginate(1);
         return View::make('patients.checked_patients', compact('appointments'));
     }

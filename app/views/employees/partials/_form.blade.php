@@ -1,6 +1,6 @@
-        @if($formMode == App\Globals\GobalsConst::FORM_CREATE)
+        @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
             {{ Form::open(array('action' => 'EmployeesController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm', 'onsubmit' => 'checkForm()')) }}
-        @elseif($formMode == App\Globals\GobalsConst::FORM_EDIT)
+        @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
             {{Form::model($employee, ['route' => ['employees.update', $employee->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
         @endif
         <h3 class="mT10 mB0 c3">Create Employee Form</h3>
@@ -32,7 +32,7 @@
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
-                @if($formMode == App\Globals\GobalsConst::FORM_CREATE)
+                @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Password</label>
                     <div class="col-xs-6">
@@ -109,7 +109,7 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Mobile</label>
                     <div class="col-xs-6">
-                        <input type="text" id="mobile" name="mobile" required="true" value="{{{ Form::getValueAttribute('mobile', null) }}}" class="form-control" placeholder="Mobile">
+                        <input type="text" id="phone" name="phone" value="{{{ Form::getValueAttribute('phone', null) }}}" class="form-control" placeholder="Mobile">
                         <span id="errorAddress" class="field-validation-msg"></span>
                     </div>
                 </div>

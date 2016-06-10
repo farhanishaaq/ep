@@ -23,7 +23,8 @@
 			"app/globals"
 		],
         "files": [
-            "app/helpers.php"
+            "app/helpers.php",
+            "app/validators.php"
         ]
 	},
 	"scripts": {

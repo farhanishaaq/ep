@@ -1,5 +1,5 @@
 <?php
-
+use \App\Globals\GlobalsConst;
 class Appointment extends \Eloquent {
 
 	// Add your validation rules here
@@ -15,7 +15,7 @@ class Appointment extends \Eloquent {
 
 	// Don't forget to fill this array
 	protected $fillable = ['checkup_reason', 'time', 'date', 'status', 'checkup_fee', 'fee_note',
-    'timeslot_id', 'patient_id', 'employee_id', 'clinic_id'];
+    'timeslot_id', 'patient_id', 'employee_id', 'clinic_id', 'fee'];
 
     // Relationships
     public function patient()
@@ -58,4 +58,21 @@ class Appointment extends \Eloquent {
         return $this->hasOne('CheckupFee');
     }
 
+    public static function fetchAppointmentsByDay($day){
+        $qry = DB::table('appointments')
+            ->select([
+                    'appointments.id',
+                    'patients.name',
+                    'appointments.date',
+                    'timeslots.slot AS start',
+                    DB::raw('ADDTIME(timeslots.slot,"00:'.GlobalsConst::TIME_SLOT_INTERVAL.':00") AS `end`'),
+                    'dutydays.day',
+                ]
+            )
+            ->join('patients', 'patients.id', '=', 'appointments.patient_id','inner')
+            ->join('timeslots', 'timeslots.id', '=', 'appointments.timeslot_id','inner')
+            ->join('dutydays', 'dutydays.id', '=', 'timeslots.dutyday_id','inner')
+            ->where('dutydays.day', '=', $day);
+        return $qry->get();
+    }
 }

@@ -12,3 +12,35 @@ function setRadioValInHidden(hiddenFieldId,clickedElement){
     var selectedRadioVal = selectedRadio.val();
     $('#'+hiddenFieldId).val(selectedRadioVal);
 }
+
+function showMsg(msg, fadeoutTime ){
+
+    if ( typeof fadeoutTime == 'undefined' ) {
+        fadeoutTime = 10000;
+    }
+    $('.userSuccMSG').html(msg);
+    $('.userSuccMSG').css('display','block');
+    $('.userSuccMSG').css("top", 320 + "px");
+    $('.userSuccMSG').css("left", (($(window).width()/2-$('.userSuccMSG').width()/2)-38) + "px");
+    $('.userSuccMSG').fadeOut( fadeoutTime );
+}
+
+function exportMsg(msg){
+    $('.userSuccMSG').html(msg);
+    $('.userSuccMSG').css('display','block');
+    $('.userSuccMSG').css("top", 320 + "px");
+    $('.userSuccMSG').css("left", (($(window).width()/2-$('.userSuccMSG').width()/2)-38) + "px");
+}
+function hideExportMsg(){
+    $('.userSuccMSG').delay(500).fadeOut("slow");
+}
+
+function goTo(url){
+    window.location.href = url;
+}
+
+function leftPad(str,pad) {
+    var str = "" + str;
+    var ans = pad.substring(0, pad.length - str.length) + str;
+    return ans;
+}

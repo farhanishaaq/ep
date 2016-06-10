@@ -4,6 +4,17 @@
     <title>@yield('title')</title>
        <meta charset="utf-8">
        <meta name="format-detection" content="telephone=no"/>
+       <script>
+       window.YES = true;
+       window.NO = false;
+       window.DP_SUNDAY = "2013-03-24";
+       window.DP_MONDAY = "2013-03-25";
+       window.DP_TUESDAY = "2013-03-26";
+       window.DP_WEDNESDAY = "2013-03-27";
+       window.DP_THURSDAY = "2013-03-28";
+       window.DP_FRIDAY = "2013-03-29";
+       window.DP_SATURDAY = "2013-03-30";
+       </script>
        <link rel="icon" href="/images/icon.jpg" type="image/x-icon">
 
        {{--{{ HTML::style('/login_css/style.css') }}--}}
@@ -11,6 +22,8 @@
        {{--{{ HTML::style('/css/user_reg_form.css') }}--}}
        {{ HTML::style('/css/grid.css') }}
        {{ HTML::style('/css/bootstrap.min.css') }}
+       {{--{{ HTML::style('/css/bootstrap-datepicker3.standalone.min.css') }}--}}
+       {{ HTML::style('/css/bootstrap-datepicker.standalone.min.css') }}
        {{ HTML::style('css/breadcrumbs.css') }}
        {{ HTML::style('/css/isotope.css') }}
        {{ HTML::style('/css/contact-form.css') }}
@@ -18,6 +31,7 @@
        {{ HTML::style('/css/camera.css') }}
        {{ HTML::style('/css/owl.carousel.css') }}
        {{ HTML::style('/css/select2.min.css') }}
+       {{ HTML::style('plugins/clock-picker/css/bootstrap-clockpicker.min.css') }}
        {{ HTML::style('/css/style.css') }}
 
 
@@ -29,11 +43,12 @@
        {{--{{ HTML::script('js/user_validation.js') }}--}}
        {{ HTML::script('js/jquery.min.js') }}
        {{ HTML::script('js/bootstrap.min.js') }}
+       {{ HTML::script('js/moment.js') }}
+       {{ HTML::script('js/bootstrap-datepicker.js') }}
 
        {{ HTML::script('js/jquery-migrate-1.2.1.js') }}
        {{ HTML::script('js/jquery.equalheights.js') }}
        {{ HTML::script('js/isotope.min.js') }}
-       {{ HTML::script('js/modal.js') }}
        {{ HTML::script('js/TMForm.js') }}
        {{ HTML::script('js/jquery.mobile.customized.min.js') }}
        {{ HTML::script('js/camera.js') }}
@@ -54,6 +69,7 @@
        {{ HTML::script('js/jquery-plugins/jquery.dataTables.min.js') }}
        {{ HTML::script('js/jquery-plugins/jquery.validate.js') }}
        {{ HTML::script('js/jquery-plugins/jquery.validate.extension.js') }}
+       {{ HTML::script('plugins/clock-picker/js/bootstrap-clockpicker.min.js') }}
        {{ HTML::script('js/all.js') }}
 
 
@@ -158,5 +174,6 @@
 
             @yield('scripts')
         </div>
+        <div class="userSuccMSG dN"></div>
     </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
-
+use App\Globals\GlobalsConst;
+use \Illuminate\Support\Facades\Response;
 class DutydaysController extends \BaseController {
 
 	/**
@@ -21,9 +22,10 @@ class DutydaysController extends \BaseController {
 	 */
 	public function create()
 	{
-		$doctors = Employee::has('dutydays', '=', 0)->where('role', 'Doctor')
+        $formMode = GlobalsConst::FORM_CREATE;
+		$doctors = Employee::has('dutydays', '=', 0)->where('role', GlobalsConst::DOCTOR)
                 ->where('status', 'Active')->where('clinic_id', Auth::user()->clinic_id)->get();
-        return View::make('dutydays.create', compact('doctors'));
+        return View::make('dutydays.create')->nest('_form','dutydays.partials._form', compact('doctors','formMode'));
 	}
 
 	/**
@@ -33,14 +35,28 @@ class DutydaysController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Dutyday::$rules);
-
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
+        $response=null;
+        $data = Input::all();
         $data['clinic_id'] = Auth::user()->clinic_id;
+        $day = $data['day'];
+        $dayFinal = isset(GlobalsConst::$DP_DAYS[$day]) ? GlobalsConst::$DP_DAYS[$day] : null;
+        $data['day'] =  $dayFinal;
+
+        Dutyday::$rules['day'] = 'required|unique:dutydays,day,NULL,id,employee_id,'.$data['employee_id'];
+		$validator = Validator::make($data, Dutyday::$rules);
+
+		if($validator->fails()) {
+            $response = ['success'=>false,'error'=>true,'message' => $validator->errors()];
+		}elseif($dayFinal == null){
+            $response = ['success'=>false,'error'=>true,'message' => 'Wrong Day provided!'];
+        }else{
+            $dutyDay = Dutyday::create($data);
+            Dutyday::makeSlots($data['start'], $data['end'], $dutyDay->id, $data['employee_id']);
+            $response = ['success'=>true,'error'=>false,'message' => 'Day Time has been saved successfully'];
+        }
+
+        return Response::json($response);
+        /*$data['clinic_id'] = Auth::user()->clinic_id;
 		if(Input::get('Sunday') != null){
             $data['day'] = (Input::get('Sunday'));
             $data['start'] = str_replace(' ', '', (Input::get('sun_start_time')));
@@ -130,7 +146,7 @@ class DutydaysController extends \BaseController {
             $data['start'] = null;
             $data['end'] = null;
             Dutyday::create($data);
-        }
+        }*/
 
 		return Redirect::route('dutydays.index');
 	}
@@ -158,11 +174,27 @@ class DutydaysController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-        $dutydays = Dutyday::where('employee_id', '=', $id)->get();
+        $formMode = GlobalsConst::FORM_EDIT;
+        $dutyDays = Dutyday::where('employee_id', '=', $id)->get();
+        $makeDayPilotArr = [];
+//        $doctors = Employee::findOrFail($id)->where('role', GlobalsConst::DOCTOR);
+        $doctors = Employee::findOrFail($id);
+        if($dutyDays !== null){
+            if(count($dutyDays)){
+                foreach($dutyDays as $k=>$dd){
+//                    $doctors = $dd->employee;
+                    $dpDay = array_search($dd->day, GlobalsConst::$DP_DAYS);
+                    $makeDayPilotArr[$k]['start'] =  $dpDay.'T'. $dd->start;
+                    $makeDayPilotArr[$k]['end'] =  $dpDay.'T'. $dd->end;
+                    $makeDayPilotArr[$k]['id'] =  $dpDay.'T'. $dd->id;
+                    $makeDayPilotArr[$k]['text'] =  $dd->start .' To '. $dd->end;
+                }
 
-        $doctor = Employee::findOrFail($id);
-
-        return View::make('dutydays.edit', compact('dutydays', 'doctor'));
+            }
+        }
+        $makeDayPilotJson = json_encode($makeDayPilotArr);
+//        dd($makeDayPilotJson);
+        return View::make('dutydays.edit')->nest('_form','dutydays.partials._form', compact('dutyDays', 'doctors', 'makeDayPilotJson', 'formMode'));
 	}
 
 	/**

@@ -1,4 +1,4 @@
-@extends('patients.layouts.master')
+@extends('layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
@@ -6,22 +6,12 @@
 Patient Details
 @stop
 
-
+@section('sliderContent')
+@stop
 <!--========================================================
                           CONTENT
 =========================================================-->
-@section('content1')
-    <section id="content">
-
-		<div class = "user_logo">
-			<div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                        Patient Details
-            </div>
-		</div>
-		<br><br><br>
-@stop
-
-@section('content2')
+@section('content')
 
 	   <center>
             <div id="regForm" style="border: 4px solid #129894; width: 800px; height: 100%; background-color: #EBEBEB">
@@ -78,7 +68,7 @@ Patient Details
             </table>
             <center>
                   <section style="margin-bottom: 10%">
-                     <input type="submit" onclick="back()" value="Back" class="submit" />
+                      {{ link_to_route('patients.index', 'Back', '', ['class' => 'btn_3']) }}
                   </section>
              </center>
             </div>

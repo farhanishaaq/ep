@@ -1,17 +1,22 @@
 <?php
-
+use \App\Globals\GlobalsConst;
 class Dutyday extends \Eloquent {
 
 	// Add your validation rules here
+
 	public static $rules = [
-		// 'title' => 'required'
+        'employee_id' => 'required',
+        'day' => 'required|unique:dutydays,day,NULL,id,employee_id,3',
+        'start' => 'required',
+        'end' => 'required',
 	];
 
 	// Don't forget to fill this array
 	protected $fillable = ['day', 'start', 'end', 'employee_id', 'clinic_id'];
 
     public static function makeSlots($start_time, $end_time, $day_id, $emp_id){
-        $fifteen_mins  = 15 * 60;
+        $timeSlot  = GlobalsConst::TIME_SLOT_INTERVAL * 60;
+
         $start = strtotime($start_time);
         $end = strtotime($end_time);
 
@@ -23,7 +28,7 @@ class Dutyday extends \Eloquent {
             $timeslot->save();
             $timeslot->employee_id = $emp_id;
             $timeslot->save();
-            $start += $fifteen_mins;
+            $start += $timeSlot;
         }
     }
 

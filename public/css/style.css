@@ -619,6 +619,15 @@ img {
 .btn-edit-icon:hover{
     background: url("../images/edit-hover.png") no-repeat center center;
 }
+.btn-add_vsign-icon{
+    display: block;
+    background: url("../images/add_vsign.png") no-repeat center center;
+    width: 32px;
+    height: 32px;
+}
+.btn-add_vsign-icon:hover{
+    background: url("../images/add_vsign_hover.png") no-repeat center center;
+}
 .data_table_submit_btn {
     display: inline-block;
     padding: 2px 20px 2px;
@@ -1292,6 +1301,7 @@ box-sizing: border-box;
     /*margin: 50px;*/
     /*width: 90%;*/
     /*height: 92%;*/
+    overflow: auto;
     -webkit-overflow-scrolling: touch;
     background-color: #ffffff;
     box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
@@ -1717,7 +1727,9 @@ span.field-validation-msg {
 }
 
 
-
+.m0A{
+    margin: 0 auto;
+}
 
 
 .mR1 {
@@ -2100,9 +2112,9 @@ span.field-validation-msg {
 */
 
 /* Start: px Width */
-.w450 {
-    width: 450px;
-}
+.w50 {  width: 50px;  }
+.w70 {  width: 70px;  }
+.w450 {  width: 450px;  }
 
 .w500 {
     width: 500px;
@@ -2158,9 +2170,10 @@ span.field-validation-msg {
 /* Start: px Width */
 
 /* Start: % Width */
-.w100pi {
-    width: 100% !important;
-}
+.w80pi {  width: 80% !important;  }
+.w90pi {  width: 90% !important;  }
+.w100pi {  width: 100% !important;  }
+
 /*
 ****************************************************************************************************
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< END WIDTH Styles >>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -2219,16 +2232,19 @@ span.field-validation-msg {
 }
 
 .h400 {height: 400px;}
+.h450 {height: 450px;}
+.h600 {height: 600px;}
+.h650 {height: 650px;}
 .h695 {height: 695px;}
 .h700 {height: 700px;}
+.h750 {height: 750px;}
 .h800 {height: 800px;}
 
 
 
 /*Heights Important*/
-.h100i {
-    height: 100px !important;
-}
+.hAi {  height: auto !important;  }
+.h100i {  height: 100px !important;  }
 .h200i{height: 200px !important;}
 /*End Heights */
 /*Style with Important prop */
@@ -2718,4 +2734,40 @@ table.dataTable thead .sorting_desc {
 */
 .clrB{
     clear: both;
+}
+.userSuccMSG {
+    background: url(../images/userSuccMSGOverbg.png) repeat;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    position: fixed;
+    left: 40%;
+    top: 45%;
+    width: auto;
+    min-width: 418px;
+    /*min-height: 84px;*/
+    line-height: 38px;
+    color: #FFF;
+    text-align: center;
+    font-size: 22px;
+    font-family: 'open_sanssemibold';
+    z-index: 1000;
+    display: none;
+    padding: 20px 40px;
+}
+
+
+/*
+****************************************************************************************************
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< End DataTable Style >>>>>>>>>>>>>>>>>>>>>>>>>>>
+****************************************************************************************************
+*/
+#dutyDayCalendar div:first-child{
+    /*background: darkcyan;*/
+}
+
+#dutyDayCalendar div:first-child table tr td div.calendar_default_corner,
+#dutyDayCalendar div:first-child table tr td div.calendar_default_cornerright,
+#dutyDayCalendar div:first-child table tr td table tr td div.calendar_default_colheader{
+    height: 38px !important;
 }

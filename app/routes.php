@@ -132,7 +132,7 @@ Route::group(array('before' => 'auth'), function(){
             }
         });
 
-        Route::get('patients_reporting', 'PatientsController@patients_reporting');
+        Route::get('patientsReporting', ['as'=>'patientsReporting', 'uses'=>'PatientsController@patientsReporting']);
 
     });
     ////////////////////// Admin Routes END ///////////////////////
@@ -226,39 +226,36 @@ Route::group(array('before' => 'auth'), function(){
     Route::resource('medicines', 'MedicinesController');
 
     // Medical Record Routes
-    Route::get('search_pmr', array('before' => 'Doctor', 'as'=>'searchPmr', 'uses' => 'HomeController@showSearchPMR'));
-
-    Route::any('view_pmr', 'HomeController@showViewPMR');
-
+    Route::get('searchPmr', array('before' => 'Doctor', 'as'=>'searchPmr', 'uses' => 'HomeController@showSearchPMR'));
+//    Route::any('view_pmr', ['as'=>'showViewPMR','uses'=>'HomeController@showViewPMR']);
+    Route::any('showViewPMR', ['as'=>'showViewPMR','uses'=>'HomeController@showViewPMR']);
     Route::resource('dutydays', 'DutydaysController');
-
     Route::resource('timeslots', 'TimeslotsController');
 
+
+
+    //***********************Start Appointments
+
     Route::resource('appointments', 'AppointmentsController');
+    Route::get('vitalSign', array('before' => 'Doctor|Administrator', 'as'=>'vitalSign', 'uses' => 'AppointmentsController@fetchVitalSign'));
+    Route::get('appPrescription',  array('as'=>'appPrescription', 'uses' => 'AppointmentsController@addPrescriptions'));
+    Route::get('showTestReports', ['as'=>'showTestReports','uses'=>'AppointmentsController@showTestReports']);
+    Route::get('addCheckUpFee', ['as'=>'addCheckUpFee','uses'=>'AppointmentsController@addCheckUpFee']);
+    Route::get('addTestFee', ['as'=>'addTestFee','uses'=>'AppointmentsController@addTestFee']);
+    Route::get('printTestReports', ['as'=>'printTestReports','uses'=>'AppointmentsController@printTestReports']);
+    Route::get('checkupFeeInvoice', ['as'=>'checkupFeeInvoice','uses'=>'AppointmentsController@checkupFeeInvoice']);
+    Route::get('testFeeInvoice', ['as'=>'testFeeInvoice','uses'=>'AppointmentsController@testFeeInvoice']);
+    Route::get('fetchTimeSlotsAndBookedAppointments',['as'=>'fetchTimeSlotsAndBookedAppointments','uses' => 'AppointmentsController@fetchTimeSlotsAndBookedAppointments']);
 
-    Route::get('vitalSign', array('before' => 'Doctor', 'as'=>'vitalSign', 'uses' => 'AppointmentsController@fetchVitalSign'));
-    Route::get('addVitalSign', 'VitalsignsController@create');
-    Route::get('showVitalSign', 'VitalsignsController@index');
-//    Route::get('vitalSign', function(){
-//        
-//        echo "i m ahsas";exit;
-//    });
+    //***********************End Appointments
 
-    Route::get('app_prescription', function(){
-        $appointments = Appointment::has('prescription', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        $flag = "prescription";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    });
 
-    Route::get('app_tests', function(){
-        if(Input::get('id') !== null){
-            $appointments = Appointment::where('patient_id', Input::get('id'))->paginate(10);
-        }else{
-            $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        }
-        $flag = "test";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    });
+
+
+
+
+
+
 
     Route::get('app_proc', function(){
         $appointments = Appointment::has('diagonosticprocedure', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->get();
@@ -266,25 +263,7 @@ Route::group(array('before' => 'auth'), function(){
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
     });
 
-    Route::get('app_check_fee', function(){
-        if(Auth::user()->role == "Accountant"){
-            $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        }else{
-            $appointments = Appointment::has('checkupfee', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        }
-        $flag = "check_fee";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    });
 
-    Route::get('app_test_fee', function(){
-       if(Input::get('id') !== null){
-            $appointments = Appointment::where('patient_id', Input::get('id'))->paginate(10);
-        }else{
-            $appointments = Appointment::has('labtests')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        }
-        $flag = "test_fee";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    });
 
     Route::resource('checkupfees', 'CheckupfeesController');
 
@@ -295,11 +274,12 @@ Route::group(array('before' => 'auth'), function(){
     Route::any('print_test', ['uses' => 'HomeController@print_test']);  // Test Report PDF
 
     // Prints
-    Route::get('app_pres_print', function(){
+    /*Route::get('app_pres_print', function(){
         $appointments = Appointment::has('prescription')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
         $flag = "pres_print";
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    });
+    });*/
+    Route::get('printPrescription', ['as'=>'printPrescription', 'uses'=>'PrescriptionsController@printPrescription']);
 
     Route::get('pres_print', function(){
         $id = Input::get('id');
@@ -351,11 +331,7 @@ Route::group(array('before' => 'auth'), function(){
             compact('prescription', 'date', 'time', 'doctor_name', 'patient', 'medicines'));
     });
 
-    Route::get('app_test_print', function(){
-        $appointments = Appointment::has('labtests')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        $flag = "test_print";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    });
+
 
     Route::get('test_print', function(){
         $id = Input::get('id');
@@ -369,11 +345,7 @@ Route::group(array('before' => 'auth'), function(){
             compact('test', 'date', 'time', 'doctor_name', 'patient'));
     });
 
-    Route::get('app_checkup_fee_print', function(){
-        $appointments = Appointment::has('checkupfee')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        $flag = "checkup_invoice";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    });
+
 
     Route::get('checkup_invoice_print', function(){
         $id = Input::get('id');
@@ -387,11 +359,7 @@ Route::group(array('before' => 'auth'), function(){
             compact('fee', 'date', 'time', 'doctor_name', 'patient'));
     });
 
-    Route::get('app_test_fee_print', function(){
-        $appointments = Appointment::has('labtests')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        $flag = "test_invoice";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    });
+
 
     Route::get('test_invoice_print', function(){
         $id = Input::get('id');

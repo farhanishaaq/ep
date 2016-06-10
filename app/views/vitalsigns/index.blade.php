@@ -50,11 +50,12 @@ Manage Vital Signs
                     <td>{{{ $appointment->date }}}</td>
                     <td>{{{ $appointment->timeslot->slot }}}</td>
                     <td>
-                        @if(Auth::user()->role == 'Receptionist')
-                        {{ link_to_route('vitalsigns.create', 'Create', ['id' => $appointment->id], ['class' => 'data_table_btn'])}}
-                        @elseif( Auth::user()->role == 'Doctor')
-                        {{ link_to_route('vitalsigns.show', 'Show Vital Signs', ['id' => $appointment->id], ['class' => 'data_table_btn'])}}
-                        @endif
+                    @if(Auth::user()->role == 'Receptionist')
+                    {{ link_to_route('vitalsigns.create', '', ['id'=>$appointment->id], ['class' => 'btn-add_vsign-icon fL','title'=> 'Add Vital Sign'])}}
+                    @elseif( Auth::user()->role == 'Doctor')
+                    <span class="fL">&nbsp;|&nbsp;</span>
+                    {{ link_to_route('vitalsigns.show', '', ['id' => $appointment->id], ['class' => 'btn-view-icon fL','title'=> 'View Record'])}}
+                    @endif
                     </td>
                 </tr>
                 @endforeach

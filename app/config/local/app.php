@@ -191,7 +191,8 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
         'PDF'               => 'Thujohn\Pdf\PdfFacade',
-
+        'GlobalsConst'      => 'App\Globals\GlobalsConst',
+        'Ep'      => 'App\Globals\Ep',
 	),
 
 );
