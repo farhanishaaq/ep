@@ -1,4 +1,4 @@
-<h3 class="mT10 mB0 c3">Appointment View</h3>
+<h3 class="mT10 mB0 c3">Duty Days View</h3>
 <hr class="w95p fL mT0" />
 <p class="col-xs-12 fL taR"></p>
 
@@ -18,7 +18,7 @@
         <table class="table tblSchedule">
             <thead>
                 <tr>
-                    <th colspan="3" class="taC">Duty Schedule For {{ $doctor->name }}</th>
+                    <th colspan="3" class="taC">Duty Schedule For Dr. {{ $doctor->name }}</th>
                 </tr>
                 <tr>
                     <th>Days</th>
