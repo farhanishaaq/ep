@@ -159,11 +159,9 @@ class DutydaysController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$dutydays = Dutyday::where('employee_id', '=', $id)->get();
-
+        $dutyDays = Dutyday::where('employee_id', '=', $id)->get();
         $doctor = Employee::findOrFail($id);
-
-		return View::make('dutydays.show', compact('dutydays', 'doctor'));
+        return View::make('dutydays.show')->nest('_view','dutydays.partials._view', compact('dutyDays','doctor'));
 	}
 
 	/**

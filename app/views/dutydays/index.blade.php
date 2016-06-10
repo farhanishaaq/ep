@@ -44,7 +44,7 @@
                         <td>{{{ $dutyDay->employee->name }}}</td>
                         <td>
                         {{ link_to_route('dutydays.show', '', [$dutyDay->employee->id], ['class' => 'btn-view-icon fL','title'=> 'View Record'])}}
-                        <span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('dutydays.edit', '', [$dutyDay->employee->id], ['class' => 'btn-edit-icon fL','title'=> 'Edit Record'])}}
+                        {{--<span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('dutydays.edit', '', [$dutyDay->employee->id], ['class' => 'btn-edit-icon fL','title'=> 'Edit Record'])}}--}}
                         </td>
                     </tr>
                 @endforeach
