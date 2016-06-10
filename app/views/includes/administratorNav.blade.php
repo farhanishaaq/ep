@@ -15,7 +15,7 @@
                 {{--<li><a href="{{URL::route('searchPmr')}}">Medical Records</a></li>--}}
                 {{--<li><a href="{{URL::route('vitalSign')}}">Vital Signs</a></li>--}}
                 {{--<li><a href="{{URL::route('appPrescription')}}">Add Prescriptions</a></li>--}}
-                <li><a href="{{URL::route('printPrescription')}}">Print Prescription</a></li>
+                {{--<li><a href="{{URL::route('printPrescription')}}">Print Prescription</a></li>--}}
                 {{--<li><a href="/app_proc">Add Procedures</a></li>--}}
                 {{--<li><a href="{{URL::route('showTestReports')}}">Test Reports</a></li>--}}
                 {{--<li><a href="{{URL::route('printTestReports')}}">Print Reports</a></li>--}}
