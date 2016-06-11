@@ -221,8 +221,6 @@ Route::group(array('before' => 'auth'), function(){
 
     Route::resource('labtests', 'LabtestsController');
 
-    Route::resource('prescriptions', 'PrescriptionsController');
-
     Route::resource('medicines', 'MedicinesController');
 
     // Medical Record Routes
@@ -232,6 +230,12 @@ Route::group(array('before' => 'auth'), function(){
     Route::resource('dutydays', 'DutydaysController');
     Route::resource('timeslots', 'TimeslotsController');
 
+
+
+    //***********************Start prescriptions
+    Route::resource('prescriptions', 'PrescriptionsController');
+    Route::get('patientPrescriptions/{patientId}', array('before' => 'auth', 'as'=>'patientPrescriptions', 'uses' => 'PrescriptionsController@patientPrescriptions'));
+    //***********************Start Appointments
 
 
     //***********************Start Appointments

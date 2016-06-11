@@ -56,7 +56,7 @@
                             {{ link_to_route('patients.show', '', [$patient->id], ['class' => 'btn-view-icon fL', 'style' => 'margin-bottom: 2px'])}}
 
                             <span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('patients.edit', '', [$patient->id], ['class' => 'btn-edit-icon fL'])}}
-
+                            <span class="fL">&nbsp;|&nbsp;</span><a href="javascript:void(0);" class="btn-view-prescription-icon fL viewPresc" title="Prescriptions of {{$patient->name}}" data-toggle="modal" data-target="#myModal" patient-prescription-url="{{route('patientPrescriptions',['patientId'=>$patient->id])}}"></a>
                             </td>
                         </tr>
                     @endforeach
@@ -68,10 +68,46 @@
 
 
     </div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Prescriptions List</h4>
+                </div>
+                <div class="modal-body row">
+                    <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
+                        <thead>
+                        <tr>
+                            <th>Prescription Code</th>
+                            <th>Patient Name</th>
+                            <th>Doctor Name</th>
+                            <th>Manage</th>
+                        </tr>
+                        </thead>
+                        <tbody id="prescriptionTbody">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    {{--<button type="button" id="btnSave" name="btnSave" class="btn btn-default" >Save</button>--}}
+                    <button type="button" id="btnModalClose"dl class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 @stop
 @section('scripts')
     <script type="text/javascript">
+        window.patientPrescriptionUrl = 0;
         $(document).ready(function() {
+
+            //****For List
             if($('#tblRecordsList tr.row-data').length){
                 $('#tblRecordsList').DataTable({
                     "columnDefs": [ {
@@ -80,6 +116,31 @@
                     } ]
                 });
             }
+
+
+
+
+            //****BS-Modal Show Event
+            $('.viewPresc').click(function () {
+                window.patientPrescriptionUrl = $(this).attr('patient-prescription-url');
+            });
+            //****BS-Modal Show Event
+            $('#myModal').on('show.bs.modal', function () {
+                if(window.patientPrescriptionUrl){
+                    $.ajax({
+                        type: 'GET',
+                        url:  window.patientPrescriptionUrl ,
+                        dataType: 'html',
+                        success: function (response) {
+                            if(response == "Error"){
+
+                            }else{
+                                $('#prescriptionTbody').html(response);
+                            }
+                        }
+                    });
+                }
+            });
         } );
     </script>
 @stop

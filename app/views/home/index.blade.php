@@ -12,7 +12,7 @@ Home
                           CURRENT MENU
 =========================================================-->
 @section("current_home")
-class="current"
+class="active"
 @stop
 
 
