@@ -10,11 +10,19 @@ class PrescriptionsController extends \BaseController
      */
     public function index()
     {
-        $patient_id = Input::get('id');
-        $patient = Patient::find($patient_id);
-        $appointments = $patient->appointments()->has('prescription')->paginate(10);
+        $prescriptions = Prescription::paginate(20);
+        return View::make('prescriptions.index')->nest('_list','prescriptions.partials._list', compact('prescriptions'));
+    }
 
-        return View::make('prescriptions.index', compact('appointments', 'patient_id'));
+    /**
+     * Display a listing of prescriptions
+     *
+     * @return Response
+     */
+    public function patientPrescriptions($patientId)
+    {
+        $prescriptions = Prescription::where('patient_id','=',$patientId)->get();
+        return View::make('prescriptions.partials._list', compact('prescriptions'));
     }
 
     /**
