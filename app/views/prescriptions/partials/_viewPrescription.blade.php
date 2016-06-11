@@ -36,32 +36,34 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="col-xs-5 control-label asterisk">Medicines:</label>
+        @if($medicines)
+            @if(count($medicines))
+                <div class="form-group">
+                    <label class="col-xs-5 control-label asterisk">Medicines:</label>
 
-            <div class="col-xs-6 hAi">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    <div class="col-xs-6 hAi">
+                        <table class="table tblSchedule">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($medicines as $m)
+                            <tr>
+                                <td>{{$m->name}}</td>
+                                <td>{{$m->pivot->quantity}}</td>
+                            </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
 
-                        <tr>
-                            <td>Panadol</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <td>Cipro</td>
-                            <td>2</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    </div>
+                </div>
+            @endif
+        @endif
 
-            </div>
-        </div>
 
         <div class="form-group">
             <label class="col-xs-5 control-label asterisk">Other Medicines:</label>
