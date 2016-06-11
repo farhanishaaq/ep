@@ -12,7 +12,7 @@
                                             <span class="icon-bar"></span>
                                             <span class="icon-bar"></span>
                                         </button>
-                                        <a class="navbar-brand" href="#"><img src="{{asset('logo_new.png')}}"></a>
+                                        <a class="navbar-brand" href="#"><img src="{{asset('images/logo_new.png')}}"></a>
                                     </div>
                             @if(Auth::user())
                                 @if(Auth::user()->role == 'Administrator')
