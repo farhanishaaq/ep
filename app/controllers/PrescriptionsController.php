@@ -89,12 +89,9 @@ class PrescriptionsController extends \BaseController
     {
 //        $prescription = Prescription::with('medicines')->where('appointment_id', $id)->first();
         $prescription = Prescription::find($id);
-        if (Input::get('flag') != null) {
-            $flag = Input::get('flag');
-        }
         $medicines = $prescription->medicines()->get();
-        return View::make('prescriptions.show', compact('prescription', 'flag', 'medicines'))
-                            ->nest('_viewPrescription','prescriptions.partials._viewPrescription', compact('prescription','medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount','flag'));
+        return View::make('prescriptions.show')
+                            ->nest('_viewPrescription','prescriptions.partials._viewPrescription', compact('prescription', 'medicines'));
     }
 
     /**
@@ -317,11 +314,12 @@ class PrescriptionsController extends \BaseController
         return Redirect::route('prescriptions.index');
     }
 
-    public function printPrescription()
+    public function printPrescription($id)
     {
-        $appointments = Appointment::has('prescription')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        $flag = "pres_print";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
+        $prescription = Prescription::find($id);
+        $medicines = $prescription->medicines()->get();
+        $_viewPrescription = View::make('prescriptions.partials._viewPrescription', compact('prescription', 'medicines'))->render();
+        return PDF::html('prescriptions.printPrescription',compact('_viewPrescription'));
     }
 
 }

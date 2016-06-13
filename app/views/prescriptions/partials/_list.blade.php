@@ -7,6 +7,7 @@
     <td>{{{ $prescription->appointment->employee->name }}}</td>
     <td>
         <a href="{{route('prescriptions.show',[$prescription->id])}}" class="btn-view-icon fL" title="View Prescription"></a>
+        <span class="fL">&nbsp;|&nbsp;</span><a href="{{route('printPrescription',[$prescription->id])}}" class="btn-pdf-icon fL" title="PDF Prescription"></a>
     </td>
 </tr>
 @endforeach
