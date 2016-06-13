@@ -636,8 +636,8 @@ img {
 .btn-add-prescription-icon{
   display: block;
   background: url("../images/add_prescription.png") no-repeat center center;
-  width: 32px;
-  height: 46px;
+  width: 22px;
+  height: 32px;
 }
 .btn-add-prescription-icon:hover{
   background: url("../images/add_prescription_hover.png") no-repeat center center;
@@ -645,11 +645,20 @@ img {
 .btn-view-prescription-icon{
    display: block;
    background: url("../images/view_prescription.png") no-repeat center center;
-   width: 32px;
-   height: 46px;
+   width: 22px;
+   height: 32px;
  }
 .btn-view-prescription-icon:hover{
   background: url("../images/view_prescription_hover.png") no-repeat center center;
+}
+.btn-pdf-prescription-icon{
+   display: block;
+   background: url("../images/pdf_prescription.png") no-repeat center center;
+   width: 22px;
+   height: 32px;
+ }
+.btn-pdf-prescription-icon:hover{
+  background: url("../images/pdf_prescription_hover.png") no-repeat center center;
 }
 .btn-add_vsign-icon{
     display: block;

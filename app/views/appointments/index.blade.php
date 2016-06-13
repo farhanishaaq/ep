@@ -77,6 +77,7 @@
                                 @endif
                                 @if($prescriptionId)
                                         <span class="fL">&nbsp;|&nbsp;</span><a href="{{route('prescriptions.show',[$appointment->prescription->id])}}" class="btn-view-prescription-icon fL" title="View Prescription"></a>
+                                        <span class="fL">&nbsp;|&nbsp;</span><a href="{{route('printPrescription',[$appointment->prescription->id])}}" class="btn-pdf-prescription-icon fL" title="PDF Prescription"></a>
                                 @else
                                         <span class="fL">&nbsp;|&nbsp;</span><a href="{{route('prescriptions.create')}}?appointmentId={{$appointment->id}}" class="btn-add-prescription-icon fL" title="Add Prescription"></a>
                                 @endif
