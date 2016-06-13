@@ -13,7 +13,7 @@
                 <li><a href="{{route('appointments.index')}}">Appointments</a></li>
                 <li><a href="{{route('patients.index')}}">Patients</a></li>
                 <li><a href="{{URL::route('prescriptions.index')}}">All Prescriptions</a></li>
-                <li><a href="{{URL::route('printPrescription')}}">Print Prescription</a></li>
+                {{--<li><a href="{{URL::route('printPrescription')}}">Print Prescription</a></li>--}}
                 {{--<li><a href="{{route('vitalsigns.index')}}">Vital Signs</a></li>--}}
                 {{--<li><a href="{{URL::route('appPrescription')}}">Add Prescriptions</a></li>--}}
 
