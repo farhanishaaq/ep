@@ -606,6 +606,15 @@ img {
 .btn-view-icon:hover{
     background: url("../images/view-hover.png") no-repeat center center;
 }
+.btn-pdf-icon{
+    display: block;
+    background: url("../images/pdf_icon.png") no-repeat center center;
+    width: 32px;
+    height: 32px;
+}
+.btn-pdf-icon:hover{
+    background: url("../images/pdf_icon_hover.png") no-repeat center center;
+}
 .btn-edit-disable-icon{
     display: block;
     background: url("../images/edit-disable.png") no-repeat center center;

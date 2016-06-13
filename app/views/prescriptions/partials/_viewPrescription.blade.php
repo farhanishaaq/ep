@@ -1,12 +1,4 @@
-<style type="text/css">
-    .hide {
-        display: none;
-    }
-</style>
-<h3 class="mT10 mB0 c3">View Prescription</h3>
-<hr class="w95p fL mT0" />
-<p class="col-xs-12 fL taR"></p>
-<section class="form-Section col-md-12 h695 fL">
+<section class="form-Section col-xs-12 h695 fL">
     <div class="container w100p">
         <h3 class="mT15 mB0 c3">Prescription Info</h3>
         <hr class="w95p fL mT0" />
@@ -89,7 +81,5 @@
         </div>
     </div>
 </section>
-<div class="col-xs-12 taR pR0 mT20">
-    <input type="button" id="cancel" value="Go Back" onclick="goTo('{{URL::previous()}}')" />
-</div>
+
 

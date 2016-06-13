@@ -232,10 +232,17 @@ Route::group(array('before' => 'auth'), function(){
 
 
 
-    //***********************Start prescriptions
+    //***********************Start Prescriptions
     Route::resource('prescriptions', 'PrescriptionsController');
     Route::get('patientPrescriptions/{patientId}', array('before' => 'auth', 'as'=>'patientPrescriptions', 'uses' => 'PrescriptionsController@patientPrescriptions'));
-    //***********************Start Appointments
+    // Prints
+    /*Route::get('app_pres_print', function(){
+        $appointments = Appointment::has('prescription')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        $flag = "pres_print";
+        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
+    });*/
+    Route::get('printPrescription/{id}', ['as'=>'printPrescription', 'uses'=>'PrescriptionsController@printPrescription']);
+    //***********************End Prescriptions
 
 
     //***********************Start Appointments
@@ -277,13 +284,6 @@ Route::group(array('before' => 'auth'), function(){
     Route::any('print_pres', ['uses' => 'HomeController@print_pres']);  // Prescription PDF
     Route::any('print_test', ['uses' => 'HomeController@print_test']);  // Test Report PDF
 
-    // Prints
-    /*Route::get('app_pres_print', function(){
-        $appointments = Appointment::has('prescription')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        $flag = "pres_print";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    });*/
-    Route::get('printPrescription', ['as'=>'printPrescription', 'uses'=>'PrescriptionsController@printPrescription']);
 
     Route::get('pres_print', function(){
         $id = Input::get('id');

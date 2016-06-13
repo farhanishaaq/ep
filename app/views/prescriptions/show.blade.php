@@ -23,7 +23,13 @@
 @section('content')
 
     <div class="container">
+        <h3 class="mT10 mB0 c3">View Prescription</h3>
+        <hr class="w95p fL mT0" />
+        <p class="col-xs-12 fL taR"></p>
         {{$_viewPrescription}}
+        <div class="col-xs-12 taR pR0 mT20">
+            <input type="button" id="cancel" value="Go Back" onclick="goTo('{{URL::previous()}}')" />
+        </div>
     </div>
 @stop
 

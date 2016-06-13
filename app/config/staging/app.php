@@ -124,7 +124,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
-        'Thujohn\Pdf\PdfServiceProvider',
+		'Nitmedia\Wkhtml2pdf\Wkhtml2pdfServiceProvider',
 	),
 
 	/*
@@ -191,8 +191,9 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
-        'PDF'               => 'Thujohn\Pdf\PdfFacade',
-
+		'PDF'               => 'Nitmedia\Wkhtml2pdf\Facades\Wkhtml2pdf',
+		'GlobalsConst'      => 'App\Globals\GlobalsConst',
+		'Ep'                => 'App\Globals\Ep',
 	),
 
 );
