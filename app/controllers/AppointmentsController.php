@@ -15,7 +15,7 @@ class AppointmentsController extends \BaseController {
 		if(Auth::user()->role == 'Doctor'){
 			$appointments = Auth::user()->appointments()->paginate(50);
 		}else{
-			$appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+			$appointments = Appointment::where('company_id', Auth::user()->company_id)->paginate(10);
 		}
 
 		return View::make('appointments.index', compact('appointments'));
@@ -31,8 +31,8 @@ class AppointmentsController extends \BaseController {
 
         $formMode = GlobalsConst::FORM_CREATE;
         $doctors = Employee::where('role', 'Doctor')->where('status', 'active')
-                    ->where('clinic_id', Auth::user()->clinic_id)->get();
-        $patients = Patient::where('clinic_id', Auth::user()->clinic_id)->get();
+                    ->where('company_id', Auth::user()->company_id)->get();
+        $patients = Patient::where('company_id', Auth::user()->company_id)->get();
 		return View::make('appointments.create', compact('doctors','patients'))->nest('_form','appointments.partials._form',compact('doctors','patients','formMode'));;
 	}
 
@@ -49,8 +49,8 @@ class AppointmentsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
         $data['date'] = date('Y-m-d', strtotime($data['date']));
-		$data['time'] = Timeslot::findOrFail($data['timeslot_id'])->slot;
-        $data['clinic_id'] = Auth::user()->clinic_id;
+		$data['time'] = Timeslot::findOrFail($data['time_slot_id'])->slot;
+        $data['company_id'] = Auth::user()->company_id;
         $appointment = Appointment::create($data);
 		return Redirect::route('appointments.index');
 	}
@@ -65,9 +65,9 @@ class AppointmentsController extends \BaseController {
 	{
         $formMode = GlobalsConst::FORM_EDIT;
         $doctors = Employee::where('role', 'Doctor')->where('status', 'active')->get();
-        $patients = Patient::where('clinic_id', Auth::user()->clinic_id)->get();
+        $patients = Patient::where('company_id', Auth::user()->company_id)->get();
         $appointment = Appointment::find($id);
-        $timeslot = $appointment->timeslot->first()->where('dutyday_id', $appointment->timeslot->dutyday_id)->lists('slot','id');
+        $timeslot = $appointment->timeslot->first()->where('duty_day_id', $appointment->timeslot->duty_day_id)->lists('slot','id');
 
         return View::make('appointments.show', compact('timeslot','appointment', 'doctors', 'patients'))->nest('_view','appointments.partials._view',compact('formMode','employee','appointment','doctors','patients'));
 	}
@@ -82,9 +82,9 @@ class AppointmentsController extends \BaseController {
 	{
         $formMode = GlobalsConst::FORM_EDIT;
 		$doctors = Employee::where('role', 'Doctor')->where('status', 'active')->get();
-        $patients = Patient::where('clinic_id', Auth::user()->clinic_id)->get();
+        $patients = Patient::where('company_id', Auth::user()->company_id)->get();
 		$appointment = Appointment::find($id);
-        $timeslot = $appointment->timeslot->first()->where('dutyday_id', $appointment->timeslot->dutyday_id)->lists('slot','id');
+        $timeslot = $appointment->timeslot->first()->where('duty_day_id', $appointment->timeslot->duty_day_id)->lists('slot','id');
 
 		return View::make('appointments.edit', compact('timeslot','appointment', 'doctors', 'patients'))->nest('_form','appointments.partials._form',compact('formMode','employee','appointment','doctors','patients'));
 	}
@@ -105,7 +105,7 @@ class AppointmentsController extends \BaseController {
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
-		$data['time'] = Timeslot::findOrFail($data['timeslot_id'])->slot;
+		$data['time'] = Timeslot::findOrFail($data['time_slot_id'])->slot;
 
 		if(Input::get('status') == '3' || Input::get('status') == '4' || Input::get('status') == '5'){
 			$data['time'] = null;
@@ -131,7 +131,7 @@ class AppointmentsController extends \BaseController {
         
         public function fetchVitalSign(){
         if(Auth::user()->role == 'Administrator' || Auth::user()->role == 'Receptionist'){
-            $appointments = Appointment::has('vitalsign', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+            $appointments = Appointment::has('vitalsign', '=', 0)->where('company_id', Auth::user()->company_id)->paginate(10);
         }elseif(Auth::user()->role == 'Doctor'){
             $appointments = Appointment::has('vitalsign')->where('employee_id', Auth::id())->paginate(10);
         }
@@ -140,7 +140,7 @@ class AppointmentsController extends \BaseController {
     }
 
     public function addPrescriptions(){
-        $appointments = Appointment::has('prescription', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        $appointments = Appointment::has('prescription', '=', 0)->where('company_id', Auth::user()->company_id)->paginate(10);
         $flag = "prescription";
         return View::make('appointments.index', compact('appointments', 'flag'));
     }
@@ -149,23 +149,23 @@ class AppointmentsController extends \BaseController {
         if(Input::get('id') !== null){
             $appointments = Appointment::where('patient_id', Input::get('id'))->paginate(10);
         }else{
-            $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+            $appointments = Appointment::where('company_id', Auth::user()->company_id)->paginate(10);
         }
         $flag = "test";
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
     }
 
     public function printTestReports(){
-        $appointments = Appointment::has('labtests')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        $appointments = Appointment::has('labtests')->where('company_id', Auth::user()->company_id)->paginate(10);
         $flag = "test_print";
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
     }
 
     public function addCheckUpFee(){
         if(Auth::user()->role == "Accountant"){
-            $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+            $appointments = Appointment::where('company_id', Auth::user()->company_id)->paginate(10);
         }else{
-            $appointments = Appointment::has('checkupfee', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+            $appointments = Appointment::has('checkupfee', '=', 0)->where('company_id', Auth::user()->company_id)->paginate(10);
         }
         $flag = "check_fee";
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
@@ -175,20 +175,20 @@ class AppointmentsController extends \BaseController {
         if(Input::get('id') !== null){
             $appointments = Appointment::where('patient_id', Input::get('id'))->paginate(10);
         }else{
-            $appointments = Appointment::has('labtests')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+            $appointments = Appointment::has('labtests')->where('company_id', Auth::user()->company_id)->paginate(10);
         }
         $flag = "test_fee";
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
     }
 
     public function testFeeInvoice(){
-        $appointments = Appointment::has('labtests')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        $appointments = Appointment::has('labtests')->where('company_id', Auth::user()->company_id)->paginate(10);
         $flag = "test_invoice";
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
     }
 
     public function checkupFeeInvoice(){
-        $appointments = Appointment::has('checkupfee')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        $appointments = Appointment::has('checkupfee')->where('company_id', Auth::user()->company_id)->paginate(10);
         $flag = "checkup_invoice";
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
     }

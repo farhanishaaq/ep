@@ -12,7 +12,7 @@ class Dutyday extends \Eloquent {
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = ['day', 'start', 'end', 'employee_id', 'clinic_id'];
+	protected $fillable = ['day', 'start', 'end', 'employee_id', 'company_id'];
 
     public static function makeSlots($start_time, $end_time, $day_id, $emp_id){
         $timeSlot  = GlobalsConst::TIME_SLOT_INTERVAL * 60;
@@ -24,7 +24,7 @@ class Dutyday extends \Eloquent {
             $timeslot = new Timeslot();
             $timeslot->slot = date("H:i:s", $start);
             $timeslot->save();
-            $timeslot->dutyday_id = $day_id;
+            $timeslot->duty_day_id = $day_id;
             $timeslot->save();
             $timeslot->employee_id = $emp_id;
             $timeslot->save();
@@ -37,13 +37,13 @@ class Dutyday extends \Eloquent {
         $start = strtotime($start_time);
         $end = strtotime($end_time);
 
-        Timeslot::where('dutyday_id', '=', $day_id)->delete();
+        Timeslot::where('duty_day_id', '=', $day_id)->delete();
 
         while($start <= $end){
             $timeslot = new Timeslot();
             $timeslot->slot = date("H:i:s", $start);
             $timeslot->save();
-            $timeslot->dutyday_id = $day_id;
+            $timeslot->duty_day_id = $day_id;
             $timeslot->save();
             $start += $fifteen_mins;
         }

@@ -1,19 +1,19 @@
 <section class="form-Section col-md-6 h400 fL">
     <div class="container w100p">
-        <h3 class="mT15 mB0 c3">Clinic Basic Info</h3>
+        <h3 class="mT15 mB0 c3">Company Basic Info</h3>
         <hr class="w95p fL mT0" />
         <hr class="w95p fL mT0" />
         <div class="form-group">
-            <label class="col-xs-5 control-label asterisk">Clinic Name</label>
+            <label class="col-xs-5 control-label asterisk">Company Name</label>
             <div class="col-xs-6">
-                <input type="text" id="name" name="clinic_name" required="true" value="{{{ isset($clinic)? $clinic->name : '' }}}" class="form-control" placeholder="name">
+                <input type="text" id="name" name="company_name" required="true" value="{{{ isset($company)? $company->name : '' }}}" class="form-control" placeholder="name">
                 <span id="errorName" class="field-validation-msg"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-xs-5 control-label asterisk">Clinic Address</label>
+            <label class="col-xs-5 control-label asterisk">Company Address</label>
             <div class="col-xs-6">
-                <input type="text" id="name" name="clinic_address" required="true" value="{{{ isset($clinic)? $clinic->address : '' }}}" class="form-control" placeholder="address">
+                <input type="text" id="name" name="company_address" required="true" value="{{{ isset($company)? $company->address : '' }}}" class="form-control" placeholder="address">
                 <span id="errorName" class="field-validation-msg"></span>
             </div>
         </div>
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        @if(!isset($clinic))
+        @if(!isset($company))
         <div class="form-group">
             <label class="col-xs-5 control-label asterisk">Password</label>
             <div class="col-xs-6">

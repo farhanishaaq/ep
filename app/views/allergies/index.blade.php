@@ -8,7 +8,7 @@
 
 @section('redBar')
 <div class = "user_logo">
-    <div class="header_1 wrap_3 color_3 login-bar">Manage Clinics</div>
+    <div class="header_1 wrap_3 color_3 login-bar">Manage Companies</div>
 </div>
 @stop
 

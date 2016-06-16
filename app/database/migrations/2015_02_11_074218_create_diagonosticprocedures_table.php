@@ -15,10 +15,11 @@ class CreateDiagonosticproceduresTable extends Migration {
 		Schema::create('diagonosticprocedures', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->text('procedure_note');
 			$table->integer('patient_id');
 			$table->integer('appointment_id');
+			$table->text('procedure_note')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

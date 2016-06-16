@@ -27,8 +27,8 @@ class="current"
 <section id="content">
     <div>
         <div class="menu" style="margin-left: 10%; margin-right: 10%">
-            <a class="ferozi" href="clinics">Manage Clinics</a>
-            <a class="purple" href="clinics">Manage Branches</a>
+            <a class="ferozi" href="companies">Manage Companies</a>
+            <a class="purple" href="companies">Manage Branches</a>
         </div>
     </div>
 </section>

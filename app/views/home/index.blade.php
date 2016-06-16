@@ -146,8 +146,8 @@ class="active"
                     <div id="owl">
                         <div class="item">
                             <p class="text_3">
-                                This application automates the System of a Clinic.
-                                This application could also be used in multiple branches (if any) of a Clinic </br>
+                                This application automates the System of a Company.
+                                This application could also be used in multiple branches (if any) of a Company </br>
                                 that should be linked through Internet, so that application could share data
                                 across all branches.
                                 <br/>

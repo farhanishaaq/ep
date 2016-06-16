@@ -15,7 +15,7 @@ class Patient extends \Eloquent {
 
 	// Don't forget to fill this array
 	protected $fillable = ['name', 'dob', 'gender', 'age', 'email', 'city', 'country', 'address',
-    'phone', 'cnic', 'note', 'clinic_id'];
+    'phone', 'cnic', 'note', 'company_id'];
 
 //  Relationships
     public function allergies()
@@ -71,5 +71,13 @@ class Patient extends \Eloquent {
     public function checkupfees()
     {
         return $this->hasMany('Checkupfee');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('User');
     }
 }

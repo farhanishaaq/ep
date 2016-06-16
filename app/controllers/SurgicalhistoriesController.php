@@ -41,7 +41,7 @@ class SurgicalhistoriesController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-        $data['clinic_id'] = Auth::user()->clinic_id;
+        $data['company_id'] = Auth::user()->company_id;
 		Surgicalhistory::create($data);
 
 		return Redirect::to('surgicalhistories?id='.$data['patient_id']);

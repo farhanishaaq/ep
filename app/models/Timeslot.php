@@ -8,7 +8,7 @@ class Timeslot extends \Eloquent {
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = ['slot', 'reserved', 'dutyday_id', 'employee_id', 'clinic_id'];
+	protected $fillable = ['slot', 'reserved', 'duty_day_id', 'employee_id', 'company_id'];
 
     // Relationships
     public function dutyday()
@@ -18,21 +18,21 @@ class Timeslot extends \Eloquent {
 
     public function appointments()
     {
-        return $this->hasMany('Appointment', 'timeslot_id', 'id');
+        return $this->hasMany('Appointment', 'time_slot_id', 'id');
     }
 
     public static function fetchAvailableTimeSlots($doctorId,$day){
         $qry = DB::table('timeslots')
             ->select(['timeslots.id','timeslots.slot'])
-            ->join('dutydays', 'dutydays.id', '=', 'timeslots.dutyday_id','inner')
+            ->join('dutydays', 'dutydays.id', '=', 'timeslots.duty_day_id','inner')
             ->where('dutydays.employee_id', '=', $doctorId)
             ->where('dutydays.day', '=', $day)
             ->whereNotIn('timeslots.id', function($query)
             {
 //                $query->select(DB::raw(1))
-                $query->select('appointments.timeslot_id')
+                $query->select('appointments.time_slot_id')
                     ->from('appointments')
-                    ->join('timeslots AS ts2', 'ts2.id', '=', 'appointments.timeslot_id','inner');
+                    ->join('timeslots AS ts2', 'ts2.id', '=', 'appointments.time_slot_id','inner');
 //                    ->whereRaw('orders.user_id = users.id');
             });
 //        $qry->toSql();

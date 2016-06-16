@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `status` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `checkup_fee` double NOT NULL,
   `fee_note` text COLLATE utf8_unicode_ci NOT NULL,
-  `timeslot_id` int(11) NOT NULL,
+  `time_slot_id` int(11) NOT NULL,
   `employee_id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -348,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `timeslots` (
 `id` int(10) unsigned NOT NULL,
   `slot` time NOT NULL,
   `reserved` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `dutyday_id` int(11) NOT NULL,
+  `duty_day_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

@@ -1,50 +1,50 @@
 <?php
 
-class ClinicsController extends \BaseController {
+class CompaniesController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
-	 * GET /clinics
+	 * GET /companies
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-		$clinics = Clinic::paginate(10);
-        return View::make('clinics.index', compact('clinics'));
+		$companies = Company::paginate(10);
+        return View::make('companies.index', compact('companies'));
 	}
 
 	/**
 	 * Show the form for creating a new resource.
-	 * GET /clinics/create
+	 * GET /companies/create
 	 *
 	 * @return Response
 	 */
 	public function create()
 	{
-        return View::make('clinics.create');
+        return View::make('companies.create');
 	}
 
 	/**
 	 * Store a newly created resource in storage.
-	 * POST /clinics
+	 * POST /companies
 	 *
 	 * @return Response
 	 */
 	public function store()
 	{
         $data = Input::all();
-        $validator = Validator::make($data, array('password' => 'min:6','email' => 'unique:employees', 'status' => 'required', 'clinic_name' => 'required', 'clinic_address' => 'required'));
+        $validator = Validator::make($data, array('password' => 'min:6','email' => 'unique:employees', 'status' => 'required', 'company_name' => 'required', 'company_address' => 'required'));
 
         if ($validator->fails())
         {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $clinic = Clinic::create(['name' => $data['clinic_name'], 'address' => $data['clinic_address']]);
+        $company = Company::create(['name' => $data['company_name'], 'address' => $data['company_address']]);
 
         $employee = new Employee();
-        $employee->clinic_id = $clinic->id;
+        $employee->company_id = $company->id;
         $employee->name = Input::get('name');
         $employee->password = Hash::make(Input::get('password'));
         $employee->email = Input::get('email');
@@ -89,40 +89,40 @@ class ClinicsController extends \BaseController {
             $message->to(Input::get('email'), Input::get('name'))->subject('Welcome to EMR!');
         });
 
-        return Redirect::route('clinics.index');
+        return Redirect::route('companies.index');
 	}
 
 	/**
 	 * Display the specified resource.
-	 * GET /clinics/{id}
+	 * GET /companies/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function show($id)
 	{
-        $clinic = Clinic::find($id);
-        $admin = Employee::where('role', 'Administrator')->where('clinic_id', $clinic->id)->first();
-        return View::make('clinics.show', compact('clinic', 'admin'));
+        $company = Company::find($id);
+        $admin = Employee::where('role', 'Administrator')->where('company_id', $company->id)->first();
+        return View::make('companies.show', compact('company', 'admin'));
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
-	 * GET /clinics/{id}/edit
+	 * GET /companies/{id}/edit
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function edit($id)
 	{
-		$clinic = Clinic::find($id);
-        $admin = Employee::where('role', 'Administrator')->where('clinic_id', $clinic->id)->first();
-        return View::make('clinics.edit', compact('clinic', 'admin'));
+		$company = Company::find($id);
+        $admin = Employee::where('role', 'Administrator')->where('company_id', $company->id)->first();
+        return View::make('companies.edit', compact('company', 'admin'));
 	}
 
 	/**
 	 * Update the specified resource in storage.
-	 * PUT /clinics/{id}
+	 * PUT /companies/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -130,8 +130,8 @@ class ClinicsController extends \BaseController {
 	public function update($id)
 	{
         $data = Input::all();
-        $clinic = Clinic::findOrFail($id);
-        $admin = Employee::where('role', 'Administrator')->where('clinic_id', $clinic->id)->first();
+        $company = Company::findOrFail($id);
+        $admin = Employee::where('role', 'Administrator')->where('company_id', $company->id)->first();
 
         if ($data['email'] !== $admin->email) {
             $validator = Validator::make($data, array('email' => 'unique:employees'));
@@ -143,7 +143,7 @@ class ClinicsController extends \BaseController {
 
         }
 
-        $clinic->update(['name' => $data['clinic_name'], 'address' => $data['clinic_address']]);
+        $company->update(['name' => $data['company_name'], 'address' => $data['company_address']]);
 
         $admin->name = Input::get('name');
         $admin->email = Input::get('email');
@@ -180,21 +180,21 @@ class ClinicsController extends \BaseController {
         $admin->status = Input::get('status');
         $admin->update();
 
-        return Redirect::route('clinics.index');
+        return Redirect::route('companies.index');
 	}
 
 	/**
 	 * Remove the specified resource from storage.
-	 * DELETE /clinics/{id}
+	 * DELETE /companies/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function destroy($id)
 	{
-        Clinic::destroy($id);
+        Company::destroy($id);
 
-        return Redirect::route('clinics.index');
+        return Redirect::route('companies.index');
 	}
 
 }

@@ -78,7 +78,7 @@ var AppointmentForm = function(win,doc, options){
     var allPluginsInitializer = function(){
 
         //**** For Branch
-        $("#timeslot_id").select2();
+        $("#time_slot_id").select2();
 
         //**** For Country
         $("#employee_id").select2();
@@ -121,11 +121,11 @@ var AppointmentForm = function(win,doc, options){
                     console.log(response);
                     if(response.success == true){
                         //***Start for time slots
-                        $('#timeslot_id').html('');
-                        $('#timeslot_id').html('<option value="">Select Time Slot</option>');
+                        $('#time_slot_id').html('');
+                        $('#time_slot_id').html('<option value="">Select Time Slot</option>');
                         for(ts in response.data.timeslots){
                             var obj = response.data.timeslots[ts];
-                            $('#timeslot_id').append('<option value="'+ obj.id +'">'+ obj.slot +'</option>');
+                            $('#time_slot_id').append('<option value="'+ obj.id +'">'+ obj.slot +'</option>');
                         }
                         //***End for time slots
 
@@ -135,7 +135,7 @@ var AppointmentForm = function(win,doc, options){
                         //***End for DayPilot appointments Load
                     }else{
                         showMsg(response.message);
-                        $('#timeslot_id').html('');
+                        $('#time_slot_id').html('');
                     }
                 }
             });

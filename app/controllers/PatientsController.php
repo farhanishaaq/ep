@@ -11,7 +11,7 @@ class PatientsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$patients = Patient::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+		$patients = Patient::where('company_id', Auth::user()->company_id)->paginate(10);
 
 		return View::make('patients.index', compact('patients'));
 	}
@@ -74,7 +74,7 @@ class PatientsController extends \BaseController {
         }
         $patient->save();
         $patient->patient_id = "P0" . $patient->id;
-        $patient->clinic_id = Auth::user()->clinic_id;
+        $patient->company_id = Auth::user()->company_id;
         $patient->save();
 
         if(Input::has('email')){
@@ -149,7 +149,7 @@ class PatientsController extends \BaseController {
 	}
 
     public function patientsReporting(){
-        $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->where('status', 5)->paginate(1);
+        $appointments = Appointment::where('company_id', Auth::user()->company_id)->where('status', 5)->paginate(1);
         return View::make('patients.checked_patients', compact('appointments'));
     }
 }

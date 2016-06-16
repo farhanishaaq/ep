@@ -15,14 +15,17 @@ class CreateAppointmentsTable extends Migration {
 		Schema::create('appointments', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->text('checkup_reason');
+			$table->integer('business_unit_id');
+			$table->integer('employee_id');
+			$table->integer('patient_id');
+			$table->integer('time_slot_id');
 			$table->date('date');
-            $table->time('time');
-			$table->string('status');
-			$table->integer('timeslot_id');
-            $table->integer('employee_id');
-            $table->integer('patient_id');
+			$table->time('time');
+			$table->decimal('fee',8,2);
+			$table->tinyInteger('status')->default();
+			$table->text('checkup_reason')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

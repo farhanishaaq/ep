@@ -9,7 +9,7 @@ class TestfeesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$testfees = Testfee::where('clinic_id', Auth::user()->clinic_id)->get();
+		$testfees = Testfee::where('company_id', Auth::user()->company_id)->get();
 
 		return View::make('testfees.index', compact('testfees'));
 	}
@@ -38,7 +38,7 @@ class TestfeesController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-        $data['clinic_id'] = Auth::user()->clinic_id;
+        $data['company_id'] = Auth::user()->company_id;
 		Testfee::create($data);
 
 		return Redirect::route('testfees.index');

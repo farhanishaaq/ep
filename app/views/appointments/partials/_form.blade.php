@@ -91,7 +91,7 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Select Time Slot</label>
                         <div class="col-xs-6">
-                            <select id="timeslot_id" name="timeslot_id" required="true">
+                            <select id="time_slot_id" name="time_slot_id" required="true">
                                 <option> Select Time slot </option>
                             </select>
                             <span id="errorTimeslotId" class="field-validation-msg"></span>

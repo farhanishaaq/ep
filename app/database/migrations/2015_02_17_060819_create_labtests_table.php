@@ -15,11 +15,11 @@ class CreateLabtestsTable extends Migration {
 		Schema::create('labtests', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('test_name');
-			$table->text('test_description');
-			$table->double('total_fee');
 			$table->integer('patient_id');
 			$table->integer('appointment_id');
+			$table->string('test_name',60);
+			$table->decimal('test_fee',8,2)->nullable();
+			$table->text('test_description')->nullable();
 			$table->text('test_results');
 			$table->timestamps();
 		});

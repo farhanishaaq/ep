@@ -11,7 +11,7 @@ class EmployeesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$employees = Employee::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+		$employees = Employee::where('company_id', Auth::user()->company_id)->paginate(10);
 
 		return View::make('employees.index', compact('employees'));
 	}
@@ -45,7 +45,7 @@ class EmployeesController extends \BaseController {
 
         $employee = new Employee();
         $employee->name = Input::get('name');
-        $employee->clinic_id = Auth::user()->clinic_id;
+        $employee->company_id = Auth::user()->company_id;
         $employee->password = Hash::make(Input::get('password'));
         $employee->email = Input::get('email');
 //        $employee->gender = Ep::getSwitchButtonVal(Input::get('gender'),GlobalsConst::MALE,GlobalsConst::FEMALE);
@@ -174,32 +174,40 @@ class EmployeesController extends \BaseController {
 
         if (Auth::attempt(array('email' => $email, 'password' => $password), true))
         {
-            if(Auth::user()->status == 'Active' && Auth::user()->role == 'Doctor' && Auth::user()->clinic->admin->status == 'Active'){
+            /*if(Auth::user()->status == 'Active' && Auth::user()->role == 'Doctor' && Auth::user()->company->admin->status == 'Active'){
                  return Redirect::to('doctorHome');
             }else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Administrator'){
                 return Redirect::to('adminHome');
             }
-            else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Receptionist' && Auth::user()->clinic->admin->status == 'Active'){
+            else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Receptionist' && Auth::user()->company->admin->status == 'Active'){
                 return Redirect::to('receptionistHome');
             }
-            else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Lab Manager' && Auth::user()->clinic->admin->status == 'Active'){
+            else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Lab Manager' && Auth::user()->company->admin->status == 'Active'){
                 return Redirect::to('labManagerHome');
             }
-            else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Accountant' && Auth::user()->clinic->admin->status == 'Active'){
+            else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Accountant' && Auth::user()->company->admin->status == 'Active'){
                 return Redirect::to('accountantHome');
             }
             else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Super User'){
                 return Redirect::to('superHome');
             }else{
-                return View::make('login')->withErrors('You are not Activated!');
                 Auth::logout();
-            }
+                return Redirect::to('login')->withErrors('You are not Activated!');
+            }*/
+            if(Auth::user()->status == 'Active' ){
+                /*if(){
 
+                }else{
+                    return Redirect::to('login')->withErrors('You are not Activated!');
+                }*/
+                return Redirect::to('doctorHome');
+            }else{
+                return Redirect::to('login')->withErrors('You are not Activated!');
+            }
         }else{
             $validator = Validator::make(Input::all(), array('email' => 'exists:employees', 'password' => 'exists:employees'));
             if ($validator->fails())
             {
-                Auth::logout();
                 return Redirect::to('login')->withErrors($validator);
             }
         }

@@ -1,9 +1,9 @@
-@extends('clinics.layouts.master')
+@extends('companies.layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
 @section('title')
-Edit Clinic
+Edit Company
 @stop
 
 
@@ -15,7 +15,7 @@ Edit Clinic
 
 		<div class = "user_logo">
 			<div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                        Edit Clinic
+                        Edit Company
             </div>
 		</div>
 		<br><br><br>
@@ -33,8 +33,8 @@ Edit Clinic
 	   <center>
             <div style="border: 4px solid #129894; width: 800px; border-radius: 10px; background-color: #EBEBEB">
 
-            {{ Form::model($admin, ['route' => ['clinics.update', $clinic->id], 'method' => 'put' ,'style' => 'padding: 40px', 'id' => 'regForm'])}}
-                @include('clinics._form')
+            {{ Form::model($admin, ['route' => ['companies.update', $company->id], 'method' => 'put' ,'style' => 'padding: 40px', 'id' => 'regForm'])}}
+                @include('companies._form')
             {{ Form::close() }}
             </div>
         </center>

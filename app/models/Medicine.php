@@ -8,7 +8,7 @@ class Medicine extends \Eloquent {
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = ['name', 'quantity', 'description', 'clinic_id'];
+	protected $fillable = ['name', 'quantity', 'description', 'company_id'];
 
 	public function prescriptions()
 	{

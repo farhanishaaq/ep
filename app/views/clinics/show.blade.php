@@ -1,9 +1,9 @@
-@extends('clinics.layouts.master')
+@extends('companies.layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
 @section('title')
-Clinic Details
+Company Details
 @stop
 
 
@@ -15,7 +15,7 @@ Clinic Details
 
 		<div class = "user_logo">
 			<div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                        Clinic Details
+                        Company Details
             </div>
 		</div>
 		<br><br><br>
@@ -27,12 +27,12 @@ Clinic Details
             <div id="regForm" style="border: 4px solid #129894; width: 800px; height: 100%; background-color: #EBEBEB">
                 <table class="row_border" style=" border-radius: 10px; margin: 5%;" width="621" height="720">
               <tr>
-                    <td width="272" height="55"><label>Clinic Name:</label> </td>
-                    <td width="333"><label>{{{ $clinic->name }}}</label></td>
+                    <td width="272" height="55"><label>Company Name:</label> </td>
+                    <td width="333"><label>{{{ $company->name }}}</label></td>
               </tr>
               <tr>
-                  <td width="272" height="55"><label>Clinic Address:</label> </td>
-                  <td width="333"><label>{{{ $clinic->address }}}</label></td>
+                  <td width="272" height="55"><label>Company Address:</label> </td>
+                  <td width="333"><label>{{{ $company->address }}}</label></td>
               </tr>
               <tr>
                 <td width="272" height="55"><label>Admin Name:</label> </td>
@@ -87,7 +87,7 @@ Clinic Details
             </table>
             <center>
                   <section style="margin-bottom: 10%">
-                     {{ link_to_route('clinics.index', 'Back', '', ['class' => 'btn_3']) }}
+                     {{ link_to_route('companies.index', 'Back', '', ['class' => 'btn_3']) }}
                   </section>
              </center>
             </div>

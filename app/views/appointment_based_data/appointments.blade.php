@@ -42,8 +42,8 @@ Select Appointment
             </thead>
             <tbody>
                 @if(($appointments) != null)
-                @if(isset($clinics) && ($clinics) != null)
-                @if(($clinics->count()))
+                @if(isset($companies) && ($companies) != null)
+                @if(($companies->count()))
                 @foreach($appointments as $appointment)
                 <tr>
                     <td>{{{ $appointment->patient->name }}}</td>

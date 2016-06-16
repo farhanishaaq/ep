@@ -15,12 +15,15 @@ class CreateFamilyhistoriesTable extends Migration {
 		Schema::create('familyhistories', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('f_member_name');
-			$table->string('patient_relation');
-			$table->string('gender');
-			$table->integer('age');
-			$table->text('diesease_note');
+			$table->integer('business_unit_id');
+			$table->integer('patient_id');
+			$table->string('name',60);
+			$table->string('patient_relation',60)->nullable();
+			$table->enum('gender',['Male','Female'])->nullable();
+			$table->integer('age')->nullable();
+			$table->text('disease_note')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

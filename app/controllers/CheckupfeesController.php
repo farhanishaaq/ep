@@ -46,7 +46,7 @@ class CheckupfeesController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-        $data['clinic_id'] = Auth::user()->clinic_id;
+        $data['company_id'] = Auth::user()->company_id;
 		Checkupfee::create($data);
 
 		return Redirect::to('/app_check_fee');

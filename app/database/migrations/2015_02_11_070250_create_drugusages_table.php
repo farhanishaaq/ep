@@ -15,9 +15,12 @@ class CreateDrugusagesTable extends Migration {
 		Schema::create('drugusages', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('drug_name');
-			$table->text('usage_note');
+			$table->integer('business_unit_id');
+			$table->integer('patient_id');
+			$table->string('drug_name',60)->nullable();
+			$table->text('usage_note')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

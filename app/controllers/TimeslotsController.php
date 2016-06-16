@@ -11,7 +11,7 @@ class TimeslotsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$timeslots = Timeslot::where('clinic_id', Auth::user()->clinic_id)->get();
+		$timeslots = Timeslot::where('company_id', Auth::user()->company_id)->get();
 
 		return View::make('timeslots.index', compact('timeslots'));
 	}
@@ -40,7 +40,7 @@ class TimeslotsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-        $data['clinic_id'] = Auth::user()->clinic_id;
+        $data['company_id'] = Auth::user()->company_id;
 		Timeslot::create($data);
 
 		return Redirect::route('timeslots.index');
@@ -121,14 +121,14 @@ class TimeslotsController extends \BaseController {
             $appointments = Appointment::where('date', $date)->where('employee_id', $id)
                             ->get();
             if(count($appointments) > 0){
-                $timeslots = Timeslot::where('dutyday_id', $duty_day->id)
+                $timeslots = Timeslot::where('duty_day_id', $duty_day->id)
                     ->where('employee_id', $id);
                 foreach($appointments as $appointment){
                     $slot = $timeslots->where('slot', '!=', $appointment->time)
                             ->get()->toJson();
                 }
             }else{
-                $slot = Timeslot::where('dutyday_id', $duty_day->id)
+                $slot = Timeslot::where('duty_day_id', $duty_day->id)
                         ->get()->toJson();
             }
 

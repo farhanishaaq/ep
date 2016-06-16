@@ -15,10 +15,10 @@ class CreateCheckupfeesTable extends Migration {
 		Schema::create('checkupfees', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->double('checkup_fee');
-			$table->text('fee_note');
 			$table->integer('patient_id');
 			$table->integer('appointment_id');
+			$table->decimal('checkup_fee',8,2);
+			$table->text('fee_note')->nullable();
 			$table->timestamps();
 		});
 	}

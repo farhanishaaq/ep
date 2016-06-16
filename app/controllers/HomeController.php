@@ -64,7 +64,7 @@ class HomeController extends BaseController {
 	}
 
 	public function showSearchPMR(){
-        $patients = Patient::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        $patients = Patient::where('company_id', Auth::user()->company_id)->paginate(10);
 		return View::make('medical_records.search-pmr', compact('patients'));
 	}
 

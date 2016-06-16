@@ -19,7 +19,7 @@
 });*/
 Route::get('/', 'HomeController@index');
 Route::get('home', array('as'=>'home','uses'=>'HomeController@index'));
-
+//Route::get('home', array('before'=>'auth','as'=>'home','uses'=>'HomeController@index'));
 
 /*Route::get('/login', function(){
     Auth::logout();
@@ -91,7 +91,7 @@ Route::group(array('before' => 'auth'), function(){
             return View::make('super.services');
         });
 
-        Route::resource('clinics', 'ClinicsController');
+        Route::resource('companies', 'CompaniesController');
 
     });
     ////////////////////// Admin Routes END ///////////////////////
@@ -120,12 +120,12 @@ Route::group(array('before' => 'auth'), function(){
             if(isset($date_range[0]) && isset($date_range[1])) {
                 $start = $date_range[0];
                 $end = $date_range[1];
-                $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)
+                $appointments = Appointment::where('company_id', Auth::user()->company_id)
                     ->whereBetween('date', [$start, $end])->where('status', 5)->get();
 
                 return View::make('patients.checked_patients', compact('appointments'));
             }elseif(isset($date_range[0])){
-                $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)
+                $appointments = Appointment::where('company_id', Auth::user()->company_id)
                     ->where('date', $date_range[0])->where('status', 5)->get();
 
                 return View::make('patients.checked_patients', compact('appointments'));
@@ -237,7 +237,7 @@ Route::group(array('before' => 'auth'), function(){
     Route::get('patientPrescriptions/{patientId}', array('before' => 'auth', 'as'=>'patientPrescriptions', 'uses' => 'PrescriptionsController@patientPrescriptions'));
     // Prints
     /*Route::get('app_pres_print', function(){
-        $appointments = Appointment::has('prescription')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        $appointments = Appointment::has('prescription')->where('company_id', Auth::user()->company_id)->paginate(10);
         $flag = "pres_print";
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
     });*/
@@ -269,7 +269,7 @@ Route::group(array('before' => 'auth'), function(){
 
 
     Route::get('app_proc', function(){
-        $appointments = Appointment::has('diagonosticprocedure', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->get();
+        $appointments = Appointment::has('diagonosticprocedure', '=', 0)->where('company_id', Auth::user()->company_id)->get();
         $flag = "proc";
         return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
     });

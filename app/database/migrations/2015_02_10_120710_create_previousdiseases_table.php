@@ -15,9 +15,12 @@ class CreatePreviousdiseasesTable extends Migration {
 		Schema::create('previousdiseases', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('disease_name');
-			$table->text('disease_notes');
+			$table->integer('business_unit_id');
+			$table->integer('patient_id');
+			$table->string('disease_name')->nullable();
+			$table->text('disease_notes')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

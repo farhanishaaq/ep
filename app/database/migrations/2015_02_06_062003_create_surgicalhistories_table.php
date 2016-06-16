@@ -15,10 +15,13 @@ class CreateSurgicalhistoriesTable extends Migration {
 		Schema::create('surgicalhistories', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('business_unit_id');
+			$table->integer('patient_id');
 			$table->string('surgery_name');
 			$table->date('surgery_date');
-			$table->text('surgery_notes');
+			$table->text('surgery_notes')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

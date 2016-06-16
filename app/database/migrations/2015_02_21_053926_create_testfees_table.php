@@ -15,8 +15,9 @@ class CreateTestfeesTable extends Migration {
 		Schema::create('testfees', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->double('test_fee');
-			$table->text('fee_note');
+			$table->integer('company_id');
+			$table->decimal('test_fee',8,2);
+			$table->text('fee_note')->nullable();
 			$table->timestamps();
 		});
 	}

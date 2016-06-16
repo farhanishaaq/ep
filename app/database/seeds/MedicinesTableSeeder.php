@@ -7,14 +7,15 @@ class MedicinesTableSeeder extends Seeder {
 
 	public function run()
 	{
-		$faker = Faker::create();
-
-		foreach(range(1, 10) as $index)
-		{
-			Medicine::create([
-
-			]);
-		}
+//		DB::table('medicines')->truncate();
+//		$faker = Faker::create();
+//
+//		foreach(range(1, 10) as $index)
+//		{
+//			Medicine::create([
+//
+//			]);
+//		}
 	}
 
 }

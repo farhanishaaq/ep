@@ -16,7 +16,7 @@ class Employee extends \Eloquent implements UserInterface, RemindableInterface{
 	// Don't forget to fill this array
 
 	protected $fillable = ['name', 'password', 'email', 'gender', 'age', 'city', 'country',
-        'address', 'phone', 'cnic', 'branch', 'note', 'status', 'role', 'clinic_id'];
+        'address', 'phone', 'cnic', 'branch', 'note', 'status', 'role', 'company_id'];
 
     /**
      * Get the e-mail address where password reminders are sent.
@@ -80,7 +80,23 @@ class Employee extends \Eloquent implements UserInterface, RemindableInterface{
     }
 
     /**
-     * Relationships
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function companies()
+    {
+        return $this->hasMany('Company');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function businessUnits()
+    {
+        return $this->hasMany('BusinessUnit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function dutydays()
     {
@@ -94,11 +110,18 @@ class Employee extends \Eloquent implements UserInterface, RemindableInterface{
 
     public function prescriptions()
     {
-        return $this->hasMany('Prescriotions');
+        return $this->hasMany('Prescription');
     }
 
-    public function clinic(){
-        return $this->belongsTo('Clinic');
+    public function company(){
+        return $this->belongsTo('Company');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('User');
+    }
 }

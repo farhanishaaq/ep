@@ -19,6 +19,20 @@ class GlobalsConst {
     const TIME_SLOT_INTERVAL = 20;
 
 
+    const EP_DEMO_COMPANY_ONE = 1;
+    const EP_DEMO_COMPANY_TWO = 2;
+    const EP_DEMO_BUSINESS_UNIT_ONE = 1;
+    const EP_DEMO_BUSINESS_UNIT_TWO = 2;
+    const EP_DEMO_BUSINESS_UNIT_THREE = 3;
+    const EP_DEMO_BUSINESS_UNIT_FOUR = 4;
+
+
+
+    const LAHORE_OF_PAK = 1;
+
+
+
+
     //Roles
     const ADMINISTRATOR = "Administrator";
     const DOCTOR = "Doctor";
@@ -90,6 +104,7 @@ class GlobalsConst {
                                         2 => 'Waiting',
                                         3 => 'Walk In',
                                         4 => 'Cancelled',
+                                        5 => 'Completed',
                                         ];
 
 

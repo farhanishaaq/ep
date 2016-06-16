@@ -10,7 +10,7 @@ class VitalsignsController extends \BaseController {
     public function index() {
         $patient_id = Input::get('id');
         $patient = Patient::find($patient_id);
-        $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        $appointments = Appointment::where('company_id', Auth::user()->company_id)->paginate(10);
 //        $appointments = $patient->appointments()->has('vitalsign')->paginate(1);
 
         return View::make('vitalsigns.index', compact('appointments', 'patient_id'));
@@ -39,7 +39,7 @@ class VitalsignsController extends \BaseController {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $data['clinic_id'] = Auth::user()->clinic_id;
+        $data['company_id'] = Auth::user()->company_id;
         Vitalsign::create($data);
 
         return Redirect::to('/app_vitals');
