@@ -23,24 +23,24 @@ class Patient extends \Eloquent {
         return $this->hasMany('Allergy');
     }
 
-    public function drugusages()
+    public function drugUsages()
     {
-        return $this->hasMany('Drugusage');
+        return $this->hasMany('DrugUsage');
     }
 
-    public function familyhistories()
+    public function familyHistories()
     {
-        return $this->hasMany('Familyhistory');
+        return $this->hasMany('FamilyHistory');
     }
 
-    public function previousdiseases()
+    public function previousDiseases()
     {
-        return $this->hasMany('Previousdisease');
+        return $this->hasMany('PreviousDisease');
     }
 
     public function surgicalhistories()
     {
-        return $this->hasMany('Surgicalhistory');
+        return $this->hasMany('SurgicalHistory');
     }
 
     public function diagonosticprocedures()
@@ -48,9 +48,9 @@ class Patient extends \Eloquent {
         return $this->hasMany('Diagonosticprocedure');
     }
 
-    public function vitalsigns()
+    public function vitalSigns()
     {
-        return $this->hasMany('Vitalsign');
+        return $this->hasMany('VitalSign');
     }
 
     public function labtests()

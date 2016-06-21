@@ -10,6 +10,9 @@ namespace App\Globals;
 
 
 class GlobalsConst {
+
+    const YES = "Yes";
+    const NO = "No";
     const STATUS_ON = "Active";
     const STATUS_OFF = "Inactive";
     const MALE = "Male";
@@ -29,11 +32,16 @@ class GlobalsConst {
 
 
     const LAHORE_OF_PAK = 1;
+    
+    const SUPER_ADMIN_ID = 1;
+    const COMPANY_ADMIN_ID = 2;
 
 
 
 
     //Roles
+    const SUPER_ADMIN_ROLE = 1;
+    const COMPANY_ADMIN_ROLE = 2;
     const ADMINISTRATOR = "Administrator";
     const DOCTOR = "Doctor";
     const ACCOUNTANT = "Accountant";

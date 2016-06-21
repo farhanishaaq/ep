@@ -5,7 +5,7 @@ class BusinessUnit extends \Eloquent {
 	/**
 	 * @var string
 	 */
-	protected $table = 'businessunits';
+	protected $table = 'business_units';
 
 	/**
 	 * @var array

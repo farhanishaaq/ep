@@ -12,7 +12,7 @@ class CreateBusinessUnitsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('businessUnits', function(Blueprint $table)
+		Schema::create('business_units', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('company_id')->nullable();
@@ -36,7 +36,7 @@ class CreateBusinessUnitsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('businessUnits');
+		Schema::drop('business_units');
 	}
 
 }

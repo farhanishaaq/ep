@@ -1,6 +1,6 @@
 <?php
 
-class Surgicalhistory extends \Eloquent {
+class SurgicalHistory extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [

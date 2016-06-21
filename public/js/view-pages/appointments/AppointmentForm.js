@@ -123,8 +123,8 @@ var AppointmentForm = function(win,doc, options){
                         //***Start for time slots
                         $('#time_slot_id').html('');
                         $('#time_slot_id').html('<option value="">Select Time Slot</option>');
-                        for(ts in response.data.timeslots){
-                            var obj = response.data.timeslots[ts];
+                        for(ts in response.data.timeSlots){
+                            var obj = response.data.timeSlots[ts];
                             $('#time_slot_id').append('<option value="'+ obj.id +'">'+ obj.slot +'</option>');
                         }
                         //***End for time slots

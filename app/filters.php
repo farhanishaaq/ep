@@ -50,8 +50,18 @@ Route::filter('auth', function($request)
 		}
 		return Redirect::guest('login');
 	}*/
+	
 	if (Auth::check()){
-//		Auth::user()->roles
+		list($controller, $action) = explode('@',$request->getActionName());
+		if(User::check($controller, $action)){
+			//filter is pass
+		}else{
+			if (Request::ajax())
+			{
+				return Response::make('Unauthorized', 401);
+			}
+			return Redirect::guest('login')->withErrors('You are not authorized, Please login with authorized user');
+		}
 	}else{
 		if (Auth::guest())
 		{

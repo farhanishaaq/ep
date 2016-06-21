@@ -25,14 +25,13 @@ class="current"
 =========================================================-->
 @section('content')	
     <section id="content">
-			<div>
+			<div class="container">
 				<div class="menu" style="margin-left: 10%; margin-right: 10%">
 					{{--<a class="purple" href="{{URL::route('searchPmr')}}">View Medical Record</a>--}}
 					<a class="purple" href="{{URL::route('patients.index')}}">View Medical Record</a>
-					<a class="blue" href="{{route('vitalsigns.index')}}">View Vital Signs</a>
+					<a class="blue" href="{{route('vitalSigns.index')}}">View Vital Signs</a>
 					<a class="orange" href="{{route('appointments.index')}}">View Appointments</a>
 				</div>
 			</div>
-
     </section>
 @stop

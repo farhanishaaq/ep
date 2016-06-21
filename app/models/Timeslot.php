@@ -13,7 +13,7 @@ class Timeslot extends \Eloquent {
     // Relationships
     public function dutyday()
     {
-        return $this->belongsTo('Dutyday');
+        return $this->belongsTo('DutyDay');
     }
 
     public function appointments()
@@ -22,17 +22,17 @@ class Timeslot extends \Eloquent {
     }
 
     public static function fetchAvailableTimeSlots($doctorId,$day){
-        $qry = DB::table('timeslots')
-            ->select(['timeslots.id','timeslots.slot'])
-            ->join('dutydays', 'dutydays.id', '=', 'timeslots.duty_day_id','inner')
-            ->where('dutydays.employee_id', '=', $doctorId)
-            ->where('dutydays.day', '=', $day)
-            ->whereNotIn('timeslots.id', function($query)
+        $qry = DB::table('time_slots')
+            ->select(['time_slots.id','time_slots.slot'])
+            ->join('duty_days', 'duty_days.id', '=', 'time_slots.duty_day_id','inner')
+            ->where('duty_days.employee_id', '=', $doctorId)
+            ->where('duty_days.day', '=', $day)
+            ->whereNotIn('time_slots.id', function($query)
             {
 //                $query->select(DB::raw(1))
                 $query->select('appointments.time_slot_id')
                     ->from('appointments')
-                    ->join('timeslots AS ts2', 'ts2.id', '=', 'appointments.time_slot_id','inner');
+                    ->join('time_slots AS ts2', 'ts2.id', '=', 'appointments.time_slot_id','inner');
 //                    ->whereRaw('orders.user_id = users.id');
             });
 //        $qry->toSql();

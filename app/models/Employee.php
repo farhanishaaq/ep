@@ -5,8 +5,14 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Employee extends \Eloquent implements UserInterface, RemindableInterface{
+class Employee extends \Eloquent{
 
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'employees';
 
 	// Add your validation rules here
 	public static $rules = [
@@ -15,69 +21,8 @@ class Employee extends \Eloquent implements UserInterface, RemindableInterface{
 
 	// Don't forget to fill this array
 
-	protected $fillable = ['name', 'password', 'email', 'gender', 'age', 'city', 'country',
-        'address', 'phone', 'cnic', 'branch', 'note', 'status', 'role', 'company_id'];
+	protected $fillable = ['company_id', 'business_unit_id', 'user_id', 'fname', 'lname', 'joining_date', 'quite_date', 'joining_salary', 'current_salary'];
 
-    /**
-     * Get the e-mail address where password reminders are sent.
-     *
-     * @return string
-     */
-    public function getReminderEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Get the unique identifier for the user.
-     *
-     * @return mixed
-     */
-    public function getAuthIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    /**
-     * Get the password for the user.
-     *
-     * @return string
-     */
-    public function getAuthPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Get the token value for the "remember me" session.
-     *
-     * @return string
-     */
-    public function getRememberToken()
-    {
-        // TODO: Implement getRememberToken() method.
-    }
-
-    /**
-     * Set the token value for the "remember me" session.
-     *
-     * @param  string $value
-     * @return void
-     */
-    public function setRememberToken($value)
-    {
-        // TODO: Implement setRememberToken() method.
-    }
-
-    /**
-     * Get the column name for the "remember me" token.
-     *
-     * @return string
-     */
-    public function getRememberTokenName()
-    {
-        // TODO: Implement getRememberTokenName() method.
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -98,9 +43,9 @@ class Employee extends \Eloquent implements UserInterface, RemindableInterface{
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function dutydays()
+    public function dutyDays()
     {
-        return $this->hasMany('Dutyday');
+        return $this->hasMany('DutyDay');
     }
 
     public function appointments()

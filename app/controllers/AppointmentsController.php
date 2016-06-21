@@ -128,70 +128,6 @@ class AppointmentsController extends \BaseController {
 
 		return Redirect::route('appointments.index');
 	}
-        
-        public function fetchVitalSign(){
-        if(Auth::user()->role == 'Administrator' || Auth::user()->role == 'Receptionist'){
-            $appointments = Appointment::has('vitalsign', '=', 0)->where('company_id', Auth::user()->company_id)->paginate(10);
-        }elseif(Auth::user()->role == 'Doctor'){
-            $appointments = Appointment::has('vitalsign')->where('employee_id', Auth::id())->paginate(10);
-        }
-        $flag = "vitals";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
-
-    public function addPrescriptions(){
-        $appointments = Appointment::has('prescription', '=', 0)->where('company_id', Auth::user()->company_id)->paginate(10);
-        $flag = "prescription";
-        return View::make('appointments.index', compact('appointments', 'flag'));
-    }
-
-    public function showTestReports(){
-        if(Input::get('id') !== null){
-            $appointments = Appointment::where('patient_id', Input::get('id'))->paginate(10);
-        }else{
-            $appointments = Appointment::where('company_id', Auth::user()->company_id)->paginate(10);
-        }
-        $flag = "test";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
-
-    public function printTestReports(){
-        $appointments = Appointment::has('labtests')->where('company_id', Auth::user()->company_id)->paginate(10);
-        $flag = "test_print";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
-
-    public function addCheckUpFee(){
-        if(Auth::user()->role == "Accountant"){
-            $appointments = Appointment::where('company_id', Auth::user()->company_id)->paginate(10);
-        }else{
-            $appointments = Appointment::has('checkupfee', '=', 0)->where('company_id', Auth::user()->company_id)->paginate(10);
-        }
-        $flag = "check_fee";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
-
-    public function addTestFee(){
-        if(Input::get('id') !== null){
-            $appointments = Appointment::where('patient_id', Input::get('id'))->paginate(10);
-        }else{
-            $appointments = Appointment::has('labtests')->where('company_id', Auth::user()->company_id)->paginate(10);
-        }
-        $flag = "test_fee";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
-
-    public function testFeeInvoice(){
-        $appointments = Appointment::has('labtests')->where('company_id', Auth::user()->company_id)->paginate(10);
-        $flag = "test_invoice";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
-
-    public function checkupFeeInvoice(){
-        $appointments = Appointment::has('checkupfee')->where('company_id', Auth::user()->company_id)->paginate(10);
-        $flag = "checkup_invoice";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
 
     public function fetchTimeSlotsAndBookedAppointments(){
         $day = Input::get('day','');
@@ -204,15 +140,15 @@ class AppointmentsController extends \BaseController {
         }
         else{
             $strDay = GlobalsConst::$DAYS_WITH_NUM_KEYS[$day];
-//            $dutyDay = Dutyday::where('day','=',GlobalsConst::$DAYS_WITH_NUM_KEYS[$day])->first();
-//            $timeSlots = $dutyDay->timeslots()->lists('slot','id');
-//            $timeSlots = $dutyDay->timeslots()->get(['id','slot']);
+//            $dutyDay = DutyDay::where('day','=',GlobalsConst::$DAYS_WITH_NUM_KEYS[$day])->first();
+//            $timeSlots = $dutyDay->timeSlots()->lists('slot','id');
+//            $timeSlots = $dutyDay->timeSlots()->get(['id','slot']);
             $timeSlots = Timeslot::fetchAvailableTimeSlots($doctorId,$strDay);
             $appointments = Appointment::fetchAppointmentsByDay($strDay);
 
             if($timeSlots != null){
                 if(count($timeSlots)){
-                    $data['timeslots'] = $timeSlots;
+                    $data['timeSlots'] = $timeSlots;
                     $makeDayPilotArr = [];
                     foreach($appointments as $k=>$ap){
 //                    $doctors = $dd->employee;

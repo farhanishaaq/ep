@@ -18,8 +18,6 @@ class CreateEmployeesTable extends Migration {
 			$table->integer('company_id');
 			$table->integer('business_unit_id');
 			$table->integer('user_id');
-			$table->string('fname',60)->nullable();
-			$table->string('lname',60)->nullable();
 			$table->date('joining_date')->nullable();
 			$table->date('quite_date')->nullable();
 			$table->decimal('joining_salary',8,2)->nullable();

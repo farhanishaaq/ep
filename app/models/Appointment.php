@@ -54,7 +54,7 @@ class Appointment extends \Eloquent {
 
     public function vitalsign()
     {
-        return $this->hasOne('Vitalsign');
+        return $this->hasOne('VitalSign');
     }
 
     public function diagonosticprocedure()
@@ -78,15 +78,15 @@ class Appointment extends \Eloquent {
                     'appointments.id',
                     'patients.name',
                     'appointments.date',
-                    'timeslots.slot AS start',
-                    DB::raw('ADDTIME(timeslots.slot,"00:'.GlobalsConst::TIME_SLOT_INTERVAL.':00") AS `end`'),
-                    'dutydays.day',
+                    'time_slots.slot AS start',
+                    DB::raw('ADDTIME(time_slots.slot,"00:'.GlobalsConst::TIME_SLOT_INTERVAL.':00") AS `end`'),
+                    'duty_days.day',
                 ]
             )
             ->join('patients', 'patients.id', '=', 'appointments.patient_id','inner')
-            ->join('timeslots', 'timeslots.id', '=', 'appointments.time_slot_id','inner')
-            ->join('dutydays', 'dutydays.id', '=', 'timeslots.duty_day_id','inner')
-            ->where('dutydays.day', '=', $day);
+            ->join('time_slots', 'time_slots.id', '=', 'appointments.time_slot_id','inner')
+            ->join('duty_days', 'duty_days.id', '=', 'time_slots.duty_day_id','inner')
+            ->where('duty_days.day', '=', $day);
         return $qry->get();
     }
 }

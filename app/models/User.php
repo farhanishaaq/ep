@@ -4,7 +4,7 @@ use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
-
+use \App\Globals\GlobalsConst;
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
@@ -31,67 +31,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	// Don't forget to fill this array
 
 	protected $fillable = ['company_id', 'business_unit_id', 'role_id', 'city_id', 'name', 'password', 'email', 'gender', 'age', 'city', 'country', 'address', 'phone', 'cnic', 'branch', 'note', 'status', 'role', 'company_id'];
-
-	/**
-	 * Get the e-mail address where password reminders are sent.
-	 *
-	 * @return string
-	 */
-	public function getReminderEmail()
-	{
-		return $this->email;
-	}
-
-	/**
-	 * Get the unique identifier for the user.
-	 *
-	 * @return mixed
-	 */
-	public function getAuthIdentifier()
-	{
-		return $this->getKey();
-	}
-
-	/**
-	 * Get the password for the user.
-	 *
-	 * @return string
-	 */
-	public function getAuthPassword()
-	{
-		return $this->password;
-	}
-
-	/**
-	 * Get the token value for the "remember me" session.
-	 *
-	 * @return string
-	 */
-	public function getRememberToken()
-	{
-		// TODO: Implement getRememberToken() method.
-	}
-
-	/**
-	 * Set the token value for the "remember me" session.
-	 *
-	 * @param  string $value
-	 * @return void
-	 */
-	public function setRememberToken($value)
-	{
-		// TODO: Implement setRememberToken() method.
-	}
-
-	/**
-	 * Get the column name for the "remember me" token.
-	 *
-	 * @return string
-	 */
-	public function getRememberTokenName()
-	{
-		// TODO: Implement getRememberTokenName() method.
-	}
 
 
 	/**
@@ -122,7 +61,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	public function roles()
 	{
-		return $this->belongsToMany('Role');
+		return $this->belongsToMany('Role','role_user','user_id','role_id');
 	}
 
 	public function patient(){
@@ -131,5 +70,81 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function employee(){
 		return $this->hasOne('Employee');
+	}
+
+	public function getCurrentRoles()
+	{
+		try{
+			if(Auth::user()->roles->count()){
+				
+			}
+			foreach(Auth::user()->roles as $role){
+
+			}
+		}catch (Exception $e)
+		{
+
+		}
+	}
+
+	/**
+	 * hasRole | This Function used to check that user has the role which is passed and collection
+	 * @param \Illuminate\Database\Eloquent\Collection $userRoles
+	 * @return bool
+	 */
+	public static function hasRole(\Illuminate\Database\Eloquent\Collection $userRoles){
+		try{
+			if(Auth::user()->roles->count()){
+				$rolesIds = $userRoles->lists('id');
+				foreach (Auth::user()->roles as $role){
+					if(in_array($role->id , $rolesIds)){
+						return true;
+					}
+				}
+				return false;
+			}else{
+				return false;
+			}
+		}catch(Exception $e){
+			return false;
+		}
+	}
+
+	public static function check($controller,$action){
+//		try{
+			if(Auth::user()->roles->count()){
+				foreach (Auth::user()->roles as $role){
+					if($role->id == GlobalsConst::SUPER_ADMIN_ID){
+						return true;
+					}else{
+//						echo $role->resources->count();
+						foreach($role->resources as $resource){
+							if($resource->parent){
+								/*if($resource->parent->name == 'DashboardsController' && $resource->name == 'showDashboard'){
+									echo $resource->parent->id.'<br>';
+									echo $resource->parent->name.'<br>';
+									echo $resource->id.'<br>';
+									echo $resource->name.'<br>';
+									var_dump($resource->pivot->status).'<br>';
+								}*/
+
+								if($resource->parent->name == $controller && $resource->name == $action && $resource->pivot->status == 'Allow'){
+									return true;
+								}
+							}
+						}
+						die('JJJJ');
+						return false;
+					}
+				}
+				return false;
+			}else{
+
+				return false;
+			}
+//		}catch(Exception $e){
+//			die('try error');
+//			return false;
+//		}
 	}
 }

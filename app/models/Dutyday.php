@@ -1,12 +1,12 @@
 <?php
 use \App\Globals\GlobalsConst;
-class Dutyday extends \Eloquent {
+class DutyDay extends \Eloquent {
 
 	// Add your validation rules here
 
 	public static $rules = [
         'employee_id' => 'required',
-        'day' => 'required|unique:dutydays,day,NULL,id,employee_id,3',
+        'day' => 'required|unique:duty_days,day,NULL,id,employee_id,3',
         'start' => 'required',
         'end' => 'required',
 	];
@@ -55,7 +55,7 @@ class Dutyday extends \Eloquent {
         return $this->belongsTo('Employee');
     }
 
-    public function timeslots()
+    public function timeSlots()
     {
         return $this->hasMany('Timeslot');
     }

@@ -1,6 +1,6 @@
 <?php
 
-class Previousdisease extends \Eloquent {
+class PreviousDisease extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [

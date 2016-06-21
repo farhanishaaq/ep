@@ -20,7 +20,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Management <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="{{URL::route('employees.index')}}">Manage Employees</a></li>
-                <li><a href="{{URL::route('dutydays.index')}}">Doctor Schedules</a></li>
+                <li><a href="{{URL::route('dutyDays.index')}}">Doctor Schedules</a></li>
                 <li><a href="{{URL::route('medicines.index')}}">Manage Medicines</a></li>
             </ul>
         </li>

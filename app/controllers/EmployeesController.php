@@ -167,57 +167,8 @@ class EmployeesController extends \BaseController {
 
 
     // ========================= User Validation ========================= //
-    public function doLogin()
-    {
-        $email = Input::get('email');
-        $password = Input::get('password');
+    
 
-        if (Auth::attempt(array('email' => $email, 'password' => $password), true))
-        {
-            /*if(Auth::user()->status == 'Active' && Auth::user()->role == 'Doctor' && Auth::user()->company->admin->status == 'Active'){
-                 return Redirect::to('doctorHome');
-            }else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Administrator'){
-                return Redirect::to('adminHome');
-            }
-            else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Receptionist' && Auth::user()->company->admin->status == 'Active'){
-                return Redirect::to('receptionistHome');
-            }
-            else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Lab Manager' && Auth::user()->company->admin->status == 'Active'){
-                return Redirect::to('labManagerHome');
-            }
-            else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Accountant' && Auth::user()->company->admin->status == 'Active'){
-                return Redirect::to('accountantHome');
-            }
-            else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Super User'){
-                return Redirect::to('superHome');
-            }else{
-                Auth::logout();
-                return Redirect::to('login')->withErrors('You are not Activated!');
-            }*/
-            if(Auth::user()->status == 'Active' ){
-                /*if(){
 
-                }else{
-                    return Redirect::to('login')->withErrors('You are not Activated!');
-                }*/
-                return Redirect::to('doctorHome');
-            }else{
-                return Redirect::to('login')->withErrors('You are not Activated!');
-            }
-        }else{
-            $validator = Validator::make(Input::all(), array('email' => 'exists:employees', 'password' => 'exists:employees'));
-            if ($validator->fails())
-            {
-                return Redirect::to('login')->withErrors($validator);
-            }
-        }
-
-    }
-
-    public function logout(){
-        Auth::logout();
-        return Redirect::route('login');
-//        \Illuminate\Support\Facades\Session::flush();
-    }
 
 }

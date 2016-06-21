@@ -21,7 +21,9 @@ class CreateUsersTable extends Migration {
 			$table->string('username',60)->unique();
 			$table->string('email',60)->unique();
 			$table->string('password', 128);
-			$table->enum('user_type',['SiteUser', 'Doctor', 'Company'])->nullable();
+			$table->string('fname',60)->nullable();
+			$table->string('lname',60)->nullable();
+			$table->string('photo', 60);
 			$table->date('dob')->nullable();
 			$table->string('cnic',15)->nullable();//35200-1469067-9
 			$table->enum('gender',['Male','Female'])->nullable();

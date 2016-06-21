@@ -103,9 +103,8 @@
             <!--========================================================
                                       HEADER
             =========================================================-->
-            @include('partials.header')
+            @include('includes.header')
 
-            {{--@yield('sliderContent')--}}
             @section('redBar')
             <div class = "user_logo">
                 <div class="header_1 wrap_3 color_3 login-bar">Welcome to Easy Physician</div>
@@ -170,7 +169,7 @@
             <!--========================================================
                                       FOOTER
             =========================================================-->
-            @include('partials.footer')
+            @include('includes.footer')
 
             @yield('scripts')
         </div>

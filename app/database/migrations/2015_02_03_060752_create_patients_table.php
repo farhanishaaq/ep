@@ -18,8 +18,6 @@ class CreatePatientsTable extends Migration {
 			$table->integer('company_id');
 			$table->integer('business_unit_id');
 			$table->integer('user_id');
-			$table->string('fname',60)->nullable();
-			$table->string('lname',60)->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

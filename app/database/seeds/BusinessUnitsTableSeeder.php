@@ -5,7 +5,7 @@ class BusinessUnitsTableSeeder extends Seeder {
 
 	public function run()
 	{
-		DB::table('businessunits')->truncate();
+		DB::table('business_units')->truncate();
 		//1
 		BusinessUnit::create([
 			'company_id'=> 1,

@@ -1,6 +1,6 @@
 <?php
 
-class Drugusage extends \Eloquent
+class DrugUsage extends \Eloquent
 {
 
     // Add your validation rules here

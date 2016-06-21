@@ -1,6 +1,6 @@
 <?php
 
-class Familyhistory extends \Eloquent {
+class FamilyHistory extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [

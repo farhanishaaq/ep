@@ -1,9 +1,9 @@
 <?php
 
-class SurgicalhistoriesController extends \BaseController {
+class SurgicalHistoriesController extends \BaseController {
 
 	/**
-	 * Display a listing of surgicalhistories
+	 * Display a listing of surgical_histories
 	 *
 	 * @return Response
 	 */
@@ -13,7 +13,7 @@ class SurgicalhistoriesController extends \BaseController {
         $patient = Patient::find($patient_id);
         $surgicalhistories = $patient->surgicalhistories()->paginate(10);
 
-		return View::make('surgicalhistories.index', compact('patient', 'surgicalhistories'));
+		return View::make('surgical_histories.index', compact('patient', 'surgicalhistories'));
 	}
 
 	/**
@@ -24,7 +24,7 @@ class SurgicalhistoriesController extends \BaseController {
 	public function create()
 	{
 		$patient_id = Input::get('id');
-		return View::make('surgicalhistories.create', compact('patient_id'));
+		return View::make('surgical_histories.create', compact('patient_id'));
 	}
 
 	/**
@@ -42,9 +42,9 @@ class SurgicalhistoriesController extends \BaseController {
 		}
 
         $data['company_id'] = Auth::user()->company_id;
-		Surgicalhistory::create($data);
+		SurgicalHistory::create($data);
 
-		return Redirect::to('surgicalhistories?id='.$data['patient_id']);
+		return Redirect::to('surgical_histories?id='.$data['patient_id']);
 	}
 
 	/**
@@ -55,9 +55,9 @@ class SurgicalhistoriesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$surgicalhistory = Surgicalhistory::findOrFail($id);
+		$surgicalhistory = SurgicalHistory::findOrFail($id);
 
-		return View::make('surgicalhistories.show', compact('surgicalhistory'));
+		return View::make('surgical_histories.show', compact('surgicalhistory'));
 	}
 
 	/**
@@ -68,9 +68,9 @@ class SurgicalhistoriesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$surgicalhistory = Surgicalhistory::find($id);
+		$surgicalhistory = SurgicalHistory::find($id);
 
-		return View::make('surgicalhistories.edit', compact('surgicalhistory'));
+		return View::make('surgical_histories.edit', compact('surgicalhistory'));
 	}
 
 	/**
@@ -81,7 +81,7 @@ class SurgicalhistoriesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$surgicalhistory = Surgicalhistory::findOrFail($id);
+		$surgicalhistory = SurgicalHistory::findOrFail($id);
 
 		$validator = Validator::make($data = Input::all(), array('surgery_name' => 'required', 'surgery_date' => 'date|required'));
 
@@ -94,7 +94,7 @@ class SurgicalhistoriesController extends \BaseController {
 
 		$surgicalhistory->update($data);
 
-		return Redirect::to('surgicalhistories?id='.$surgicalhistory->patient_id);
+		return Redirect::to('surgical_histories?id='.$surgicalhistory->patient_id);
 	}
 
 	/**
@@ -105,9 +105,9 @@ class SurgicalhistoriesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Surgicalhistory::destroy($id);
+		SurgicalHistory::destroy($id);
 
-		return Redirect::route('surgicalhistories.index');
+		return Redirect::route('surgical_histories.index');
 	}
 
 }

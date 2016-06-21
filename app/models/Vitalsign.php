@@ -1,6 +1,6 @@
 <?php
 
-class Vitalsign extends \Eloquent {
+class VitalSign extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
