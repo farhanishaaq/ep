@@ -85,8 +85,12 @@ class AppointmentsController extends \BaseController {
         $patients = Patient::where('clinic_id', Auth::user()->clinic_id)->get();
 		$appointment = Appointment::find($id);
         $timeslot = $appointment->timeslot->first()->where('dutyday_id', $appointment->timeslot->dutyday_id)->lists('slot','id');
-
-		return View::make('appointments.edit', compact('timeslot','appointment', 'doctors', 'patients'))->nest('_form','appointments.partials._form',compact('formMode','employee','appointment','doctors','patients'));
+        $strDay = date('l',strtotime($appointment->date));
+//        $strDay = GlobalsConst::$DAYS_WITH_NUM_KEYS[$day];
+        $appointmentDateAvailableTimeslots = Timeslot::fetchAvailableTimeSlots($appointment->employee->id,$strDay,true);
+//        echo '<pre>';
+//dd($appointmentDateAvailableTimeslots);
+		return View::make('appointments.edit', compact('timeslot','appointment', 'doctors', 'patients'))->nest('_form','appointments.partials._form',compact('formMode','employee','appointment','doctors','patients','appointmentDateAvailableTimeslots'));
 	}
 
 	/**
