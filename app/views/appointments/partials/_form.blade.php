@@ -79,7 +79,7 @@
                         <div class="col-xs-6">
                             {{--<input type="text" id="date" name="date" required="true" value="{{{ Form::getValueAttribute('date', null) }}}" class="form-control" placeholder="mm/dd/yyyy">--}}
                              <div class="input-group date" data-provide="datepicker">
-                                <input type="text" class="form-control" id="date" name="date" required="true" value="{{{ Form::getValueAttribute('date', null) }}}" readonly >
+                                <input type="text" class="form-control" id="date" name="date" required="true" value="{{{ retrieve_date_for_input('date')}}}" readonly >
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
