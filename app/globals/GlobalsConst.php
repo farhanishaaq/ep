@@ -28,9 +28,9 @@ class GlobalsConst {
 
     public static $ROLES = ['Administrator'=>self::ADMINISTRATOR,
                             'Doctor'=>self::DOCTOR,
-                            'Accountant'=>self::ACCOUNTANT,
+//                            'Accountant'=>self::ACCOUNTANT,
                             'Receptionist'=>self::RECEPTIONIST,
-                            'Lab Manager'=>self::LAB_MANAGER
+//                            'Lab Manager'=>self::LAB_MANAGER
     ];
 
     //Branches

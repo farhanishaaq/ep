@@ -21,7 +21,7 @@ class Timeslot extends \Eloquent {
         return $this->hasMany('Appointment', 'timeslot_id', 'id');
     }
 
-    public static function fetchAvailableTimeSlots($doctorId,$day){
+    public static function fetchAvailableTimeSlots($doctorId,$day,$isLists=false){
         $qry = DB::table('timeslots')
             ->select(['timeslots.id','timeslots.slot'])
             ->join('dutydays', 'dutydays.id', '=', 'timeslots.dutyday_id','inner')
@@ -36,6 +36,9 @@ class Timeslot extends \Eloquent {
 //                    ->whereRaw('orders.user_id = users.id');
             });
 //        $qry->toSql();
-        return $qry->get();
+        if($isLists)
+            return $qry->lists('slot','id');
+        else
+            return $qry->get();
     }
 }
