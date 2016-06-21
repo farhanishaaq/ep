@@ -116,3 +116,11 @@ function days_drop_down()
 function get_appointment_status_name($appointmentStatusId){
     return isset(GlobalsConst::$APPOINTMENT_STATUSES[$appointmentStatusId]) ? GlobalsConst::$APPOINTMENT_STATUSES[$appointmentStatusId] : '';
 }
+
+/**
+ * get_appointment_status_name | This function is used to get appointment status name by status id
+ * @return string
+ */
+function retrieve_date_for_input($inputName,$format='d-m-Y'){
+    return Form::getValueAttribute($inputName, null) != null ? date($format, strtotime(Form::getValueAttribute($inputName, null) ) ): '';
+}
