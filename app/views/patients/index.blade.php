@@ -34,10 +34,10 @@
                 <thead>
                     <tr>
                         <th>Patient Name</th>
-                        <th>Patient ID</th>
+                        <th>Last Visit</th>
                         <th>Age</th>
                         <th>Gender</th>
-                        <th>Phone</th>
+                        <th>Cell</th>
                         <th>Manage</th>
                     </tr>
                 </thead>
@@ -47,9 +47,9 @@
 
                     @foreach($patients as $patient)
                         <tr class="row-data">
-                            <td>{{{ $patient->name }}}</td>
+                            <td>{{{ $patient->user->full_name }}}</td>
                             <td>{{{ $patient->patient_id }}}</td>
-                            <td>{{{ $patient->age }}} - Years</td>
+                            <td>{{{ date($patient->dob) }}} - Years</td>
                             <td>{{{ $patient->gender }}}</td>
                             <td>{{{ $patient->phone }}}</td>
                             <td>
@@ -63,7 +63,6 @@
 
                 </tbody>
             </table>
-            {{ $patients->links('partials.pagination') }}
         </section>
 
 
