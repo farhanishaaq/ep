@@ -66,36 +66,7 @@ var UserForm = function(win,doc, options){
     var saveCloseClicked = false;
 
 
-    var allPluginsInitializer = function(){
-
-        //**** For Country
-        $("#city_id").select2();
-
-
-        //**** For user_type
-        $("#user_type").select2();
-
-
-        //**** For Branch
-        $("#branch").select2();
-
-        //**** For Medical Specialty
-        $("#medical_specialty_id").select2({'placeholder': 'Select Medical Specialties'});
-
-        //**** For Qualifications
-        $("#qualification_id").select2();
-
-        //****Start For Date Of Birth Date
-        var dPiker = $('#dob').datepicker({
-            autoclose: true,
-            format: 'dd-mm-yyyy'
-        });
-        dPiker.autoclose = true;
-        dPiker.format = "dd-mm-yyyy";
-
-        //*****Tabs
-        $('.nav.nav-tabs').responsiveTabs();
-
+    var makePhotoUploadComponent = function () {
         //*********************FileInput plugin
         // with plugin options
         $("#userPhoto").fileinput({
@@ -143,6 +114,41 @@ var UserForm = function(win,doc, options){
         $('#userPhoto').on('filecleared', function(event) {
             alert('Cleared');
         });
+    }
+
+    var allPluginsInitializer = function(){
+
+        //**** For Country
+        $("#city_id").select2();
+
+
+        //**** For user_type
+        $("#user_type").select2();
+
+
+        //**** For BusinessUnitId
+        $("#business_unit_id").select2();
+
+        //**** For Medical Specialty
+        $("#medical_specialty_id").select2({'placeholder': 'Select Medical Specialties'});
+
+        //**** For Qualifications
+        $("#qualification_id").select2();
+
+        //****Start For Date Of Birth Date
+        var dPiker = $('#dob').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy'
+        });
+        dPiker.autoclose = true;
+        dPiker.format = "dd-mm-yyyy";
+
+        //*****Tabs
+        $('.nav.nav-tabs').responsiveTabs();
+
+
+        //***fileInput plugin for upload photo
+        makePhotoUploadComponent();
 
     };
 

@@ -203,10 +203,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	/**
 	 * @param $data
-	 * @return $this
+	 * @param int $dataProcessType
+	 * @return array|null
 	 */
-	public static function saveUser($data){
+	public static function saveUser($data,$dataProcessType=GlobalsConst::DATA_SAVE){
 		$response = null;
+		$comeFrom = isset($data['comeFrom']) ? $data['comeFrom'] : 'User';
 		$validator = Validator::make($data, User::$rules);
 
 		if ($validator->fails())
@@ -217,7 +219,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 //		$user = self::create($data);
 		$userType = $data['user_type'];
 
-		$user = new User();
+
+
+		if($dataProcessType==GlobalsConst::DATA_SAVE){
+			$user = new User();
+			$user->password = $data['password'];
+		}else{
+			$id = isset($data['userId']) ? $data['userId'] : '';
+			if($id != ''){
+				$user = User::find($id);
+			}else{
+				return $response = ['success'=>false, 'error'=> true, 'message' => $comeFrom.' record did not find for updation! '];
+			}
+		}
 		$user->company_id = $data['company_id'];
 		$user->business_unit_id = $data['business_unit_id'];
 		$user->city_id = $data['city_id'];
@@ -226,10 +240,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->full_name = $data['fname'].' '.$data['lname'];
 		$user->username = $data['username'];
 		$user->email = $data['email'];
-		$user->password = $data['password'];
+
 		$user->photo = $data['photo'];
 		$user->user_type = $userType;
-		$user->dob = $data['dob'];
+		$user->dob = date('Y-m-d',strtotime($data['dob']));
 		$user->cnic = $data['cnic'];
 		$user->gender = $data['gender'];
 		$user->address = $data['address'];
@@ -247,15 +261,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 				case GlobalsConst::WORKER:
 //					Employee::create($data);
 				$data['user_id'] = $user->id;
-				Employee::saveEmployee($data);
+				Employee::saveEmployee($data,$dataProcessType);
 				break;
 				case GlobalsConst::DOCTOR:
-//					$employee = Employee::create($data);
-					$employeeResponse = Employee::saveEmployee($data);
+					$employeeResponse = Employee::saveEmployee($data,$dataProcessType);
 					if(isset($employeeResponse['Employee'])){
 						$employee = $employeeResponse['Employee'];
 						$data['employee_id'] = $employee->id;
-						$doctorResponse = Doctor::saveDoctor($data);
+						$doctorResponse = Doctor::saveDoctor($data,$dataProcessType);
 						if(!isset($doctorResponse['Doctor'])){
 							return $response;
 						}
@@ -263,8 +276,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 						return $response;
 					}
 					break;
+				case GlobalsConst::PATIENT:
+					$patientResponse = Patient::savePatient($data,$dataProcessType);
+					if(isset($patientResponse['Patient'])){
+
+					}else{
+						return $response;
+					}
+					break;
 			}
-			$response = ['success'=>true, 'error'=> false, 'message'=>'User has been saved successfully!'];
+			$response = ['success'=>true, 'error'=> false, 'message'=>$comeFrom .' has been saved successfully!'];
 		}
 		return $response;
 	}

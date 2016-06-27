@@ -49,14 +49,14 @@
                         <tr class="row-data">
                             <td>{{{ $patient->user->full_name }}}</td>
                             <td>{{{ $patient->patient_id }}}</td>
-                            <td>{{{ date($patient->dob) }}} - Years</td>
-                            <td>{{{ $patient->gender }}}</td>
-                            <td>{{{ $patient->phone }}}</td>
+                            <td>{{{ get_age_from_dob($patient->user->dob) }}} - Years</td>
+                            <td>{{{ $patient->user->gender }}}</td>
+                            <td>{{{ $patient->user->cell }}}</td>
                             <td>
                             {{ link_to_route('patients.show', '', [$patient->id], ['class' => 'btn-view-icon fL', 'style' => 'margin-bottom: 2px'])}}
 
                             <span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('patients.edit', '', [$patient->id], ['class' => 'btn-edit-icon fL'])}}
-                            <span class="fL">&nbsp;|&nbsp;</span><a href="javascript:void(0);" class="btn-view-prescription-icon fL viewPresc" title="Prescriptions of {{$patient->name}}" data-toggle="modal" data-target="#myModal" patient-prescription-url="{{route('patientPrescriptions',['patientId'=>$patient->id])}}"></a>
+                            <span class="fL">&nbsp;|&nbsp;</span><a href="javascript:void(0);" class="btn-view-prescription-icon fL viewPresc" title="Prescriptions of {{$patient->user->full_name}}" data-toggle="modal" data-target="#myModal" patient-prescription-url="{{route('patientPrescriptions',['patientId'=>$patient->id])}}"></a>
                             </td>
                         </tr>
                     @endforeach
@@ -68,6 +68,7 @@
 
     </div>
 
+    {{--Patient Priccriptions Modal--}}
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -102,44 +103,14 @@
     </div>
 @stop
 @section('scripts')
+    <script src="{{asset('js/view-pages/patients/PatientsList.js')}}"></script>
     <script type="text/javascript">
         window.patientPrescriptionUrl = 0;
         $(document).ready(function() {
-
-            //****For List
-            if($('#tblRecordsList tr.row-data').length){
-                $('#tblRecordsList').DataTable({
-                    "columnDefs": [ {
-                        "targets": 5,
-                        "orderable": false
-                    } ]
-                });
-            }
-
-
-
-
-            //****BS-Modal Show Event
-            $('.viewPresc').click(function () {
-                window.patientPrescriptionUrl = $(this).attr('patient-prescription-url');
-            });
-            //****BS-Modal Show Event
-            $('#myModal').on('show.bs.modal', function () {
-                if(window.patientPrescriptionUrl){
-                    $.ajax({
-                        type: 'GET',
-                        url:  window.patientPrescriptionUrl ,
-                        dataType: 'html',
-                        success: function (response) {
-                            if(response == "Error"){
-
-                            }else{
-                                $('#prescriptionTbody').html(response);
-                            }
-                        }
-                    });
-                }
-            });
+            var options = {
+            };
+            var patientsList = new PatientsList(window,document,options);
+            patientsList.initializeAll();
         } );
     </script>
 @stop

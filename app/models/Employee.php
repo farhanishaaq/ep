@@ -109,7 +109,7 @@ class Employee extends \Eloquent{
         $employee->joining_salary = $data['joining_salary'];
         $employee->current_salary = $data['current_salary'];
         $employee->save();
-        $response = ['success'=>true, 'error'=> false, 'message'=>'User has been saved successfully!','Employee'=>$employee];
+        $response = ['success'=>true, 'error'=> false, 'message'=>'Employee has been saved successfully!','Employee'=>$employee];
         return $response;
     }
 }

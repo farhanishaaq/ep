@@ -39,6 +39,7 @@ class GlobalsConst {
 
 
     const PROFILE_PHOTO_DIR = 'uploaded-data/profile-photos';
+    const DUMMY_EMAIL_DOMAIN = '@test.com';
 
 
     //Roles
@@ -60,6 +61,7 @@ class GlobalsConst {
         'AuthController@doLogin',
         'AuthController@unauthorized',
         'UsersController@uploadProfilePic', //@todo It is not public, remove from here
+        'PatientsController@getPatientForm', //@todo It is not public, remove from here
     ];
 
     //User Types

@@ -31,6 +31,10 @@
        //***Form Mode
        window.FORM_CREATE = 1;
        window.FORM_EDIT = 2;
+
+
+       window.MESSAGE_TYPE_SUCCESS = 'Success';
+       window.MESSAGE_TYPE_ERROR = 'Error';
        </script>
        <link rel="icon" href="/images/icon.jpg" type="image/x-icon">
 

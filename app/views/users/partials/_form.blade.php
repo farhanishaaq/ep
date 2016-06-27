@@ -1,3 +1,4 @@
+        <?php $userTypePatient = isset($userTypePatient) ? $userTypePatient : '' ?>
         @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
             {{ Form::open(array('action' => 'UsersController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm', 'name' => 'regForm', 'enctype' => 'multipart/form-data', 'novalidate')) }}
         @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
@@ -139,7 +140,7 @@
                             <label class="col-xs-5 control-label">Date of Birth</label>
                             <div class="col-xs-6">
                                 <div class="input-group date" data-provide="datepicker">
-                                    <input type="text" id="dob" name="dob" value="{{{ Form::getValueAttribute('dob', null) }}}" class="form-control" placeholder="dd-mm-yyyy" readonly="readonly">
+                                    <input type="text" id="dob" name="dob" value="{{{ get_display_date(Form::getValueAttribute('dob', null)) }}}" class="form-control" placeholder="dd-mm-yyyy" readonly="readonly">
                                     <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-th"></span>
                                     </div>
@@ -177,8 +178,6 @@
                             <input id="userPhoto" name="userPhoto" type="file" class="file-loading" accept="image/*">
                         </div>
 
-
-
                     </div>
                 </section>
             </div>
@@ -209,7 +208,7 @@
                             <label class="col-xs-5 control-label asterisk">City</label>
                             <div class="col-xs-6">
                                 {{city_drop_down()}}
-                                <span id="errorCity" class="field-validation-msg"></span>
+                                <span id="error_city" class="field-validation-msg"></span>
                             </div>
                         </div>
 

@@ -238,5 +238,10 @@ function get_collection_col_as_str(\Illuminate\Database\Eloquent\Collection $col
 }
 
 function get_age_from_dob($dob){
-//    $age = date($currentYear) - $birthYear;
+    $age = (int)(date('Y') - date('Y',strtotime($dob)));
+    return $age;
+}
+
+function get_display_date($date){
+    return date('d-m-Y',strtotime($date));
 }

@@ -1674,6 +1674,10 @@ span.field-validation-msg {
     font-weight: bold;
     font-size: 15px;
 }
+
+#myModalForPatientForm .modal-dialog{
+  width: 90%;
+}
 /*
 ****************************************************************************************************
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< END BOOTSTRAP CHANGES >>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -2335,7 +2339,11 @@ span.field-validation-msg {
 .h700 {height: 700px;}
 .h750 {height: 750px;}
 .h800 {height: 800px;}
+.h850 {height: 850px;}
+.h900 {height: 900px;}
 .h1000 {height: 1000px;}
+.h1100 {height: 1100px;}
+.h1110 {height: 1110px;}
 
 
 
