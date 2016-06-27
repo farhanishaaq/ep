@@ -11,8 +11,7 @@ class PatientsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$patients = Patient::where('company_id', Auth::user()->company_id)->paginate(10);
-
+		$patients = Patient::where('company_id', Auth::user()->company_id);
 		return View::make('patients.index', compact('patients'));
 	}
 

@@ -58,6 +58,7 @@
    =========================================================-->
 
        {{--{{ HTML::script('js/user_validation.js') }}--}}
+       {{ HTML::script('js/Chart.bundle.min.js') }}
        {{ HTML::script('js/jquery.min.js') }}
        {{ HTML::script('js/bootstrap.min.js') }}
        {{ HTML::script('js/moment.js') }}
