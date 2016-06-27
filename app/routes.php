@@ -23,6 +23,7 @@ Route::group(['Public'],function (){
      */
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
+    Route::get('unauthorized', array('as'=>'unauthorized','uses'=>'AuthController@unauthorized'));
 
     /**
      * HomeController Routes
@@ -81,9 +82,12 @@ Route::group(['Private', 'before' => 'auth'],function (){
 
 
     /**
-     * EmployeesController Routes
+     * UsersController Routes
      */
-    Route::resource('employees', 'EmployeesController');
+    Route::any('uploadProfilePic', array('as' => 'uploadProfilePic', 'uses' => 'UsersController@uploadProfilePic'));
+    Route::resource('users', 'UsersController');
+
+
 
 
     /**

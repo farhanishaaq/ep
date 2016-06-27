@@ -1,10 +1,9 @@
-{{-- employees.layouts.master --}}
 @extends('layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
 @section('title')
-    Employee Registration
+    Manage Employees
 @stop
 
 @section('redBar')
@@ -20,11 +19,15 @@
 <!--========================================================
                           CONTENT
 =========================================================-->
-
-
 @section('content')
-
-    <div class="container">
-        {{$_view}}
+    <div class="container un-auth-content taC">
+        <div class="col-sm-12">
+            <img src="{{asset('images/unauthorized.png')}}" />
+            <h2 class="">You are not authorized user for this resource!</h2>
+        </div>
     </div>
+    {{--Please <a href="{{route('login')}}">login</a> with other user, or go <a href="{{Redirect::intended()}}">back</a>--}}
+@stop
+
+@section('scripts')
 @stop

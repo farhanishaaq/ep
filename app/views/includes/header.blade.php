@@ -22,6 +22,9 @@
                                         @if($r->id == GlobalsConst::SUPER_ADMIN_ID)
                                             @include('includes.superUserNav')
                                             <?php break; ?>
+                                        @elseif($r->id == GlobalsConst::COMPANY_ADMIN_ID)
+                                            @include('includes.companyAdminNav')
+                                            <?php break; ?>
                                         @endif
                                     @endforeach
                                 @endif

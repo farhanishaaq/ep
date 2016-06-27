@@ -41,7 +41,7 @@
                 @if(($dutyDays->count()))
                 @foreach($dutyDays as $dutyDay)
                     <tr class="row-data">
-                        <td>{{{ $dutyDay->employee->name }}}</td>
+                        <td>{{{ $dutyDay->employee->user->full_name }}}</td>
                         <td>
                         {{ link_to_route('dutyDays.show', '', [$dutyDay->employee->id], ['class' => 'btn-view-icon fL','title'=> 'View Record'])}}
                         {{--<span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('dutyDays.edit', '', [$dutyDay->employee->id], ['class' => 'btn-edit-icon fL','title'=> 'Edit Record'])}}--}}
@@ -60,7 +60,6 @@
             @endif
             </tbody>
         </table>
-        {{ $dutyDays->links('partials.pagination') }}
     </section>
 </div>
 @stop

@@ -1,4 +1,4 @@
-{{-- employees.layouts.master --}}
+{{-- users.layouts.master --}}
 @extends('layouts.master')
 <!--========================================================
                           TITLE
@@ -30,12 +30,12 @@
 @stop
 
 @section('scripts')
-    <script src="{{asset('js/view-pages/employees/EmployeeForm.js')}}"></script>
+    <script src="{{asset('js/view-pages/users/UserForm.js')}}"></script>
     <script>
         $(document).ready(function(){
             var options = {};
-            var employeeForm = new EmployeeForm(window,document,options);
-            employeeForm.initializeAll();
+            var userForm = new UserForm(window,document,options);
+            userForm.initializeAll();
         });
     </script>
 @stop

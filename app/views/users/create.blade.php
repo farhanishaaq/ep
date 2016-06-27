@@ -1,4 +1,4 @@
-{{-- employees.layouts.master --}}
+{{-- users.layouts.master --}}
 @extends('layouts.master')
 <!--========================================================
                           TITLE
@@ -9,7 +9,7 @@ Employee Registration
 
 @section('redBar')
 <div class = "user_logo">
-    <div class="header_1 wrap_3 color_3 login-bar">Easy Physician
+    <div class="header_1 wrap_3 color_3 login-bar">Create User Form
         {{--<div class="col-md-12 mL25 taL">Easy Physician</div>--}}
     </div>
 </div>
@@ -29,13 +29,3 @@ Employee Registration
     </div>
 @stop
 
-@section('scripts')
-    <script src="{{asset('js/view-pages/employees/EmployeeForm.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            var options = {};
-            var employeeForm = new EmployeeForm(window,document,options);
-            employeeForm.initializeAll();
-        });
-    </script>
-@stop

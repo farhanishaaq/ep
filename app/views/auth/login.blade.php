@@ -49,6 +49,11 @@ class="current"
 				{{ Form::open(array('url' => 'doLogin')) }}
                     <input type="email" id = "email" name="email" placeholder="Email" required="true">
                     <input type="password" required="true" name="password" id="password" placeholder="Password">
+
+                    <div class="stylish-checkbox checkbox-primary taR">
+                        <input id="remember_me" name="remember_me" class="styled" type="checkbox" checked="">
+                        <label for="remember_me">Remember me</label>
+                    </div>
                     <input style="width:100%" type="submit" name="login" class="login login-submit" value="login">
 				{{ Form::close() }}
 

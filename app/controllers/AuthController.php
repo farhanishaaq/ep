@@ -14,8 +14,10 @@ class AuthController extends \BaseController {
 		$auth = false;
 		$email = Input::get('email');
 		$password = Input::get('password');
-		
-		if (Auth::attempt(array('email' => $email, 'password' => $password), true))
+		$rememberMe = Input::get('remember_me');
+		$rememberMe == ($rememberMe == null ? false : true);
+
+		if (Auth::attempt(array('email' => $email, 'password' => $password), $rememberMe))
 		{
 			$auth = true;
 		}elseif (Auth::attempt(array('username' => $email, 'password' => $password), true)){
@@ -63,5 +65,9 @@ class AuthController extends \BaseController {
 		Auth::logout();
 		return Redirect::route('login');
 //        \Illuminate\Support\Facades\Session::flush();
+	}
+
+	public function unauthorized(){
+		return View::make('auth.unauthorized');
 	}
 }

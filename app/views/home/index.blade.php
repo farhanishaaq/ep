@@ -133,7 +133,7 @@ class="active"
         </div>
     </div>
     <div class="bg_1 col-md-12">
-        <div class="container">
+        <div class="container mB85">
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="header_1 wrap_8 color_3">
@@ -167,4 +167,11 @@ class="active"
         </div>
     </div>
 </section>
+<div class="container">
+    {{--<div class="row wrap_9 wrap_4 wrap_10">--}}
+    @if(Auth::user())
+    @else
+        @include('includes.webSocialLinks')
+    @endif
+</div>
 @stop

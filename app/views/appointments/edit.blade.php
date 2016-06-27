@@ -1,4 +1,4 @@
-{{-- employees.layouts.master --}}
+{{-- users.layouts.master --}}
 @extends('layouts.master')
         <!--========================================================
                           TITLE

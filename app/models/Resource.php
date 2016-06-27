@@ -27,6 +27,6 @@ class Resource extends \Eloquent {
 	 */
 	public function roles()
 	{
-		return $this->belongsToMany('Role', 'resource_role', 'resource_id', 'role_id');
+		return $this->belongsToMany('Role', 'resource_role', 'resource_id', 'role_id')->withPivot('status');
 	}
 }

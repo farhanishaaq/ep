@@ -34,7 +34,7 @@ class CompaniesController extends \BaseController {
 	public function store()
 	{
         $data = Input::all();
-        $validator = Validator::make($data, array('password' => 'min:6','email' => 'unique:employees', 'status' => 'required', 'company_name' => 'required', 'company_address' => 'required'));
+        $validator = Validator::make($data, array('password' => 'min:6','email' => 'unique:users', 'status' => 'required', 'company_name' => 'required', 'company_address' => 'required'));
 
         if ($validator->fails())
         {
@@ -134,7 +134,7 @@ class CompaniesController extends \BaseController {
         $admin = Employee::where('role', 'Administrator')->where('company_id', $company->id)->first();
 
         if ($data['email'] !== $admin->email) {
-            $validator = Validator::make($data, array('email' => 'unique:employees'));
+            $validator = Validator::make($data, array('email' => 'unique:users'));
 
             if ($validator->fails())
             {

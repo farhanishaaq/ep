@@ -1,16 +1,3 @@
-
-
-  <div class="container">
-            {{--<div class="row wrap_9 wrap_4 wrap_10">--}}
-              @if(Auth::user())
-              @else
-                  @include('includes.webSocialLinks')
-              @endif
-
-        </div>
-    </section>
-</div>
-
 <footer id="footer" class="color_9">
     <div class="container">
         <div class="row">

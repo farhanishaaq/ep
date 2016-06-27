@@ -24,13 +24,36 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $hidden = array('password', 'remember_token');
 
 	// Add your validation rules here
+	protected $fillable = ['company_id',
+		'business_unit_id',
+		'city_id',
+		'user_type',
+		'fname',
+		'lname',
+		'full_name',
+		'password',
+		'email',
+		'gender',
+		'address',
+		'dob',
+		'photo',
+		'cnic',
+		'cell',
+		'phone',
+		'cnic',
+		'additional_info',
+		'status',];
+
 	public static $rules = [
-		// 'title' => 'required'
+		'user_type' => 'required',
+		'username' => 'required|unique:users',
+		'password' => 'required|min:6',
+		'email' => 'required|unique:users',
+		'fname' => 'required|max:40',
+		'lname' => 'required|max:40',
 	];
 
 	// Don't forget to fill this array
-
-	protected $fillable = ['company_id', 'business_unit_id', 'role_id', 'city_id', 'name', 'password', 'email', 'gender', 'age', 'city', 'country', 'address', 'phone', 'cnic', 'branch', 'note', 'status', 'role', 'company_id'];
 
 
 	/**
@@ -72,6 +95,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasOne('Employee');
 	}
 
+	public function doctor(){
+		return $this->hasOne('Doctor');
+	}
+
 	public function getCurrentRoles()
 	{
 		try{
@@ -111,7 +138,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public static function check($controller,$action){
-//		try{
+		try{
 			if(Auth::user()->roles->count()){
 				foreach (Auth::user()->roles as $role){
 					if($role->id == GlobalsConst::SUPER_ADMIN_ID){
@@ -121,30 +148,124 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 						foreach($role->resources as $resource){
 							if($resource->parent){
 								/*if($resource->parent->name == 'DashboardsController' && $resource->name == 'showDashboard'){
-									echo $resource->parent->id.'<br>';
-									echo $resource->parent->name.'<br>';
-									echo $resource->id.'<br>';
-									echo $resource->name.'<br>';
-									var_dump($resource->pivot->status).'<br>';
-								}*/
-
+                                    echo $resource->parent->id.'<br>';
+                                    echo $resource->parent->name.'<br>';
+                                    echo $resource->id.'<br>';
+                                    echo $resource->name.'<br>';
+                                    var_dump($resource->pivot->status).'<br>';
+                                }*/
 								if($resource->parent->name == $controller && $resource->name == $action && $resource->pivot->status == 'Allow'){
 									return true;
 								}
+
+
 							}
 						}
-						die('JJJJ');
 						return false;
 					}
 				}
 				return false;
 			}else{
-
 				return false;
 			}
-//		}catch(Exception $e){
-//			die('try error');
-//			return false;
-//		}
+		}catch(Exception $e){
+			die('try and catch Error');
+			return false;
+		}
+	}
+
+	/**
+	 * @param array|null $filterParams
+	 * @param int $offset
+	 * @param int $limit
+	 * @return array|\Illuminate\Database\Eloquent\Collection|static[]
+	 */
+	public static function fetchUsers(array $filterParams = null,$offset=0,$limit=GlobalsConst::LIST_DATA_LIMIT){
+		try{
+			if(Auth::user()->user_type == GlobalsConst::SUPER_ADMIN){
+				$users = User::all();
+			}elseif(Auth::user()->user_type == GlobalsConst::ADMIN){
+				$users = User::where('company_id', Auth::user()->company_id);
+			}else{
+				$users = User::where('company_id', Auth::user()->company_id)->where('user_type','!=',GlobalsConst::ADMIN);
+			}
+			if($filterParams){
+				$searchKey = isset($filterParams['searchKey']) ? '%' . $filterParams['searchKey'].'%' : '';
+				$users->where('full_name','LIKE',$searchKey);
+			}
+			return $users->skip($offset)->take($limit)
+				->orderBy('id','DESC')->get();
+		}catch (Exception $e){
+			dd($e->getMessage());
+		}
+
+	}
+
+	/**
+	 * @param $data
+	 * @return $this
+	 */
+	public static function saveUser($data){
+		$response = null;
+		$validator = Validator::make($data, User::$rules);
+
+		if ($validator->fails())
+		{
+//			return Redirect::back()->withErrors($validator)->withInput();
+			$response = ['success'=>false, 'error'=> true, 'validatorErrors'=>$validator];
+		}
+//		$user = self::create($data);
+		$userType = $data['user_type'];
+
+		$user = new User();
+		$user->company_id = $data['company_id'];
+		$user->business_unit_id = $data['business_unit_id'];
+		$user->city_id = $data['city_id'];
+		$user->fname = $data['fname'];
+		$user->lname = $data['lname'];
+		$user->full_name = $data['fname'].' '.$data['lname'];
+		$user->username = $data['username'];
+		$user->email = $data['email'];
+		$user->password = $data['password'];
+		$user->photo = $data['photo'];
+		$user->user_type = $userType;
+		$user->dob = $data['dob'];
+		$user->cnic = $data['cnic'];
+		$user->gender = $data['gender'];
+		$user->address = $data['address'];
+		$user->cell = $data['cell'];
+		$user->phone = $data['phone'];
+		$user->status = $data['status'];
+		$user->additional_info = $data['additional_info'];
+		$user->save();
+
+		if($user){
+			$data['user_id'] = $user->id;
+			switch ($userType){
+				case GlobalsConst::ADMIN:
+				case GlobalsConst::EMPLOYEE:
+				case GlobalsConst::WORKER:
+//					Employee::create($data);
+				$data['user_id'] = $user->id;
+				Employee::saveEmployee($data);
+				break;
+				case GlobalsConst::DOCTOR:
+//					$employee = Employee::create($data);
+					$employeeResponse = Employee::saveEmployee($data);
+					if(isset($employeeResponse['Employee'])){
+						$employee = $employeeResponse['Employee'];
+						$data['employee_id'] = $employee->id;
+						$doctorResponse = Doctor::saveDoctor($data);
+						if(!isset($doctorResponse['Doctor'])){
+							return $response;
+						}
+					}else{
+						return $response;
+					}
+					break;
+			}
+			$response = ['success'=>true, 'error'=> false, 'message'=>'User has been saved successfully!'];
+		}
+		return $response;
 	}
 }

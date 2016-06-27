@@ -13,20 +13,56 @@ function role_drop_down(){
     return Form::select('role',$rolesData,Form::getValueAttribute('role', null),['id'=>"role",'required'=>'true']);
 }
 
-
 /**
- * branch_drop_down | This function is used to make branch dropdown
+ * role_drop_down | This function is used to make role dropdown
  * @return mixed
  */
-function branch_drop_down(){
-    $branchesData = GlobalsConst::$BRANCHES;
-    $branchesData[""] = "Select Branch";
-    ksort($branchesData);
-    return Form::select('branch',$branchesData,Form::getValueAttribute('branch', null),['id'=>"branch",'required'=>'true']);
+function user_type_drop_down(){
+    $userTypeData = GlobalsConst::$USER_TYPES;
+    switch (Auth::user()->user_type){
+        case GlobalsConst::SUPER_ADMIN:
+            break;
+        case GlobalsConst::ADMIN:
+            unset($userTypeData[GlobalsConst::SUPER_ADMIN]);
+            unset($userTypeData[GlobalsConst::PATIENT]);
+            unset($userTypeData[GlobalsConst::PORTAL_USER]);
+            break;
+        default:
+            $userTypeData = [GlobalsConst::DOCTOR => GlobalsConst::DOCTOR ];
+            break;
+    }
+    $userTypeData[""] = "Select User Type";
+    ksort($userTypeData);
+    return Form::select('user_type',$userTypeData, Form::getValueAttribute('user_type', null),['id'=>"user_type",'required'=>'true']);
 }
 
 /**
- * branch_drop_down | This function is used to make branch dropdown
+ * company_drop_down | This function is used to make company dropdown
+ * @return mixed
+ */
+function company_drop_down(){
+    $companiesData = Company::all();
+    $companiesData[""] = "Select Company";
+    ksort($companiesData);
+    return Form::select('company_id',$companiesData,Form::getValueAttribute('company_id', null),['id'=>"Company",'required'=>'true']);
+}
+
+/**
+ * @param null $companyId
+ * @return mixed
+ */
+function business_unit_drop_down($companyId = null){
+    if($companyId == null){
+        $companyId = Auth::user()->company_id;
+    }
+    $businessUnitsData = Company::find($companyId)->businessUnits->lists('name','id');
+    $businessUnitsData[""] = "Select Branch";
+    ksort($businessUnitsData);
+    return Form::select('business_unit_id',$businessUnitsData,Form::getValueAttribute('business_unit_id', Auth::user()->business_unit_id),['id'=>"branch",'required'=>'true']);
+}
+
+/**
+ * country_drop_down | This function is used to make branch dropdown
  * @return mixed
  */
 function country_drop_down(){
@@ -34,6 +70,20 @@ function country_drop_down(){
     $dataset[""] = "Select Country";
     ksort($dataset);
     return Form::select('country',$dataset,Form::getValueAttribute('country', null),['id'=>"country",'required'=>'true']);
+}
+
+/**
+ * city_drop_down | This function is used to make branch dropdown
+ * @return mixed
+ */
+function city_drop_down(){
+    $dataset = DB::table('cities')->select('cities.id',DB::raw("CONCAT(cities.name,', ', states.name,', ', countries.name) AS full_city_name"))->join('states','states.id','=','cities.state_id')
+        ->join('countries','countries.id','=','states.country_id')
+        ->lists('full_city_name','id');
+
+    $dataset[""] = "Select City";
+    ksort($dataset);
+    return Form::select('city_id',$dataset,Form::getValueAttribute('city_id', null),['id'=>"city_id"]);
 }
 
 
@@ -115,4 +165,74 @@ function days_drop_down()
  */
 function get_appointment_status_name($appointmentStatusId){
     return isset(GlobalsConst::$APPOINTMENT_STATUSES[$appointmentStatusId]) ? GlobalsConst::$APPOINTMENT_STATUSES[$appointmentStatusId] : '';
+}
+
+/**
+ * @param User|null $model
+ * @return mixed
+ */
+function medical_specialty_drop_down(User $model = null){
+    $selectedData = null;
+    $doctorCategoryData = MedicalSpecialty::all()->lists('name', 'id');
+//    $doctorCategoryData[""] = "Select Medical Specialties";
+    ksort($doctorCategoryData);
+    if($model == null){
+        $selectedData = Form::getValueAttribute('medical_specialty_id', null);
+    }else{
+        if($model->doctor->medicalSpecialties){
+            $selectedData = $model->doctor->medicalSpecialties->lists('id');
+        }
+    }
+    return Form::select('medical_specialty_id[]',$doctorCategoryData, $selectedData,['id'=>"medical_specialty_id", 'multiple'=>true,]);
+}
+
+
+/**
+ * @param User|null $model
+ * @return mixed
+ */
+function qualifications_drop_down(User $model = null){
+    $selectedData = null;
+    $doctorCategoryData = Qualification::all()->lists('code', 'id');
+//    $doctorCategoryData[""] = "Select Qualifications & Skills";
+    ksort($doctorCategoryData);
+    if($model==null){
+        $selectedData = Form::getValueAttribute('qualification_id', null);
+    }else{
+        if($model->doctor->qualifications){
+            $selectedData = $model->doctor->qualifications->lists('id');
+        }
+    }
+    return Form::select('qualification_id[]',$doctorCategoryData, $selectedData,['id'=>"qualification_id", 'multiple'=>true]);
+}
+
+/**
+ * @param $fileName
+ * @return string
+ */
+function get_profile_photo_url($fileName){
+    $fileUrl = asset('images/profile-dumy.png');
+
+    $filePath = public_path(GlobalsConst::PROFILE_PHOTO_DIR.'/'.$fileName);
+
+    if($fileName != '' && file_exists($filePath)){
+        $fileUrl = asset(GlobalsConst::PROFILE_PHOTO_DIR.'/'.$fileName);
+    }
+    return $fileUrl;
+}
+
+/**
+ * @param \Illuminate\Database\Eloquent\Collection|null $collection
+ * @param string $col
+ * @return string
+ */
+function get_collection_col_as_str(\Illuminate\Database\Eloquent\Collection $collection=null, $col='name'){
+    if($collection != null){
+        if($collection->count()){
+            foreach($collection as $c){
+                $arr[] = $c->$col;
+            }
+            return join(', ', $arr);
+        }
+    }
 }

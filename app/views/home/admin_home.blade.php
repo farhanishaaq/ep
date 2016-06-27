@@ -42,7 +42,7 @@ class="current"
 @section('content')
 			<div>
 				<div class="menu" style="margin-left: 10%; margin-right: 10%">
-					<a class="ferozi" href="employees">Manage Employees</a>
+					<a class="ferozi" href="users">Manage Employees</a>
 					<a class="blue" href="appointments">Manage Appointments</a>
 					<a class="purple" href="dutyDays">Doctor Schedules </a>
 					{{--<a class="orange" href="patients" >Manage Patients </a>--}}

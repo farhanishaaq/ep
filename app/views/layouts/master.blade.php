@@ -1,9 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
     <head>
-    <title>@yield('title')</title>
-       <meta charset="utf-8">
-       <meta name="format-detection" content="telephone=no"/>
+        <title>@yield('title')</title>
+        <meta name="description" content="Easy Physician, A Clinic Management System, Hospital Management System">
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
        <script>
        window.YES = true;
        window.NO = false;
@@ -14,6 +17,20 @@
        window.DP_THURSDAY = "2013-03-28";
        window.DP_FRIDAY = "2013-03-29";
        window.DP_SATURDAY = "2013-03-30";
+
+       //***User Types
+       window.SUPER_ADMIN = 0;
+       window.ADMIN = 1;
+       window.EMPLOYEE = 2;
+       window.WORKER = 3;
+       window.DOCTOR = 4;
+       window.PATIENT = 5;
+       window.PORTAL_USER = 6;
+       window.USER_TYPES = JSON.parse('{{json_encode(array_keys(\App\Globals\GlobalsConst::$USER_TYPES))}}');
+
+       //***Form Mode
+       window.FORM_CREATE = 1;
+       window.FORM_EDIT = 2;
        </script>
        <link rel="icon" href="/images/icon.jpg" type="image/x-icon">
 
@@ -70,6 +87,7 @@
        {{ HTML::script('js/jquery-plugins/jquery.validate.js') }}
        {{ HTML::script('js/jquery-plugins/jquery.validate.extension.js') }}
        {{ HTML::script('plugins/clock-picker/js/bootstrap-clockpicker.min.js') }}
+       {{ HTML::script('js/view-pages/view-page-message-dictionary.js') }}
        {{ HTML::script('js/all.js') }}
 
 

@@ -50,26 +50,31 @@ Route::filter('auth', function($request)
 		}
 		return Redirect::guest('login');
 	}*/
-	
-	if (Auth::check()){
-		list($controller, $action) = explode('@',$request->getActionName());
-		if(User::check($controller, $action)){
-			//filter is pass
-		}else{
-			if (Request::ajax())
-			{
-				return Response::make('Unauthorized', 401);
-			}
-			return Redirect::guest('login')->withErrors('You are not authorized, Please login with authorized user');
-		}
+
+	list($controller, $action) = explode('@',$request->getActionName());
+	if(in_array($controller.'@'.$action, GlobalsConst::$PUBLIC_RESOURCES)){
+		//filter is pass
 	}else{
-		if (Auth::guest())
-		{
-			if (Request::ajax())
-			{
-				return Response::make('Unauthorized', 401);
+		if (Auth::check()){
+			
+			if(User::check($controller, $action)){
+				//filter is pass
+			}else{
+				if (Request::ajax())
+				{
+					return Response::make('Unauthorized', 401);
+				}
+				return Redirect::guest('unauthorized')->withErrors('You are not authorized, Please login with authorized user');
 			}
-			return Redirect::guest('login');
+		}else{
+			if (Auth::guest())
+			{
+				if (Request::ajax())
+				{
+					return Response::make('Unauthorized', 401);
+				}
+				return Redirect::guest('login');
+			}
 		}
 	}
 });

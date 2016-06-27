@@ -11,7 +11,14 @@ class Company extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function businessUnits(){
-        return $this->hasMany('BusinessUnits');
+        return $this->hasMany('BusinessUnit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users(){
+        return $this->hasMany('User');
     }
 
     /**
@@ -21,9 +28,6 @@ class Company extends \Eloquent {
         return $this->hasMany('Employee');
     }
 
-    public function admin(){
-        return $this->hasOne('Employee')->where('role', 'Administrator');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -20,6 +20,7 @@ class GlobalsConst {
     const FORM_CREATE = 1;
     const FORM_EDIT = 2;
     const TIME_SLOT_INTERVAL = 20;
+    const LIST_DATA_LIMIT = 60;
 
 
     const EP_DEMO_COMPANY_ONE = 1;
@@ -37,23 +38,13 @@ class GlobalsConst {
     const COMPANY_ADMIN_ID = 2;
 
 
+    const PROFILE_PHOTO_DIR = 'uploaded-data/profile-photos';
 
 
     //Roles
     const SUPER_ADMIN_ROLE = 1;
     const COMPANY_ADMIN_ROLE = 2;
-    const ADMINISTRATOR = "Administrator";
-    const DOCTOR = "Doctor";
-    const ACCOUNTANT = "Accountant";
-    const RECEPTIONIST = "Receptionist";
-    const LAB_MANAGER = "Lab Manager";
 
-    public static $ROLES = ['Administrator'=>self::ADMINISTRATOR,
-                            'Doctor'=>self::DOCTOR,
-                            'Accountant'=>self::ACCOUNTANT,
-                            'Receptionist'=>self::RECEPTIONIST,
-                            'Lab Manager'=>self::LAB_MANAGER
-    ];
 
     //Branches
     const DHA = "DHA";
@@ -61,6 +52,42 @@ class GlobalsConst {
     const CANAL_VIEW = "Canal View";
     const GARDEN_TOWN = "Garden Town";
     const JOHAR_TOWN = "Johar Town";
+
+    //PUBLIC RESOURCES LIST
+    public static $PUBLIC_RESOURCES = [
+        'HomeController@index',
+        'AuthController@showLogin',
+        'AuthController@doLogin',
+        'AuthController@unauthorized',
+        'UsersController@uploadProfilePic', //@todo It is not public, remove from here
+    ];
+
+    //User Types
+    const SUPER_ADMIN = "Super Admin";
+    const ADMIN = "Admin";
+    const EMPLOYEE = "Employee";
+    const WORKER = "Worker";//laborer
+    const DOCTOR = "Doctor";
+    const PATIENT = "Patient";
+    const PORTAL_USER = "Portal User";
+
+
+    //Data Process Type
+    const DATA_SAVE = 1;
+    const DATA_UPDATE = 2;
+
+
+
+
+    //User Types List
+    public static $USER_TYPES = [self::SUPER_ADMIN=>self::SUPER_ADMIN,
+        self::ADMIN=>self::ADMIN,
+        self::EMPLOYEE=>self::EMPLOYEE,
+        self::WORKER=>self::WORKER,
+        self::DOCTOR=>self::DOCTOR,
+        self::PATIENT=>self::PATIENT,
+        self::PORTAL_USER=>self::PORTAL_USER
+        ];
 
     public static $BRANCHES = ['DHA'=>self::DHA,
                                 'Gulberg'=>self::GULBERG,

@@ -19,6 +19,7 @@ class CreateAppointmentsTable extends Migration {
 			$table->integer('employee_id');
 			$table->integer('patient_id');
 			$table->integer('time_slot_id');
+			$table->string('title');
 			$table->date('date');
 			$table->time('time');
 			$table->decimal('fee',8,2);

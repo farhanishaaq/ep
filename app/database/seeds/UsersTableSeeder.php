@@ -19,6 +19,8 @@ class UsersTableSeeder extends Seeder {
 			'password'=> Hash::make('superAd123456'),
 			'fname'=> 'Rashid',
 			'lname'=> 'Hussain',
+			'full_name'=> 'Rashid Hussain',
+			'user_type'=> 'Super Admin',
 			'dob'=> '1988-12-01',
 			'cnic'=> '35200-1478048-1',
 			'gender'=> 'Male',
@@ -35,6 +37,8 @@ class UsersTableSeeder extends Seeder {
 			'password'=> Hash::make('admin123456'),
 			'fname'=> 'Ahmad',
 			'lname'=> 'Raza',
+			'full_name'=> 'Ahmad Raza',
+			'user_type'=> 'Admin',
 			'dob'=> '1988-12-01',
 			'cnic'=> '35200-1478048-1',
 			'gender'=> 'Male',
@@ -59,6 +63,8 @@ class UsersTableSeeder extends Seeder {
 			'password'=> Hash::make('admin123456'),
 			'fname'=> 'Atif',
 			'lname'=> 'Khan',
+			'full_name'=> 'Atif Khan',
+			'user_type'=> 'Admin',
 			'dob'=> '1988-12-01',
 			'cnic'=> '35200-1478048-1',
 			'gender'=> 'Male',
@@ -105,25 +111,28 @@ class UsersTableSeeder extends Seeder {
 			$CityObj = City::find($cid);
 			$cityId = $CityObj->id;
 
-			$user = User::create([
-				'company_id' => $companyId,
-				'business_unit_id'=> $businessUnitId,
-				'city_id'=> $cityId,
-				'email'=> $faker->unique()->email,
-				'username'=> $faker->username,
-				'password'=> Hash::make('123456'),
-				'fname'=> $faker->firstName,
-				'lname'=> $faker->lastName,
-				'dob'=> $faker->dateTimeThisCentury->format('Y-m-d'),
-				'cnic'=> '35200-'.$faker->numberBetween(1469067,3000000).'-' .$faker->numberBetween(0,9),
-				'gender'=> $faker->randomElement(['Male','Female']),
-				'address'=> $faker->address,
-				'cell'=> $faker->phoneNumber,
-				'status'=> $faker->randomElement(['Active','Inactive']),
-			]);
+
 
 			if($index < 9) {
-				Employee::create([
+				$user = User::create([
+					'company_id' => $companyId,
+					'business_unit_id'=> $businessUnitId,
+					'city_id'=> $cityId,
+					'email'=> $faker->unique()->email,
+					'username'=> $faker->username,
+					'password'=> Hash::make('123456'),
+					'fname'=> $faker->firstName,
+					'lname'=> $faker->lastName,
+					'full_name'=> $faker->firstName.' '.$faker->lastName,
+					'user_type'=> $faker->randomElement(['Doctor']),
+					'dob'=> $faker->dateTimeThisCentury->format('Y-m-d'),
+					'cnic'=> '35200-'.$faker->numberBetween(1469067,3000000).'-' .$faker->numberBetween(0,9),
+					'gender'=> $faker->randomElement(['Male','Female']),
+					'address'=> $faker->address,
+					'cell'=> $faker->phoneNumber,
+					'status'=> $faker->randomElement(['Active','Inactive']),
+				]);
+				$employee = Employee::create([
 					'company_id' => $companyId,
 					'business_unit_id'=> $businessUnitId,
 					'user_id'=> $user->id,
@@ -131,7 +140,30 @@ class UsersTableSeeder extends Seeder {
 					'joining_salary'=> $faker->numberBetween($min = 5000, $max = 15000),
 					'current_salary'=> $faker->numberBetween($min = 10000, $max = 25000),
 				]);
+				Doctor::create([
+					'user_id' => $user->id,
+					'employee_id' => $employee->id,
+					'min_fee'=> $faker->numberBetween($min = 200, $max = 800),
+					'max_fee'=> $faker->numberBetween($min = 800, $max = 3000),
+				]);
 			}else{
+				$user = User::create([
+					'company_id' => $companyId,
+					'business_unit_id'=> $businessUnitId,
+					'city_id'=> $cityId,
+					'email'=> $faker->unique()->email,
+					'username'=> $faker->username,
+					'password'=> Hash::make('123456'),
+					'fname'=> $faker->firstName,
+					'lname'=> $faker->lastName,
+					'user_type'=> $faker->randomElement(['Patient']),
+					'dob'=> $faker->dateTimeThisCentury->format('Y-m-d'),
+					'cnic'=> '35200-'.$faker->numberBetween(1469067,3000000).'-' .$faker->numberBetween(0,9),
+					'gender'=> $faker->randomElement(['Male','Female']),
+					'address'=> $faker->address,
+					'cell'=> $faker->phoneNumber,
+					'status'=> $faker->randomElement(['Active','Inactive']),
+				]);
 				Patient::create([
 					'user_id'=> $user->id,
 				]);

@@ -15,7 +15,7 @@ class AppointmentsController extends \BaseController {
 		if(Auth::user()->role == 'Doctor'){
 			$appointments = Auth::user()->appointments()->paginate(50);
 		}else{
-			$appointments = Appointment::where('company_id', Auth::user()->company_id)->paginate(10);
+			$appointments = Appointment::where('business_unit_id', Auth::user()->company_id)->take(50);
 		}
 
 		return View::make('appointments.index', compact('appointments'));
@@ -30,9 +30,10 @@ class AppointmentsController extends \BaseController {
 	{
 
         $formMode = GlobalsConst::FORM_CREATE;
-        $doctors = Employee::where('role', 'Doctor')->where('status', 'active')
-                    ->where('company_id', Auth::user()->company_id)->get();
-        $patients = Patient::where('company_id', Auth::user()->company_id)->get();
+        $doctors = User::where('user_type', GlobalsConst::DOCTOR)
+					->where('status', GlobalsConst::STATUS_ON)
+                    ->where('company_id', Auth::user()->company_id)->lists('full_name', 'id');
+        $patients = Patient::where('business_unit_id', Auth::user()->business_unit_id)->get();
 		return View::make('appointments.create', compact('doctors','patients'))->nest('_form','appointments.partials._form',compact('doctors','patients','formMode'));;
 	}
 
@@ -152,11 +153,14 @@ class AppointmentsController extends \BaseController {
                     $makeDayPilotArr = [];
                     foreach($appointments as $k=>$ap){
 //                    $doctors = $dd->employee;
-                        $dpDay = array_search($ap->day, GlobalsConst::$DP_DAYS);
+                        /*$dpDay = array_search($ap->day, GlobalsConst::$DP_DAYS);
                         $makeDayPilotArr[$k]['start'] =  $dpDay.'T'. $ap->start;
                         $makeDayPilotArr[$k]['end'] =  $dpDay.'T'. $ap->end;
                         $makeDayPilotArr[$k]['id'] =  $dpDay.'T'. $ap->id;
-                        $makeDayPilotArr[$k]['text'] =  $ap->name.' '.$ap->start .' To '. $ap->end;
+                        $makeDayPilotArr[$k]['text'] =  $ap->name.' '.$ap->start .' To '. $ap->end;*/
+						$makeDayPilotArr[$k]['id'] = $ap->id;
+						$makeDayPilotArr[$k]['start'] = $ap->start;
+						$makeDayPilotArr[$k]['end'] = $ap->end;
                     }
                     $data['appointments'] = $makeDayPilotArr;
                     $response = ['success'=>true,'error'=>false,'data'=> $data];

@@ -10,8 +10,7 @@ class DutyDaysController extends \BaseController {
 	 */
 	public function index()
 	{
-        $dutyDays = DutyDay::where('company_id', Auth::user()->company_id)->groupBy('employee_id')->paginate(10);
-
+        $dutyDays = DutyDay::groupBy('employee_id')->take(50)->get();
 		return View::make('duty_days.index', compact('dutyDays'));
 	}
 
@@ -22,9 +21,14 @@ class DutyDaysController extends \BaseController {
 	 */
 	public function create()
 	{
+
         $formMode = GlobalsConst::FORM_CREATE;
-		$doctors = Employee::has('duty_days', '=', 0)->where('role', GlobalsConst::DOCTOR)
-                ->where('status', 'Active')->where('company_id', Auth::user()->company_id)->get();
+		$doctors = Employee::has('dutyDays', '=', 0)
+                    ->join('users', 'users.id','=', 'employees.user_id')
+                    ->where('users.user_type', GlobalsConst::DOCTOR)
+                    ->where('users.status', GlobalsConst::STATUS_ON)
+                    ->where('employees.business_unit_id', Auth::user()->business_unit_id)
+                    ->get();
         return View::make('duty_days.create')->nest('_form','duty_days.partials._form', compact('doctors','formMode'));
 	}
 

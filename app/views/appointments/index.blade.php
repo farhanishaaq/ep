@@ -28,9 +28,8 @@
             <!--========================================================
                                      Data Table
             =========================================================-->
-            @if(Auth::user()->role == 'Administrator' || Auth::user()->role == 'Receptionist')
-                {{ link_to_route('appointments.create', 'Create Appointment', '', ['class' => 'btn_1'])}}
-            @endif
+
+            {{ link_to_route('appointments.create', 'Create Appointment', '', ['class' => 'btn_1'])}}
             <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
                 <thead>
                     <tr>
@@ -96,7 +95,6 @@
                 @endif
                 </tbody>
             </table>
-            {{ $appointments->links('partials.pagination') }}
         </section>
     </div>
 @stop

@@ -27,10 +27,11 @@
         <!--========================================================
                                  Data Table
         =========================================================-->
-        {{ link_to_route('employees.create', 'Register Employee', '', ['class' => 'btn_1'])}}
+        {{ link_to_route('users.create', 'Register Employee', '', ['class' => 'btn_1'])}}
         <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Username</th>
                     <th>Gender</th>
@@ -41,22 +42,23 @@
                 </tr>
             </thead>
             <tbody>
-            @if(($employees) != null)
-                @if(($employees->count()))
-                @foreach($employees as $employee)
+            @if(($users) != null)
+                @if(($users->count()))
+                @foreach($users as $u)
                     <tr class="row-data">
-                        <td>{{{ $employee->name }}}</td>
-                        <td>{{{ $employee->email }}}</td>
-                        <td>{{{ $employee->gender }}}</td>
-                        <td>{{{ $employee->role }}}</td>
-                        <td>{{{ $employee->branch }}}</td>
-                        <td>{{{ $employee->status }}}</td>
+                        <td>{{{ $u->id }}}</td>
+                        <td>{{{ $u->full_name }}}</td>
+                        <td>{{{ $u->email }}}</td>
+                        <td>{{{ $u->gender }}}</td>
+                        <td>{{{ $u->role }}}</td>
+                        <td>{{{ $u->businessUnit->name }}}</td>
+                        <td>{{{ $u->status }}}</td>
                         <td>
-                        {{ link_to_route('employees.show', '', [$employee->id], ['class' => 'btn-view-icon fL','title'=> 'View Record'])}}
-                        @if($employee->role == 'Administrator' || $employee->role == 'Super User')
+                        {{ link_to_route('users.show', '', [$u->id], ['class' => 'btn-view-icon fL','title'=> 'View Record'])}}
+                        @if($u->role == 'Administrator' || $u->role == 'Super User')
                             <span class="fL">&nbsp;|&nbsp;</span><a href="javascript:void(0)" class="btn-edit-disable-icon fL" title="Edit Record not allowed"></a>
                         @else
-                            <span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('employees.edit', '', [$employee->id], ['class' => 'btn-edit-icon fL','title'=> 'Edit Record'])}}
+                            <span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('users.edit', '', [$u->id], ['class' => 'btn-edit-icon fL','title'=> 'Edit Record'])}}
                         @endif
                         </td>
                     </tr>
@@ -73,7 +75,6 @@
             @endif
             </tbody>
         </table>
-        {{ $employees->links('partials.pagination') }}
     </section>
 </div>
 @stop
@@ -83,10 +84,20 @@
 $(document).ready(function() {
     if($('#tblRecordsList tr.row-data').length){
         $('#tblRecordsList').DataTable({
-            "columnDefs": [ {
-            "targets": 6,
-            "orderable": false
-            } ]
+            "columnDefs": [
+                {
+                    "targets": 7,
+                    "orderable": false
+                },
+                {
+                    "targets": [ 0 ],
+                    "visible": false,
+                    "searchable": false
+                },
+            ],
+            "order": [[ 0, "desc" ]],
+            "lengthMenu": [20, 40, 60, 80, 100],
+            "pageLength": "{{\App\Globals\GlobalsConst::LIST_DATA_LIMIT}}"
         });
     }
 } );
