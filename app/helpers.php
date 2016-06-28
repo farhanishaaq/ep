@@ -167,14 +167,10 @@ function get_appointment_status_name($appointmentStatusId){
     return isset(GlobalsConst::$APPOINTMENT_STATUSES[$appointmentStatusId]) ? GlobalsConst::$APPOINTMENT_STATUSES[$appointmentStatusId] : '';
 }
 
-/**
-<<<<<<< HEAD
- * get_appointment_status_name | This function is used to get appointment status name by status id
- * @return string
- */
 function retrieve_date_for_input($inputName,$format='d-m-Y'){
     return Form::getValueAttribute($inputName, null) != null ? date($format, strtotime(Form::getValueAttribute($inputName, null) ) ): '';
-=======
+}
+/**
  * @param User|null $model
  * @return mixed
  */
@@ -255,5 +251,4 @@ function get_age_from_dob($dob){
 
 function get_display_date($date){
     return date('d-m-Y',strtotime($date));
->>>>>>> 49c7b4c09959875d6be4f4a233fe3876cf7648f8
 }
