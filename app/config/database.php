@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 //			'database'  => 'easyphys_db_ep',
 //			'username'  => 'easyphys_user_ep',
-			'database'  => 'easyphys_db_ep',
+			'database'  => 'ep_staging',
 			'username'  => 'root',
 			'password'  => 'srws@!',
 			'charset'   => 'utf8',
