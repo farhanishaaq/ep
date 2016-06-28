@@ -141,6 +141,9 @@ class GlobalsConst {
         '2013-03-30'=>self::SATURDAY];
 
 
+    const ADVANCE_BOOKING = 1;
+    const COMPLETED = 5;
+
     public static $APPOINTMENT_STATUSES = [
                                         1 => 'Advance Booking',
                                         2 => 'Waiting',
