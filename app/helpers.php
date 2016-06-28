@@ -230,11 +230,15 @@ function get_collection_col_as_str(\Illuminate\Database\Eloquent\Collection $col
     if($collection != null){
         if($collection->count()){
             foreach($collection as $c){
-                $arr[] = $c->$col;
+                $arr[] = $c->{$col};
             }
             return join(', ', $arr);
         }
+        else
+            return '';
     }
+    else
+        return '';
 }
 
 function get_age_from_dob($dob){

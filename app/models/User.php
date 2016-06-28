@@ -232,25 +232,35 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 				return $response = ['success'=>false, 'error'=> true, 'message' => $comeFrom.' record did not find for updation! '];
 			}
 		}
+		$cityId = isset($data['city_id']) ? $data['city_id'] : null;
+		$dob = isset($data['dob']) ? date('Y-m-d',strtotime($data['dob'])) : null;
+		$cnic = isset($data['cnic']) ? $data['cnic'] : null;
+		$gender = isset($data['gender']) ? $data['gender'] : null;
+		$address = isset($data['address']) ? $data['address'] : null;
+		$cell = isset($data['cell']) ? $data['cell'] : null;
+		$phone = isset($data['phone']) ? $data['phone'] : null;
+		$additional_info = isset($data['additional_info']) ? $data['additional_info'] : null;
+
+
+
 		$user->company_id = $data['company_id'];
 		$user->business_unit_id = $data['business_unit_id'];
-		$user->city_id = $data['city_id'];
+		$user->city_id = $cityId;
 		$user->fname = $data['fname'];
 		$user->lname = $data['lname'];
 		$user->full_name = $data['fname'].' '.$data['lname'];
 		$user->username = $data['username'];
 		$user->email = $data['email'];
-
 		$user->photo = $data['photo'];
 		$user->user_type = $userType;
-		$user->dob = date('Y-m-d',strtotime($data['dob']));
-		$user->cnic = $data['cnic'];
-		$user->gender = $data['gender'];
-		$user->address = $data['address'];
-		$user->cell = $data['cell'];
-		$user->phone = $data['phone'];
+		$user->dob = $dob;
+		$user->cnic = $cnic;
+		$user->gender = $gender;
+		$user->address = $address;
+		$user->cell = $cell;
+		$user->phone = $phone;
 		$user->status = $data['status'];
-		$user->additional_info = $data['additional_info'];
+		$user->additional_info = $additional_info;
 		$user->save();
 
 		if($user){

@@ -80,5 +80,32 @@ class Doctor extends \Eloquent {
 		return $response;
 	}
 
+	/**
+	 * @param array|null $filterParams
+	 * @param int $offset
+	 * @param int $limit
+	 * @return array|\Illuminate\Database\Eloquent\Collection|static[]
+	 */
+	public static function fetchDoctors(array $filterParams = null,$offset=0,$limit=GlobalsConst::LIST_DATA_LIMIT){
+		try{
+			if(Auth::user()->user_type == GlobalsConst::SUPER_ADMIN){
+				$users = User::where('user_type', \App\Globals\GlobalsConst::DOCTOR);
+			}elseif(Auth::user()->user_type == GlobalsConst::ADMIN){
+				$users = User::where('company_id', Auth::user()->company_id)
+					->where('user_type', \App\Globals\GlobalsConst::DOCTOR);
+			}else{
+				$users = User::where('business_unit_id', Auth::user()->business_unit_id)
+					->where('user_type', \App\Globals\GlobalsConst::DOCTOR);
+			}
+			if($filterParams){
+				$searchKey = isset($filterParams['searchKey']) ? '%' . $filterParams['searchKey'].'%' : '';
+				$users->where('full_name','LIKE',$searchKey);
+			}
+			return $users->skip($offset)->take($limit)
+				->orderBy('id','DESC')->get();
+		}catch (Exception $e){
+			dd($e->getMessage());
+		}
 
+	}
 }

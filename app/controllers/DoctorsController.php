@@ -2,7 +2,7 @@
 use App\Globals\Ep;
 use App\Globals\GlobalsConst;
 
-class PatientsController extends \BaseController {
+class DoctorsController extends \BaseController {
 
 	/**
 	 * Display a listing of patients
@@ -11,8 +11,8 @@ class PatientsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$patients = Patient::where('company_id', Auth::user()->company_id)->get();
-		return View::make('patients.index', compact('patients'));
+		$users = Doctor::fetchDoctors();
+		return View::make('doctors.index', compact('users'));
 	}
 
 	/**
@@ -23,16 +23,16 @@ class PatientsController extends \BaseController {
 	public function create()
 	{
 		$formMode = GlobalsConst::FORM_CREATE;
-		$patientMaxId = Patient::max('id');
-		$patientUsername = 'Patient-'.($patientMaxId+1);
-		$patientPassword = $patientUsername;
-		$patientEmail = $patientUsername.GlobalsConst::DUMMY_EMAIL_DOMAIN;
-
-		return View::make('patients.create')->nest('_form','patients.partials._form',compact('formMode','patient','patientUsername','patientPassword','patientEmail'));
+		$doctorMaxId = Doctor::max('id');
+		$doctorUsername = 'Doctor-'.($doctorMaxId+1);
+		$doctorPassword = $doctorUsername;
+		$doctorEmail = $doctorUsername.GlobalsConst::DUMMY_EMAIL_DOMAIN;
+		$user = null;
+		return View::make('doctors.create')->nest('_form','doctors.partials._form',compact('formMode','doctor','doctorUsername','doctorPassword','doctorEmail','user'));
 	}
 
 	/**
-	 * Store a newly created patient in storage.
+	 * Store a newly created doctor in storage.
 	 *
 	 * @return Response
 	 */
@@ -42,26 +42,26 @@ class PatientsController extends \BaseController {
 		$data['company_id'] = Auth::user()->company_id;
 		$data['business_unit_id'] = Auth::user()->business_unit_id;
 		$data['status'] = Ep::getSwitchButtonVal(Input::get('status'),GlobalsConst::STATUS_ON,GlobalsConst::STATUS_OFF);
-		$data['user_type'] = GlobalsConst::PATIENT;
-		$data['comeFrom'] = 'Patient';
+		$data['user_type'] = GlobalsConst::DOCTOR;
+		$data['comeFrom'] = 'Doctor';
 		$response = User::saveUser($data);
 		return $response;
 	}
 
 	/**
-	 * Display the specified patient.
+	 * Display the specified doctor.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function show($id)
 	{
-		$patient = Patient::findOrFail($id);
-		return View::make('patients.show')->nest('_view','patients.partials._view', compact('patient'));
+		$doctor = Doctor::findOrFail($id);
+		return View::make('doctors.show')->nest('_view','doctors.partials._view', compact('doctor'));
 	}
 
 	/**
-	 * Show the form for editing the specified patient.
+	 * Show the form for editing the specified doctor.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -69,12 +69,13 @@ class PatientsController extends \BaseController {
 	public function edit($id)
 	{
 		$formMode = GlobalsConst::FORM_EDIT;
-		$patient = Patient::find($id);
-		return View::make('patients.edit')->nest('_form','patients.partials._form',compact('formMode','patient'));
+		$doctor = Doctor::find($id);
+		$user = isset($doctor->user) ? $doctor->user :null;
+		return View::make('doctors.edit')->nest('_form','doctors.partials._form',compact('formMode','doctor','user'));
 	}
 
 	/**
-	 * Update the specified patient in storage.
+	 * Update the specified doctor in storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -89,13 +90,13 @@ class PatientsController extends \BaseController {
 		$data['comeFrom'] = 'Patient';
 
 		$data['userId'] = Patient::find($id)->user->id;
-		$data['patientId'] = $id;
+		$data['doctorId'] = $id;
 		$response = User::saveUser($data,GlobalsConst::DATA_UPDATE);
 		return $response;
 	}
 
 	/**
-	 * Remove the specified patient from storage.
+	 * Remove the specified doctor from storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -103,14 +104,8 @@ class PatientsController extends \BaseController {
 	public function destroy($id)
 	{
 		Patient::destroy($id);
-
-		return Redirect::route('patients.index');
+		return Redirect::route('doctors.index');
 	}
-
-    public function patientsReporting(){
-        $appointments = Appointment::where('company_id', Auth::user()->company_id)->where('status', 5)->paginate(1);
-        return View::make('patients.checked_patients', compact('appointments'));
-    }
 
 	private function sendEmail(){
 		$data = ['link' => URL::to('login'), 'name' => Input::get('name')];

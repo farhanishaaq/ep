@@ -34,7 +34,7 @@ class CreateUsersTable extends Migration {
 			$table->string('cell',16)->nullable();
 			$table->string('phone',16)->nullable();
 			$table->enum('status',['Active','Inactive'])->default('Active');
-			$table->string('additional_info',512);
+			$table->string('additional_info',512)->nullable();
 			$table->rememberToken()->nullable();
 			$table->timestamps();
 			$table->softDeletes();

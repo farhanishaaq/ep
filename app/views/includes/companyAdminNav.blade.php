@@ -6,6 +6,8 @@
         <li class="dropdown @yield('current_services')">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Clinic<span class="caret"></span></a>
             <ul class="dropdown-menu">
+                <li><a href="{{URL::route('doctors.index')}}">Manage Doctors</a></li>
+                <li class="divider"></li>
                 <li><a href="{{URL::route('appointments.index')}}">Manage Appointments</a></li>
                 <li class="divider"></li>
                 <li><a href="{{URL::route('patients.index')}}">Patients List</a></li>
