@@ -132,6 +132,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			}else{
 				return false;
 			}
+		}catch (Throwable $t) {
+			// Executed only in PHP 7, will not match in PHP 5.x
+			return false;
 		}catch(Exception $e){
 			return false;
 		}
@@ -168,6 +171,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			}else{
 				return false;
 			}
+		}catch (Throwable $t) {
+			// Executed only in PHP 7, will not match in PHP 5.x
+			return false;
 		}catch(Exception $e){
 			die('try and catch Error');
 			return false;
