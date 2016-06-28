@@ -41,19 +41,19 @@ var AppointmentForm = function(win,doc, options){
         }
     };
     var settings = $.extend(defaults, options || {});
-    var dp = new DayPilot.Calendar("dutyDayCalendar");
+    // var dp = new DayPilot.Calendar("dutyDayCalendar");
     var s = settings;
 
 
-    var initializeDayPilot = function(){
-        //***Start DayPilot Calendar
+   /* var initializeDayPilot = function(){
+        //!***Start DayPilot Calendar
 
         // view
-        dp.startDate =  window.DP_MONDAY;  // or just dp.startDate = "2013-03-25";
-        dp.viewType = "Day";
+        // dp.startDate =  window.DP_MONDAY;  // or just dp.startDate = "2013-03-25";
+        // dp.viewType = "Day";
 
         // event creating
-        dp.onTimeRangeSelected = function (args) {
+        /!*dp.onTimeRangeSelected = function (args) {
             //                    if($('#endTime').val() == "") return;
             var name = args.start.toString("HH:mm") + 'To' + '';
             var e = new DayPilot.Event({
@@ -64,21 +64,98 @@ var AppointmentForm = function(win,doc, options){
             });
             dp.events.add(e);
             dp.clearSelection();
-        };
+        };*!/
 
-        dp.onEventClick = function(args) {
+        /!*dp.onEventClick = function(args) {
             alert("clicked: " + args.e.id());
         };
         dp.headerDateFormat = "dddd";
         dp.eventDeleteHandling = "Update";
-        dp.init();
+        dp.init();*!/
+    };*/
+    
+    var initializeFullCalendar = function (appointments) {
+        var dDate = $('#date').val();
+        $('#fCalendar').fullCalendar({
+            header: {
+//                            left: 'prev,next today',
+//                            right: 'month,agendaWeek,agendaDay'
+//                            center: 'title'
+                left: '',
+                center: 'title',
+                right: ''
+            },
+            // defaultDate: '2016-06-12',
+            defaultDate: dDate,
+            defaultView:"agendaDay",
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: appointments
+            //============= for Help
+            /*events: [
+             {
+             title: 'All Day Event',
+             start: '2016-06-01'
+             },
+             {
+             title: 'Long Event',
+             start: '2016-06-07',
+             end: '2016-06-10'
+             },
+             {
+             id: 999,
+             title: 'Repeating Event',
+             start: '2016-06-09T16:00:00'
+             },
+             {
+             id: 999,
+             title: 'Repeating Event',
+             start: '2016-06-16T16:00:00'
+             },
+             {
+             title: 'Conference',
+             start: '2016-06-11',
+             end: '2016-06-13'
+             },
+             {
+             title: 'Meeting',
+             start: '2016-06-12T10:30:00',
+             end: '2016-06-12T12:30:00'
+             },
+             {
+             title: 'Lunch',
+             start: '2016-06-12T12:00:00'
+             },
+             {
+             title: 'Meeting',
+             start: '2016-06-12T14:30:00'
+             },
+             {
+             title: 'Happy Hour',
+             start: '2016-06-12T17:30:00'
+             },
+             {
+             title: 'Dinner',
+             start: '2016-06-12T20:00:00'
+             },
+             {
+             title: 'Birthday Party',
+             start: '2016-06-13T07:00:00'
+             },
+             {
+             title: 'Click for Google',
+             url: 'http://google.com/',
+             start: '2016-06-28'
+             }
+             ]*/
+        });
+    
     };
-
 
     var allPluginsInitializer = function(){
 
         //**** For Branch
-        $("#timeslot_id").select2();
+        $("#time_slot_id").select2();
 
         //**** For Country
         $("#employee_id").select2();
@@ -121,21 +198,22 @@ var AppointmentForm = function(win,doc, options){
                     console.log(response);
                     if(response.success == true){
                         //***Start for time slots
-                        $('#timeslot_id').html('');
-                        $('#timeslot_id').html('<option value="">Select Time Slot</option>');
-                        for(ts in response.data.timeslots){
-                            var obj = response.data.timeslots[ts];
-                            $('#timeslot_id').append('<option value="'+ obj.id +'">'+ obj.slot +'</option>');
+                        $('#time_slot_id').html('');
+                        $('#time_slot_id').html('<option value="">Select Time Slot</option>');
+                        for(ts in response.data.timeSlots){
+                            var obj = response.data.timeSlots[ts];
+                            $('#time_slot_id').append('<option value="'+ obj.id +'">'+ obj.slot +'</option>');
                         }
                         //***End for time slots
 
                         //***Start for DayPilot appointments Load
-                        dp.events.list = response.data.appointments;
-                        initializeDayPilot();
+                        // dp.events.list = response.data.appointments;
+                        // initializeDayPilot();
+                        initializeFullCalendar(response.data.appointments);
                         //***End for DayPilot appointments Load
                     }else{
                         showMsg(response.message);
-                        $('#timeslot_id').html('');
+                        $('#time_slot_id').html('');
                     }
                 }
             });
@@ -143,7 +221,7 @@ var AppointmentForm = function(win,doc, options){
         //****End For Appointment Date
 
         //****Start initialize DayPilot
-        initializeDayPilot();
+        // initializeDayPilot();
         //****End initialize DayPilot
 
     }

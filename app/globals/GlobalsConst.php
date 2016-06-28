@@ -10,6 +10,9 @@ namespace App\Globals;
 
 
 class GlobalsConst {
+
+    const YES = "Yes";
+    const NO = "No";
     const STATUS_ON = "Active";
     const STATUS_OFF = "Inactive";
     const MALE = "Male";
@@ -17,9 +20,30 @@ class GlobalsConst {
     const FORM_CREATE = 1;
     const FORM_EDIT = 2;
     const TIME_SLOT_INTERVAL = 20;
+    const LIST_DATA_LIMIT = 60;
+
+
+    const EP_DEMO_COMPANY_ONE = 1;
+    const EP_DEMO_COMPANY_TWO = 2;
+    const EP_DEMO_BUSINESS_UNIT_ONE = 1;
+    const EP_DEMO_BUSINESS_UNIT_TWO = 2;
+    const EP_DEMO_BUSINESS_UNIT_THREE = 3;
+    const EP_DEMO_BUSINESS_UNIT_FOUR = 4;
+
+
+
+    const LAHORE_OF_PAK = 1;
+    
+    const SUPER_ADMIN_ID = 1;
+    const COMPANY_ADMIN_ID = 2;
+
+
+    const PROFILE_PHOTO_DIR = 'uploaded-data/profile-photos';
+    const DUMMY_EMAIL_DOMAIN = '@test.com';
 
 
     //Roles
+<<<<<<< HEAD
     const ADMINISTRATOR = "Administrator";
     const DOCTOR = "Doctor";
     const ACCOUNTANT = "Accountant";
@@ -32,6 +56,11 @@ class GlobalsConst {
                             'Receptionist'=>self::RECEPTIONIST,
 //                            'Lab Manager'=>self::LAB_MANAGER
     ];
+=======
+    const SUPER_ADMIN_ROLE = 1;
+    const COMPANY_ADMIN_ROLE = 2;
+
+>>>>>>> 49c7b4c09959875d6be4f4a233fe3876cf7648f8
 
     //Branches
     const DHA = "DHA";
@@ -39,6 +68,48 @@ class GlobalsConst {
     const CANAL_VIEW = "Canal View";
     const GARDEN_TOWN = "Garden Town";
     const JOHAR_TOWN = "Johar Town";
+
+    //PUBLIC RESOURCES LIST
+    public static $PUBLIC_RESOURCES = [
+        'HomeController@index',
+        'AuthController@showLogin',
+        'AuthController@doLogin',
+        'AuthController@unauthorized',
+        'UsersController@uploadProfilePic', //@todo It is not public, remove from here
+        'PatientsController@getPatientForm', //@todo It is not public, remove from here
+        'DoctorsController@index', //@todo It is not public, remove from here
+        'DoctorsController@create', //@todo It is not public, remove from here
+        'DoctorsController@store', //@todo It is not public, remove from here
+        'DoctorsController@show', //@todo It is not public, remove from here
+        'DoctorsController@edit', //@todo It is not public, remove from here
+    ];
+
+    //User Types
+    const SUPER_ADMIN = "Super Admin";
+    const ADMIN = "Admin";
+    const EMPLOYEE = "Employee";
+    const WORKER = "Worker";//laborer
+    const DOCTOR = "Doctor";
+    const PATIENT = "Patient";
+    const PORTAL_USER = "Portal User";
+
+
+    //Data Process Type
+    const DATA_SAVE = 1;
+    const DATA_UPDATE = 2;
+
+
+
+
+    //User Types List
+    public static $USER_TYPES = [self::SUPER_ADMIN=>self::SUPER_ADMIN,
+        self::ADMIN=>self::ADMIN,
+        self::EMPLOYEE=>self::EMPLOYEE,
+        self::WORKER=>self::WORKER,
+        self::DOCTOR=>self::DOCTOR,
+        self::PATIENT=>self::PATIENT,
+        self::PORTAL_USER=>self::PORTAL_USER
+        ];
 
     public static $BRANCHES = ['DHA'=>self::DHA,
                                 'Gulberg'=>self::GULBERG,
@@ -85,11 +156,15 @@ class GlobalsConst {
         '2013-03-30'=>self::SATURDAY];
 
 
+    const ADVANCE_BOOKING = 1;
+    const COMPLETED = 5;
+
     public static $APPOINTMENT_STATUSES = [
                                         1 => 'Advance Booking',
                                         2 => 'Waiting',
                                         3 => 'Walk In',
                                         4 => 'Cancelled',
+                                        5 => 'Completed',
                                         ];
 
 

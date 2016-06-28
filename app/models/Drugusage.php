@@ -1,6 +1,6 @@
 <?php
 
-class Drugusage extends \Eloquent
+class DrugUsage extends \Eloquent
 {
 
     // Add your validation rules here
@@ -9,7 +9,7 @@ class Drugusage extends \Eloquent
     ];
 
     // Don't forget to fill this array
-    protected $fillable = ['drug_name', 'usage_note', 'patient_id', 'clinic_id'];
+    protected $fillable = ['drug_name', 'usage_note', 'patient_id', 'company_id'];
 
     // Relationships
     public function patient()

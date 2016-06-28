@@ -1,6 +1,6 @@
 <?php
 
-class Surgicalhistory extends \Eloquent {
+class SurgicalHistory extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
@@ -8,7 +8,7 @@ class Surgicalhistory extends \Eloquent {
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = ['surgery_name','surgery_date','surgery_notes', 'patient_id', 'clinic_id'];
+	protected $fillable = ['surgery_name','surgery_date','surgery_notes', 'patient_id', 'company_id'];
 
     // Relationships
     public function patient()

@@ -11,8 +11,7 @@ class PatientsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$patients = Patient::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-
+		$patients = Patient::where('company_id', Auth::user()->company_id)->get();
 		return View::make('patients.index', compact('patients'));
 	}
 
@@ -24,7 +23,12 @@ class PatientsController extends \BaseController {
 	public function create()
 	{
 		$formMode = GlobalsConst::FORM_CREATE;
-		return View::make('patients.create')->nest('_form','patients.partials._form',compact('formMode','patient'));
+		$patientMaxId = Patient::max('id');
+		$patientUsername = 'Patient-'.($patientMaxId+1);
+		$patientPassword = $patientUsername;
+		$patientEmail = $patientUsername.GlobalsConst::DUMMY_EMAIL_DOMAIN;
+
+		return View::make('patients.create')->nest('_form','patients.partials._form',compact('formMode','patient','patientUsername','patientPassword','patientEmail'));
 	}
 
 	/**
@@ -34,58 +38,14 @@ class PatientsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Patient::$rules);
-
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-        $patient = new Patient();
-        $patient->name = Input::get('name');
-        $patient->dob = Input::get('dob');
-        if(Input::has('email')){
-            $patient->email = Input::get('email');
-        }else{
-            $patient->email = 'N/A';
-        }
-
-        $patient->gender = Input::get('gender');
-        $patient->age = Input::get('age');
-        $patient->city = Input::get('city');
-        $patient->country = Input::get('country');
-        $patient->address = Input::get('address');
-
-        if(Input::get('phone') == ''){
-            $patient->phone = 'N/A';
-        }else {
-            $patient->phone = Input::get('phone');
-        }
-
-        if(Input::get('cnic') == ''){
-            $patient->cnic = 'N/A';
-        }else {
-            $patient->cnic = Input::get('cnic');
-        }
-
-        if(Input::get('note') == ''){
-            $patient->note = 'N/A';
-        }else {
-            $patient->note = Input::get('note');
-        }
-        $patient->save();
-        $patient->patient_id = "P0" . $patient->id;
-        $patient->clinic_id = Auth::user()->clinic_id;
-        $patient->save();
-
-        if(Input::has('email')){
-            $data = ['name' => Input::get('name')];
-            Mail::queue('emails.patient_welcome', $data, function($message)
-            {
-                $message->to(Input::get('email'), Input::get('name'))->subject('Welcome to EMR!');
-            });
-        }
-
-		return Redirect::route('patients.index');
+		$data = Input::all();
+		$data['company_id'] = Auth::user()->company_id;
+		$data['business_unit_id'] = Auth::user()->business_unit_id;
+		$data['status'] = Ep::getSwitchButtonVal(Input::get('status'),GlobalsConst::STATUS_ON,GlobalsConst::STATUS_OFF);
+		$data['user_type'] = GlobalsConst::PATIENT;
+		$data['comeFrom'] = 'Patient';
+		$response = User::saveUser($data);
+		return $response;
 	}
 
 	/**
@@ -121,18 +81,17 @@ class PatientsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$patient = Patient::findOrFail($id);
+		$data = Input::all();
+		$data['company_id'] = Auth::user()->company_id;
+		$data['business_unit_id'] = Auth::user()->business_unit_id;
+		$data['status'] = Ep::getSwitchButtonVal(Input::get('status'),GlobalsConst::STATUS_ON,GlobalsConst::STATUS_OFF);
+		$data['user_type'] = GlobalsConst::PATIENT;
+		$data['comeFrom'] = 'Patient';
 
-		$validator = Validator::make($data = Input::all(), Patient::$rules);
-
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
-		$patient->update($data);
-
-		return Redirect::route('patients.index');
+		$data['userId'] = Patient::find($id)->user->id;
+		$data['patientId'] = $id;
+		$response = User::saveUser($data,GlobalsConst::DATA_UPDATE);
+		return $response;
 	}
 
 	/**
@@ -149,7 +108,16 @@ class PatientsController extends \BaseController {
 	}
 
     public function patientsReporting(){
-        $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->where('status', 5)->paginate(1);
+        $appointments = Appointment::where('company_id', Auth::user()->company_id)->where('status', 5)->paginate(1);
         return View::make('patients.checked_patients', compact('appointments'));
     }
+
+	private function sendEmail(){
+		$data = ['link' => URL::to('login'), 'name' => Input::get('name')];
+		//******Send email to Patient
+		Mail::queue('emails.welcome', $data, function($message)
+		{
+			$message->to(Input::get('email'), Input::get('name'))->subject('Welcome to EP!');
+		});
+	}
 }

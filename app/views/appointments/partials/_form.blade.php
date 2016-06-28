@@ -28,7 +28,7 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Select Doctor</label>
                         <div class="col-xs-6">
-                    {{ Form::select('employee_id', $doctors->lists('name', 'id'), null, ['required' => 'true', 'id' => 'employee_id'] ); }}
+                            {{ Form::select('employee_id', $doctors, null, ['required' => 'true', 'id' => 'employee_id'] ); }}
                             <span id="errorEmployeeId" class="field-validation-msg"></span>
                         </div>
                     </div>
@@ -91,6 +91,7 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Select Time Slot</label>
                         <div class="col-xs-6">
+<<<<<<< HEAD
                             @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
                                 <select id="timeslot_id" name="timeslot_id" required="true">
                                     <option> Select Time slot </option>
@@ -102,10 +103,22 @@
                         </div>
                     </div>
                     <div class="form-group dN">
+=======
+                            <select id="time_slot_id" name="time_slot_id" required="true">
+                                <option> Select Time slot </option>
+                            </select>
+                            <span id="errorTimeslotId" class="field-validation-msg"></span>
+                        </div>
+                    </div>
+                    {{--<div class="form-group">
+>>>>>>> 49c7b4c09959875d6be4f4a233fe3876cf7648f8
                         <label class="mL25">Already Booked Slots</label>
                         <div id="dutyDayCalendar" class="w90pi m0A"></div>
-                    </div>
+                    </div>--}}
 
+                </div>
+                <div class="container w100p">
+                    <div id="fCalendar" class="col-xs-12 m0A"></div>
                 </div>
             </section>
             <div class="col-xs-12 taR pR0 mT20">
@@ -116,7 +129,8 @@
             </div>
         {{ Form::close() }}
         @section('scripts')
-            <script src="{{asset('plugins/day-pilot-lite/js/daypilot-all.min.js')}}"></script>
+            <link rel="stylesheet" href="{{asset('plugins/calendar/css/fullcalendar.min.css')}}" type="text/css">
+            <script src="{{asset('plugins/calendar/js/fullcalendar.min.js')}}"></script>
             <script src="{{asset('js/view-pages/appointments/AppointmentForm.js')}}"></script>
             <script>
                 $(document).ready(function(){

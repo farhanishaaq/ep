@@ -1,9 +1,9 @@
 <?php
 
-class DrugusagesController extends \BaseController {
+class DrugUsagesController extends \BaseController {
 
 	/**
-	 * Display a listing of drugusages
+	 * Display a listing of drug_usages
 	 *
 	 * @return Response
 	 */
@@ -11,8 +11,8 @@ class DrugusagesController extends \BaseController {
 	{
 		$patient_id = Input::get('id');
         $patient = Patient::find($patient_id);
-        $drugusages = $patient->drugusages()->paginate(1);
-		return View::make('drugusages.index', compact('patient', 'drugusages'));
+        $drugUsages = $patient->drugUsages()->paginate(1);
+		return View::make('drug_usages.index', compact('patient', 'drugUsages'));
 	}
 
 	/**
@@ -23,7 +23,7 @@ class DrugusagesController extends \BaseController {
 	public function create()
 	{
 		$patient_id = Input::get('id');
-		return View::make('drugusages.create', compact('patient_id'));
+		return View::make('drug_usages.create', compact('patient_id'));
 	}
 
 	/**
@@ -40,10 +40,10 @@ class DrugusagesController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-        $data['clinic_id'] = Auth::user()->clinic_id;
-		Drugusage::create($data);
+        $data['company_id'] = Auth::user()->company_id;
+		DrugUsage::create($data);
 
-		return Redirect::to('drugusages?id='.$data['patient_id']);
+		return Redirect::to('drug_usages?id='.$data['patient_id']);
 	}
 
 	/**
@@ -54,9 +54,9 @@ class DrugusagesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$drugusage = Drugusage::findOrFail($id);
+		$drugusage = DrugUsage::findOrFail($id);
 
-		return View::make('drugusages.show', compact('drugusage'));
+		return View::make('drug_usages.show', compact('drugusage'));
 	}
 
 	/**
@@ -67,9 +67,9 @@ class DrugusagesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$drugusage = Drugusage::find($id);
+		$drugusage = DrugUsage::find($id);
 
-		return View::make('drugusages.edit', compact('drugusage'));
+		return View::make('drug_usages.edit', compact('drugusage'));
 	}
 
 	/**
@@ -80,7 +80,7 @@ class DrugusagesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$drugusage = Drugusage::findOrFail($id);
+		$drugusage = DrugUsage::findOrFail($id);
 
 		$validator = Validator::make($data = Input::all(), array('drug_name' => 'required'));
 
@@ -93,7 +93,7 @@ class DrugusagesController extends \BaseController {
 
 		$drugusage->update($data);
 
-		return Redirect::to('drugusages?id='.$drugusage->patient_id);
+		return Redirect::to('drug_usages?id='.$drugusage->patient_id);
 	}
 
 	/**
@@ -104,9 +104,9 @@ class DrugusagesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Drugusage::destroy($id);
+		DrugUsage::destroy($id);
 
-		return Redirect::route('drugusages.index');
+		return Redirect::route('drug_usages.index');
 	}
 
 }

@@ -5,7 +5,7 @@ class Appointment extends \Eloquent {
 	// Add your validation rules here
 	public static $rules = [
 		'employee_id' => 'required',
-        'timeslot_id' => 'required',
+        'time_slot_id' => 'required',
         'patient_id' => 'required',
         'status' => 'required'
 
@@ -15,17 +15,31 @@ class Appointment extends \Eloquent {
 
 	// Don't forget to fill this array
 	protected $fillable = ['checkup_reason', 'time', 'date', 'status', 'checkup_fee', 'fee_note',
-    'timeslot_id', 'patient_id', 'employee_id', 'clinic_id', 'fee'];
+    'time_slot_id', 'patient_id', 'employee_id', 'company_id', 'fee'];
 
-    // Relationships
-    public function patient()
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function businessUnit()
     {
-        return $this->belongsTo('Patient');
+        return $this->belongsTo('BusinessUnit');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function employee()
     {
         return $this->belongsTo('Employee');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function patient()
+    {
+        return $this->belongsTo('Patient');
     }
 
     public function prescription()
@@ -35,12 +49,12 @@ class Appointment extends \Eloquent {
 
     public function timeslot()
     {
-        return $this->belongsTo('Timeslot', 'timeslot_id');
+        return $this->belongsTo('Timeslot', 'time_slot_id');
     }
 
     public function vitalsign()
     {
-        return $this->hasOne('Vitalsign');
+        return $this->hasOne('VitalSign');
     }
 
     public function diagonosticprocedure()
@@ -64,15 +78,15 @@ class Appointment extends \Eloquent {
                     'appointments.id',
                     'patients.name',
                     'appointments.date',
-                    'timeslots.slot AS start',
-                    DB::raw('ADDTIME(timeslots.slot,"00:'.GlobalsConst::TIME_SLOT_INTERVAL.':00") AS `end`'),
-                    'dutydays.day',
+                    'time_slots.slot AS start',
+                    DB::raw('ADDTIME(time_slots.slot,"00:'.GlobalsConst::TIME_SLOT_INTERVAL.':00") AS `end`'),
+                    'duty_days.day',
                 ]
             )
             ->join('patients', 'patients.id', '=', 'appointments.patient_id','inner')
-            ->join('timeslots', 'timeslots.id', '=', 'appointments.timeslot_id','inner')
-            ->join('dutydays', 'dutydays.id', '=', 'timeslots.dutyday_id','inner')
-            ->where('dutydays.day', '=', $day);
+            ->join('time_slots', 'time_slots.id', '=', 'appointments.time_slot_id','inner')
+            ->join('duty_days', 'duty_days.id', '=', 'time_slots.duty_day_id','inner')
+            ->where('duty_days.day', '=', $day);
         return $qry->get();
     }
 }

@@ -4,7 +4,7 @@
         <li class="dropdown @yield('current_services')">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Management <span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="{{URL::route('dutydays.index')}}">Doctor Schedules</a></li>
+                <li><a href="{{URL::route('dutyDays.index')}}">Doctor Schedules</a></li>
             </ul>
         </li>
         <li class="dropdown @yield('current_services')">
@@ -14,7 +14,7 @@
                 <li><a href="{{route('patients.index')}}">Patients</a></li>
                 <li><a href="{{URL::route('prescriptions.index')}}">All Prescriptions</a></li>
                 {{--<li><a href="{{URL::route('printPrescription')}}">Print Prescription</a></li>--}}
-                {{--<li><a href="{{route('vitalsigns.index')}}">Vital Signs</a></li>--}}
+                {{--<li><a href="{{route('vital_signs.index')}}">Vital Signs</a></li>--}}
                 {{--<li><a href="{{URL::route('appPrescription')}}">Add Prescriptions</a></li>--}}
 
                 {{--<li><a href="/app_proc">Add Procedures</a></li>--}}

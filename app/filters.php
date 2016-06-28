@@ -33,15 +33,49 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('auth', function()
+Route::filter('auth', function($request)
 {
-	if (Auth::guest())
+	/*echo 'Name: '.$request->getName().'<br >';
+	echo 'ActionName : '.$request->getActionName().'<br >';
+	echo 'URI: '.$request->getUri().'<br >';
+//	$request->getUri();
+	;die;*/
+//	print_r(get_class_methods('Illuminate\Routing\Route'));die;
+
+	/*if (Auth::guest())
 	{
 		if (Request::ajax())
 		{
 			return Response::make('Unauthorized', 401);
 		}
 		return Redirect::guest('login');
+	}*/
+
+	list($controller, $action) = explode('@',$request->getActionName());
+	if(in_array($controller.'@'.$action, GlobalsConst::$PUBLIC_RESOURCES)){
+		//filter is pass
+	}else{
+		if (Auth::check()){
+			
+			if(User::check($controller, $action)){
+				//filter is pass
+			}else{
+				if (Request::ajax())
+				{
+					return Response::make('Unauthorized', 401);
+				}
+				return Redirect::guest('unauthorized')->withErrors('You are not authorized, Please login with authorized user');
+			}
+		}else{
+			if (Auth::guest())
+			{
+				if (Request::ajax())
+				{
+					return Response::make('Unauthorized', 401);
+				}
+				return Redirect::guest('login');
+			}
+		}
 	}
 });
 

@@ -7,7 +7,7 @@
         ignore: ["display: none;"],
         errorPlacement: function (error, element) {
             //            element.siblings("span.field-validation-msg").html($(error).text());
-            $("#error" + element.attr("id")).html($(error).text());
+            $("#error_" + element.attr("id")).html($(error).text());
         },
         highlight: function (element, errorClass, validClass) {
             $(element).closest(".form-group")
@@ -15,7 +15,7 @@
                 .removeClass(validClass);
 
             //add class in error-container-span
-            $("#error" + $(element).attr("id")).addClass("dBi");
+            $("#error_" + $(element).attr("id")).addClass("dBi");
         },
         unhighlight: function (element, errorClass, validClass) {
 
@@ -24,7 +24,7 @@
             .addClass(validClass);
 
             //remove class in error-container-span
-            $("#error" + $(element).attr("id")).removeClass("dBi").text("");
+            $("#error_" + $(element).attr("id")).removeClass("dBi").text("");
         }
 
     };

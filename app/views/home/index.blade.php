@@ -133,7 +133,7 @@ class="active"
         </div>
     </div>
     <div class="bg_1 col-md-12">
-        <div class="container">
+        <div class="container mB85">
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="header_1 wrap_8 color_3">
@@ -146,8 +146,8 @@ class="active"
                     <div id="owl">
                         <div class="item">
                             <p class="text_3">
-                                This application automates the System of a Clinic.
-                                This application could also be used in multiple branches (if any) of a Clinic </br>
+                                This application automates the System of a Company.
+                                This application could also be used in multiple branches (if any) of a Company </br>
                                 that should be linked through Internet, so that application could share data
                                 across all branches.
                                 <br/>
@@ -167,4 +167,11 @@ class="active"
         </div>
     </div>
 </section>
+<div class="container">
+    {{--<div class="row wrap_9 wrap_4 wrap_10">--}}
+    @if(Auth::user())
+    @else
+        @include('includes.webSocialLinks')
+    @endif
+</div>
 @stop
