@@ -3,7 +3,7 @@
                           TITLE
 =========================================================-->
 @section('title')
-Patient Registration
+Edit Patient
 @stop
 
 @section('redBar')
@@ -26,3 +26,13 @@ Patient Registration
     </div>
 @stop
 
+@section('scripts')
+    <script src="{{asset('js/view-pages/patients/PatientsForm.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            var options = {};
+            var patientsForm = new PatientsForm(window,document,options);
+            patientsForm.initializeAll();
+        });
+    </script>
+@stop

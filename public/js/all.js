@@ -1,8 +1,6 @@
 /**
  * Created by mrashid on 4/17/2016.
  */
-window.MESSAGE_TYPE_SUCCESS = 'Success';
-window.MESSAGE_TYPE_ERROR = 'Error';
 
 function setRadioValInHidden(hiddenFieldId,clickedElement){
     //var nameSelector = 'rdo-'+hiddenFieldId;

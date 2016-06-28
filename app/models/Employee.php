@@ -101,15 +101,20 @@ class Employee extends \Eloquent{
                 return $response = ['success'=>false, 'error'=> true, 'message' => 'Employee record did not find for updation! '];
             }
         }
+        $joiningDate = isset($data['joining_date']) ? $data['joining_date'] : null;
+        $quiteDate = isset($data['quite_date']) ? $data['quite_date'] : null;
+        $joiningSalary = isset($data['joining_salary']) ? $data['joining_salary'] : null;
+        $currentSalary = isset($data['current_salary']) ? $data['current_salary'] : null;
+
         $employee->company_id = isset($data['company_id']) ? $data['company_id'] : null;
         $employee->business_unit_id = isset($data['business_unit_id']) ? $data['business_unit_id'] : null;
         $employee->user_id = isset($data['user_id']) ? $data['user_id'] : null;
-        $employee->joining_date = $data['joining_date'];
-        $employee->quite_date = $data['quite_date'];
-        $employee->joining_salary = $data['joining_salary'];
-        $employee->current_salary = $data['current_salary'];
+        $employee->joining_date = $joiningDate;
+        $employee->quite_date = $quiteDate;
+        $employee->joining_salary = $joiningSalary;
+        $employee->current_salary = $currentSalary;
         $employee->save();
-        $response = ['success'=>true, 'error'=> false, 'message'=>'User has been saved successfully!','Employee'=>$employee];
+        $response = ['success'=>true, 'error'=> false, 'message'=>'Employee has been saved successfully!','Employee'=>$employee];
         return $response;
     }
 }

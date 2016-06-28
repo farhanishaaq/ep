@@ -3,7 +3,7 @@
                           TITLE
 =========================================================-->
 @section('title')
-    Manage Patients
+    Manage Doctors
 @stop
 
 @section('redBar')
@@ -29,38 +29,38 @@
 		<!--========================================================
                                      Data Table
             =========================================================-->
-            {{ link_to_route('patients.create', 'Register Patient', '', ['class' => 'btn_1'])}}
+            {{ link_to_route('doctors.create', 'Add New Doctor', '', ['class' => 'btn_1'])}}
             <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
                 <thead>
                     <tr>
-                        <th>Patient Name</th>
-                        <th>Last Visit</th>
-                        <th>Age</th>
-                        <th>Gender</th>
+                        <th>Doctor Name</th>
+                        <th>Specialty</th>
+                        <th>Qualification</th>
                         <th>Cell</th>
                         <th>Manage</th>
                     </tr>
                 </thead>
 
                 <tbody>
-
-
-                    @foreach($patients as $patient)
+                    @foreach($users as $user)
                         <tr class="row-data">
-                            <td>{{{ $patient->user->full_name }}}</td>
-                            <td>{{{ $patient->patient_id }}}</td>
-                            <td>{{{ get_age_from_dob($patient->user->dob) }}} - Years</td>
-                            <td>{{{ $patient->user->gender }}}</td>
-                            <td>{{{ $patient->user->cell }}}</td>
+                            <?php
+                            $doctorId = isset($user->doctor->id) ? $user->doctor->id : null;
+                            $medicalSpecialties = isset($user->doctor->medicalSpecialties) ? $user->doctor->medicalSpecialties : null;
+                            $qualifications = isset($user->doctor->qualifications) ? $user->doctor->qualifications : null;
+                            ?>
+                            <td>{{{ $user->full_name }}}</td>
+                            <td>{{{ get_collection_col_as_str($medicalSpecialties) }}}</td>
+                            <td>{{{ get_collection_col_as_str($qualifications,'code') }}}</td>
+                            <td>{{{ $user->cell }}}</td>
                             <td>
-                            {{ link_to_route('patients.show', '', [$patient->id], ['class' => 'btn-view-icon fL', 'style' => 'margin-bottom: 2px'])}}
+                            {{ link_to_route('doctors.show', '', [$doctorId], ['class' => 'btn-view-icon fL', 'style' => 'margin-bottom: 2px'])}}
 
-                            <span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('patients.edit', '', [$patient->id], ['class' => 'btn-edit-icon fL'])}}
-                            <span class="fL">&nbsp;|&nbsp;</span><a href="javascript:void(0);" class="btn-view-prescription-icon fL viewPresc" title="Prescriptions of {{$patient->user->full_name}}" data-toggle="modal" data-target="#myModal" patient-prescription-url="{{route('patientPrescriptions',['patientId'=>$patient->id])}}"></a>
+                            <span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('doctors.edit', '', [$doctorId], ['class' => 'btn-edit-icon fL'])}}
+                            <span class="fL">&nbsp;|&nbsp;</span><a href="javascript:void(0);" class="btn-view-prescription-icon fL viewPresc" title="Prescriptions of {{$user->full_name}}" data-toggle="modal" data-target="#myModal" patient-prescription-url="{{route('patientPrescriptions',['patientId'=>$user->id])}}"></a>
                             </td>
                         </tr>
                     @endforeach
-
                 </tbody>
             </table>
         </section>
@@ -103,14 +103,14 @@
     </div>
 @stop
 @section('scripts')
-    <script src="{{asset('js/view-pages/patients/PatientsList.js')}}"></script>
+    <script src="{{asset('js/view-pages/doctors/PatientsList.js')}}"></script>
     <script type="text/javascript">
         window.patientPrescriptionUrl = 0;
         $(document).ready(function() {
             var options = {
             };
-            var patientsList = new PatientsList(window,document,options);
-            patientsList.initializeAll();
+            var doctorsList = new DoctorsList(window,document,options);
+            doctorsList.initializeAll();
         } );
     </script>
 @stop

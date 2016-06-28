@@ -97,6 +97,11 @@ Route::group(['Private', 'before' => 'auth'],function (){
 
 
     /**
+     * CompaniesController Routes
+     */
+    Route::resource('doctors', 'DoctorsController');
+
+    /**
      * PatientsController Routes
      */
     Route::get('patientsReporting', ['as'=>'patientsReporting', 'uses'=>'PatientsController@patientsReporting']);

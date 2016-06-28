@@ -1,7 +1,7 @@
 /**
  * Created by mrashid on 4/17/2016.
  */
-var UserForm = function(win,doc, options){
+var DoctorsForm = function(win,doc, options){
     var W = win;
     var D = doc;
     var defaults = {
@@ -66,6 +66,7 @@ var UserForm = function(win,doc, options){
     var saveCloseClicked = false;
 
 
+
     var makePhotoUploadComponent = function () {
         //*********************FileInput plugin
         // with plugin options
@@ -108,7 +109,11 @@ var UserForm = function(win,doc, options){
             var response = data.response;
             $('#photo').val(response.uploaded);
             console.log('File uploaded triggered');
-            showMsg(response.message);
+            if(response.success)
+                showMsg(response.message, window.MESSAGE_TYPE_SUCCESS);
+            else{
+                showMsg(response.message, window.MESSAGE_TYPE_ERROR);
+            }
         });
 
         $('#userPhoto').on('filecleared', function(event) {
@@ -116,41 +121,20 @@ var UserForm = function(win,doc, options){
         });
     }
 
+
     var allPluginsInitializer = function(){
 
         //**** For Country
-        $("#city_id").select2();
-
-
-        //**** For user_type
-        $("#user_type").select2();
-
-
-        //**** For BusinessUnitId
-        $("#business_unit_id").select2();
-
-        //**** For Medical Specialty
-        $("#medical_specialty_id").select2({'placeholder': 'Select Medical Specialties'});
-
-        //**** For Qualifications
+        $("#medical_specialty_id").select2();
         $("#qualification_id").select2();
 
-        //****Start For Date Of Birth Date
-        var dPiker = $('#dob').datepicker({
-            autoclose: true,
-            format: 'dd-mm-yyyy'
-        });
-        dPiker.autoclose = true;
-        dPiker.format = "dd-mm-yyyy";
-
-        //*****Tabs
-        $('.nav.nav-tabs').responsiveTabs();
-
+        //*** date of birth
+        $('#dob').datepicker();
 
         //***fileInput plugin for upload photo
         makePhotoUploadComponent();
 
-    };
+    }
 
     /**
      * Events Bindings | All Events Bindings Goes here
@@ -159,7 +143,7 @@ var UserForm = function(win,doc, options){
      */
     var eventsBindings = function () {
 
-        //***For gender Radio Selection
+        // ***For gender Radio Selection
         $('.btn.btn-primary-2.gender').click(function(){
             setRadioValInHidden('gender',$(this));
         });
@@ -205,20 +189,6 @@ var UserForm = function(win,doc, options){
         $('#saveContinue').click(function (e) {
             saveCloseClicked = false;
         });
-
-        $('#user_type').change(function () {
-            var userType = $(this).val();
-            switch (userType){
-                case window.USER_TYPES[window.DOCTOR]:
-                    $('#doctorInfoTabHead').removeClass('dNi');
-                    $('#doctorInfoTab').removeClass('dNi');
-                    break;
-                default:
-                    $('#doctorInfoTabHead').addClass('dNi');
-                    $('#doctorInfoTab').addClass('dNi');
-                    break;
-            }
-        });
     };
 
 
@@ -231,8 +201,5 @@ var UserForm = function(win,doc, options){
     this.initializeAll = function () {
         allPluginsInitializer();
         eventsBindings();
-        if(s.formMode == window.FORM_EDIT){
-            $('#user_type').trigger('change');
-        }
     }
 };

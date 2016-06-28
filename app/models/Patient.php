@@ -80,4 +80,29 @@ class Patient extends \Eloquent {
     {
         return $this->belongsTo('User');
     }
+
+    /**
+     * @param $data
+     * @param int $dataProcessType
+     * @return array|null
+     */
+    public static function savePatient($data,$dataProcessType=GlobalsConst::DATA_SAVE){
+        $response = null;
+        if($dataProcessType==GlobalsConst::DATA_SAVE){
+            $patient = new Patient();
+        }else{
+            $id = isset($data['patientId']) ? $data['patientId'] : '';
+            if($id != ''){
+                $patient = Patient::find($id);
+            }else{
+                return $response = ['success'=>false, 'error'=> true, 'message' => 'Employee record did not find for updation! '];
+            }
+        }
+        $patient->company_id = isset($data['company_id']) ? $data['company_id'] : null;
+        $patient->business_unit_id = isset($data['business_unit_id']) ? $data['business_unit_id'] : null;
+        $patient->user_id = isset($data['user_id']) ? $data['user_id'] : null;
+        $patient->save();
+        $response = ['success'=>true, 'error'=> false, 'message'=>'Patient has been saved successfully!','Patient'=>$patient];
+        return $response;
+    }
 }
