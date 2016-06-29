@@ -43,9 +43,7 @@ class GlobalsConst {
 
 
     //Roles
-<<<<<<< HEAD
     const ADMINISTRATOR = "Administrator";
-    const DOCTOR = "Doctor";
     const ACCOUNTANT = "Accountant";
     const RECEPTIONIST = "Receptionist";
     const LAB_MANAGER = "Lab Manager";
@@ -56,11 +54,8 @@ class GlobalsConst {
                             'Receptionist'=>self::RECEPTIONIST,
 //                            'Lab Manager'=>self::LAB_MANAGER
     ];
-=======
     const SUPER_ADMIN_ROLE = 1;
     const COMPANY_ADMIN_ROLE = 2;
-
->>>>>>> 49c7b4c09959875d6be4f4a233fe3876cf7648f8
 
     //Branches
     const DHA = "DHA";
