@@ -23,7 +23,7 @@ class DutyDaysController extends \BaseController {
 	{
 
         $formMode = GlobalsConst::FORM_CREATE;
-		$doctors = Employee::has('dutyDays', '=', 0)
+		$doctors = User::has('dutyDays', '=', 0)
                     ->join('users', 'users.id','=', 'employees.user_id')
                     ->where('users.user_type', GlobalsConst::DOCTOR)
                     ->where('users.status', GlobalsConst::STATUS_ON)

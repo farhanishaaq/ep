@@ -49,14 +49,28 @@ class DutyDay extends \Eloquent {
         }
     }
 
-	// Relationships
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
 	public function employee()
     {
         return $this->belongsTo('Employee');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function timeSlots()
     {
-        return $this->hasMany('Timeslot');
+        return $this->hasMany('TimeSlot');
+    }
+
+    /**
+     * @param array|null $columns
+     * @return mixed
+     */
+    public function user(array $columns = null)
+    {
+        return $this->employee()->first(["id", "user_id"])->user()->first($columns);
     }
 }
