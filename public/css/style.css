@@ -2314,47 +2314,22 @@ span.field-validation-msg {
 }
 
 .h100p {height: 100%;}
+
+
 .hA {height: auto;}
-.h30 {
-    height: 30px;
-}
-.h44 {
-    height: 44px;
-}
-.h50 {
-    height: 50px;
-}
-
-.h55 {
-    height: 55px;
-}
-
-.h60 {
-    height: 60px;
-}
-.h66 {  height: 66px;}
-.h100 {
-    height: 100px;
-}
-.h200 {
-    height: 200px;
-}
-.h250 {
-    height: 250px;
-}
-.h260 {
-    height: 260px;
-}
-.h300 {
-    height: 300px;
-}
-.h350 {
-    height: 350px;
-}
-.h392 {
-    height: 392px;
-}
-
+.h30 {height: 30px;}
+.h44 {height: 44px;}
+.h50 {height: 50px;}
+.h55 {height: 55px;}
+.h60 {height: 60px;}
+.h66 {height: 66px;}
+.h100 {height: 100px;}
+.h200 {height: 200px;}
+.h250 {height: 250px;}
+.h260 {height: 260px;}
+.h300 {height: 300px;}
+.h350 {height: 350px;}
+.h392 {height: 392px;}
 .h400 {height: 400px;}
 .h450 {height: 450px;}
 .h475 {height: 475px;}

@@ -1,6 +1,7 @@
 <div id="navbar" class="navbar-collapse collapse">
     <ul class="nav navbar-nav navbar-right">
-        <li @yield('current_admin_home')><a href="{{URL::route('adminHome')}}">Dashboard</a></li>
+        {{--<li @yield('current_admin_home')><a href="{{URL::route('adminHome')}}">Dashboard</a></li>--}}
+        <li @yield('current_admin_home')><a href="{{URL::route('showDashboard')}}">Dashboard</a></li>
 
         {{-- Manage Clinic --}}
         <li class="dropdown @yield('current_services')">

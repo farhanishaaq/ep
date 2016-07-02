@@ -15,7 +15,7 @@
 
 @section('redBar')
     <div class="user_logo">
-        <div class="header_1 wrap_3 color_3 login-bar">Super User Home</div>
+        <div class="header_1 wrap_3 color_3 login-bar">Welcome to Admin Dashboard</div>
     </div>
     @stop
 
@@ -24,26 +24,55 @@
                           CONTENT
 =========================================================-->
 @section('content')
-    <section id="content">
-        <div>
-            <body>
-            <div style="width:45%;">
-                <canvas id="canvas"></canvas>
-            </div>
-            <div id="canvas-holder" style="width:40%">
-                <canvas id="chart-area" width="300" height="300"/>
-            </div>
-            </body>
-            <div class="menu" style="margin-left: 10%; margin-right: 10%">
-                <a class="ferozi" href="companies">Manage Companies</a>
-                <a class="purple" href="companies">Manage Branches</a>
-                <?php ?>
-                <a class="purple" href="companies">{{{$totalRecieved}}}</a>
-            </div>
-        </div>
+    <div class="container">
+        <h3 class="mT10 mB15 c3 bdrB1">Dashboard Contents<p class="col-xs-3 fR taR p0 required-hint pT10"></p></h3>
 
+        {{-- ****Start Row 1*** --}}
+        {{-- Line Chart --}}
+        <section class="form-Section col-sm-6 h350 fL mB15">
+            <div class="container w100p">
+                <h3 class="mT15 mB0 c3">Patient Per Week</h3>
+                <hr class="w95p fL mT0" />
+                <hr class="w95p fL mT0" />
+                <div class="col-sm-12">
+                    <canvas id="canvas"></canvas>
+                </div>
+            </div>
+        </section>
 
-    </section>
+        {{-- Pie Chart --}}
+        <section class="form-Section col-sm-6 h350 fL mB15">
+            <div class="container w100p">
+                <h3 class="mT15 mB0 c3">Appointments Overview Chart</h3>
+                <hr class="w95p fL mT0" />
+                <hr class="w95p fL mT0" />
+                <div class="col-sm-12">
+                    <div class="col-sm-12" id="canvas-holder" >
+                        <canvas id="chart-area" class="w200 h200" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        {{-- ****End Row 1*** --}}
+
+        {{-- ****Start Row 2*** --}}
+        <section class="form-Section col-sm-6 h260 fL mB15">
+            <div class="container w100p">
+                <div class="col-sm-12">
+                    Data Goes Here
+                </div>
+            </div>
+        </section>
+
+        <section class="form-Section col-sm-6 h260 fL mB15">
+            <div class="container w100p">
+                <div class="col-sm-12">
+                    Data Goes Here
+                </div>
+            </div>
+        </section>
+        {{-- ****End Row 2*** --}}
+    </div>
 @stop
 
 @section('scripts')
