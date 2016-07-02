@@ -1,4 +1,6 @@
 <?php
+use App\Globals\GlobalsConst;
+use \App\Globals\Ep;
 
 class Doctor extends \Eloquent {
 	
@@ -19,6 +21,19 @@ class Doctor extends \Eloquent {
 	public function employee()
 	{
 		return $this->belongsTo('Employee');
+	}
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function dutyDays()
+	{
+		return $this->hasMany('DutyDay');
+	}
+
+	public function appointments()
+	{
+		return $this->hasMany('Appointment');
 	}
 
 	/**
@@ -88,20 +103,38 @@ class Doctor extends \Eloquent {
 	 */
 	public static function fetchDoctors(array $filterParams = null,$offset=0,$limit=GlobalsConst::LIST_DATA_LIMIT){
 		try{
-			if(Auth::user()->user_type == GlobalsConst::SUPER_ADMIN){
-				$users = User::where('user_type', \App\Globals\GlobalsConst::DOCTOR);
-			}elseif(Auth::user()->user_type == GlobalsConst::ADMIN){
-				$users = User::where('company_id', Auth::user()->company_id)
-					->where('user_type', \App\Globals\GlobalsConst::DOCTOR);
+			$doctors = self::select('doctors.*')
+				->join('employees','employees.id','=','doctors.employee_id' )
+				->join('users','users.id','=','employees.user_id' )
+				->where('users.status', '=', GlobalsConst::STATUS_ON);
+			if(Ep::currentUserType() == GlobalsConst::SUPER_ADMIN){
+			}elseif(Ep::currentUserType() == GlobalsConst::ADMIN){
+				$doctors->where('users.company_id', '=', Ep::currentCompanyId());
+//				$doctors->join('companies','companies.id','=','users.company_id' );
+				/*->where('users.company_id', Ep::currentCompanyId())
+					->whereExists(function($query){
+						$query->select(DB::raw(1))
+							->from('doctors')
+							->whereRaw('employees.id = doctors.employee_id');
+					});*/
 			}else{
-				$users = User::where('business_unit_id', Auth::user()->business_unit_id)
-					->where('user_type', \App\Globals\GlobalsConst::DOCTOR);
+				$doctors->where('users.business_unit_id', '=', Ep::currentBusinessUnitId());
+//				$doctors->join('business_units','business_units.id','=','users.business_unit_id' );
+				/*->where('users.business_unit_id', Ep::currentBusinessUnitId())
+					->join('employees','employees.user_id','=','users.id' )
+					->whereExists(function($query){
+						$query->select(DB::raw(1))
+							->from('doctors')
+							->whereRaw('employees.id = doctors.employee_id');
+					});*/
 			}
 			if($filterParams){
 				$searchKey = isset($filterParams['searchKey']) ? '%' . $filterParams['searchKey'].'%' : '';
-				$users->where('full_name','LIKE',$searchKey);
+				$doctors->where('full_name','LIKE',$searchKey);
 			}
-			return $users->skip($offset)->take($limit)
+
+//			return dd($doctors->toSql());
+			return $doctors->skip($offset)->take($limit)
 				->orderBy('id','DESC')->get();
 		}catch (Throwable $t) {
 			// Executed only in PHP 7, will not match in PHP 5.x
@@ -110,5 +143,43 @@ class Doctor extends \Eloquent {
 			dd($e->getMessage());
 		}
 
+	}
+
+	/**
+	 * @param null $cols
+	 * @param bool $isLists
+	 * @return mixed
+	 */
+	public static function fetchDoctorsWithNoDutyDays(array $cols=null,$isLists=false){
+		if($cols == null){
+			$cols=['full_name', 'doctors.id AS doctor_id'];
+		}
+//		$qryBuilder = User::has('dutyDays', '=', 0)
+		$qryBuilder = User::select($cols)
+			->join('employees', 'employees.user_id','=', 'users.id')
+			->join('doctors', 'employees.id','=', 'doctors.employee_id')
+			->where('users.user_type', GlobalsConst::DOCTOR)
+			->where('users.status', GlobalsConst::STATUS_ON)
+			->whereNotExists(function($query){
+				$query->select(DB::raw(1))
+					->from('duty_days')
+					->whereRaw('doctors.id = duty_days.doctor_id');
+			});
+		switch (Auth::user()->user_type){
+			case GlobalsConst::SUPER_ADMIN:
+				break;
+			case GlobalsConst::ADMIN:
+				$qryBuilder->where('users.company_id', Auth::user()->company_id);
+				break;
+			default:
+				$qryBuilder->where('users.business_unit_id', Auth::user()->business_unit_id);
+				break;
+		}
+
+//		dd($qryBuilder->toSql());
+		if($isLists)
+			return $qryBuilder->lists('full_name', 'doctor_id');
+		else
+			return $qryBuilder->get();
 	}
 }

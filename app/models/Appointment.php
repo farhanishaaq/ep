@@ -29,9 +29,9 @@ class Appointment extends \Eloquent {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function employee()
+    public function doctor()
     {
-        return $this->belongsTo('Employee');
+        return $this->belongsTo('Doctor');
     }
 
     /**

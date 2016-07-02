@@ -10,9 +10,9 @@
                 <li class="divider"></li>
                 <li><a href="{{URL::route('appointments.index')}}">Manage Appointments</a></li>
                 <li class="divider"></li>
-                <li><a href="{{URL::route('patients.index')}}">Patients List</a></li>
+                <li><a href="{{URL::route('patients.index')}}">Manage Patients</a></li>
                 <li class="divider"></li>
-                <li><a href="{{URL::route('prescriptions.index')}}">Prescriptions List</a></li>
+                <li><a href="{{URL::route('prescriptions.index')}}">Manage Prescriptions</a></li>
             </ul>
         </li>
 
@@ -22,7 +22,7 @@
             <ul class="dropdown-menu">
                 <li><a href="#">Manage Roles</a></li>
                 <li class="divider"></li>
-                <li><a href="{{URL::route('users.index')}}">Manage Employees</a></li>
+                <li><a href="{{URL::route('users.index')}}">Manage Users</a></li>
                 <li class="divider"></li>
                 <li><a href="{{URL::route('dutyDays.index')}}">Doctor Schedules</a></li>
                 <li class="divider"></li>

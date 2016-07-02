@@ -10,6 +10,10 @@
        <script>
        window.YES = true;
        window.NO = false;
+
+       window.daysNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+
        window.DP_SUNDAY = "2013-03-24";
        window.DP_MONDAY = "2013-03-25";
        window.DP_TUESDAY = "2013-03-26";
@@ -17,6 +21,25 @@
        window.DP_THURSDAY = "2013-03-28";
        window.DP_FRIDAY = "2013-03-29";
        window.DP_SATURDAY = "2013-03-30";
+
+       window.DP_DAYS = [window.DP_SUNDAY,
+           window.DP_MONDAY,
+           window.DP_TUESDAY,
+           window.DP_WEDNESDAY,
+           window.DP_THURSDAY,
+           window.DP_FRIDAY,
+           window.DP_SATURDAY
+       ];
+
+       window.DP_DAYS_2 = new Array();
+       window.DP_DAYS_2["Sunday"] = window.DP_SUNDAY;
+       window.DP_DAYS_2["Monday"] = window.DP_MONDAY;
+       window.DP_DAYS_2["Tuesday"] = window.DP_TUESDAY;
+       window.DP_DAYS_2["Wednesday"] = window.DP_WEDNESDAY;
+       window.DP_DAYS_2["Thursday"] = window.DP_THURSDAY;
+       window.DP_DAYS_2["Friday"] = window.DP_FRIDAY;
+       window.DP_DAYS_2["Saturday"] = window.DP_SATURDAY;
+
 
        //***User Types
        window.SUPER_ADMIN = 0;

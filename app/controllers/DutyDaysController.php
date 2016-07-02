@@ -10,7 +10,7 @@ class DutyDaysController extends \BaseController {
 	 */
 	public function index()
 	{
-        $dutyDays = DutyDay::groupBy('employee_id')->take(50)->get();
+        $dutyDays = DutyDay::groupBy('doctor_id')->take(50)->get();
 		return View::make('duty_days.index', compact('dutyDays'));
 	}
 
@@ -21,15 +21,15 @@ class DutyDaysController extends \BaseController {
 	 */
 	public function create()
 	{
-
+        $doctorName = null;
+        $doctorId = Input::get('doctor_id',null);
+        if($doctorId != null){
+            $employee = (Doctor::findOrFail($doctorId)->employee) ? (Doctor::findOrFail($doctorId)->employee) : null;
+            $doctorName = ($employee->user)  ? $employee->user->full_name : null;
+        }
         $formMode = GlobalsConst::FORM_CREATE;
-		$doctors = User::has('dutyDays', '=', 0)
-                    ->join('users', 'users.id','=', 'employees.user_id')
-                    ->where('users.user_type', GlobalsConst::DOCTOR)
-                    ->where('users.status', GlobalsConst::STATUS_ON)
-                    ->where('employees.business_unit_id', Auth::user()->business_unit_id)
-                    ->get();
-        return View::make('duty_days.create')->nest('_form','duty_days.partials._form', compact('doctors','formMode'));
+		$doctors = Doctor::fetchDoctorsWithNoDutyDays(null, true);
+        return View::make('duty_days.create')->nest('_form','duty_days.partials._form', compact('doctors', 'doctorId','doctorName', 'formMode'));
 	}
 
 	/**
@@ -41,118 +41,8 @@ class DutyDaysController extends \BaseController {
 	{
         $response=null;
         $data = Input::all();
-        $data['company_id'] = Auth::user()->company_id;
-        $day = $data['day'];
-        $dayFinal = isset(GlobalsConst::$DP_DAYS[$day]) ? GlobalsConst::$DP_DAYS[$day] : null;
-        $data['day'] =  $dayFinal;
-
-        DutyDay::$rules['day'] = 'required|unique:duty_days,day,NULL,id,employee_id,'.$data['employee_id'];
-		$validator = Validator::make($data, DutyDay::$rules);
-
-		if($validator->fails()) {
-            $response = ['success'=>false,'error'=>true,'message' => $validator->errors()];
-		}elseif($dayFinal == null){
-            $response = ['success'=>false,'error'=>true,'message' => 'Wrong Day provided!'];
-        }else{
-            $dutyDay = DutyDay::create($data);
-            DutyDay::makeSlots($data['start'], $data['end'], $dutyDay->id, $data['employee_id']);
-            $response = ['success'=>true,'error'=>false,'message' => 'Day Time has been saved successfully'];
-        }
-
+        $response = DutyDay::saveDutyDays($data);
         return Response::json($response);
-        /*$data['company_id'] = Auth::user()->company_id;
-		if(Input::get('Sunday') != null){
-            $data['day'] = (Input::get('Sunday'));
-            $data['start'] = str_replace(' ', '', (Input::get('sun_start_time')));
-            $data['end'] = str_replace(' ', '', (Input::get('sun_end_time')));
-            $day_id = DutyDay::create($data)->id;
-            DutyDay::makeSlots($data['start'], $data['end'], $day_id, $data['employee_id']);
-        }else{
-            $data['day'] = null;
-            $data['start'] = null;
-            $data['end'] = null;
-            DutyDay::create($data);
-        }
-
-        if(Input::get('Monday') != null){
-        	$data['day'] = (Input::get('Monday'));
-            $data['start'] = str_replace(' ', '', (Input::get('mon_start_time')));
-            $data['end'] = str_replace(' ', '', (Input::get('mon_end_time')));
-            $day_id = DutyDay::create($data)->id;
-            DutyDay::makeSlots($data['start'], $data['end'], $day_id, $data['employee_id']);
-        }else{
-            $data['day'] = null;
-            $data['start'] = null;
-            $data['end'] = null;
-            DutyDay::create($data);
-        }
-
-        if(Input::get('Tuesday') != null){
-        	$data['day'] = (Input::get('Tuesday'));
-            $data['start'] = str_replace(' ', '', (Input::get('tue_start_time')));
-            $data['end'] = str_replace(' ', '', (Input::get('tue_end_time')));
-            $day_id = DutyDay::create($data)->id;
-            DutyDay::makeSlots($data['start'], $data['end'], $day_id, $data['employee_id']);
-        }else{
-            $data['day'] = null;
-            $data['start'] = null;
-            $data['end'] = null;
-            DutyDay::create($data);
-        }
-
-        if(Input::get('Wednesday') != null){
-        	$data['day'] = (Input::get('Wednesday'));
-            $data['start'] = str_replace(' ', '', (Input::get('wed_start_time')));
-            $data['end'] = str_replace(' ', '', (Input::get('wed_end_time')));
-            $day_id = DutyDay::create($data)->id;
-            DutyDay::makeSlots($data['start'], $data['end'], $day_id, $data['employee_id']);
-        }else{
-            $data['day'] = null;
-            $data['start'] = null;
-            $data['end'] = null;
-            DutyDay::create($data);
-        }
-
-        if(Input::get('Thursday') != null){
-        	$data['day'] = (Input::get('Thursday'));
-            $data['start'] = str_replace(' ', '', (Input::get('thu_start_time')));
-            $data['end'] = str_replace(' ', '', (Input::get('thu_end_time')));
-            $day_id = DutyDay::create($data)->id;
-            DutyDay::makeSlots($data['start'], $data['end'], $day_id, $data['employee_id']);
-        }else{
-            $data['day'] = null;
-            $data['start'] = null;
-            $data['end'] = null;
-            DutyDay::create($data);
-        }
-
-        if(Input::get('Friday') != null){
-            $data['day'] = (Input::get('Friday'));
-            $data['start'] = str_replace(' ', '', (Input::get('fri_start_time')));
-            $data['end'] = str_replace(' ', '', (Input::get('fri_end_time')));
-            $day_id = DutyDay::create($data)->id;
-            DutyDay::makeSlots($data['start'], $data['end'], $day_id, $data['employee_id']);
-        }else{
-            $data['day'] = null;
-            $data['start'] = null;
-            $data['end'] = null;
-            DutyDay::create($data);
-        }
-
-        if(Input::get('Saturday') != null){
-            $data['day'] = (Input::get('Saturday'));
-            $data['start'] = str_replace(' ', '', (Input::get('sat_start_time')));
-            $data['end'] = str_replace(' ', '', (Input::get('sat_end_time')));
-            $day_id = DutyDay::create($data)->id;
-            DutyDay::makeSlots($data['start'], $data['end'], $day_id, $data['employee_id']);
-        }else{
-            $data['day'] = null;
-            $data['start'] = null;
-            $data['end'] = null;
-            DutyDay::create($data);
-        }*/
-
-		return Redirect::route('duty_days.index');
 	}
 
 	/**
@@ -163,9 +53,10 @@ class DutyDaysController extends \BaseController {
 	 */
 	public function show($id)
 	{
-        $dutyDays = DutyDay::where('employee_id', '=', $id)->get();
-        $doctor = Employee::findOrFail($id);
-        return View::make('duty_days.show')->nest('_view','duty_days.partials._view', compact('dutyDays','doctor'));
+        $dutyDays = DutyDay::where('doctor_id', '=', $id)->get();
+        $doctor = Doctor::findOrFail($id);
+//        return View::make('duty_days.show')->nest('_view','duty_days.partials._view', compact('dutyDays','doctor'));
+        return View::make('duty_days.partials._view', compact('dutyDays','doctor'));
 	}
 
 	/**

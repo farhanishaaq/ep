@@ -130,6 +130,9 @@ class AppointmentsController extends \BaseController {
 		return Redirect::route('appointments.index');
 	}
 
+	/**
+	 * @return \Illuminate\Http\JsonResponse
+	 */
     public function fetchTimeSlotsAndBookedAppointments(){
         $day = Input::get('day','');
         $doctorId = Input::get('employee_id','');

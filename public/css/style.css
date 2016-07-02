@@ -659,6 +659,27 @@ img {
 .btn-view-prescription-icon:hover{
   background: url("../images/view_prescription_hover.png") no-repeat center center;
 }
+
+.btn-view-duty-day-icon{
+   display: block;
+   background: url("../images/duty-day-view-icon.png") no-repeat center center;
+   width: 32px;
+   height: 28px;
+ }
+.btn-view-duty-day-icon:hover{
+  background: url("../images/duty-day-view-icon-hover.png") no-repeat center center;
+}
+
+.btn-add-duty-day-icon{
+  display: block;
+  background: url("../images/duty-day-add-icon.png") no-repeat center center;
+  width: 32px;
+  height: 28px;
+}
+.btn-add-duty-day-icon:hover{
+  background: url("../images/duty-day-add-icon-hover.png") no-repeat center center;
+}
+
 .btn-pdf-prescription-icon{
    display: block;
    background: url("../images/pdf_prescription.png") no-repeat center center;
@@ -1993,9 +2014,14 @@ span.field-validation-msg {
 
 
 
-.pL10 {
-    padding-left: 10px;
-}
+.pL10 {  padding-left: 10px;  }
+.pL20 {  padding-left: 20px;  }
+.pL30 {  padding-left: 30px;  }
+.pL40 {  padding-left: 40px;  }
+
+
+.pL40i {  padding-left: 40px !important;  }
+.pL50i {  padding-left: 50px !important;  }
 
 .pR0 {padding-right: 0px;}
 .pR10 {padding-right: 10px;}
@@ -2288,6 +2314,7 @@ span.field-validation-msg {
 }
 
 .h100p {height: 100%;}
+.hA {height: auto;}
 .h30 {
     height: 30px;
 }
@@ -3265,3 +3292,18 @@ input[type="radio"] .styled:checked + label::before {
 input[type="checkbox"] .styled:checked + label::after,
 input[type="radio"] .styled:checked + label::after {
   color: #fff; }
+
+
+/*********************/
+.tblSchedule tr th{
+  color: #373737;
+}
+a.timeSlotLink{
+  text-decoration: none;
+}
+a.timeSlotLink:hover{
+  text-decoration: none;
+}
+.timeSlotLink span{
+  padding: 5px 0 0 5px;
+}

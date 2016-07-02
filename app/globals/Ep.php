@@ -50,4 +50,44 @@ class Ep {
         }
         return array_unique($controllers);
     }
+
+    public static function currentUser(){
+        return \Auth::user();
+    }
+
+    public static function currentUserType(){
+        return self::currentUser()->user_type;
+    }
+
+    public static function currentCompany(){
+        return self::currentUser()->company;
+    }
+
+    public static function currentCompanyId(){
+        return self::currentUser()->company_id;
+    }
+
+    public static function currentCompanyName(){
+        return self::currentCompany()->name;
+    }
+
+    public static function currentBusinessUnit(){
+        return self::currentUser()->businessUnit;
+    }
+
+    public static function currentBusinessUnitId(){
+        return self::currentUser()->business_unit_id;
+    }
+
+    public static function currentBusinessUnitName(){
+        return self::currentBusinessUnit()->name;
+    }
+
+    public static function currentEmployee(){
+        return self::currentUser()->employee;
+    }
+
+    public static function currentEmployeeId(){
+        return self::currentUser()->employee->id;
+    }
 } 

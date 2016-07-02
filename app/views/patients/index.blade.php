@@ -33,6 +33,7 @@
             <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Patient Name</th>
                         <th>Last Visit</th>
                         <th>Age</th>
@@ -47,6 +48,7 @@
 
                     @foreach($patients as $patient)
                         <tr class="row-data">
+                            <td>{{{ $patient->user->id }}}</td>
                             <td>{{{ $patient->user->full_name }}}</td>
                             <td>{{{ $patient->patient_id }}}</td>
                             <td>{{{ get_age_from_dob($patient->user->dob) }}} - Years</td>

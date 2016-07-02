@@ -6,31 +6,34 @@ var DoctorsList = function(win,doc, options){
     var D = doc;
     var defaults = {
         getDoctorFormUrl: "",
-        formMode: ''
+        formMode: '',
+        listCols: 5
     };
     var settings = $.extend(defaults, options || {});
     var s = settings;
-
+    var drScheduleFormUrl=null;
+    var drId=null;
+    var drScheduleViewUrl = null;
 
     //*** Prescription Bootsrap-Modal-Events
-    var prescriptionModalEvents = function () {
+    var scheduleModalEvents = function () {
         //****BS-Modal Show Event
         $('.viewPresc').click(function () {
-            window.patientPrescriptionUrl = $(this).attr('patient-prescription-url');
+            drScheduleViewUrl = $(this).attr('dr-schedule-view-url');
         });
 
         //****BS-Modal Show Event
         $('#myModal').on('show.bs.modal', function () {
-            if(window.patientPrescriptionUrl){
+            if(drScheduleViewUrl){
                 $.ajax({
                     type: 'GET',
-                    url:  window.patientPrescriptionUrl ,
-                    dataType: 'html',
+                    url:  drScheduleViewUrl ,
+                    async: true,
                     success: function (response) {
                         if(response == "Error"){
 
                         }else{
-                            $('#prescriptionTbody').html(response);
+                            $('#scheduleViewTbody').html(response);
                         }
                     }
                 });
@@ -38,18 +41,30 @@ var DoctorsList = function(win,doc, options){
         });
     }
 
-
     var allPluginsInitializer = function(){
 
         //****For List
+        // console.log(s.listCols);
         if($('#tblRecordsList tr.row-data').length){
             $('#tblRecordsList').DataTable({
                 "columnDefs": [ {
-                    "targets": 5,
+                    "targets": 6,
                     "orderable": false
-                } ]
+                    },
+                    {
+                        "targets": [ 0 ],
+                        "visible": false,
+                        "searchable": false
+                    },
+                ],
+                "order": [[ 0, "desc" ]],
+                "lengthMenu": [20, 40, 60, 80, 100],
             });
         }
+
+
+        //******
+        scheduleModalEvents();
 
     }
 
@@ -60,8 +75,25 @@ var DoctorsList = function(win,doc, options){
      */
     var eventsBindings = function () {
 
-        //*** Prescription Bootsrap-Modal-Events
-        prescriptionModalEvents();
+        //****Go To Create Duty Day Form
+        $('.openScheduleFrom').click(function (e) {
+            e.preventDefault()
+            drScheduleFormUrl = $(this).attr('dr-schedule-form-url');
+            console.log(drScheduleFormUrl);
+            goTo(drScheduleFormUrl);
+
+        });
+
+        //****Go To Create Duty Day Form
+        $('.openScheduleView').click(function (e) {
+            e.preventDefault()
+            drScheduleViewUrl = $(this).attr('dr-schedule-view-url');
+            // drId = $(this).attr('doctor-id');
+            // var completeUrl =drScheduleViewUrl + drId;
+            console.log(drScheduleViewUrl);
+        });
+
+        
 
 
         /**

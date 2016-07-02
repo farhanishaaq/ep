@@ -1,15 +1,23 @@
-{{ Form::open(array('action' => 'DutyDaysController@store','class' => "form-horizontal w100p ", 'id' => 'dutyDaysForm')) }}
+{{ Form::open(array('action' => 'dutyDays.store','class' => "form-horizontal w100p ", 'id' => 'dutyDaysForm')) }}
     <h3 class="mT10 mB0 c3">Add Duty Days</h3>
     <hr class="w95p fL mT0" />
     <section class="form-Section col-md-12 fL">
+        <input type="hidden" id="Sunday" name="Sunday" value="{{Form::getValueAttribute('Sunday', null)}}">
+        <input type="hidden" id="Monday" name="Monday" value="{{Form::getValueAttribute('Monday', null)}}">
+        <input type="hidden" id="Tuesday" name="Tuesday" value="{{Form::getValueAttribute('Tuesday', null)}}">
+        <input type="hidden" id="Wednesday" name="Wednesday" value="{{Form::getValueAttribute('Wednesday', null)}}">
+        <input type="hidden" id="Thursday" name="Thursday" value="{{Form::getValueAttribute('Thursday', null)}}">
+        <input type="hidden" id="Friday" name="Friday" value="{{Form::getValueAttribute('Friday', null)}}">
+        <input type="hidden" id="Saturday" name="Saturday" value="{{Form::getValueAttribute('Saturday', null)}}">
         <div class="container w100p">
             <div class="form-group">
                 <label class="col-xs-2 control-label asterisk">Select Doctors</label>
                 <div class="col-xs-8">
+                    {{--<label class="form-control">{{ $doctorName }}</label>--}}
                     @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-                    {{ Form::select('employee_id', $doctors->lists('name', 'id'), null , ['required' => 'true', 'id' => 'employee_id'] ); }}
+                    {{ Form::select('doctor_id', $doctors, $doctorId , ['required' => 'true', 'id' => 'doctor_id'] ); }}
                     @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-                    {{ Form::select('employee_id', $doctors->lists('name', 'id'), $doctors->id , ['required' => 'true', 'id' => 'employee_id'] ); }}
+                    {{ Form::select('doctor_id', $doctors, $doctors->id , ['required' => 'true', 'id' => 'doctor_id'] ); }}
                     @endif
 
                     <span id="errorEmployeeId" class="field-validation-msg"></span>
@@ -21,15 +29,17 @@
 
         </div>
     </section>
-    <div class="col-xs-10 taR pR0 mT20">
-        {{--<input type="reset" id="reset" value="Reset" class="submit"/>
-        <input type="submit" id="create" value="Save && Close" class="submit"/>
-        <input type="submit" id="create" value="Save && Continue" class="submit"/>--}}
-        <input type="button" id="btnCloseForm" value="Close" class="submit" onclick="goTo('{{route('dutyDays.index')}}')" />
+    <div class="col-xs-12 taR pR0 mT20">
+        <input type="reset" id="reset" value="Reset" class="submit" />
+        <input type="button" id="saveClose" name="saveClose" value="Save and Close" class="submit" />
+        <input type="button" id="cancel" value="Cancel" class="submit" onclick="goTo('{{Redirect::back()}}')" />
     </div>
 {{ Form::close() }}
 @section('scripts')
-<script src="{{asset('plugins/day-pilot-lite/js/daypilot-all.min.js')}}"></script>
+<link rel="stylesheet" href="{{asset('plugins/calendar/css/fullcalendar.min.css')}}" type="text/css">
+<script src="{{asset('plugins/calendar/js/fullcalendar.min.js')}}"></script>
+<script src="{{asset('js/view-pages/duty_days/DutyDayForm.js')}}"></script>
+{{--<script src="{{asset('plugins/day-pilot-lite/js/daypilot-all.min.js')}}"></script>--}}
 <link type="text/css" rel="stylesheet" href="{{asset('plugins/day-pilot-lite/css/month_white.css')}}" />
 <!-- Trigger the modal with a button -->
 <button id="btnOpenModel" type="button" class="btn btn-info btn-lg dN" data-toggle="modal" data-target="#myModal"></button>
@@ -68,178 +78,13 @@
   </div>
 </div>
 <script>
-    //***Start Globals
-    window.selectedTimeArgsObj;
-    window.wanaSave = window.NO;
-    //***End Globals
-
-    //**** For Country
-    $("#employee_id").select2();
-
-    //***OnChange of EmployeeId
-    $('#employee_id').change(function(){
-
-    });
-
-    //**** For endTime ClockPicker
-    $('#endTime').clockpicker({donetext:'Done'});
-
-    //***Start DayPilot Calendar
-    var dp = new DayPilot.Calendar("dutyDayCalendar");
-
-    // view
-    dp.startDate =  window.DP_MONDAY;  // or just dp.startDate = "2013-03-25";
-    dp.viewType = "Week";
-
-    // event creating
-    dp.onTimeRangeSelected = function (args) {
-//        var name = prompt("New event name:", "Event");
-//        if (!name) return;
-        window.selectedTimeArgsObj = args
-        window.wanaSave = window.NO;
-        //Trigger BS-Modal
-        $('#btnOpenModel').trigger('click');
-
-        //Set BS-Modal Form Vals
-        $('#startTime').val(args.start.toString("HH:mm"));
-        $('#endTime').val(args.end.toString("HH:mm"));
-/*
-        if($('#endTime').val() == "") return;
-        var name = args.start.toString("HH:mm") + 'To' + '';
-        var e = new DayPilot.Event({
-                    start: args.start,
-                    end: args.end,
-                    id: DayPilot.guid(),
-                    text: name
-                });
-        dp.events.add(e);*/
-//        dp.clearSelection();
-    };
-
-    dp.onEventClick = function(args) {
-        alert("clicked: " + args.e.id());
-    };
-
-    dp.headerDateFormat = "dddd";
-    dp.eventDeleteHandling = "Update";
-    dp.init();
-
-
-    /*var e = new DayPilot.Event({
-        start: new DayPilot.Date("2013-03-25T12:00:00"),
-        end: new DayPilot.Date("2013-03-25T12:00:00").addHours(3).addMinutes(10),
-        id: "1",
-        text: "Special event",
-        toolTip: "my tooltip"
-    });*/
-
-
-      /*dp.events.list = [
-        {
-          start: "2013-03-25T00:00:00",
-          end: "2013-03-25T12:00:00",
-          id: "123",
-          text: "Event",
-          toolTip: "my tooltip"
-        }
-      ]*/
-//    dp.events.add(e);
-    @if($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-    dp.events.list = JSON.parse('{{$makeDayPilotJson}}');
-    /*dp.eventDeleteHandling = "Update";
-    dp.onEventDelete = function(args) {
-        if (!confirm("Do you really want to delete this event?")) {
-          args.preventDefault();
-        }
-      };*/
-    dp.init();
-    @endif
-    //***************End DayPilot Calendar
-
-    //****BS-Modal Show Event
-    $('#myModal').on('show.bs.modal', function () {
-//        $('#endDate').val('');
-    });
-
-    //****BS-Modal Close Event
-    $('#myModal').on('hidden.bs.modal', function () {
-        var args = window.selectedTimeArgsObj;
-        //Set BS-Modal Form Vals
-        var endDate = $('#endTime');
-        $('#startTime').val(args.start.toString("HH:mm"));
-
-        console.log(args.start.toString("yyyy-MM-ddTHH:mm:ss"));
-        if($('#endTime').val() == "") return;
-        var name = args.start.toString("HH:mm") + ' To ' + $('#endTime').val();
-        var makeEndDateTime = args.start.toString("yyyy-MM-ddTHH:mm:ss");
-        var makeEndDateTimeArr = makeEndDateTime.split('T');
-        var dayDate = makeEndDateTimeArr[0];
-
-        var finalDateTime = makeEndDateTimeArr[0]+'T'+$('#endTime').val()+':00';
-
-        var e = new DayPilot.Event({
-                    start: args.start,
-                    end: finalDateTime,
-                    id: DayPilot.guid(),
-                    text: name
-                });
-
-
-        ///*******ajax Call
-        if(window.wanaSave == window.YES){
-            var doctorSelectedId = $('#employee_id').val();
-            var startTimeVal = $('#startTime').val();
-            var endTimeVal = $('#endTime').val();
-            $.ajax({
-                type: "POST",
-                url: "{{route('dutyDays.store')}}",
-                data: {day: dayDate, start: startTimeVal, end: endTimeVal, employee_id: doctorSelectedId},
-                dataType: 'json',
-                success: function(response){
-                    if(response.success == true){
-                        dp.events.add(e);
-                        dp.clearSelection();
-                        showMsg(response.message);
-                    }else{
-                        var msg = "";
-                        /*for(var i=0; i < fields.length;i++){
-                            console.log(fields[i]);
-                            console.log(eval(response.message.fields[i]));
-                            console.log(eval(response.message.fields[i][0]));
-                            msg += eval(response.message.fields[i][0]) + '<br>'
-                        }*/
-                        if(response.message.employee_id){
-                            for(var i=0;i<response.message.employee_id.length;i++){
-                                msg += response.message.employee_id[i] + '<br>';
-                            }
-                        }
-                        if(response.message.hasOwnProperty('day')){
-                            for(var i=0;i<response.message.day.length;i++){
-                                msg += response.message.day[i] + '<br>';
-                            }
-                        }
-                        if(response.message.start){
-                            for(var i=0;i<response.message.start.length;i++){
-                                msg += response.message.start[i] + '<br>';
-                            }
-                        }
-                        if(response.message.end){
-                            for(var i=0;i<response.message.end.length;i++){
-                                msg += response.message.end[i] + '<br>';
-                            }
-                        }
-                        showMsg(msg);
-                    }
-               }
-            });
-        }
-    });
-
-    //***btnSave Click Event
-    $('#btnSave').click(function(){
-        window.wanaSave = window.YES;
-        console.log(window.wanaSave);
-        $('#btnModalClose').trigger('click');
+    $(document).ready(function(){
+        var options = {
+            saveCloseUrl: "{{route('dutyDays.index')}}",
+            selectedDrId: "{{$doctorId}}",
+        };
+        var dutyDayForm = new DutyDayForm(window,document,options);
+        dutyDayForm.initializeAll();
     });
 </script>
 @stop

@@ -58,7 +58,7 @@ function business_unit_drop_down($companyId = null){
     $businessUnitsData = Company::find($companyId)->businessUnits->lists('name','id');
     $businessUnitsData[""] = "Select Branch";
     ksort($businessUnitsData);
-    return Form::select('business_unit_id',$businessUnitsData,Form::getValueAttribute('business_unit_id', Auth::user()->business_unit_id),['id'=>"branch",'required'=>'true']);
+    return Form::select('business_unit_id',$businessUnitsData,Form::getValueAttribute('business_unit_id', Auth::user()->business_unit_id),['id'=>"business_unit_id",'required'=>'true']);
 }
 
 /**
@@ -251,4 +251,44 @@ function get_age_from_dob($dob){
 
 function get_display_date($date){
     return date('d-m-Y',strtotime($date));
+}
+
+function get_doctor_name($docId){
+
+}
+
+function current_user(){
+    return \App\Globals\Ep::currentUser();
+}
+
+function current_user_type(){
+    return \App\Globals\Ep::currentUserType();
+}
+
+function current_company(){
+    return \App\Globals\Ep::currentCompany();
+}
+
+function current_company_id(){
+    return \App\Globals\Ep::currentCompanyId();
+}
+
+function current_business_unit(){
+    return \App\Globals\Ep::currentBusinessUnit();
+}
+
+function current_business_unit_id(){
+    return \App\Globals\Ep::currentBusinessUnitId();
+}
+
+function current_employee(){
+    return \App\Globals\Ep::currentEmployee();
+}
+
+function current_employee_id(){
+    return \App\Globals\Ep::currentEmployeeId();
+}
+
+function is_dr_duty_days_exists($drId){
+    return DutyDay::where('doctor_id','=',$drId)->count();
 }

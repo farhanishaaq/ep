@@ -19,7 +19,7 @@
 <!--========================================================
                           CONTENT
 =========================================================-->
-
+<?php $cols = 5; ?>
 @section('content')
     <div class="container mT20">
         <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'">Manage Patients</h1>
@@ -33,6 +33,15 @@
             <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
                 <thead>
                     <tr>
+                        <th>ID</th>
+                        @if(current_user_type() == \App\Globals\GlobalsConst::SUPER_ADMIN)
+                            <?php $cols = 7?>
+                            <th>Company</th>
+                            <th>Business Unit</th>
+                        @elseif(current_user_type() == \App\Globals\GlobalsConst::ADMIN)
+                            <?php $cols = 6?>
+                            <th>Business Unit</th>
+                        @endif
                         <th>Doctor Name</th>
                         <th>Specialty</th>
                         <th>Qualification</th>
@@ -45,27 +54,37 @@
                     @foreach($users as $user)
                         <tr class="row-data">
                             <?php
-                            $doctorId = isset($user->doctor->id) ? $user->doctor->id : null;
+                            $doctorId = $user->id;
                             $medicalSpecialties = isset($user->doctor->medicalSpecialties) ? $user->doctor->medicalSpecialties : null;
                             $qualifications = isset($user->doctor->qualifications) ? $user->doctor->qualifications : null;
                             ?>
-                            <td>{{{ $user->full_name }}}</td>
+                            <td>{{{ $user->id }}}</td>
+                            @if(current_user_type() == \App\Globals\GlobalsConst::SUPER_ADMIN)
+                                <td>{{{ $user->employee->doctor->user->company->name }}}</td>
+                                <td>{{{ $user->employee->doctor->user->businessUnit->name }}}</td>
+                            @elseif(current_user_type() == \App\Globals\GlobalsConst::ADMIN)
+                                <td>{{{ $user->employee->doctor->user->businessUnit->name }}}</td>
+                            @endif
+                            <td>{{{ $user->employee->doctor->user->full_name }}}</td>
                             <td>{{{ get_collection_col_as_str($medicalSpecialties) }}}</td>
                             <td>{{{ get_collection_col_as_str($qualifications,'code') }}}</td>
-                            <td>{{{ $user->cell }}}</td>
+                            <td>{{{ $user->employee->doctor->user->cell }}}</td>
                             <td>
                             {{ link_to_route('doctors.show', '', [$doctorId], ['class' => 'btn-view-icon fL', 'style' => 'margin-bottom: 2px'])}}
 
                             <span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('doctors.edit', '', [$doctorId], ['class' => 'btn-edit-icon fL'])}}
-                            <span class="fL">&nbsp;|&nbsp;</span><a href="javascript:void(0);" class="btn-view-prescription-icon fL viewPresc" title="Prescriptions of {{$user->full_name}}" data-toggle="modal" data-target="#myModal" patient-prescription-url="{{route('patientPrescriptions',['patientId'=>$user->id])}}"></a>
+                            @if(is_dr_duty_days_exists($doctorId))
+                                    <span class="fL">&nbsp;|&nbsp;</span><a href="#myModal" class="btn-view-duty-day-icon fL openScheduleView" title="Dr. {{$user->full_name}} Schedule View"  data-toggle="modal" data-target="#myModal" dr-schedule-view-url="{{route('dutyDays.show',[$user->id])}}"></a>
+                                @else
+                                    <span class="fL">&nbsp;|&nbsp;</span><a href="javascript:void(0);" class="btn-add-duty-day-icon fL openScheduleFrom" title="Dr. {{$user->full_name}} Schedule Form"  dr-schedule-form-url="{{route('dutyDays.create',['doctor_id'=> $user->id])}}"></a>
+                                @endif
+
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </section>
-
-
     </div>
 
     {{--Patient Priccriptions Modal--}}
@@ -76,22 +95,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Prescriptions List</h4>
+                    <h4 class="modal-title">Duty Days View</h4>
                 </div>
-                <div class="modal-body row">
-                    <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
-                        <thead>
-                        <tr>
-                            <th>Prescription Code</th>
-                            <th>Patient Name</th>
-                            <th>Doctor Name</th>
-                            <th>Manage</th>
-                        </tr>
-                        </thead>
-                        <tbody id="prescriptionTbody">
+                <div id="scheduleViewTbody" class="modal-body row">
 
-                        </tbody>
-                    </table>
                 </div>
                 <div class="modal-footer">
                     {{--<button type="button" id="btnSave" name="btnSave" class="btn btn-default" >Save</button>--}}
@@ -103,11 +110,12 @@
     </div>
 @stop
 @section('scripts')
-    <script src="{{asset('js/view-pages/doctors/PatientsList.js')}}"></script>
+    <script src="{{asset('js/view-pages/doctors/DoctorsList.js')}}"></script>
     <script type="text/javascript">
         window.patientPrescriptionUrl = 0;
         $(document).ready(function() {
             var options = {
+                listCols: '{{$cols}}'
             };
             var doctorsList = new DoctorsList(window,document,options);
             doctorsList.initializeAll();

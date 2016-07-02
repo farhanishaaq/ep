@@ -91,30 +91,16 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Select Time Slot</label>
                         <div class="col-xs-6">
-<<<<<<< HEAD
                             @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-                                <select id="timeslot_id" name="timeslot_id" required="true">
+                                <select id="time_slot_id" name="time_slot_id" required="true">
                                     <option> Select Time slot </option>
                                 </select>
                             @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-                            {{ Form::select('timeslot_id', $appointmentDateAvailableTimeslots, Form::getValueAttribute('date', null), ['required' => 'true', 'id' => 'timeslot_id'] ); }}
+                                {{ Form::select('time_slot_id', $appointmentDateAvailableTimeslots, Form::getValueAttribute('date', null), ['required' => 'true', 'id' => 'time_slot_id'] ); }}
                             @endif
                             <span id="errorTimeslotId" class="field-validation-msg"></span>
                         </div>
                     </div>
-                    <div class="form-group dN">
-=======
-                            <select id="time_slot_id" name="time_slot_id" required="true">
-                                <option> Select Time slot </option>
-                            </select>
-                            <span id="errorTimeslotId" class="field-validation-msg"></span>
-                        </div>
-                    </div>
-                    {{--<div class="form-group">
->>>>>>> 49c7b4c09959875d6be4f4a233fe3876cf7648f8
-                        <label class="mL25">Already Booked Slots</label>
-                        <div id="dutyDayCalendar" class="w90pi m0A"></div>
-                    </div>--}}
 
                 </div>
                 <div class="container w100p">

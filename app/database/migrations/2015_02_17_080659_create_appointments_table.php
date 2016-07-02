@@ -16,7 +16,7 @@ class CreateAppointmentsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('business_unit_id');
-			$table->integer('employee_id');
+			$table->integer('doctor_id');
 			$table->integer('patient_id');
 			$table->integer('time_slot_id');
 			$table->string('title');

@@ -122,3 +122,64 @@ function isUrl(element) {
         return true;
     }
 }
+
+MyCookie = function () {
+    var c = this;
+    /**
+     * setCookie
+     * @param cname
+     * @param cvalue
+     * @param exdays
+     */
+    this.setCookie = function(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+
+    /**
+     * get cookie if exists
+     * @param cname
+     * @returns {*}
+     */
+    this.getCookie = function(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    /**
+     * check cookie exists
+     * @param cname
+     * @returns {boolean}
+     */
+    this.checkCookie = function(cname) {
+        var cookieVal = c.getCookie(cname);
+        if (cookieVal != "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * deleteCookie with provided name
+     * @param cname
+     */
+    this.deleteCookie = function(cname) {
+        var cvalue = '';
+        //*** Just set expiry to old date for delete cookie
+        var expires = "expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+};

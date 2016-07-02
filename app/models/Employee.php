@@ -47,16 +47,11 @@ class Employee extends \Eloquent{
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
     public function dutyDays()
     {
-        return $this->hasMany('DutyDay');
-    }
-
-    public function appointments()
-    {
-        return $this->hasMany('Appointment');
+        return $this->hasManyThrough('DutyDay', 'Doctor', 'employee_id', 'doctor_id');
     }
 
     public function prescriptions()
