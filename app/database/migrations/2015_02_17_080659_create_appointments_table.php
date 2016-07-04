@@ -19,10 +19,10 @@ class CreateAppointmentsTable extends Migration {
 			$table->integer('doctor_id');
 			$table->integer('patient_id');
 			$table->integer('time_slot_id');
-			$table->string('code');
+			$table->string('code')->nullable();
 			$table->date('date');
 			$table->time('time');
-			$table->enum('payment_status', array_values(GlobalsConst::$PAYMENT_STATUS))->nullable();;
+			$table->enum('payment_status', array_values(GlobalsConst::$PAYMENT_STATUS))->nullable();
 			$table->decimal('expected_fee', 8,2)->default(0);
 			$table->decimal('discount_amount', 8,2)->default(0);
 			$table->decimal('paid_fee', 8,2)->default(0);

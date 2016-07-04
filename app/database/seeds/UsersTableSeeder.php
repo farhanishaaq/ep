@@ -11,6 +11,7 @@ class UsersTableSeeder extends Seeder {
 		DB::table('users')->truncate();
 		DB::table('employees')->truncate();
 		DB::table('patients')->truncate();
+
 		//For Super Admin (1)
 		User::create([
 			'city_id'=> GlobalsConst::LAHORE_OF_PAK,
@@ -53,7 +54,19 @@ class UsersTableSeeder extends Seeder {
 			'current_salary'=> 35000,
 		]);
 
-		//For Admin of EP_DEMO_COMPANY_TWO (3)
+		//For Doctor (3)
+		$this->addDoctor();
+
+		//For Receptionist (4)
+		$this->addReceptionist();
+
+		//For Nurse (5)
+		$this->addNurse();
+
+		//For Accountant (6)
+		$this->addAccountant();
+
+		//For Admin of EP_DEMO_COMPANY_TWO (7)
 		$user = User::create([
 			'company_id' => GlobalsConst::EP_DEMO_COMPANY_TWO,
 			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_THREE,
@@ -78,6 +91,8 @@ class UsersTableSeeder extends Seeder {
 			'joining_salary'=> 25000,
 			'current_salary'=> 35000,
 		]);
+
+		//(7+10)
 		$this->addFakerData();
 	}
 
@@ -175,5 +190,133 @@ class UsersTableSeeder extends Seeder {
 			$i++;
 			$j++;
 		}
+	}
+
+	private function addDoctor(){
+		$user = User::create([
+			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+			'city_id'=> GlobalsConst::LAHORE_OF_PAK,
+			'username'=> 'doctor',
+			'email'=> 'doctor@easyphysicians.com',
+			'password'=> Hash::make('doctor123456'),
+			'fname'=> 'Ehsaan',
+			'lname'=> 'Ali',
+			'full_name'=> 'Ehsaan Ali',
+			'user_type'=> 'Doctor',
+			'dob'=> '1988-12-01',
+			'cnic'=> '35200-1478048-1',
+			'gender'=> 'Male',
+			'status'=> 'Active',
+		]);
+		$doctorRole = 1;
+		$user->roles()->attach($doctorRole);
+		$employee = Employee::create([
+			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+			'user_id'=> $user->id,
+			'joining_date'=> '2013-04-15',
+			'joining_salary'=> 25000,
+			'current_salary'=> 35000,
+		]);
+		$doctor = Doctor::create([
+			'user_id'=> $user->id,
+			'employee_id'=> $employee->id,
+			'min_fee'=> '2013-04-15',
+			'max_fee'=> 25000,
+		]);
+		$medicalSpecialties = 1;
+		$qualifications = [1,9];
+		$doctor->medicalSpecialties()->attach($medicalSpecialties);
+		$doctor->qualifications()->attach($qualifications);
+		$doctor->qualifications()->attach($qualifications);
+	}
+
+	private function addReceptionist(){
+		$user = User::create([
+			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+			'city_id'=> GlobalsConst::LAHORE_OF_PAK,
+			'username'=> 'receptionist',
+			'email'=> 'receptionist@easyphysicians.com',
+			'password'=> Hash::make('doctor123456'),
+			'fname'=> 'Rafia',
+			'lname'=> 'Khan',
+			'full_name'=> 'Rafia Khan',
+			'user_type'=> 'Employee',
+			'dob'=> '1988-12-01',
+			'cnic'=> '35200-1478048-1',
+			'gender'=> 'Female',
+			'status'=> 'Active',
+		]);
+		$receptionistRole = 6;
+		$user->roles()->attach($receptionistRole);
+
+		Employee::create([
+			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+			'user_id'=> $user->id,
+			'joining_date'=> '2013-04-15',
+			'joining_salary'=> 25000,
+			'current_salary'=> 35000,
+		]);
+	}
+
+	private function addNurse(){
+		$user = User::create([
+			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+			'city_id'=> GlobalsConst::LAHORE_OF_PAK,
+			'username'=> 'nurse',
+			'email'=> 'nurse@easyphysicians.com',
+			'password'=> Hash::make('doctor123456'),
+			'fname'=> 'Shaziya',
+			'lname'=> 'Tariq',
+			'full_name'=> 'Shaziya Tariq',
+			'user_type'=> 'Employee',
+			'dob'=> '1988-12-01',
+			'cnic'=> '35200-1478048-1',
+			'gender'=> 'Female',
+			'status'=> 'Active',
+		]);
+		$nurseRole = 7;
+		$user->roles()->attach($nurseRole);
+		Employee::create([
+			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+			'user_id'=> $user->id,
+			'joining_date'=> '2013-04-15',
+			'joining_salary'=> 25000,
+			'current_salary'=> 35000,
+		]);
+	}
+
+	private function addAccountant(){
+		$user = User::create([
+			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+			'city_id'=> GlobalsConst::LAHORE_OF_PAK,
+			'username'=> 'accountant',
+			'email'=> 'accountant@easyphysicians.com',
+			'password'=> Hash::make('doctor123456'),
+			'fname'=> 'Umer',
+			'lname'=> 'Khan',
+			'full_name'=> 'Umer Khan',
+			'user_type'=> 'Employee',
+			'dob'=> '1988-12-01',
+			'cnic'=> '35200-1478048-1',
+			'gender'=> 'Female',
+			'status'=> 'Active',
+		]);
+		$accountantRole = 8;
+		$user->roles()->attach($accountantRole);
+		Employee::create([
+			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+			'user_id'=> $user->id,
+			'joining_date'=> '2013-04-15',
+			'joining_salary'=> 25000,
+			'current_salary'=> 35000,
+		]);
 	}
 }

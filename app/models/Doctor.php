@@ -4,7 +4,7 @@ use \App\Globals\Ep;
 
 class Doctor extends \Eloquent {
 	
-	protected $fillable = ['employee_id','doctor_category_id'];
+	protected $fillable = ['user_id', 'employee_id', 'min_fee', 'max_fee'];
 
 
 	/**

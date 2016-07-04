@@ -16,7 +16,7 @@ class Appointment extends \Eloquent {
                             'doctor_id',
                             'patient_id',
                             'time_slot_id',
-                            'title',
+                            'code',
                             'date',
                             'time',
                             'payment_status',

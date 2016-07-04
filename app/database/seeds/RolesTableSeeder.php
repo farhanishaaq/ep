@@ -8,9 +8,10 @@ class RolesTableSeeder extends Seeder {
 	{
 		DB::table('roles')->truncate();
 		DB::table('role_user')->truncate();
+
 		//1
 		$Role = Role::create([
-			'name' => 'SuperAdmin',
+			'name' => 'Super Admin',
 			'description' => 'It is a SuperAdmin who manages the whole EP Portal',
 		]);
 		$User = User::find(GlobalsConst::SUPER_ADMIN_ID);
@@ -18,7 +19,7 @@ class RolesTableSeeder extends Seeder {
 
 		//2
 		$Role = Role::create([
-			'name' => 'CompanyAdmin',
+			'name' => 'Company Admin',
 			'description' => 'It is a Admin for the registered company, who manages his company on EP',
 		]);
 		$User = User::find(GlobalsConst::COMPANY_ADMIN_ID);
@@ -26,14 +27,38 @@ class RolesTableSeeder extends Seeder {
 
 		//3
 		Role::create([
-			'name' => 'PortalUser',
-			'description' => 'It is a RegisteredUser into public EP portal',
+			'name' => 'Portal User',
+			'description' => 'It is a Registered User into public EP portal',
 		]);
 
 		//4
 		Role::create([
-			'name' => 'PortalDoctor',
-			'description' => 'It is a RegisteredUser who is actually a doctor but not the EP company doctor',
+			'name' => 'Portal Doctor',
+			'description' => 'It is a Registered User who is actually a doctor but not the EP company doctor',
+		]);
+
+		//5
+		Role::create([
+			'name' => 'Company Doctor',
+			'description' => 'It is a Employee of the registered company who perform his job as a Doctor',
+		]);
+
+		//6
+		Role::create([
+			'name' => 'Receptionist',
+			'description' => 'It is an Employee of the registered company who perform his job as a Receptionist',
+		]);
+
+		//7
+		Role::create([
+			'name' => 'Nurse',
+			'description' => 'It is an Employee of the registered company who perform his job as a Nurse',
+		]);
+
+		//8
+		Role::create([
+			'name' => 'Accountant',
+			'description' => 'It is an Employee of the registered company who perform his job as a Nurse',
 		]);
 
 		
