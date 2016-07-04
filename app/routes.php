@@ -155,7 +155,7 @@ Route::group(['Private', 'before' => 'auth'],function (){
      */
     Route::group(['Appointments'],function () {
         Route::resource('appointments', 'AppointmentsController');
-        Route::get('vitalSign', array('before' => 'Doctor|Administrator', 'as'=>'vitalSign', 'uses' => 'AppointmentsController@fetchVitalSign'));
+        Route::get('vitalSign', array('as'=>'vitalSign', 'uses' => 'AppointmentsController@fetchVitalSign'));
         Route::get('appPrescription',  array('as'=>'appPrescription', 'uses' => 'AppointmentsController@addPrescriptions'));
         Route::get('showTestReports', ['as'=>'showTestReports','uses'=>'AppointmentsController@showTestReports']);
         Route::get('addCheckUpFee', ['as'=>'addCheckUpFee','uses'=>'AppointmentsController@addCheckUpFee']);

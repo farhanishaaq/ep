@@ -216,9 +216,18 @@
                                       FOOTER
             =========================================================-->
             @include('includes.footer')
-
+            <script type="application/javascript">
+                $( document ).ajaxStart(function() {
+                    $( "#loadingContent" ).show();
+                });
+                $( document ).ajaxStop(function () {
+                    $( "#loadingContent" ).hide();
+                })
+            </script>
             @yield('scripts')
         </div>
+
+        <div id="loadingContent" class=""><img src="{{asset('images/loading-pic.gif')}}" alt="loading........"/></div>
         <div class="userSuccMSG dN"></div>
     </body>
 </html>

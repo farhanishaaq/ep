@@ -4,18 +4,28 @@ class Appointment extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
-		'employee_id' => 'required',
+		'doctor_id' => 'required',
         'time_slot_id' => 'required',
         'patient_id' => 'required',
-        'status' => 'required'
-
-        
-
+        'status' => 'required',
+        'paid_fee' => 'required'
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = ['checkup_reason', 'time', 'date', 'status', 'checkup_fee', 'fee_note',
-    'time_slot_id', 'patient_id', 'employee_id', 'company_id', 'fee'];
+	protected $fillable = ['business_unit_id',
+                            'doctor_id',
+                            'patient_id',
+                            'time_slot_id',
+                            'title',
+                            'date',
+                            'time',
+                            'payment_status',
+                            'expected_fee',
+                            'discount_amount',
+                            'paid_fee',
+                            'status',
+                            'reason_type',
+                            'checkup_detail',];
 
 
     /**
@@ -47,36 +57,21 @@ class Appointment extends \Eloquent {
         return $this->hasOne('Prescription');
     }
 
-    public function timeslot()
+    public function timeSlot()
     {
-        return $this->belongsTo('Timeslot', 'time_slot_id');
+        return $this->belongsTo('TimeSlot', 'time_slot_id');
     }
 
-    public function vitalsign()
+    public function vitalSign()
     {
         return $this->hasOne('VitalSign');
-    }
-
-    public function diagonosticprocedure()
-    {
-        return $this->hasOne('Diagonosticprocedure');
-    }
-
-    public function labtests()
-    {
-        return $this->hasMany('Labtest');
-    }
-
-    public function checkupfee()
-    {
-        return $this->hasOne('CheckupFee');
     }
 
     public static function fetchAppointmentsByDay($day){
         $qry = DB::table('appointments')
             ->select([
                     'appointments.id',
-                    'patients.name',
+                    DB::raw('CONCAT(p.full_name," have appointment with Dr. ",dr.full_name) AS `title`'),
                     'appointments.date',
                     'time_slots.slot AS start',
                     DB::raw('ADDTIME(time_slots.slot,"00:'.GlobalsConst::TIME_SLOT_INTERVAL.':00") AS `end`'),
@@ -84,9 +79,23 @@ class Appointment extends \Eloquent {
                 ]
             )
             ->join('patients', 'patients.id', '=', 'appointments.patient_id','inner')
+            ->join('users As p', 'p.id', '=', 'patients.user_id','inner')
+            ->join('users As dr', 'dr.id', '=', 'appointments.doctor_id','inner')
             ->join('time_slots', 'time_slots.id', '=', 'appointments.time_slot_id','inner')
             ->join('duty_days', 'duty_days.id', '=', 'time_slots.duty_day_id','inner')
             ->where('duty_days.day', '=', $day);
         return $qry->get();
+    }
+
+    public static function saveAppointment($data){
+        $response = null;
+        $validator = Validator::make($data, self::$rules);
+        if ($validator->fails())
+        {
+            return $response = ['success'=>false, 'error'=> true, 'validatorErrors'=>$validator];
+        }
+        Appointment::create($data);
+        $response = ['success'=>true, 'error'=> false, 'message'=>'Appointment has been saved successfully!'];
+        return $response;
     }
 }

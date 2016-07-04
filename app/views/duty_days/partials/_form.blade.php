@@ -32,7 +32,7 @@
     <div class="col-xs-12 taR pR0 mT20">
         <input type="reset" id="reset" value="Reset" class="submit" />
         <input type="button" id="saveClose" name="saveClose" value="Save and Close" class="submit" />
-        <input type="button" id="cancel" value="Cancel" class="submit" onclick="goTo('{{Redirect::back()}}')" />
+        <input type="button" id="cancel" value="Cancel" class="submit" onclick="goTo('{{route('doctors.index')}}')" />
     </div>
 {{ Form::close() }}
 @section('scripts')
@@ -80,7 +80,7 @@
 <script>
     $(document).ready(function(){
         var options = {
-            saveCloseUrl: "{{route('dutyDays.index')}}",
+            saveCloseUrl: "{{route('doctors.index')}}",
             selectedDrId: "{{$doctorId}}",
         };
         var dutyDayForm = new DutyDayForm(window,document,options);

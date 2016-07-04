@@ -21,6 +21,20 @@ class TimeSlot extends \Eloquent {
         return $this->hasMany('Appointment', 'time_slot_id', 'id');
     }
 
+
+    public static function fetchTimeSlotsByAppointmentDate(Appointment $appointment, $isList=false){
+        $appointmentDay = date('l',strtotime($appointment->date));
+        $dutyDayId = $appointment->doctor->dutyDays()->where('day','=',$appointmentDay)->first()->id;
+        $timeSlot = self::where('doctor_id','=',$appointment->doctor_id)
+            ->where('duty_day_id','=', $dutyDayId)
+            ->get();
+        if ($isList){
+            return $timeSlot->lists('slot', 'id');
+        }
+        return $timeSlot;
+    }
+
+
     /**
      * @param $doctorId
      * @param $day
@@ -31,7 +45,7 @@ class TimeSlot extends \Eloquent {
         $qry = DB::table('time_slots')
             ->select(['time_slots.id','time_slots.slot'])
             ->join('duty_days', 'duty_days.id', '=', 'time_slots.duty_day_id','inner')
-            ->where('duty_days.employee_id', '=', $doctorId)
+            ->where('duty_days.doctor_id', '=', $doctorId)
             ->where('duty_days.day', '=', $day)
             ->whereNotIn('time_slots.id', function($query)
             {

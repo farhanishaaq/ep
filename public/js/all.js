@@ -183,3 +183,21 @@ MyCookie = function () {
         document.cookie = cname + "=" + cvalue + "; " + expires;
     }
 };
+
+function getDateIntoRequiredFormat(params) {
+    var date = params.date || null;
+    var cF = params.currentFormat || null;
+    var rF = params.requiredFormat || null;
+
+    var d,m,y;
+    if(cF == 'dd-mm-yyyy'){
+        d = date.substr(0,2);
+        m = date.substr(3,2);
+        y = date.substr(6);
+    }
+
+    //*****Make Required Date Format
+    if(rF == 'yyyy-mm-dd'){
+        return y+'-'+m+'-'+d;
+    }
+}

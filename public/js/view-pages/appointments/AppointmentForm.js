@@ -7,35 +7,38 @@ var AppointmentForm = function(win,doc, options){
     var defaults = {
         dataFormId: "#regForm",
         urlToFetchTimeSlots: "",
+        formMode: '',
         validationRulesForForm: function (frmElement) {
             frmElement.validate({
                 rules: {
-                    name: {
+                    doctor_id: {
                         required: true,
-                        maxlength: 50
                     },
-                    password: {
+                    patient_id: {
                         required: true,
-                        maxlength: 15
                     },
-                    email: {
+                    status: {
                         required: true
                     },
-                    Description: {
-                        maxlength: 512
+                    paid_fee: {
+                        required: true,
+                        minlength: 2
                     }
                 },
                 messages: {
-                    Code: {
-                        required: String.format(MessageDictionay.validationMsgs.required, "Code"),
-                        minlength: String.format(MessageDictionay.validationMsgs.maxlength, "Code", "5")
+                    doctor_id: {
+                        required: String.format(MessageDictionay.validationMsgs.required, "Doctor"),
                     },
-                    Name: {
-                        required: String.format(MessageDictionay.validationMsgs.required, "Name"),
-                        minlength: String.format(MessageDictionay.validationMsgs.maxlength, "Name", "50")
+                    patient_id: {
+                        required: String.format(MessageDictionay.validationMsgs.required, "Patient"),
                     },
-                    Class: String.format(MessageDictionay.validationMsgs.required, "Class"),
-                    Description: String.format(MessageDictionay.validationMsgs.maxlength, "Description", "512")
+                    status: {
+                        required: String.format(MessageDictionay.validationMsgs.required, "Status"),
+                    },
+                    paid_fee: {
+                        required: String.format(MessageDictionay.validationMsgs.required, "Paid Fee"),
+                        minlength: String.format(MessageDictionay.validationMsgs.required, "Paid Fee"),
+                    },
                 }
             });
         }
@@ -43,39 +46,42 @@ var AppointmentForm = function(win,doc, options){
     var settings = $.extend(defaults, options || {});
     // var dp = new DayPilot.Calendar("dutyDayCalendar");
     var s = settings;
+    var saveCloseClicked = false;
+    var dPiker;
+    /* var initializeDayPilot = function(){
+         //!***Start DayPilot Calendar
 
+         // view
+         // dp.startDate =  window.DP_MONDAY;  // or just dp.startDate = "2013-03-25";
+         // dp.viewType = "Day";
 
-   /* var initializeDayPilot = function(){
-        //!***Start DayPilot Calendar
+         // event creating
+         /!*dp.onTimeRangeSelected = function (args) {
+             //                    if($('#endTime').val() == "") return;
+             var name = args.start.toString("HH:mm") + 'To' + '';
+             var e = new DayPilot.Event({
+                 start: args.start,
+                 end: args.end,
+                 id: DayPilot.guid(),
+                 text: name
+             });
+             dp.events.add(e);
+             dp.clearSelection();
+         };*!/
 
-        // view
-        // dp.startDate =  window.DP_MONDAY;  // or just dp.startDate = "2013-03-25";
-        // dp.viewType = "Day";
-
-        // event creating
-        /!*dp.onTimeRangeSelected = function (args) {
-            //                    if($('#endTime').val() == "") return;
-            var name = args.start.toString("HH:mm") + 'To' + '';
-            var e = new DayPilot.Event({
-                start: args.start,
-                end: args.end,
-                id: DayPilot.guid(),
-                text: name
-            });
-            dp.events.add(e);
-            dp.clearSelection();
-        };*!/
-
-        /!*dp.onEventClick = function(args) {
-            alert("clicked: " + args.e.id());
-        };
-        dp.headerDateFormat = "dddd";
-        dp.eventDeleteHandling = "Update";
-        dp.init();*!/
-    };*/
+         /!*dp.onEventClick = function(args) {
+             alert("clicked: " + args.e.id());
+         };
+         dp.headerDateFormat = "dddd";
+         dp.eventDeleteHandling = "Update";
+         dp.init();*!/
+     };*/
     
-    var initializeFullCalendar = function (appointments) {
-        var dDate = $('#date').val();
+    var initializeFullCalendar = function (dDate,appointments) {
+        var params = {date:dDate, currentFormat:"dd-mm-yyyy", requiredFormat:"yyyy-mm-dd"};
+        var dDateFormated = getDateIntoRequiredFormat(params);
+        console.log(dDateFormated);
+        // .fullCalendar('gotoDate', dDateFormated);
         $('#fCalendar').fullCalendar({
             header: {
 //                            left: 'prev,next today',
@@ -85,10 +91,10 @@ var AppointmentForm = function(win,doc, options){
                 center: 'title',
                 right: ''
             },
-            // defaultDate: '2016-06-12',
-            defaultDate: dDate,
+            // defaultDate: '2016-07-04',
+            defaultDate: dDateFormated,
             defaultView:"agendaDay",
-            editable: true,
+            editable: false,
             eventLimit: true, // allow "more" link when too many events
             events: appointments
             //============= for Help
@@ -154,15 +160,18 @@ var AppointmentForm = function(win,doc, options){
 
     var allPluginsInitializer = function(){
 
-        //**** For Branch
-        $("#time_slot_id").select2();
+        //**** For Time Slot
+        $("#payment_status").select2({'placeholder': 'Payment Status'});
 
-        //**** For Country
-        $("#employee_id").select2();
+        //**** For Time Slot
+        $("#time_slot_id").select2({'placeholder': 'Time Slot'});
+
+        //**** For Doctor
+        $("#doctor_id").select2({'placeholder': 'Select Doctor'});
 
 
         //**** For Role
-        $("#patient_id").select2();
+        $("#patient_id").select2({'placeholder': 'Select Patient'});
 
 
         //**** For Branch
@@ -172,7 +181,7 @@ var AppointmentForm = function(win,doc, options){
 
 
         //****Start For Appointment Date
-        var dPiker = $('#date').datepicker({
+        dPiker = $('#date').datepicker({
             autoclose: true,
             format: 'dd-mm-yyyy'
         });
@@ -192,7 +201,7 @@ var AppointmentForm = function(win,doc, options){
             $.ajax({
                 type: 'GET',
                 url: s.urlToFetchTimeSlots,
-                data: {'day': selectedDay, 'employee_id': $('#employee_id').val()},
+                data: {'day': selectedDay, 'doctor_id': $('#doctor_id').val()},
                 dataType: 'json',
                 success:function(response){
                     console.log(response);
@@ -209,7 +218,10 @@ var AppointmentForm = function(win,doc, options){
                         //***Start for DayPilot appointments Load
                         // dp.events.list = response.data.appointments;
                         // initializeDayPilot();
-                        initializeFullCalendar(response.data.appointments);
+                        var appointmentDate = $('#date').val();
+                        // $('#fCalendar').html('');
+                        $('#fCalendar').fullCalendar( 'destroy' );
+                        initializeFullCalendar(appointmentDate,response.data.appointments);
                         //***End for DayPilot appointments Load
                     }else{
                         showMsg(response.message);
@@ -223,9 +235,22 @@ var AppointmentForm = function(win,doc, options){
         //****Start initialize DayPilot
         // initializeDayPilot();
         //****End initialize DayPilot
-
     }
 
+    var feeCalculate = function (paidFee) {
+        var expectedFee = $('#expected_fee').val();
+        var discountAmount = $('#discount_amount').val();
+
+        var remainingFee =  parseInt(expectedFee) - parseInt(discountAmount) - parseInt(paidFee);
+        $('#remaining_fee').val(remainingFee);
+        $('#total_paid').val(paidFee);
+
+        if(remainingFee == 0){
+            $('#payment_status').select2('val',2);
+        }else if(paidFee == 0){
+            $('#payment_status').select2('val',0);
+        }
+    };
     /**
      * Events Bindings | All Events Bindings Goes here
      * @access private
@@ -239,16 +264,63 @@ var AppointmentForm = function(win,doc, options){
         // });
 
         /**
+         * on change of Doctor selection
+         */
+        $('#doctor_id').change(function () {
+            var val = $(this).val();
+            var maxFee = $(this).find("option[value='"+ val+"']").attr('max-fee');
+            $('#expected_fee').val(maxFee);
+
+            //******
+            var paidFee = $('#paid_fee').val();
+            feeCalculate(paidFee);
+        });
+
+        /**
+         * on change of Paid Fee
+         */
+        $('#paid_fee').keyup(function () {
+            var paidFee = $(this).val();
+            feeCalculate(paidFee);
+        });
+
+        $('#saveClose').click(function (e) {
+            saveCloseClicked = true;
+        });
+
+        $('#saveContinue').click(function (e) {
+            saveCloseClicked = false;
+        });
+
+
+        /**
          * Form Submit Button Event
          */
-        $(s.dataFormId).submit(function(){
+        $(s.dataFormId).submit(function(e){
+            // e.preventDefault();
             var frm = $(this);
             var validator = s.validationRulesForForm(frm);
-
             if (frm.valid()) {
-
                 var formData = frm.serialize();
                 var saveUrl = frm.attr('action') || "";
+                $.ajax({
+                    type: 'POST',
+                    url: saveUrl,
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.success){
+                            showMsg(response.message,window.MESSAGE_TYPE_SUCCESS);
+                            if(saveCloseClicked){
+                                goTo(s.saveCloseUrl);
+                            }else{
+                                window.location.reload();
+                            }
+                        }
+                    }
+                });
+            }else{
+                showMsg('Invalid Form!',window.MESSAGE_TYPE_ERROR);
             }
             return false;
         });
@@ -265,5 +337,8 @@ var AppointmentForm = function(win,doc, options){
     this.initializeAll = function () {
         allPluginsInitializer();
         eventsBindings();
+        if(s.formMode == window.FORM_EDIT){
+            dPiker.trigger('change');
+        }
     }
 };

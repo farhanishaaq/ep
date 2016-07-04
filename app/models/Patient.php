@@ -105,4 +105,31 @@ class Patient extends \Eloquent {
         $response = ['success'=>true, 'error'=> false, 'message'=>'Patient has been saved successfully!','Patient'=>$patient];
         return $response;
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public static function fetchPatientsForDropDown(){
+        try{
+            $patients = self::select('patients.id', 'users.full_name')
+                ->join('users','users.id','=','patients.user_id' )
+                ->where('users.status', '=', GlobalsConst::STATUS_ON);
+            if(Ep::currentUserType() == GlobalsConst::SUPER_ADMIN){
+            }elseif(Ep::currentUserType() == GlobalsConst::ADMIN){
+                $patients->where('users.company_id', '=', Ep::currentCompanyId());
+            }else{
+                $patients->where('users.business_unit_id', '=', Ep::currentBusinessUnitId());
+            }
+
+//			return dd($patients->toSql());
+//            return $patients->orderBy('u.full_name','DESC')->lists('full_name','id');
+            return $patients->orderBy('users.full_name','ASC')->get();
+        }catch (Throwable $t) {
+            // Executed only in PHP 7, will not match in PHP 5.x
+            dd($t->getMessage());
+        }catch (Exception $e){
+            dd($e->getMessage());
+        }
+
+    }
 }

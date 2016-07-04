@@ -24,8 +24,8 @@
                 <li><a href="#">Manage Roles</a></li>
                 <li class="divider"></li>
                 <li><a href="{{URL::route('users.index')}}">Manage Users</a></li>
-                <li class="divider"></li>
-                <li><a href="{{URL::route('dutyDays.index')}}">Doctor Schedules</a></li>
+                {{--<li class="divider"></li>
+                <li><a href="{{URL::route('dutyDays.index')}}">Doctor Schedules</a></li>--}}
                 <li class="divider"></li>
                 <li><a href="{{URL::route('medicines.index')}}">Manage Medicines</a></li>
             </ul>

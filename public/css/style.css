@@ -2863,7 +2863,26 @@ table.dataTable thead .sorting_desc {
     padding: 20px 40px;
 }
 
-
+#loadingContent {
+  /*background: url(../images/loading-pic.gif) no-repeat;*/
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  position: fixed;
+  left: 35%;
+  top: 25%;
+  width: auto;
+  min-width: 418px;
+  /*min-height: 84px;*/
+  line-height: 38px;
+  color: #FFF;
+  text-align: center;
+  font-size: 22px;
+  font-family: 'open_sanssemibold';
+  z-index: 1000;
+  display: none;
+  padding: 20px 40px;
+}
 /*
 ****************************************************************************************************
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< End DataTable Style >>>>>>>>>>>>>>>>>>>>>>>>>>>

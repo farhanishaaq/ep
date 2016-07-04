@@ -49,10 +49,10 @@
                     @foreach($appointments as $appointment)
 
                         <tr class="row-data">
-                            <td>{{{ $appointment->patient->name }}}</td>
-                            <td>{{{ $appointment->employee->name }}}</td>
+                            <td>{{{ $appointment->patient->user->full_name }}}</td>
+                            <td>{{{ $appointment->doctor->user->full_name}}}</td>
                             <td>{{{ date('j F, Y', strtotime($appointment->date)) }}}</td>
-                            <td>{{{$appointment->timeslot->slot}}}</td>
+                            <td>{{{$appointment->timeSlot->slot}}}</td>
                             <td>
                                 {{{ get_appointment_status_name($appointment->status)}}}
                             </td>

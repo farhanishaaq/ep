@@ -130,7 +130,7 @@ class UsersTableSeeder extends Seeder {
 					'gender'=> $faker->randomElement(['Male','Female']),
 					'address'=> $faker->address,
 					'cell'=> $faker->phoneNumber,
-					'status'=> $faker->randomElement(['Active','Inactive']),
+					'status'=> $faker->randomElement(['Active']),
 				]);
 				$employee = Employee::create([
 					'company_id' => $companyId,
@@ -156,6 +156,7 @@ class UsersTableSeeder extends Seeder {
 					'password'=> Hash::make('123456'),
 					'fname'=> $faker->firstName,
 					'lname'=> $faker->lastName,
+					'full_name'=> $faker->firstName.' '.$faker->lastName,
 					'user_type'=> $faker->randomElement(['Patient']),
 					'dob'=> $faker->dateTimeThisCentury->format('Y-m-d'),
 					'cnic'=> '35200-'.$faker->numberBetween(1469067,3000000).'-' .$faker->numberBetween(0,9),
@@ -165,6 +166,8 @@ class UsersTableSeeder extends Seeder {
 					'status'=> $faker->randomElement(['Active','Inactive']),
 				]);
 				Patient::create([
+					'company_id' => $companyId,
+					'business_unit_id'=> $businessUnitId,
 					'user_id'=> $user->id,
 				]);
 			}

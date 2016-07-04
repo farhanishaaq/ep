@@ -29,7 +29,7 @@ class DashboardsController extends \BaseController
                     ->groupBy(DB::raw('DAYNAME(appointments.date)'))->get();
                 //***************************//
                 $AppointmentsFees = DB::table('appointments')
-                    ->select(DB::raw('SUM(appointments.fee) AS total_fee'), DB::raw('COUNT(appointments.id) AS totalAppointments'), DB::raw('appointments.status'))
+                    ->select(DB::raw('SUM(appointments.paid_fee) AS total_fee'), DB::raw('COUNT(appointments.id) AS totalAppointments'), DB::raw('appointments.status'))
                     ->join('patients', 'patients.id', '=', 'appointments.patient_id')
                     ->where('patients.company_id', $companyId)
                     ->groupBy(DB::raw('appointments.status'))->get();
@@ -43,7 +43,7 @@ class DashboardsController extends \BaseController
                 $count2 = 0;
                 //***************************//
                 $Fees = DB::table('appointments')
-                    ->select(DB::raw('SUM(appointments.fee) AS total_recieved'))
+                    ->select(DB::raw('SUM(appointments.paid_fee) AS total_recieved'))
                     ->join('patients', 'patients.id', '=', 'appointments.patient_id')
                     ->where('patients.company_id', $companyId)
                     ->where('appointments.status', GlobalsConst::COMPLETED)->first();

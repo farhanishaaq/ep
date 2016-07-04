@@ -292,3 +292,19 @@ function current_employee_id(){
 function is_dr_duty_days_exists($drId){
     return DutyDay::where('doctor_id','=',$drId)->count();
 }
+
+function make_doctor_drop_down($doctors,$selectedVal=null){
+    $html = '<select id="doctor_id" name="doctor_id" required="true">';
+    $html .= '<option value="">Select Doctor</option>';
+    foreach ($doctors as $d){
+        if($selectedVal != null && $selectedVal == $d->id){
+            $selected = 'selected="selected"';
+        }else{
+            $selected = '';
+        }
+        $html .= '<option value="'.$d->id.'" max-fee="'. $d->max_fee.'" '.$selected.' >'.$d->full_name.'</option>';
+    }
+    $html .= '</select>';
+    return $html;
+//    {{ Form::select('doctor_id', ["" => 'Select Doctor'] + $doctors->lists('full_name', 'id'), null, ['required' => 'true', 'id' => 'doctor_id'] ); }}
+}

@@ -106,12 +106,22 @@ class GlobalsConst {
         self::PORTAL_USER=>self::PORTAL_USER
         ];
 
-    public static $BRANCHES = ['DHA'=>self::DHA,
-                                'Gulberg'=>self::GULBERG,
-                                'Canal View'=>self::CANAL_VIEW,
-                                'Garden Town'=>self::GARDEN_TOWN,
-                                'Johar Town'=>self::JOHAR_TOWN
-                                ];
+
+    const MEDICAL_CHECK_UP = 1;
+    const FOLLOW_UP = 2;
+    public static $CHECK_UP_REASONS = [
+                                        self::MEDICAL_CHECK_UP => 'Medical Check up',
+                                        self::FOLLOW_UP => 'Follow Up Visit',
+                                    ];
+
+    const PENDING = 0;
+    const ADVANCE = 1;
+    const FULLY_PAID = 2;
+    public static $PAYMENT_STATUS = [
+        self::PENDING => 'Pending',
+        self::ADVANCE => 'Advance',
+        self::FULLY_PAID => 'Fully Paid'
+    ];
 
 
 

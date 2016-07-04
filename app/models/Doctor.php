@@ -109,14 +109,9 @@ class Doctor extends \Eloquent {
 				->where('users.status', '=', GlobalsConst::STATUS_ON);
 			if(Ep::currentUserType() == GlobalsConst::SUPER_ADMIN){
 			}elseif(Ep::currentUserType() == GlobalsConst::ADMIN){
-				$doctors->where('users.company_id', '=', Ep::currentCompanyId());
-//				$doctors->join('companies','companies.id','=','users.company_id' );
-				/*->where('users.company_id', Ep::currentCompanyId())
-					->whereExists(function($query){
-						$query->select(DB::raw(1))
-							->from('doctors')
-							->whereRaw('employees.id = doctors.employee_id');
-					});*/
+//				$doctors->where('users.company_id', '=', Ep::currentCompanyId()); //@todo uncomment it in future coz it is right
+				$doctors->where('users.business_unit_id', '=', Ep::currentBusinessUnitId());  //@todo remove it in future coz it is right
+
 			}else{
 				$doctors->where('users.business_unit_id', '=', Ep::currentBusinessUnitId());
 //				$doctors->join('business_units','business_units.id','=','users.business_unit_id' );
@@ -136,6 +131,34 @@ class Doctor extends \Eloquent {
 //			return dd($doctors->toSql());
 			return $doctors->skip($offset)->take($limit)
 				->orderBy('id','DESC')->get();
+		}catch (Throwable $t) {
+			// Executed only in PHP 7, will not match in PHP 5.x
+			dd($t->getMessage());
+		}catch (Exception $e){
+			dd($e->getMessage());
+		}
+
+	}
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Collection|static[]
+	 */
+	public static function fetchDoctorsForDropDown(){
+		try{
+			$doctors = self::select('doctors.id', 'users.full_name','max_fee')
+				->join('employees','employees.id','=','doctors.employee_id' )
+				->join('users','users.id','=','employees.user_id' )
+				->where('users.status', '=', GlobalsConst::STATUS_ON);
+			if(Ep::currentUserType() == GlobalsConst::SUPER_ADMIN){
+			}elseif(Ep::currentUserType() == GlobalsConst::ADMIN){
+//				$doctors->where('users.company_id', '=', Ep::currentCompanyId());@todo uncomment it in future coz it is right
+				$doctors->where('users.business_unit_id', '=', Ep::currentBusinessUnitId());//@todo remove it in future coz it is right
+			}else{
+				$doctors->where('users.business_unit_id', '=', Ep::currentBusinessUnitId());
+			}
+
+//			return dd($doctors->toSql());
+			return $doctors->orderBy('users.full_name','ASC')->get();
 		}catch (Throwable $t) {
 			// Executed only in PHP 7, will not match in PHP 5.x
 			dd($t->getMessage());
@@ -169,7 +192,8 @@ class Doctor extends \Eloquent {
 			case GlobalsConst::SUPER_ADMIN:
 				break;
 			case GlobalsConst::ADMIN:
-				$qryBuilder->where('users.company_id', Auth::user()->company_id);
+//				$qryBuilder->where('users.company_id', Auth::user()-; //@todo uncomment it in future coz it is right
+				$qryBuilder->where('users.business_unit_id', Auth::user()->business_unit_id); //@todo remove it in future coz it is right
 				break;
 			default:
 				$qryBuilder->where('users.business_unit_id', Auth::user()->business_unit_id);
