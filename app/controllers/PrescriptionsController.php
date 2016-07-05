@@ -40,7 +40,8 @@ class PrescriptionsController extends \BaseController
         $appointment = Appointment::find(Input::get('appointmentId'));
         $patient_id = $appointment->patient_id;
         $prescriptionNextCount = (int)(Prescription::where('patient_id','=',$patient_id)->count()) + 1;
-        $doctors = Employee::where('role', 'Doctor')->where('status', 'Active')->where('company_id', Auth::user()->company_id)->get();
+//        $doctors = Employee::where('role', 'Doctor')->where('status', 'Active')->where('company_id', Auth::user()->company_id)->get();
+//        $doctors = Doctor::fetchDoctorsForDropDown();
         $medicines = Medicine::where('company_id', Auth::user()->company_id)->get()->lists('name', 'id');
 
         return View::make('prescriptions.create')->nest('_form','prescriptions.partials._form', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount'));
@@ -59,7 +60,7 @@ class PrescriptionsController extends \BaseController
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
-        $data['company_id'] = Auth::user()->company_id;
+//        $data['company_id'] = Auth::user()->company_id;
         $prescription = Prescription::create($data);
 
         $quantity = Input::get('quantity');

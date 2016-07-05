@@ -47,7 +47,7 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Doctor Name*</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ (isset($appointment))? $appointment->employee->name : $prescription->appointment->employee->name}}</label>
+                        <label class="form-control">{{ (isset($appointment))? $appointment->doctor->user->full_name : $prescription->appointment->doctor->user->full_name}}</label>
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>

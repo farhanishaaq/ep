@@ -29,7 +29,7 @@ class Prescription extends \Eloquent {
 
     public function medicines()
     {
-        return $this->belongsToMany('Medicine','medicine_prescriptions','prescription_id','medicine_id')->withPivot('quantity');
+        return $this->belongsToMany('Medicine','medicine_prescription','prescription_id','medicine_id')->withPivot('quantity');
     }
 
     
