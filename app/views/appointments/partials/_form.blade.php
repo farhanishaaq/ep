@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Code</label>
                         <div class="col-xs-6">
-                            <input type="text" id="code" name="code" value="{{{ Form::getValueAttribute('code', null) }}}" class="form-control" placeholder="Code">
+                            <input type="text" id="code" name="code" value="{{{ Form::getValueAttribute('code', $appointmentCode) }}}" class="form-control" placeholder="Code">
                             <span id="error_code" class="field-validation-msg"></span>
                         </div>
                     </div>

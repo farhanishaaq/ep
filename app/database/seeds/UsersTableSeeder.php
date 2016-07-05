@@ -13,46 +13,10 @@ class UsersTableSeeder extends Seeder {
 		DB::table('patients')->truncate();
 
 		//For Super Admin (1)
-		User::create([
-			'city_id'=> GlobalsConst::LAHORE_OF_PAK,
-			'username'=> 'superAdmin',
-			'email'=> 'superAdmin@easyphysicians.com',
-			'password'=> Hash::make('superAd123456'),
-			'fname'=> 'Rashid',
-			'lname'=> 'Hussain',
-			'full_name'=> 'Rashid Hussain',
-			'user_type'=> 'Super Admin',
-			'dob'=> '1988-12-01',
-			'cnic'=> '35200-1478048-1',
-			'gender'=> 'Male',
-			'status'=> 'Active',
-		]);
+		$this->addSuperAdmin();
 
 		//For Admin (2)
-		$user = User::create([
-			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
-			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
-			'city_id'=> GlobalsConst::LAHORE_OF_PAK,
-			'username'=> 'adminD1',
-			'email'=> 'admin@easyphysicians.com',
-			'password'=> Hash::make('admin123456'),
-			'fname'=> 'Ahmad',
-			'lname'=> 'Raza',
-			'full_name'=> 'Ahmad Raza',
-			'user_type'=> 'Admin',
-			'dob'=> '1988-12-01',
-			'cnic'=> '35200-1478048-1',
-			'gender'=> 'Male',
-			'status'=> 'Active',
-		]);
-		Employee::create([
-			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
-			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
-			'user_id'=> $user->id,
-			'joining_date'=> '2013-04-15',
-			'joining_salary'=> 25000,
-			'current_salary'=> 35000,
-		]);
+		$this->addAdmin();
 
 		//For Doctor (3)
 		$this->addDoctor();
@@ -192,6 +156,50 @@ class UsersTableSeeder extends Seeder {
 		}
 	}
 
+	private function addSuperAdmin(){
+		User::create([
+			'city_id'=> GlobalsConst::LAHORE_OF_PAK,
+			'username'=> 'superAdmin',
+			'email'=> 'superAdmin@easyphysicians.com',
+			'password'=> Hash::make('superAd123456'),
+			'fname'=> 'Rashid',
+			'lname'=> 'Hussain',
+			'full_name'=> 'Rashid Hussain',
+			'user_type'=> 'Super Admin',
+			'dob'=> '1988-12-01',
+			'cnic'=> '35200-1478048-1',
+			'gender'=> 'Male',
+			'status'=> 'Active',
+		]);
+	}
+
+	private function addAdmin(){
+		$user = User::create([
+			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+			'city_id'=> GlobalsConst::LAHORE_OF_PAK,
+			'username'=> 'adminD1',
+			'email'=> 'admin@easyphysicians.com',
+			'password'=> Hash::make('admin123456'),
+			'fname'=> 'Ahmad',
+			'lname'=> 'Raza',
+			'full_name'=> 'Ahmad Raza',
+			'user_type'=> 'Admin',
+			'dob'=> '1988-12-01',
+			'cnic'=> '35200-1478048-1',
+			'gender'=> 'Male',
+			'status'=> 'Active',
+		]);
+		Employee::create([
+			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+			'user_id'=> $user->id,
+			'joining_date'=> '2013-04-15',
+			'joining_salary'=> 25000,
+			'current_salary'=> 35000,
+		]);
+	}
+
 	private function addDoctor(){
 		$user = User::create([
 			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
@@ -222,8 +230,8 @@ class UsersTableSeeder extends Seeder {
 		$doctor = Doctor::create([
 			'user_id'=> $user->id,
 			'employee_id'=> $employee->id,
-			'min_fee'=> '2013-04-15',
-			'max_fee'=> 25000,
+			'min_fee'=> 200,
+			'max_fee'=> 1000,
 		]);
 		$medicalSpecialties = 1;
 		$qualifications = [1,9];

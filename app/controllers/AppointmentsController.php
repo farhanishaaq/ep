@@ -25,13 +25,18 @@ class AppointmentsController extends \BaseController {
 	{
 
         $formMode = GlobalsConst::FORM_CREATE;
+		$appointmentMaxId = Appointment::where('business_unit_id','=',Ep::currentBusinessUnitId())->max('id');
+		$appointmentMaxId += 1;
+		$appointmentMaxIdPad = str_pad($appointmentMaxId,4,'0',STR_PAD_LEFT);
+
+		$appointmentCode = date('Ymd').'-'.$appointmentMaxIdPad;
         /*$doctors = User::where('user_type', GlobalsConst::DOCTOR)
 					->where('status', GlobalsConst::STATUS_ON)
                     ->where('company_id', Auth::user()->company_id)->lists('full_name', 'id');
 		$patients = Patient::where('business_unit_id', Auth::user()->business_unit_id)->get();*/
 		$doctors = Doctor::fetchDoctorsForDropDown();
 		$patients = Patient::fetchPatientsForDropDown();
-		return View::make('appointments.create', compact('doctors','patients'))->nest('_form','appointments.partials._form',compact('doctors','patients','formMode'));;
+		return View::make('appointments.create', compact('doctors','patients'))->nest('_form','appointments.partials._form',compact('doctors','patients','formMode','appointmentCode'));;
 	}
 
 	/**
@@ -77,13 +82,14 @@ class AppointmentsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+		$appointmentCode=null;
 		$formMode = GlobalsConst::FORM_EDIT;
 		$doctors = Doctor::fetchDoctorsForDropDown();
 		$patients = Patient::fetchPatientsForDropDown();
 		$appointment = Appointment::find($id);
 		$timeSlot = $appointment->timeSlot()->where('duty_day_id', $appointment->timeSlot->duty_day_id)->first()->id;
 		$timeSlotsByAppointmentDate = TimeSlot::fetchTimeSlotsByAppointmentDate($appointment,true);
-		return View::make('appointments.edit')->nest('_form','appointments.partials._form',compact('formMode','employee','appointment','doctors','patients','timeSlotsByAppointmentDate','timeSlot'));
+		return View::make('appointments.edit')->nest('_form','appointments.partials._form',compact('formMode','employee','appointment','doctors','patients','timeSlotsByAppointmentDate','timeSlot', 'appointmentCode'));
 	}
 
 	/**
