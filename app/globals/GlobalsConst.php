@@ -70,13 +70,13 @@ class GlobalsConst {
         'AuthController@showLogin',
         'AuthController@doLogin',
         'AuthController@unauthorized',
-/*        'UsersController@uploadProfilePic', //@todo It is not public, remove from here
-        'PatientsController@getPatientForm', //@todo It is not public, remove from here
-        'DoctorsController@index', //@todo It is not public, remove from here
-        'DoctorsController@create', //@todo It is not public, remove from here
-        'DoctorsController@store', //@todo It is not public, remove from here
-        'DoctorsController@show', //@todo It is not public, remove from here
-        'DoctorsController@edit', //@todo It is not public, remove from here*/
+//        'UsersController@uploadProfilePic', //@todo It is not public, remove from here
+//        'PatientsController@getPatientForm', //@todo It is not public, remove from here
+        'RolesController@index', //@todo It is not public, remove from here
+//        'DoctorsController@create', //@todo It is not public, remove from here
+//        'DoctorsController@store', //@todo It is not public, remove from here
+//        'DoctorsController@show', //@todo It is not public, remove from here
+//        'DoctorsController@edit', //@todo It is not public, remove from here
     ];
 
     //User Types

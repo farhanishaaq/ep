@@ -1,26 +1,19 @@
 <?php
 use App\Globals\GlobalsConst;
-
+use \App\Globals\Ep;
 class DashboardsController extends \BaseController
 {
 
 
     public function showDashboard()
     {
-        $roleId = 0;
-        $userType = Auth::user()->user_type;
-//		$roles = Auth::user()->roles;
-//		if($user_types->count()){
-//			foreach ($user_types as $t){
-//				$roleId = $r->id;
-//			}
-//		}
+        $userType = Ep::currentUserType();
         switch ($userType) {
             case GlobalsConst::SUPER_ADMIN:
                 return View::make('dashboards.super_home');
             case GlobalsConst::ADMIN:
                 //**/*************************//
-                $companyId = Auth::user()->company_id;
+                $companyId = Ep::currentCompanyId();
                 $PaitentsData = DB::table('appointments')
                     ->select(DB::raw('DAYNAME(appointments.date) AS pDay'), DB::raw('COUNT(patients.id) as totalPatients'))
                     ->join('patients', 'patients.id', '=', 'appointments.patient_id')

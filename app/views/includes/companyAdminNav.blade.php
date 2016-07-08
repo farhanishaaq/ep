@@ -21,7 +21,7 @@
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration <span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="#">Manage Roles</a></li>
+                <li><a href="{{route('roles.index')}}">Manage Roles</a></li>
                 <li class="divider"></li>
                 <li><a href="{{URL::route('users.index')}}">Manage Users</a></li>
                 {{--<li class="divider"></li>

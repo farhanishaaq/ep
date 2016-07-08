@@ -24,7 +24,7 @@ function user_type_drop_down(){
             break;
         case GlobalsConst::ADMIN:
             unset($userTypeData[GlobalsConst::SUPER_ADMIN]);
-            unset($userTypeData[GlobalsConst::PATIENT]);
+//            unset($userTypeData[GlobalsConst::PATIENT]);
             unset($userTypeData[GlobalsConst::PORTAL_USER]);
             break;
         default:
@@ -182,8 +182,12 @@ function medical_specialty_drop_down(User $model = null){
     if($model == null){
         $selectedData = Form::getValueAttribute('medical_specialty_id', null);
     }else{
-        if($model->doctor->medicalSpecialties){
-            $selectedData = $model->doctor->medicalSpecialties->lists('id');
+        if($model->doctor){
+            if($model->doctor->medicalSpecialties){
+                $selectedData = $model->doctor->medicalSpecialties->lists('id');
+            }
+        }else{
+            $selectedData = Form::getValueAttribute('medical_specialty_id', null);
         }
     }
     return Form::select('medical_specialty_id[]',$doctorCategoryData, $selectedData,['id'=>"medical_specialty_id", 'multiple'=>true,]);
@@ -202,8 +206,10 @@ function qualifications_drop_down(User $model = null){
     if($model==null){
         $selectedData = Form::getValueAttribute('qualification_id', null);
     }else{
-        if($model->doctor->qualifications){
-            $selectedData = $model->doctor->qualifications->lists('id');
+        if($model->doctor){
+            if($model->doctor->qualifications){
+                $selectedData = $model->doctor->qualifications->lists('id');
+            }
         }
     }
     return Form::select('qualification_id[]',$doctorCategoryData, $selectedData,['id'=>"qualification_id", 'multiple'=>true]);

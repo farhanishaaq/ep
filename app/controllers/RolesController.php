@@ -10,7 +10,8 @@ class RolesController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$roles = Role::fetchRoles();
+		return View::make('roles.index', compact('roles'));
 	}
 
 	/**

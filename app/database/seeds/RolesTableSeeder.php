@@ -19,6 +19,7 @@ class RolesTableSeeder extends Seeder {
 
 		//2
 		$Role = Role::create([
+			'company_id'=>GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'name' => 'Company Admin',
 			'description' => 'It is a Admin for the registered company, who manages his company on EP',
 		]);
@@ -39,29 +40,32 @@ class RolesTableSeeder extends Seeder {
 
 		//5
 		Role::create([
+			'company_id'=>GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'name' => 'Company Doctor',
 			'description' => 'It is a Employee of the registered company who perform his job as a Doctor',
 		]);
 
 		//6
 		Role::create([
+			'company_id'=>GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'name' => 'Receptionist',
 			'description' => 'It is an Employee of the registered company who perform his job as a Receptionist',
 		]);
 
 		//7
 		Role::create([
+			'company_id'=>GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'name' => 'Nurse',
 			'description' => 'It is an Employee of the registered company who perform his job as a Nurse',
 		]);
 
 		//8
 		Role::create([
+			'company_id'=>GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'name' => 'Accountant',
 			'description' => 'It is an Employee of the registered company who perform his job as a Nurse',
 		]);
 
-		
 	}
 
 }

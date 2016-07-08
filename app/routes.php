@@ -88,6 +88,11 @@ Route::group(['Private', 'before' => 'auth'],function (){
     Route::resource('users', 'UsersController');
 
 
+    /**
+     * RolesController Routes
+     */
+    Route::resource('roles', 'RolesController');
+
 
 
     /**

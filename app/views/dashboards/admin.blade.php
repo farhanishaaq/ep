@@ -79,9 +79,9 @@
     <script src="{{asset('js/view-pages/dashboards/employee-dashboard.js')}}"></script>
     <script>
         $(document).ready(function () {
-            var total_fee = JSON.parse("{{$total_fee}}");
-            var appointments = JSON.parse("{{$appointments}}");
-            var status = JSON.parse("{{$status}}");
+            var total_fee = JSON.parse('{{$total_fee}}');
+            var appointments = JSON.parse('{{$appointments}}');
+            var status = JSON.parse('{{$status}}');
             if (((total_fee && appointments && status) == null) || ((total_fee && appointments && status) == '')) {
                 total_fee = ['20000', '25000', '45000', '10000'];
                 appointments = [];
