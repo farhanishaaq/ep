@@ -39,19 +39,24 @@ class Role extends \Eloquent {
 			if(Ep::currentUserType() == GlobalsConst::SUPER_ADMIN){
 				$roles = self::all();
 			}
-//			elseif(Ep::currentUserType() == GlobalsConst::ADMIN){
-//				$roles = self::where('company_id',  Ep::currentCompanyId());
-//			}
+			elseif(Ep::currentUserType() == GlobalsConst::ADMIN){
+				$roles = self::where('company_id',  Ep::currentCompanyId());
+			}
 			else{
-				$roles = self::leftJoin('role_user AS ru','ru.role_id','=','roles.id')
+				$roles = self::select(['roles.id','roles.name'])
+					->leftJoin('role_user AS ru','ru.role_id','=','roles.id')
 					->leftJoin('users AS u','u.id','=','ru.user_id')
-					->where('u.user_type', '!=', GlobalsConst::ADMIN)
-					->where('roles.company_id', '=', Ep::currentCompanyId());
+					->where('roles.company_id', '=', Ep::currentCompanyId())
+					->whereRaw('(`u`.`user_type` != "'.GlobalsConst::ADMIN.'" || `u`.`user_type` IS NULL)')
+					->groupBy('roles.name');
 			}
 			if($filterParams){
 				$searchKey = isset($filterParams['searchKey']) ? '%' . $filterParams['searchKey'].'%' : '';
 				$roles->where('full_name','LIKE',$searchKey);
 			}
+			/*dd($roles->skip($offset)->take($limit)
+				->orderBy('roles.id','DESC')->toSql());*/
+
 			return $roles->skip($offset)->take($limit)
 				->orderBy('roles.id','DESC')->get();
 		}catch (Exception $e){
