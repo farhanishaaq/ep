@@ -73,10 +73,19 @@
 $(document).ready(function() {
     if($('#tblRecordsList tr.row-data').length){
         $('#tblRecordsList').DataTable({
-            "columnDefs": [ {
-            "targets": 1,
-            "orderable": false
-            } ]
+            "columnDefs": [
+                {
+                "targets": 3,
+                "orderable": false
+                },
+                {
+                    "targets": [ 0 ],
+                    "visible": false,
+                    "searchable": false
+                },
+            ],
+            "order": [[ 0, "desc" ]],
+            "lengthMenu": [20, 40, 60, 80, 100],
         });
     }
 } );
