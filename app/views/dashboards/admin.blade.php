@@ -25,25 +25,50 @@
 =========================================================-->
 @section('content')
     <div class="container">
-        <h3 class="mT10 mB15 c3 bdrB1">Dashboard Contents<p class="col-xs-3 fR taR p0 required-hint pT10"></p></h3>
+        <h3 class="mT10 mB15 c3 bdrB1">Dashboard Contents
+            <p class="col-xs-3 fR taR p0 required-hint pT10"><kbd>Date: {{date('d-m-Y')}}</kbd></p>
+        </h3>
+
+        {{--<section class="form-Section col-sm-12 h100 fL mB15">
+            <div class="container w100p">
+
+            </div>
+        </section>--}}
 
         {{-- ****Start Row 1*** --}}
-        {{-- Line Chart --}}
+        {{-- Daily Fee Collection Summary --}}
         <section class="form-Section col-sm-6 h350 fL mB15">
             <div class="container w100p">
-                <h3 class="mT15 mB0 c3">Patient Per Week</h3>
+                <h3 class="mT15 mB0 c3">Daily Fee Collection Summary</h3>
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
-                <div class="col-sm-12">
-                    <canvas id="canvas"></canvas>
+
+                <div class="form-group col-xs-12">
+                    <label class="col-xs-4 control-label c3">Expected Fee: </label>
+                    <div class="col-xs-6">
+                        <label class="c2b">{{$dailyFeeCollectionDataset['expectedFee']}} PKR</label>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12">
+                    <label class="col-xs-4 control-label c3">Paid Fee: </label>
+                    <div class="col-xs-6">
+                        <label class="c2b">{{$dailyFeeCollectionDataset['paidFee']}} PKR</label>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12">
+                    <label class="col-xs-4 control-label c3">Difference: </label>
+                    <div class="col-xs-6">
+                        <label class="c2b">{{$dailyFeeCollectionDataset['expectedFee'] - $dailyFeeCollectionDataset['paidFee']}} PKR</label>
+                    </div>
                 </div>
             </div>
         </section>
 
+
         {{-- Pie Chart --}}
         <section class="form-Section col-sm-6 h350 fL mB15">
             <div class="container w100p">
-                <h3 class="mT15 mB0 c3">Appointments Overview Chart</h3>
+                <h3 class="mT15 mB0 c3">Appointments Status Overview Chart</h3>
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
                 <div class="col-sm-12">
@@ -56,18 +81,25 @@
         {{-- ****End Row 1*** --}}
 
         {{-- ****Start Row 2*** --}}
-        <section class="form-Section col-sm-6 h260 fL mB15">
+        {{-- Line Chart --}}
+        <section class="form-Section col-sm-6 h600 fL mB15">
             <div class="container w100p">
+                <h3 class="mT15 mB0 c3">Appointments Per Week Analysis</h3>
+                <hr class="w95p fL mT0" />
+                <hr class="w95p fL mT0" />
                 <div class="col-sm-12">
-                    Data Goes Here
+                    <canvas id="canvas"></canvas>
                 </div>
             </div>
         </section>
 
-        <section class="form-Section col-sm-6 h260 fL mB15">
+        <section class="form-Section col-sm-6 h600 fL mB15">
             <div class="container w100p">
+                <h3 class="mT15 mB0 c3">Appointments Calendar</h3>
+                <hr class="w95p fL mT0" />
+                <hr class="w95p fL mT0" />
                 <div class="col-sm-12">
-                    Data Goes Here
+                    <div id="appointmentsCalendar"></div>
                 </div>
             </div>
         </section>
@@ -76,26 +108,18 @@
 @stop
 
 @section('scripts')
-    <script src="{{asset('js/view-pages/dashboards/employee-dashboard.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('plugins/calendar/css/fullcalendar.min.css')}}" type="text/css">
+    <script src="{{asset('plugins/calendar/js/fullcalendar.min.js')}}"></script>
+    <script src="{{asset('js/view-pages/dashboards/Dashboard.js')}}"></script>
     <script>
         $(document).ready(function () {
-            var total_fee = JSON.parse('{{$total_fee}}');
-            var appointments = JSON.parse('{{$appointments}}');
-            var status = JSON.parse('{{$status}}');
-            if (((total_fee && appointments && status) == null) || ((total_fee && appointments && status) == '')) {
-                total_fee = ['20000', '25000', '45000', '10000'];
-                appointments = [];
-                status = ['completed', 'incomplete', 'rejected', 'pending'];
-            }
             var options = {
-                days: JSON.parse("{{$days}}"),
-                totalPatients: JSON.parse("{{$totalPatients}}"),
-                total_fee: total_fee,
-                appointments: appointments,
-                status: status
+                appointmentPieChartDataset: JSON.parse('{{$appointmentPieChartDatasetJson}}'),
+                appointmentLineChartDataset: JSON.parse('{{$appointmentLineChartDatasetJson}}'),
+                appointments: JSON.parse('{{$appointmentJson}}'),
             };
-            var employeeDasboard = new EmployeeDasboard(window, document, options);
-            employeeDasboard.initializeAll();
+            var dasboard = new Dashboard(window, document, options);
+            dasboard.initializeAll();
         });
     </script>
 @stop

@@ -7,7 +7,7 @@
                 <tr>
                     <td width="272" height="55"><label>Quantity:</label> </td>
                      <td width="333">
-                        {{ Form::input('number', 'quantity', null, array('required' => 'true')) }}
+                        {{ Form::input('number', 'available_quantity', null, array('required' => 'true')) }}
                      </td>
                 </tr>
                 <tr>

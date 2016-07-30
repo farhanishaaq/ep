@@ -12,7 +12,7 @@ class ResourcesTableSeeder extends Seeder
     ];
     private $resources = [
         0 => [
-            'parent_id' => null,
+            'parent_id' => 0,
             'name' => 'Hospital Management',
             'type' => 'Module',
         ],
@@ -172,18 +172,59 @@ class ResourcesTableSeeder extends Seeder
         DB::table('resources')->truncate();
         //1
         $resource = [
-            'parent_id' => null,
+            'parent_id' => 0,
             'name' => 'Hospital Management',
             'display' => 'Hospital Management',
             'type' => 'Module',
         ];
         $moduleResource = Resource::create($resource);
-        $controllers = \App\Globals\Ep::getAllEpControllers();
-        foreach ($controllers as $controller) {
+
+        //*** Add Groups Resources
+        foreach (GlobalsConst::$RESOURCE_GROUPS as $k => $rg) {
             $resource = [
                 'parent_id' => $moduleResource->id,
+                'name' => $rg,
+                'display' => $rg,
+                'type' => 'Group',
+            ];
+            $controllerResource = Resource::create($resource);
+        }
+
+
+        //*** Add Controller Resources
+        $controllers = \App\Globals\Ep::getAllEpControllers();
+        foreach ($controllers as $controller) {
+            switch ($controller){
+                case 'CompaniesController':
+                case 'BusinessUnitsController':
+                case 'RolesController':
+                case 'ResourcesController':
+                case 'UsersController':
+                    $parentId = GlobalsConst::RG_ADMINISTRATION;
+                    break;
+
+                case 'AppointmentsController':
+                case 'DoctorsController':
+                case 'PatientsController':
+                case 'DutyDaysController':
+                case 'TimeSlotsController':
+                case 'PrescriptionsController':
+                    $parentId = GlobalsConst::RG_CLINIC;
+                    break;
+
+                case 'HomeController':
+                case 'AuthController':
+                    $parentId = GlobalsConst::RG_PUBLIC;
+                    break;
+
+                default:
+                    $parentId = GlobalsConst::RG_OTHERS;
+                    break;
+            }
+            $resource = [
+                'parent_id' => $parentId,
                 'name' => $controller,
-                'display' => $controller,
+                'display' => ucwords($controller),
                 'type' => 'Controller',
             ];
             $controllerResource = Resource::create($resource);

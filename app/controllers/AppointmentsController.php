@@ -36,6 +36,7 @@ class AppointmentsController extends \BaseController {
 		$patients = Patient::where('business_unit_id', Auth::user()->business_unit_id)->get();*/
 		$doctors = Doctor::fetchDoctorsForDropDown();
 		$patients = Patient::fetchPatientsForDropDown();
+		
 		return View::make('appointments.create', compact('doctors','patients'))->nest('_form','appointments.partials._form',compact('doctors','patients','formMode','appointmentCode'));;
 	}
 
@@ -64,12 +65,13 @@ class AppointmentsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		dd('dd');
+//		dd('dd');
+		$timeSlot = null;
         $formMode = GlobalsConst::FORM_EDIT;
 		$doctors = Doctor::fetchDoctorsForDropDown();
 		$patients = Patient::fetchPatientsForDropDown();
         $appointment = Appointment::find($id);
-        $timeSlot = $appointment->timeSlot->first()->where('duty_day_id', $appointment->timeSlot->duty_day_id)->lists('slot','id');
+//        $timeSlot = $appointment->timeSlot->first()->where('duty_day_id', $appointment->timeSlot->duty_day_id)->lists('slot','id');
 
         return View::make('appointments.show', compact('timeSlot','appointment', 'doctors', 'patients'))->nest('_view','appointments.partials._view',compact('formMode','employee','appointment','doctors','patients'));
 	}

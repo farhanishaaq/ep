@@ -27,7 +27,6 @@
                 <span id="errorName" class="field-validation-msg"></span>
             </div>
         </div>
-
         @if($medicines)
             @if(count($medicines))
                 <div class="form-group">
@@ -60,7 +59,7 @@
         <div class="form-group">
             <label class="col-xs-5 control-label asterisk">Other Medicines:</label>
             <div class="col-xs-6">
-                <label class="form-control">{{{ $prescription->medicines == '' ? 'none' : $prescription->medicines}}}</label>
+                <label class="form-control">{{{ $prescription->other_medicines == '' ? 'none' : $prescription->other_medicines}}}</label>
                 <span id="errorName" class="field-validation-msg"></span>
             </div>
         </div>

@@ -84,7 +84,8 @@
                     <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
                         <thead>
                         <tr>
-                            <th>Prescription Code</th>
+                            <th>Code</th>
+                            <th>Date</th>
                             <th>Patient Name</th>
                             <th>Doctor Name</th>
                             <th>Manage</th>

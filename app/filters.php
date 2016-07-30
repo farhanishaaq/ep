@@ -75,6 +75,7 @@ Route::filter('auth', function($request)
 				}
 				return Redirect::guest('login');
 			}
+			return Redirect::guest('unauthorized')->withErrors('You are not authorized, Please login with authorized user');
 		}
 	}
 });

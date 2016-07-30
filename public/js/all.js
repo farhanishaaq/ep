@@ -1,6 +1,14 @@
 /**
  * Created by mrashid on 4/17/2016.
  */
+Array.prototype.max = function() {
+    return Math.max.apply(null, this);
+};
+
+Array.prototype.min = function() {
+    return Math.min.apply(null, this);
+};
+
 
 function setRadioValInHidden(hiddenFieldId,clickedElement){
     //var nameSelector = 'rdo-'+hiddenFieldId;

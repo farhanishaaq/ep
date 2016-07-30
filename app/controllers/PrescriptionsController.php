@@ -63,15 +63,16 @@ class PrescriptionsController extends \BaseController
 //        $data['company_id'] = Auth::user()->company_id;
         $prescription = Prescription::create($data);
 
-        $quantity = Input::get('quantity');
+        $quantity = Input::get('med_qty');
+//        dd($quantity);
         foreach (Input::get('medicineName') as $key => $value) {
 
             if ($value != null) {
                 $medicine = Medicine::find($value);
-                if ($quantity[$key] < $medicine->quantity) {
-                    $medicine->quantity -= $quantity[$key];
+                if ($quantity[$key] < $medicine->available_quantity) {
+                    $medicine->available_quantity -= $quantity[$key];
                 } else {
-                    $medicine->quantity = 0;
+                    $medicine->available_quantity = 0;
                 }
                 $medicine->update();
                 Medicine::find($value)->prescriptions()->attach($prescription->id, array('quantity' => $quantity[$key]));
@@ -91,6 +92,7 @@ class PrescriptionsController extends \BaseController
 //        $prescription = Prescription::with('medicines')->where('appointment_id', $id)->first();
         $prescription = Prescription::find($id);
         $medicines = $prescription->medicines()->get();
+//        dd($medicines);
         return View::make('prescriptions.show')
                             ->nest('_viewPrescription','prescriptions.partials._viewPrescription', compact('prescription', 'medicines'));
     }

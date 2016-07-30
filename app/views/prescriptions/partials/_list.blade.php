@@ -3,7 +3,8 @@
 @foreach($prescriptions as $prescription)
 <tr class="row-data">
     <td>{{{ $prescription->code }}}</td>
-    <td>{{{ $prescription->patient->name }}}</td>
+    <td>{{{ $prescription->appointment->date }}}</td>
+    <td>{{{ $prescription->patient->user->full_name }}}</td>
     <td>{{{ $prescription->appointment->doctor->user->full_name }}}</td>
     <td>
         <a href="{{route('prescriptions.show',[$prescription->id])}}" class="btn-view-icon fL" title="View Prescription"></a>

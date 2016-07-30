@@ -8,49 +8,49 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">*Username</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $patient->user->username }}</label>
+                        <label class="form-control">{{ $doctor->user->username }}</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">*Email</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $patient->user->email }}</label>
+                        <label class="form-control">{{ $doctor->user->email }}</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">First Name</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $patient->user->fname }}</label>
+                        <label class="form-control">{{ $doctor->user->fname }}</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Last Name</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $patient->user->lname }}</label>
+                        <label class="form-control">{{ $doctor->user->lname }}</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Date of Birth</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $patient->user->dob }}</label>
+                        <label class="form-control">{{ $doctor->user->dob }}</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label">Gender</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $patient->user->gender }}</label>
+                        <label class="form-control">{{ $doctor->user->gender }}</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">CNIC</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $patient->user->cnic }}</label>
+                        <label class="form-control">{{ $doctor->user->cnic }}</label>
                     </div>
                 </div>
 
@@ -66,35 +66,35 @@
                 <hr class="w95p fL mT0" />
 
                 <div class="form-group profile-photo file-input">
-                    <img src="{{get_profile_photo_url($patient->user->photo)}}" class="w200 fR">
+                    <img src="{{get_profile_photo_url($doctor->user->photo)}}" class="w200 fR">
                     <div class="clrB"></div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label">Address</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $patient->user->address }}</label>
+                        <label class="form-control">{{ $doctor->user->address }}</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">City</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ isset($patient->user->city) ? $patient->user->city->name : null  }}</label>
+                        <label class="form-control">{{ isset($doctor->user->city) ? $doctor->user->city->name : null  }}</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Cell</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $patient->user->cell  }}</label>
+                        <label class="form-control">{{ $doctor->user->cell  }}</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Phone</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $patient->user->phone  }}</label>
+                        <label class="form-control">{{ $doctor->user->phone  }}</label>
                     </div>
                 </div>
 
@@ -103,7 +103,7 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Additional Info</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $patient->user->additional_info  }}</label>
+                        <label class="form-control">{{ $doctor->user->additional_info  }}</label>
                     </div>
                 </div>
 

@@ -189,7 +189,7 @@
             </div>
 
             {{--Doctor Info --}}
-            @if($user->user_type)
+            @if($user->user_type == \App\Globals\GlobalsConst::DOCTOR)
             <div class="container w100p">
                 <h3 class="mT15 mB0 c3">Doctor Info</h3>
                 <hr class="w95p fL mT0" />

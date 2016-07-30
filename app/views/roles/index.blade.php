@@ -28,7 +28,7 @@
         <!--========================================================
                                  Data Table
         =========================================================-->
-        {{ link_to_route('dutyDays.create', 'Create Duty Days', '', ['class' => 'btn_1'])}}
+        {{ link_to_route('roles.create', 'Create New Role', '', ['class' => 'btn_1'])}}
         <table id="tblRecordsList" class="mT20 table table-hover table-striped display w100p">
             <thead>
                 <tr>

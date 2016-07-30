@@ -22,7 +22,9 @@ class RolesController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$user = null;
+		$formMode = GlobalsConst::FORM_CREATE;
+		return View::make('roles.create')->nest('_form','roles.partials._form',compact('formMode','user'));
 	}
 
 	/**

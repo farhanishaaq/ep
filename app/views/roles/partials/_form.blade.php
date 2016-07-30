@@ -1,32 +1,31 @@
-{{ Form::open(array('action' => 'dutyDays.store','class' => "form-horizontal w100p ", 'id' => 'dutyDaysForm')) }}
-    <h3 class="mT10 mB0 c3">Add Duty Days</h3>
+{{ Form::open(array('action' => 'roles.store','class' => "form-horizontal w100p ", 'id' => 'dutyDaysForm')) }}
+    <h3 class="mT10 mB0 c3">Add Roles and Permissions</h3>
     <hr class="w95p fL mT0" />
     <section class="form-Section col-md-12 fL">
-        <input type="hidden" id="Sunday" name="Sunday" value="{{Form::getValueAttribute('Sunday', null)}}">
-        <input type="hidden" id="Monday" name="Monday" value="{{Form::getValueAttribute('Monday', null)}}">
-        <input type="hidden" id="Tuesday" name="Tuesday" value="{{Form::getValueAttribute('Tuesday', null)}}">
-        <input type="hidden" id="Wednesday" name="Wednesday" value="{{Form::getValueAttribute('Wednesday', null)}}">
-        <input type="hidden" id="Thursday" name="Thursday" value="{{Form::getValueAttribute('Thursday', null)}}">
-        <input type="hidden" id="Friday" name="Friday" value="{{Form::getValueAttribute('Friday', null)}}">
-        <input type="hidden" id="Saturday" name="Saturday" value="{{Form::getValueAttribute('Saturday', null)}}">
         <div class="container w100p">
+            <h3 class="mT15 mB0 c3">Role Info</h3>
+            <hr class="w95p fL mT0" />
+            <hr class="w95p fL mT0" />
             <div class="form-group">
-                <label class="col-xs-2 control-label asterisk">Select Doctors</label>
-                <div class="col-xs-8">
-                    {{--<label class="form-control">{{ $doctorName }}</label>--}}
-                    @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-                    {{ Form::select('doctor_id', $doctors, $doctorId , ['required' => 'true', 'id' => 'doctor_id'] ); }}
-                    @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-                    {{ Form::select('doctor_id', $doctors, $doctors->id , ['required' => 'true', 'id' => 'doctor_id'] ); }}
-                    @endif
-
-                    <span id="errorEmployeeId" class="field-validation-msg"></span>
+                <label class="col-xs-3 control-label asterisk">*Name</label>
+                <div class="col-xs-6">
+                    <input type="text" id="name" name="name" required="true" value="{{{ Form::getValueAttribute('name', null) }}}" class="form-control" placeholder="Name">
+                    <span id="error_name" class="field-validation-msg"></span>
                 </div>
             </div>
-            <div class="form-group">
-                <div id="dutyDayCalendar" class="w90pi m0A"></div>
-            </div>
 
+        </div>
+        <div class="container w100p">
+            <h3 class="mT15 mB0 c3">Permissions Info</h3>
+            <hr class="w95p fL mT0" />
+            <hr class="w95p fL mT0" />
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label asterisk">&nbsp;</label>
+                <div class="col-sm-6">
+                    <div id="jstree-proton-1" style="margin-top:20px;" class="proton-demo"></div>
+                </div>
+            </div>
         </div>
     </section>
     <div class="col-xs-12 taR pR0 mT20">
@@ -36,9 +35,9 @@
     </div>
 {{ Form::close() }}
 @section('scripts')
-<link rel="stylesheet" href="{{asset('plugins/calendar/css/fullcalendar.min.css')}}" type="text/css">
-<script src="{{asset('plugins/calendar/js/fullcalendar.min.js')}}"></script>
-<script src="{{asset('js/view-pages/duty_days/DutyDayForm.js')}}"></script>
+<link rel="stylesheet" href="{{asset('plugins/jstree/css/themes/proton/style.css')}}" type="text/css">
+<script src="{{asset('plugins/jstree/js/jstree.min.js')}}"></script>
+<script src="{{asset('js/view-pages/roles/RoleForm.js')}}"></script>
 {{--<script src="{{asset('plugins/day-pilot-lite/js/daypilot-all.min.js')}}"></script>--}}
 <link type="text/css" rel="stylesheet" href="{{asset('plugins/day-pilot-lite/css/month_white.css')}}" />
 <!-- Trigger the modal with a button -->
@@ -81,10 +80,43 @@
     $(document).ready(function(){
         var options = {
             saveCloseUrl: "{{route('doctors.index')}}",
-            selectedDrId: "{{$doctorId}}",
         };
-        var dutyDayForm = new DutyDayForm(window,document,options);
-        dutyDayForm.initializeAll();
+//        var roleForm = new RoleForm(window,document,options);
+//        roleForm.initializeAll();
+
+        //****************************
+        $('#jstree-proton-1').jstree({
+            'plugins': ["wholerow", "checkbox"],
+            'core': {
+                'data': [{
+                    "text": "Wholerow with checkboxes",
+                    "children": [{
+                        "text": "initially selected",
+                        "state": {
+                            "selected": true
+                        }
+                    }, {
+                        "text": "custom icon URL",
+//                        "icon": "./assets/images/tree_icon.png"
+                    }, {
+                        "text": "initially open",
+                        "state": {
+                            "opened": true
+                        },
+                        "children": ["Another node"]
+                    }, {
+                        "text": "custom icon class",
+//                        "icon": "glyphicon glyphicon-leaf"
+                    }]
+                },
+                    "And wholerow selection"
+                ],
+                'themes': {
+                    'name': 'proton',
+                    'responsive': true
+                }
+            }
+        });
     });
 </script>
 @stop

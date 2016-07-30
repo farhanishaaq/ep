@@ -3,7 +3,7 @@
                           TITLE
 =========================================================-->
 @section('title')
-Edit Patient
+Edit Doctor
 @stop
 
 @section('redBar')
@@ -24,15 +24,4 @@ Edit Patient
     <div class="container">
         {{$_form}}
     </div>
-@stop
-
-@section('scripts')
-    <script src="{{asset('js/view-pages/patients/PatientsForm.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            var options = {};
-            var patientsForm = new PatientsForm(window,document,options);
-            patientsForm.initializeAll();
-        });
-    </script>
 @stop

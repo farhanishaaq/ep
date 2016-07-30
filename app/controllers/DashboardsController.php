@@ -13,63 +13,68 @@ class DashboardsController extends \BaseController
                 return View::make('dashboards.super_home');
             case GlobalsConst::ADMIN:
                 //**/*************************//
+                $appointmentPieChartDataset = null;
+                $appointmentLineChartDataset = null;
+                $dailyFeeCollectionDataset = null;
+                $appointmentDataset = [];
                 $companyId = Ep::currentCompanyId();
-                $PaitentsData = DB::table('appointments')
-                    ->select(DB::raw('DAYNAME(appointments.date) AS pDay'), DB::raw('COUNT(patients.id) as totalPatients'))
-                    ->join('patients', 'patients.id', '=', 'appointments.patient_id')
-                    ->where('patients.company_id', $companyId)
-                    ->where('appointments.status', GlobalsConst::COMPLETED)
-                    ->groupBy(DB::raw('DAYNAME(appointments.date)'))->get();
-                //***************************//
-                $AppointmentsFees = DB::table('appointments')
-                    ->select(DB::raw('SUM(appointments.paid_fee) AS total_fee'), DB::raw('COUNT(appointments.id) AS totalAppointments'), DB::raw('appointments.status'))
-                    ->join('patients', 'patients.id', '=', 'appointments.patient_id')
-                    ->where('patients.company_id', $companyId)
-                    ->groupBy(DB::raw('appointments.status'))->get();
-                $dataSetDays = array();
-                $dataSetTotalPatients = array();
-                $dataSetFee = array();
-                $dataSetAppointments = array();
-                $dataSetStatus = array();
-                $count = 0;
-                $count1 = 0;
-                $count2 = 0;
-                //***************************//
-                $Fees = DB::table('appointments')
-                    ->select(DB::raw('SUM(appointments.paid_fee) AS total_recieved'))
-                    ->join('patients', 'patients.id', '=', 'appointments.patient_id')
-                    ->where('patients.company_id', $companyId)
-                    ->where('appointments.status', GlobalsConst::COMPLETED)->first();
-                $dataSetTotalRecieved = array();
-
-                //*****************************//
-//                foreach ($Fees as $Fee) {
-//                    $dataSetTotalRecieved['total_recieved'][$count] = $Fee->total_recieved;
-//                    $count++;
-//                }
-                //*****************************//
-                foreach ($PaitentsData as $Paitent) {
-                    $dataSetDays['days'][$count1] = $Paitent->pDay;
-                    $dataSetTotalPatients['totalPatients'][$count] = $Paitent->totalPatients;
-                    $count++;
+                //*************************** Daily Fee Collection Summary (Box 1)
+                $dailyFeeCollectionData = Appointment::dailyFeeCollectionSummary();
+                if($dailyFeeCollectionData){
+                    $dailyFeeCollectionDataset['paidFee'] = $dailyFeeCollectionData->paid_fee;
+                    $dailyFeeCollectionDataset['expectedFee'] = $dailyFeeCollectionData->expected_fee;
+                }else{
+                    $dailyFeeCollectionDataset['paidFee'] = 0;
+                    $dailyFeeCollectionDataset['expectedFee'] = 0;
                 }
+                //**************************END (Box 1)
 
-                //**/*************************//
-                foreach ($AppointmentsFees as $AppointmentsFee) {
-                    $dataSetFee['total_fee'][$count] = $AppointmentsFee->total_fee;
-                    $dataSetAppointments['totalAppointments'][$count] = $AppointmentsFee->totalAppointments;
-                    $dataSetStatus['status'][$count2] = $AppointmentsFee->status;
-                    $count++;
+
+                //*******AppointmentsCountStatusWise Into Pie Chart (Box 2)
+                $appointmentsCountStatusWise = Appointment::fetchAppointmentsCountStatusWise();
+                foreach ($appointmentsCountStatusWise as $a) {
+                    $appointmentPieChartDataset['data'][] = $a->AppointmentCount;
+                    $appointmentPieChartDataset['labels'][] = GlobalsConst::$APPOINTMENT_STATUSES[$a->ChartLabel];
+                    $appointmentPieChartDataset['backgroundColor'][] = GlobalsConst::$APPOINTMENT_STATUSES_COLORS[$a->ChartLabel];
                 }
-                //**/*************************//
-                $totalPatients = json_encode($dataSetTotalPatients);
-                $days = json_encode($dataSetDays);
-                $total_fee = json_encode($dataSetFee);
-                $appointments = json_encode($dataSetAppointments);
-                $status = json_encode($dataSetStatus);
-                $totalRecieved = ($Fees->total_recieved != null) ? $Fees->total_recieved : 0;
-                //**/*************************//
-                return View::make('dashboards.admin', compact('totalPatients', "days", 'total_fee', 'appointments', 'status', 'totalRecieved'));
+                $appointmentPieChartDatasetJson = json_encode($appointmentPieChartDataset);
+                //*******END (Box 2)
+
+
+
+                //*******AppointmentsCountStatusWise Into Pie Chart (Box 3)
+                $appointmentsCountWeekWise = Appointment::fetchAppointmentsCountWeekWise();
+                foreach ($appointmentsCountWeekWise as $a) {
+                    $appointmentLineChartDataset['data'][] = $a->AppointmentCount;
+                    $appointmentLineChartDataset['labels'][] = substr(GlobalsConst::$DAYS_WITH_NUM_KEYS[$a->ChartLabel],0,3) ;
+//                    $appointmentLineChartDataset['backgroundColor'][] = GlobalsConst::$APPOINTMENT_STATUSES_COLORS[$a->status];
+                }
+                $appointmentLineChartDatasetJson = json_encode($appointmentLineChartDataset);
+                //*******END (Box 3)
+
+
+                //*******AppointmentsCountStatusWise Into Pie Chart (Box 3)
+                $appointments = Appointment::whereRaw('MONTH(date) = "'.date('m').'"')->get();
+                if($appointments !== null){
+                    if(count($appointments)){
+                        foreach($appointments as $k=>$a){
+//                    $doctors = $a->employee;
+                            $startTime = $a->timeSlot->slot;
+                            $endTimeStr = strtotime("+".GlobalsConst::TIME_SLOT_INTERVAL." minutes", strtotime($startTime));
+                            $endTime = date('h:i:s', $endTimeStr);
+                            $title = $a->patient->user->full_name . " have appointment with Dr. ".$a->doctor->user->full_name.' at '. $startTime;
+                            $aDate = $a->date;
+                            $dpDay = array_search($a->day, GlobalsConst::$DP_DAYS);
+                            $appointmentDataset[$k]['start'] =  $aDate.'T'. $startTime;
+                            $appointmentDataset[$k]['end'] =  $aDate.'T'. $endTime;
+                            $appointmentDataset[$k]['id'] =  $a->id;
+                            $appointmentDataset[$k]['text'] =  $title;
+                        }
+
+                    }
+                }
+                $appointmentJson = json_encode($appointmentDataset);
+                return View::make('dashboards.admin', compact('appointmentPieChartDatasetJson','appointmentLineChartDatasetJson', 'dailyFeeCollectionDataset', 'appointmentJson'));
             case GlobalsConst::EMPLOYEE:
                 return View::make('dashboards.employee', compact('appointments', 'dataSet', '', '', ''));
             default:

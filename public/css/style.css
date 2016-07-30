@@ -242,7 +242,8 @@ img {
 }
 @media (min-width:768px) {
   #header {
-    height: 100px;
+    /*height: 100px;*/
+    height: 50px;
   }
 }
 .brand {
@@ -1532,7 +1533,8 @@ span.field-validation-msg {
 }
 @media (min-width:768px) {
     .navbar-nav > li {
-        height: 100px !important;
+        /*height: 100px !important;*/
+        height: 50px !important;
     }
 
     .navbar-default .navbar-brand {
@@ -1547,17 +1549,19 @@ span.field-validation-msg {
         line-height: 20px;
     }
     .navbar-brand {
-        height: 100px;
+        /*height: 100px;*/
+        height: 50px;
     }
     .navbar-nav > li > a {
-        padding-top: 40px;
+        padding-top: 10px;
         padding-bottom: 40px;
     }
 
     .navbar-default .navbar-nav > li > a {
         font: bold 18px/36px 'Open Sans', sans-serif;
         color: #18225D;
-        height: 100px;
+        /*height: 100px;*/
+        height: 50px;
     }
 
     .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
@@ -2063,8 +2067,16 @@ span.field-validation-msg {
     color: #E8E336;
 }
 
+.c2b {
+    color: #e88e0c;
+}
+
 .c3 {
     color: #01ADD5;
+}
+
+.c3b {
+    color: #0868d5;
 }
 
 .c3i {

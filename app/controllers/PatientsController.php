@@ -41,7 +41,7 @@ class PatientsController extends \BaseController {
 		$data = Input::all();
 		$data['company_id'] = Auth::user()->company_id;
 		$data['business_unit_id'] = Auth::user()->business_unit_id;
-		$data['status'] = Ep::getSwitchButtonVal(Input::get('status'),GlobalsConst::STATUS_ON,GlobalsConst::STATUS_OFF);
+		$data['status'] = 'Active';
 		$data['user_type'] = GlobalsConst::PATIENT;
 		$data['comeFrom'] = 'Patient';
 		$response = User::saveUser($data);

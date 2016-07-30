@@ -48,12 +48,14 @@ class GlobalsConst {
     const RECEPTIONIST = "Receptionist";
     const LAB_MANAGER = "Lab Manager";
 
-    public static $ROLES = ['Administrator'=>self::ADMINISTRATOR,
+    /*public static $ROLES = ['Administrator'=>self::ADMINISTRATOR,
                             'Doctor'=>self::DOCTOR,
 //                            'Accountant'=>self::ACCOUNTANT,
                             'Receptionist'=>self::RECEPTIONIST,
 //                            'Lab Manager'=>self::LAB_MANAGER
-    ];
+    ];*/
+
+
     const SUPER_ADMIN_ROLE = 1;
     const COMPANY_ADMIN_ROLE = 2;
 
@@ -64,6 +66,24 @@ class GlobalsConst {
     const GARDEN_TOWN = "Garden Town";
     const JOHAR_TOWN = "Johar Town";
 
+
+    //***Constsnt of RESOURCE GROUP
+    const RG_ADMINISTRATION = 2;
+    const RG_CLINIC = 3;
+    const RG_PUBLIC = 4;
+    const RG_OTHERS = 5;
+
+    //***PUBLIC RESOURCES GROUP LIST
+    public static $RESOURCE_GROUPS = [
+        self::RG_ADMINISTRATION => 'Administration',
+        self::RG_CLINIC => 'Manage Clinics or Hospital',
+        self::RG_PUBLIC => 'Public Resources',
+        self::RG_OTHERS => 'Other Resources',
+    ];
+
+
+
+
     //PUBLIC RESOURCES LIST
     public static $PUBLIC_RESOURCES = [
         'HomeController@index',
@@ -73,6 +93,7 @@ class GlobalsConst {
 //        'UsersController@uploadProfilePic', //@todo It is not public, remove from here
 //        'PatientsController@getPatientForm', //@todo It is not public, remove from here
         'RolesController@index', //@todo It is not public, remove from here
+        'RolesController@create', //@todo It is not public, remove from here
 //        'DoctorsController@create', //@todo It is not public, remove from here
 //        'DoctorsController@store', //@todo It is not public, remove from here
 //        'DoctorsController@show', //@todo It is not public, remove from here
@@ -170,6 +191,15 @@ class GlobalsConst {
                                         3 => 'Walk In',
                                         4 => 'Cancelled',
                                         5 => 'Completed',
+                                        ];
+
+
+    public static $APPOINTMENT_STATUSES_COLORS = [
+                                        1 => '#990099',
+                                        2 => '#3399ff',
+                                        3 => '#cc6600',
+                                        4 => '#ff0000',
+                                        5 => '#009900',
                                         ];
 
 

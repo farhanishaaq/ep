@@ -12,6 +12,6 @@ class Medicine extends \Eloquent {
 
 	public function prescriptions()
 	{
-		return $this->belongsToMany('Prescription','medicine_prescriptions','medicine_id','prescription_id')->wherePivot('quantity');
+		return $this->belongsToMany('Prescription','medicine_prescription','medicine_id','prescription_id')->wherePivot('quantity');
 	}
 }

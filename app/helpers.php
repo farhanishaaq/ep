@@ -6,11 +6,11 @@ use App\Globals\GlobalsConst;
  * @return mixed
  */
 function role_drop_down(){
-    $rolesData = GlobalsConst::$ROLES;
+    /*$rolesData = GlobalsConst::$ROLES;
     unset($rolesData[GlobalsConst::ADMINISTRATOR]);
     $rolesData[""] = "Select Role";
     ksort($rolesData);
-    return Form::select('role',$rolesData,Form::getValueAttribute('role', null),['id'=>"role",'required'=>'true']);
+    return Form::select('role',$rolesData,Form::getValueAttribute('role', null),['id'=>"role",'required'=>'true']);*/
 }
 
 /**

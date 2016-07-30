@@ -8,7 +8,7 @@
         @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
             {{Form::model($doctor->user, ['route' => ['doctors.update', $doctor->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
         @endif
-        <h3 class="mT10 mB15 c3 bdrB1">Patient Form<p class="col-xs-3 fR taR p0 required-hint pT10">Required Fields <kbd>*</kbd></p></h3>
+        <h3 class="mT10 mB15 c3 bdrB1">Doctor Form<p class="col-xs-3 fR taR p0 required-hint pT10">Required Fields <kbd>*</kbd></p></h3>
         {{-- Start Errors Code Container Block --}}
         @if(count($errors))
         <ul class="error-container">
