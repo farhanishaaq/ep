@@ -59,7 +59,11 @@ class Role extends \Eloquent {
 
 			return $roles->skip($offset)->take($limit)
 				->orderBy('roles.id','DESC')->get();
-		}catch (Exception $e){
+		} catch (Throwable $t) {
+			// Executed only in PHP 7, will not match in PHP 5.x
+			dd($t->getMessage());
+		}
+		catch (Exception $e){
 			dd($e->getMessage());
 		}
 

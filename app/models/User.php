@@ -108,7 +108,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			foreach(Auth::user()->roles as $role){
 
 			}
-		}catch (Exception $e)
+		}catch (Throwable $t) {
+			// Executed only in PHP 7, will not match in PHP 5.x
+			dd($t->getMessage());
+		}
+		catch (Exception $e)
 		{
 
 		}
@@ -210,7 +214,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			}
 			return $users->skip($offset)->take($limit)
 				->orderBy('id','DESC')->get();
-		}catch (Exception $e){
+		}
+		catch (Throwable $t) {
+			// Executed only in PHP 7, will not match in PHP 5.x
+			dd($t->getMessage());
+		}
+		catch (Exception $e){
 			dd($e->getMessage());
 		}
 
