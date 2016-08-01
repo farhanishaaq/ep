@@ -227,7 +227,7 @@ function get_array_from_query($query, $db_link)
                 $temp_ar= array("result"=>$result, "ar"=>$num_ar);
                 array_push($ret, $temp_ar);
             }    
-        } while (mysqli_more_results ($db_link) AND mysqli_next_result($db_link));            
+        } while (mysqli_next_result($db_link));            
 
         if (yog_mysql_errno($db_link)!=0) {                      
             $temp_ar= array("result"=>-1, "ar"=>$num_ar);
@@ -1193,11 +1193,11 @@ function convertxmlchars ( $string,$called_by="" )
     
     $result = $string;   
     
-    $result = preg_replace("/&/i", "&amp;", $result);  
-    $result = preg_replace("/</i", "&lt;", $result);   
-    $result = preg_replace("/>/i", "&gt;", $result);   
-    $result = preg_replace("/\'/i", "&apos;", $result);
-    $result = preg_replace("/\"/i", "&quot;", $result);
+    $result = eregi_replace('&', '&amp;', $result);  
+    $result = eregi_replace('<', '&lt;', $result);   
+    $result = eregi_replace('>', '&gt;', $result);   
+    $result = eregi_replace('\'', '&apos;', $result);
+    $result = eregi_replace('\"', '&quot;', $result);
 
     WriteLog ( "Output: " . $result );
     WriteLog ( "Exit convertxmlchars" );
@@ -1559,12 +1559,12 @@ define ( "XML_CHARSET", 7 );
 
 define ( "XML_LIBXML2_TEST_QUERY", 8);
 /* uncomment this line to create a debug log */
-//define ( "DEBUG",1 );
+//define ( "DEBUG", 1 );
 
 /* version constant */
 /* You will need to change the version in processquery method too, where it shows: $versionheader = 'TunnelVersion:5.13.1' */
 
-define ( "tunnelversion", '12.11');
+define ( "tunnelversion", '11.5');
 define ( "tunnelversionstring", 'TunnelVersion:' );
 define ( "phpversionerror", 'PHP_VERSION_ERROR' );
 define ( "phpmoduleerror", 'PHP_MODULE_NOT_INSTALLED' );
