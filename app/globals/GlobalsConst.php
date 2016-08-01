@@ -203,6 +203,15 @@ class GlobalsConst {
                                         ];
 
 
+
+    //    COMPANY TYPES
+    const CLINIC = "Clinic";
+    const HOSPITAL = "Hospital";
+    public static $COMPANY_TYPES = [
+        self::CLINIC => self::CLINIC,
+        self::HOSPITAL => self::HOSPITAL,
+    ];
+
     //Countries
     public static $COUNTRIES = [
         "Afghanistan" => "Afghanistan"

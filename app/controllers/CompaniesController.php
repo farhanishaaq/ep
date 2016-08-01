@@ -1,4 +1,5 @@
 <?php
+use \App\Globals\GlobalsConst;
 
 class CompaniesController extends \BaseController {
 
@@ -10,7 +11,7 @@ class CompaniesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$companies = Company::paginate(10);
+		$companies = Company::skip(0)->take(GlobalsConst::LIST_DATA_LIMIT)->orderBy('id','DESC')->get();
         return View::make('companies.index', compact('companies'));
 	}
 
@@ -22,7 +23,8 @@ class CompaniesController extends \BaseController {
 	 */
 	public function create()
 	{
-        return View::make('companies.create');
+        $formMode = GlobalsConst::FORM_CREATE;
+        return View::make('companies.create')->nest('_form','companies.partials._form',compact('formMode'));
 	}
 
 	/**
@@ -34,62 +36,9 @@ class CompaniesController extends \BaseController {
 	public function store()
 	{
         $data = Input::all();
-        $validator = Validator::make($data, array('password' => 'min:6','email' => 'unique:users', 'status' => 'required', 'company_name' => 'required', 'company_address' => 'required'));
-
-        if ($validator->fails())
-        {
-            return Redirect::back()->withErrors($validator)->withInput();
-        }
-
-        $company = Company::create(['name' => $data['company_name'], 'address' => $data['company_address']]);
-
-        $employee = new Employee();
-        $employee->company_id = $company->id;
-        $employee->name = Input::get('name');
-        $employee->password = Hash::make(Input::get('password'));
-        $employee->email = Input::get('email');
-        $employee->gender = Input::get('gender');
-        $employee->age = Input::get('age');
-        $employee->city = Input::get('city');
-        $employee->country = Input::get('country');
-        $employee->address = Input::get('address');
-
-        if(Input::get('phone') == ''){
-            $employee->phone = 'N/A';
-        }else {
-            $employee->phone = Input::get('phone');
-        }
-
-        if(Input::get('cnic') == ''){
-            $employee->cnic = 'N/A';
-        }else {
-            $employee->cnic = Input::get('cnic');
-        }
-
-        if(Input::get('branch') == ''){
-            $employee->branch = 'N/A';
-        }else {
-            $employee->branch = Input::get('branch');
-        }
-
-        if(Input::get('note') == ''){
-            $employee->note = 'N/A';
-        }else {
-            $employee->note = Input::get('note');
-        }
-
-        $employee->status = Input::get('status');
-        $employee->role = 'Administrator';
-        $employee->save();
-
-        $data = ['link' => URL::to('login'), 'name' => Input::get('name')];
-//      Send email to employee
-        Mail::queue('emails.welcome', $data, function($message)
-        {
-            $message->to(Input::get('email'), Input::get('name'))->subject('Welcome to EMR!');
-        });
-
-        return Redirect::route('companies.index');
+        $data['comeFrom'] = 'Company';
+        $response = Company::saveCompany($data);
+        return $response;
 	}
 
 	/**

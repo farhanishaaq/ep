@@ -37,8 +37,7 @@ class AppointmentsController extends \BaseController {
 		$doctors = Doctor::fetchDoctorsForDropDown();
 		$patients = Patient::fetchPatientsForDropDown();
 		
-		return View::make('appointments.create', compact('doctors','patients'))->nest('_form','appointments.partials._form',compact('doctors','patients','formMode','appointmentCode'));;
-	}
+		return View::make('appointments.create', compact('doctors','patients'))->nest('_form','appointments.partials._form',compact('doctors','patients','formMode','appointmentCode'));	}
 
 	/**
 	 * Store a newly created appointment in storage.

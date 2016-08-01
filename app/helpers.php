@@ -76,14 +76,15 @@ function country_drop_down(){
  * city_drop_down | This function is used to make branch dropdown
  * @return mixed
  */
-function city_drop_down(){
+function city_drop_down($params=['name'=>'city_id']){
+    $name = $params['name'];
     $dataset = DB::table('cities')->select('cities.id',DB::raw("CONCAT(cities.name,', ', states.name,', ', countries.name) AS full_city_name"))->join('states','states.id','=','cities.state_id')
         ->join('countries','countries.id','=','states.country_id')
         ->lists('full_city_name','id');
 
     $dataset[""] = "Select City";
     ksort($dataset);
-    return Form::select('city_id',$dataset,Form::getValueAttribute('city_id', null),['id'=>"city_id"]);
+    return Form::select($name,$dataset,Form::getValueAttribute('city_id', null),['id'=>$name]);
 }
 
 
@@ -313,4 +314,12 @@ function make_doctor_drop_down($doctors,$selectedVal=null){
     $html .= '</select>';
     return $html;
 //    {{ Form::select('doctor_id', ["" => 'Select Doctor'] + $doctors->lists('full_name', 'id'), null, ['required' => 'true', 'id' => 'doctor_id'] ); }}
+}
+
+
+function make_company_type_drop_down(){
+    $dataset = GlobalsConst::$COMPANY_TYPES;
+    $dataset[""] = "Select Type";
+//    ksort($dataset);
+    return Form::select('company_type',$dataset,Form::getValueAttribute('company_type', null),['id'=>"company_type",'required'=>'true']);
 }

@@ -238,7 +238,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		if($dataProcessType==GlobalsConst::DATA_SAVE){
 			$user = new User();
-			$user->password = $data['password'];
+			$user->password =  Hash::make($data['password']);
 		}else{
 			$id = isset($data['userId']) ? $data['userId'] : '';
 			if($id != ''){
@@ -255,6 +255,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$cell = isset($data['cell']) ? $data['cell'] : null;
 		$phone = isset($data['phone']) ? $data['phone'] : null;
 		$additional_info = isset($data['additional_info']) ? $data['additional_info'] : null;
+		$photo = isset($data['photo']) ? $data['photo'] : null;
 
 
 
@@ -266,7 +267,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->full_name = $data['fname'].' '.$data['lname'];
 		$user->username = $data['username'];
 		$user->email = $data['email'];
-		$user->photo = $data['photo'];
+		$user->photo = $photo;
 		$user->user_type = $userType;
 		$user->dob = $dob;
 		$user->cnic = $cnic;

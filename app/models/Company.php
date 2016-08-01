@@ -1,11 +1,17 @@
 <?php
+use \App\Globals\GlobalsConst;
 
 class Company extends \Eloquent {
 
     /**
      * @var array
      */
-	protected $fillable = ['name', 'city_id', 'address', 'phone', 'fax'];
+	protected $fillable = ['name', 'city_id', 'address', 'phone', 'fax', 'description'];
+
+
+    public static $rules = [
+        'name' => 'required',
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -34,5 +40,68 @@ class Company extends \Eloquent {
      */
     public function city(){
         return $this->belongsTo('City');
+    }
+
+    /**
+     * @param $data
+     * @param int $dataProcessType
+     * @return array|null
+     */
+    public static function saveCompany($data,$dataProcessType=GlobalsConst::DATA_SAVE){
+        $response = null;
+        $comeFrom = isset($data['comeFrom']) ? $data['comeFrom'] : 'Company';
+        $validator = Validator::make($data, User::$rules);
+
+        if ($validator->fails())
+        {
+            $response = ['success'=>false, 'error'=> true, 'validatorErrors'=>$validator];
+        }
+        if($dataProcessType == GlobalsConst::DATA_SAVE){
+            $company = new Company();
+        }else{
+            $id = isset($data['companyId']) ? $data['companyId'] : '';
+            if($id != ''){
+                $user = Company::find($id);
+            }else{
+                return $response = ['success'=>false, 'error'=> true, 'message' => $comeFrom.' record did not find for updation! '];
+            }
+        }
+
+        //*******Save Company
+        $cityId = isset($data['city_id']) ? $data['city_id'] : null;
+        $company->city_id = $cityId;
+        $company->name = $data['name'];
+        $company->company_type = $data['company_type'];
+        $company->address = $data['address'];
+        $company->phone = $data['phone'];
+        $company->fax = $data['fax'];
+        $company->description = $data['description'];
+        $company->save();
+
+        //*******Save Business
+        $businessUnitData['name'] = $data['bu_name'];
+        $businessUnitData['company_id'] = $company->id;
+        $businessUnitData['city_id'] = $data['city_id'];
+        $businessUnitData['address'] = $data['address'];
+        $businessUnitData['phone'] = $data['phone'];
+        $businessUnitData['fax'] = $data['fax'];
+        $businessUnitData['is_main'] = GlobalsConst::YES;
+        $businessUnitData['description'] = $data['bu_description'];
+        $BusinessUnitResult = BusinessUnit::saveBusinessUnit($businessUnitData, $dataProcessType);
+        $BusinessUnit = $BusinessUnitResult['BusinessUnit'];
+
+        //*******Save Admin User
+        $userData['company_id'] = $company->id;
+        $userData['business_unit_id'] = $BusinessUnit->id;
+        $userData['user_type'] = GlobalsConst::ADMIN;
+        $userData['username'] = $data['username'];
+        $userData['password'] = $data['password'];
+        $userData['email'] = $data['email'];
+        $userData['fname'] = $data['fname'];
+        $userData['lname'] = $data['lname'];
+        $userData['status'] = GlobalsConst::STATUS_ON;
+        $User = User::saveUser($userData,$dataProcessType);
+        $response = ['success'=>true, 'error'=> false, 'message'=>'Company has been saved successfully!'];
+        return $response;
     }
 }

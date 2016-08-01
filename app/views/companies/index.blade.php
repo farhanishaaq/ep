@@ -32,6 +32,7 @@
          <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
              <thead>
                  <tr>
+                     <th>ID</th>
                      <th>Company Name</th>
                      <th>Address</th>
                      <th>Actions</th>
@@ -41,15 +42,13 @@
              @if(($companies) != null )
                  @if(($companies->count()))
                      @foreach($companies as $company)
-                          <tr>
+                          <tr class="row-data">
+                             <td> {{$company->id}}</td>
                              <td> {{$company->name}}</td>
                              <td>{{ $company->address }}</td>
                               <td>
                                   {{ link_to_route('companies.show', '', [$company->id], ['class' => 'btn-view-icon fL', 'title'=> 'View Record'])}}
                                   <span class="fL">&nbsp;|&nbsp;</span> {{ link_to_route('companies.edit', '', [$company->id], ['class' => 'btn-edit-icon fL','title'=> 'Edit Record'])}}
-                                  {{ Form::model($company, ['route' => ['companies.destroy', $company->id], 'method' => 'delete', 'style' => 'display: inline'] )}}
-                                      {{ Form::button('Delete', ['type' => 'submit', 'class' => 'data_table_submit_btn']) }}
-                                  {{Form::close()}}
                               </td>
                           </tr>
                       @endforeach
@@ -65,7 +64,6 @@
              @endif
              </tbody>
          </table>
-         {{ $companies->links('partials.pagination') }}
      </section>
 </div>
 @stop
@@ -76,10 +74,20 @@
 $(document).ready(function() {
     if($('#tblRecordsList tr.row-data').length){
         $('#tblRecordsList').DataTable({
-            "columnDefs": [ {
-            "targets": 3,
-            "orderable": false
-            } ]
+            "columnDefs": [
+                {
+                    "targets": 3,
+                    "orderable": false
+                },
+                {
+                    "targets": [ 0 ],
+                    "visible": false,
+                    "searchable": false
+                },
+            ],
+            "order": [[ 0, "desc" ]],
+            "lengthMenu": [20, 40, 60, 80, 100],
+            "pageLength": "{{\App\Globals\GlobalsConst::LIST_DATA_LIMIT}}"
         });
     }
 } );
