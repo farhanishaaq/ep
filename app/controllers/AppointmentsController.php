@@ -146,6 +146,9 @@ class AppointmentsController extends \BaseController {
             $response = ['success'=>false,'error'=>true,'message' => 'Please select Doctor'];
         }
         else{
+			if ($day == 0){
+				$day = 7;
+			}
             $strDay = GlobalsConst::$DAYS_WITH_NUM_KEYS[$day];
 //            $dutyDay = DutyDay::where('day','=',GlobalsConst::$DAYS_WITH_NUM_KEYS[$day])->first();
 //            $timeSlots = $dutyDay->timeSlots()->lists('slot','id');
