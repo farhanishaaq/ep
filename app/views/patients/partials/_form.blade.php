@@ -49,7 +49,7 @@
 
                 @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
                     <div class="form-group">
-                        <label class="col-xs-5 control-label asterisk">Password</label>
+                        <label class="col-xs-5 control-label asterisk">*Password</label>
                         <div class="col-xs-6">
                             <input type="password" id="password" name="password" required="true" value="{{{ Form::getValueAttribute('password', $patientPassword) }}}" class="form-control" placeholder="Password">
                             <span id="error_password" class="field-validation-msg"></span>
@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-xs-5 control-label asterisk">Confirm Password</label>
+                        <label class="col-xs-5 control-label asterisk">*Confirm Password</label>
                         <div class="col-xs-6">
                             <input type="password" id="confirm_password" name="confirm_password" required="true" value="{{{ Form::getValueAttribute('confirm_password', $patientPassword) }}}" class="form-control" placeholder="Confirm Password">
                             <span id="error_confirm_password" class="field-validation-msg"></span>
