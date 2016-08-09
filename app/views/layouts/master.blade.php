@@ -11,6 +11,9 @@
        window.YES = true;
        window.NO = false;
 
+
+       window.PROFILE_MAX_FILE_SIZE = 2048;//KB
+
        window.daysNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 

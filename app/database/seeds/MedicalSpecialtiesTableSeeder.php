@@ -64,6 +64,18 @@ class MedicalSpecialtiesTableSeeder extends Seeder {
 			'name' => 'Gynecology',
 			'description' => 'Gynaecology is the medical practice dealing with the health of the female reproductive systems (vagina, uterus and ovaries) and the breasts. Literally, outside medicine, it means "the science of women'
 		]);
+
+		//11
+		MedicalSpecialty::create([
+			'name' => 'Family Physician',
+			'description' => 'Family physicians care for both genders and all ages. Our comprehensive approach to care is necessary in our health care system.'
+		]);
+
+		//12
+		MedicalSpecialty::create([
+			'name' => 'General Physician',
+			'description' => 'In the medical profession, a general practitioner (GP) is a medical doctor who treats acute and chronic illnesses and provides preventive care and health education to patients.'
+		]);
 	}
 
 }
