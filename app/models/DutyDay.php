@@ -22,7 +22,7 @@ class DutyDay extends \Eloquent {
 
 
         while($start <= $end){
-            $timeslot = new Timeslot();
+            $timeslot = new TimeSlot();
             $timeslot->slot = date("H:i:s", $start);
             $timeslot->save();
             $timeslot->duty_day_id = $day_id;
