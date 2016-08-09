@@ -115,7 +115,7 @@ var PatientsForm = function(win,doc, options){
             ],
             deleteUrl: "{{route('uploadProfilePic')}}",
             overwriteInitial: true,
-            maxFileSize: 100,
+            maxFileSize: 2048,// kb
             initialCaption: "Profile Photo",
             initialPreviewFileType: 'image' // image is the default and can be overridden in config below
 

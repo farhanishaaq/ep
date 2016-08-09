@@ -24,7 +24,7 @@
         </ul>
         @endif
         {{-- End Errors Code Container Block --}}
-        <section class="form-Section col-md-6 h1110 fL">
+        <section class="form-Section col-md-6 h1315 fL">
             {{--Contact Info--}}
             <div class="container w100p">
                 <h3 class="mT15 mB0 c3">Basic Info</h3>
@@ -172,7 +172,7 @@
 
             </div>
         </section>
-        <section class="form-Section col-md-6 h1110 fL">
+        <section class="form-Section col-md-6 h1315 fL">
             <div class="container w100p">
                 <h3 class="mT15 mB0 c3">Patient Photo</h3>
                 <hr class="w95p fL mT0" />
