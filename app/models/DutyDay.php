@@ -38,10 +38,10 @@ class DutyDay extends \Eloquent {
         $start = strtotime($start_time);
         $end = strtotime($end_time);
 
-        Timeslot::where('duty_day_id', '=', $day_id)->delete();
+        TimeSlot::where('duty_day_id', '=', $day_id)->delete();
 
         while($start <= $end){
-            $timeslot = new Timeslot();
+            $timeslot = new TimeSlot();
             $timeslot->slot = date("H:i:s", $start);
             $timeslot->save();
             $timeslot->duty_day_id = $day_id;

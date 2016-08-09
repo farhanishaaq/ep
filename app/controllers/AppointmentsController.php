@@ -48,7 +48,7 @@ class AppointmentsController extends \BaseController {
 	{
 		$data = Input::all();
         $data['date'] = date('Y-m-d', strtotime($data['date']));
-		$data['time'] = Timeslot::findOrFail($data['time_slot_id'])->slot;
+		$data['time'] = TimeSlot::findOrFail($data['time_slot_id'])->slot;
         $data['business_unit_id'] = Ep::currentBusinessUnitId();
 		unset($data['remaining_fee']);
 		unset($data['total_paid']);
@@ -109,7 +109,7 @@ class AppointmentsController extends \BaseController {
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
-		$data['time'] = Timeslot::findOrFail($data['time_slot_id'])->slot;
+		$data['time'] = TimeSlot::findOrFail($data['time_slot_id'])->slot;
 
 		if(Input::get('status') == '3' || Input::get('status') == '4' || Input::get('status') == '5'){
 			$data['time'] = null;
@@ -153,7 +153,7 @@ class AppointmentsController extends \BaseController {
 //            $dutyDay = DutyDay::where('day','=',GlobalsConst::$DAYS_WITH_NUM_KEYS[$day])->first();
 //            $timeSlots = $dutyDay->timeSlots()->lists('slot','id');
 //            $timeSlots = $dutyDay->timeSlots()->get(['id','slot']);
-            $timeSlots = Timeslot::fetchAvailableTimeSlots($doctorId,$strDay);
+            $timeSlots = TimeSlot::fetchAvailableTimeSlots($doctorId,$strDay);
             $appointments = Appointment::fetchAppointmentsByDay($strDay);
 
             if($timeSlots != null){

@@ -11,7 +11,7 @@ class TimeSlotsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$timeSlots = Timeslot::where('company_id', Auth::user()->company_id)->get();
+		$timeSlots = TimeSlot::where('company_id', Auth::user()->company_id)->get();
 
 		return View::make('time_slots.index', compact('timeSlots'));
 	}
@@ -33,7 +33,7 @@ class TimeSlotsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Timeslot::$rules);
+		$validator = Validator::make($data = Input::all(), TimeSlot::$rules);
 
 		if ($validator->fails())
 		{
@@ -41,7 +41,7 @@ class TimeSlotsController extends \BaseController {
 		}
 
         $data['company_id'] = Auth::user()->company_id;
-		Timeslot::create($data);
+		TimeSlot::create($data);
 
 		return Redirect::route('time_slots.index');
 	}
@@ -54,7 +54,7 @@ class TimeSlotsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$timeslot = Timeslot::findOrFail($id);
+		$timeslot = TimeSlot::findOrFail($id);
 
 		return View::make('time_slots.show', compact('timeslot'));
 	}
@@ -67,7 +67,7 @@ class TimeSlotsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$timeslot = Timeslot::find($id);
+		$timeslot = TimeSlot::find($id);
 
 		return View::make('time_slots.edit', compact('timeslot'));
 	}
@@ -80,9 +80,9 @@ class TimeSlotsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$timeslot = Timeslot::findOrFail($id);
+		$timeslot = TimeSlot::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Timeslot::$rules);
+		$validator = Validator::make($data = Input::all(), TimeSlot::$rules);
 
 		if ($validator->fails())
 		{
@@ -102,7 +102,7 @@ class TimeSlotsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Timeslot::destroy($id);
+		TimeSlot::destroy($id);
 
 		return Redirect::route('timeSlots.index');
 	}
@@ -121,14 +121,14 @@ class TimeSlotsController extends \BaseController {
             $appointments = Appointment::where('date', $date)->where('employee_id', $id)
                             ->get();
             if(count($appointments) > 0){
-                $timeSlots = Timeslot::where('duty_day_id', $duty_day->id)
+                $timeSlots = TimeSlot::where('duty_day_id', $duty_day->id)
                     ->where('employee_id', $id);
                 foreach($appointments as $appointment){
                     $slot = $timeSlots->where('slot', '!=', $appointment->time)
                             ->get()->toJson();
                 }
             }else{
-                $slot = Timeslot::where('duty_day_id', $duty_day->id)
+                $slot = TimeSlot::where('duty_day_id', $duty_day->id)
                         ->get()->toJson();
             }
 

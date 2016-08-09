@@ -65,7 +65,7 @@
         <option value="$PROJECT_DIR$/app/controllers/RemindersController.php" />
         <option value="$PROJECT_DIR$/app/views/public_layouts/master.blade.php" />
         <option value="$PROJECT_DIR$/app/views/emails/welcome.blade.php" />
-        <option value="$PROJECT_DIR$/app/models/Timeslot.php" />
+        <option value="$PROJECT_DIR$/app/models/TimeSlot.php" />
         <option value="$PROJECT_DIR$/app/views/appointments/create.blade.php" />
         <option value="$PROJECT_DIR$/app/views/appointments/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/views/appointment_based_data/layouts/master.blade.php" />
@@ -658,7 +658,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Timeslot.php">
+    <entry file="file://$PROJECT_DIR$/app/models/TimeSlot.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.941176" vertical-offset="94" max-vertical-offset="700">
           <caret line="20" column="29" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="29" />

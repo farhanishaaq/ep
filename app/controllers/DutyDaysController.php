@@ -122,7 +122,7 @@ class DutyDaysController extends \BaseController {
                 $dutyDays[0]->update();
                 $dutyDays[0]->end = null;
                 $dutyDays[0]->update();
-                Timeslot::where('duty_day_id', '=', $dutyDays[0]->id)->delete();
+                TimeSlot::where('duty_day_id', '=', $dutyDays[0]->id)->delete();
             }
 
             if(Input::get('Monday') != null){
@@ -140,7 +140,7 @@ class DutyDaysController extends \BaseController {
                 $dutyDays[1]->update();
                 $dutyDays[1]->end = null;
                 $dutyDays[1]->update();
-                Timeslot::where('duty_day_id', '=', $dutyDays[1]->id)->delete();
+                TimeSlot::where('duty_day_id', '=', $dutyDays[1]->id)->delete();
             }
             if(Input::get('Tuesday') != null){
                 $dutyDays[2]->day = (Input::get('Tuesday'));
@@ -157,7 +157,7 @@ class DutyDaysController extends \BaseController {
                 $dutyDays[2]->update();
                 $dutyDays[2]->end = null;
                 $dutyDays[2]->update();
-                Timeslot::where('duty_day_id', '=', $dutyDays[2]->id)->delete();
+                TimeSlot::where('duty_day_id', '=', $dutyDays[2]->id)->delete();
             }
             if(Input::get('Wednesday') != null){
                 $dutyDays[3]->day = (Input::get('Wednesday'));
@@ -174,7 +174,7 @@ class DutyDaysController extends \BaseController {
                 $dutyDays[3]->update();
                 $dutyDays[3]->end = null;
                 $dutyDays[3]->update();
-                Timeslot::where('duty_day_id', '=', $dutyDays[3]->id)->delete();
+                TimeSlot::where('duty_day_id', '=', $dutyDays[3]->id)->delete();
             }
             if(Input::get('Thursday') != null){
                 $dutyDays[4]->day = (Input::get('Thursday'));
@@ -191,7 +191,7 @@ class DutyDaysController extends \BaseController {
                 $dutyDays[4]->update();
                 $dutyDays[4]->end = null;
                 $dutyDays[4]->update();
-                Timeslot::where('duty_day_id', '=', $dutyDays[4]->id)->delete();
+                TimeSlot::where('duty_day_id', '=', $dutyDays[4]->id)->delete();
             }
             if(Input::get('Friday') != null){
                 $dutyDays[5]->day = (Input::get('Friday'));
@@ -209,7 +209,7 @@ class DutyDaysController extends \BaseController {
                 $dutyDays[5]->update();
                 $dutyDays[5]->end = null;
                 $dutyDays[5]->update();
-                Timeslot::where('duty_day_id', '=', $dutyDays[5]->id)->delete();
+                TimeSlot::where('duty_day_id', '=', $dutyDays[5]->id)->delete();
             }
             if(Input::get('Saturday') != null){
                 $dutyDays[6]->day = (Input::get('Saturday'));
@@ -227,7 +227,7 @@ class DutyDaysController extends \BaseController {
                 $dutyDays[6]->update();
                 $dutyDays[6]->end = null;
                 $dutyDays[6]->update();
-                Timeslot::where('duty_day_id', '=', $dutyDays[6]->id)->delete();
+                TimeSlot::where('duty_day_id', '=', $dutyDays[6]->id)->delete();
             }
 
         return Redirect::route('duty_days.index');
