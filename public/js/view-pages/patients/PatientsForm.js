@@ -65,7 +65,40 @@ var PatientsForm = function(win,doc, options){
     var s = settings;
     var saveCloseClicked = false;
 
+    var getEstimatedBirthDate = function(age) {
+        var now = new Date();
+        now.setDate(now.getDate() - (365*age));
+        var month = (now.getMonth() +1 ); // Month (0-11)
+        var day = (now.getDay());
+        var year = (now.getFullYear());
+        if(month<9){
+            month = '0'+month;
+        }
+        if(day<9){
+            day = '0'+day;
+        }
+        var dob = leftPad(month,'0')+'-'+ leftPad(day,'0') +'-'+ year;
+        return dob;
+    }
 
+
+
+    var calculateAge = function(birthday) { // birthday is a date
+        var ageDifMs = Date.now() - birthday.getTime();
+        var ageDate = new Date(ageDifMs); // miliseconds from epoch
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
+
+    var setAgeByDateOfBirth = function(dob) {
+        var params = {date:dob, currentFormat:"dd-mm-yyyy", requiredFormat:"yyyy-mm-dd"};
+        var dateStr = getDateIntoRequiredFormat(params);
+        var date = new Date(dateStr);
+        console.log(dob);
+        console.log(date);
+        var age = calculateAge(date);
+
+        $('#age').val(age);
+    }
 
     var makePhotoUploadComponent = function () {
         //*********************FileInput plugin
@@ -188,6 +221,25 @@ var PatientsForm = function(win,doc, options){
         $('#saveContinue').click(function (e) {
             saveCloseClicked = false;
         });
+
+        //**** change on dob
+        $('#dob').change(function(){
+            var dob = $(this).val();
+            setAgeByDateOfBirth(dob);
+        });
+
+        //**** change on dob
+        $('#age').change(function(){
+            var age = $(this).val();
+            var dob = getEstimatedBirthDate(age);
+            $('#dob').val(dob);
+        });
+
+        $('#age').keyup(function(){
+            var age = $(this).val();
+            var dob = getEstimatedBirthDate(age);
+            $('#dob').val(dob);
+        });
     };
 
 
@@ -200,5 +252,8 @@ var PatientsForm = function(win,doc, options){
     this.initializeAll = function () {
         allPluginsInitializer();
         eventsBindings();
+        if($('#dob').val() != ''){
+            setAgeByDateOfBirth($('#dob').val());
+        }
     }
 };

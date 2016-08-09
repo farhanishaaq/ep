@@ -96,6 +96,14 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="col-xs-5 control-label asterisk">Age</label>
+                    <div class="col-xs-6">
+                        <input type="text" id="age" name="age" required="true" value="{{{ Form::getValueAttribute('age', null) }}}" class="form-control" placeholder="Age">
+                        <span id="error_age" class="field-validation-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label class="col-xs-5 control-label">Gender</label>
                     <div class="col-xs-6">
                         {{radio_btn_group(array( 'Male' => 'Male', 'Female' => 'Female' ),'gender')}}
@@ -200,8 +208,6 @@
                         photoInitialPreview = "{{get_profile_photo_url($patient->user->photo)}}";
                 @endif
             $(document).ready(function(){
-
-
                     //***For gender Radio Selection
                     $('.btn.btn-primary-2.gender').click(function(){
                         setRadioValInHidden('gender',$(this));
