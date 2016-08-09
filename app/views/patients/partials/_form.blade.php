@@ -66,7 +66,7 @@
                 @endif
 
                 <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">First Name</label>
+                    <label class="col-xs-5 control-label asterisk">*First Name</label>
                     <div class="col-xs-6">
                         <input type="text" id="fname" name="fname" required="true" value="{{{ Form::getValueAttribute('fname', null) }}}" class="form-control" placeholder="First Name">
                         <span id="error_fname" class="field-validation-msg"></span>
@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Last Name</label>
+                    <label class="col-xs-5 control-label asterisk">*Last Name</label>
                     <div class="col-xs-6">
                         <input type="text" id="lname" name="lname" required="true" value="{{{ Form::getValueAttribute('lname', null) }}}" class="form-control" placeholder="Last Name">
                         <span id="error_lname" class="field-validation-msg"></span>
