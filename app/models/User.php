@@ -233,29 +233,33 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public static function saveUser($data,$dataProcessType=GlobalsConst::DATA_SAVE){
 		$response = null;
 		$comeFrom = isset($data['comeFrom']) ? $data['comeFrom'] : 'User';
-		$validator = Validator::make($data, User::$rules);
-
-		if ($validator->fails())
-		{
-//			return Redirect::back()->withErrors($validator)->withInput();
-			$response = ['success'=>false, 'error'=> true, 'validatorErrors'=>$validator];
-		}
-//		$user = self::create($data);
+		$vRules = User::$rules;
 		$userType = $data['user_type'];
-
-
 
 		if($dataProcessType==GlobalsConst::DATA_SAVE){
 			$user = new User();
 			$user->password =  Hash::make($data['password']);
-		}else{
+		}elseif($dataProcessType==GlobalsConst::DATA_UPDATE){
 			$id = isset($data['userId']) ? $data['userId'] : '';
+			$vRules['username'] = $vRules['username'] . ',id,' . $id;
+			$vRules['email'] = $vRules['email'] . ',id,' . $id;
+			$vRules['password'] = '';
 			if($id != ''){
 				$user = User::find($id);
 			}else{
 				return $response = ['success'=>false, 'error'=> true, 'message' => $comeFrom.' record did not find for updation! '];
 			}
 		}
+
+		//*****Start Rules Validators
+		$validator = Validator::make($data, $vRules);
+		if ($validator->fails())
+		{
+//			return Redirect::back()->withErrors($validator)->withInput();
+			return ['success'=>false, 'error'=> true, 'validatorErrors'=>$validator->errors()];
+		}
+		//*****End Rules Validators
+
 		$cityId = isset($data['city_id']) ? $data['city_id'] : null;
 		$dob = isset($data['dob']) ? date('Y-m-d',strtotime($data['dob'])) : null;
 		$cnic = isset($data['cnic']) ? $data['cnic'] : null;
@@ -304,21 +308,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 						$employee = $employeeResponse['Employee'];
 						$data['employee_id'] = $employee->id;
 						$doctorResponse = Doctor::saveDoctor($data,$dataProcessType);
-						if(!isset($doctorResponse['Doctor'])){
-							return $response;
+						if(isset($doctorResponse['Doctor'])){
+							unset($doctorResponse['Doctor']);
 						}
+						return $doctorResponse;
 					}else{
-						return $response;
+						return $employeeResponse;
 					}
-					break;
+				break;
 				case GlobalsConst::PATIENT:
 					$patientResponse = Patient::savePatient($data,$dataProcessType);
 					if(isset($patientResponse['Patient'])){
-
-					}else{
-						return $response;
+						unset($patientResponse['Patient']);
 					}
-					break;
+					return $patientResponse;
+				break;
 			}
 			$response = ['success'=>true, 'error'=> false, 'message'=>$comeFrom .' has been saved successfully!'];
 		}

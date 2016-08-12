@@ -128,11 +128,11 @@ class UsersController extends \BaseController {
 			$filename        = str_random(6) . '_' . $file->getClientOriginalName();
 			$uploadSuccess   = $file->move($destinationPath, $filename);
 //			$response = ['success'=>true,'error'=>false,'message'=>'Photo has been uploaded successfully!','uploadedFileName'=>$filename,'abc'=>$uploadSuccess];
-			$response = ['uploaded'=>$filename,'message'=>'Photo has been uploaded successfully!'];
+			$response = ['success'=>true,'uploaded'=>$filename,'message'=>'Photo has been uploaded successfully!'];
 
 		}else{
 //			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
-			$response = ['error'=>'No files were processed.'];
+			$response = ['success'=>false,'error'=>'No files were processed.'];
 		}
 		return Response::json($response);
 	}

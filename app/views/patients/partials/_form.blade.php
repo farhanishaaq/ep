@@ -214,7 +214,7 @@
                     });
 
                     var options = {
-                        saveCloseUrl: "{{route('users.index')}}",
+                        saveCloseUrl: "{{route('patients.index')}}",
                         photoUploadUrl: "{{route('uploadProfilePic')}}",
                         photoInitialPreview :[
                             photoInitialPreview

@@ -93,7 +93,7 @@ class Employee extends \Eloquent{
             if($id != ''){
                 $employee = Employee::find($id);
             }else{
-                return $response = ['success'=>false, 'error'=> true, 'message' => 'Employee record did not find for updation! '];
+                return ['success'=>false, 'error'=> true, 'message' => 'Employee record did not find for updation! '];
             }
         }
         $joiningDate = isset($data['joining_date']) ? $data['joining_date'] : null;

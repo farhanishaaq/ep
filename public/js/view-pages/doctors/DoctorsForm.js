@@ -12,6 +12,7 @@ var DoctorsForm = function(win,doc, options){
         formMode: '',
         validationRulesForForm: function (frmElement) {
             frmElement.validate({
+                ignore: '*:not([name])', //Fixes your name issue
                 rules: {
                     user_type: {
                         required: true
@@ -166,6 +167,7 @@ var DoctorsForm = function(win,doc, options){
                     data: formData,
                     dataType: 'json',
                     success: function (response) {
+                        console.log(response);
                         if(response.success){
                             showMsg(response.message,window.MESSAGE_TYPE_SUCCESS);
                             if(saveCloseClicked){

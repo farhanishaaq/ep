@@ -86,10 +86,11 @@ class DoctorsController extends \BaseController {
 		$data['company_id'] = Auth::user()->company_id;
 		$data['business_unit_id'] = Auth::user()->business_unit_id;
 		$data['status'] = Ep::getSwitchButtonVal(Input::get('status'),GlobalsConst::STATUS_ON,GlobalsConst::STATUS_OFF);
-		$data['user_type'] = GlobalsConst::PATIENT;
+		$data['user_type'] = GlobalsConst::DOCTOR;
 		$data['comeFrom'] = 'Patient';
 
-		$data['userId'] = Patient::find($id)->user->id;
+		$data['userId'] = Doctor::find($id)->user->id;
+		$data['employeeId'] = Doctor::find($id)->employee->id;
 		$data['doctorId'] = $id;
 		$response = User::saveUser($data,GlobalsConst::DATA_UPDATE);
 		return $response;

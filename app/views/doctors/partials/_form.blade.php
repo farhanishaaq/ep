@@ -6,7 +6,7 @@
         @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
             {{ Form::open(array('action' => 'DoctorsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm','enctype' => 'multipart/form-data', 'novalidate')) }}
         @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-            {{Form::model($doctor->user, ['route' => ['doctors.update', $doctor->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
+            {{Form::model($doctor->user, ['route' => ['doctors.update', $doctor->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm', 'novalidate'])}}
         @endif
         <h3 class="mT10 mB15 c3 bdrB1">Doctor Form<p class="col-xs-3 fR taR p0 required-hint pT10">Required Fields <kbd>*</kbd></p></h3>
         {{-- Start Errors Code Container Block --}}
@@ -143,7 +143,7 @@
             <input type="reset" id="reset" value="Reset" class="submit" />
             <input type="submit" id="saveClose" name="saveClose" value="Save and Close" class="submit" />
             <input type="submit" id="saveContinue" name="saveContinue" value="Save and Continue" class="submit" />
-            <input type="button" id="cancel" value="Cancel" class="submit" onclick="goTo('{{route("doctors.index")}}')" />
+            <input type="button" id="cancel" value="Cancel" class="submit" novalidate onclick="goTo('{{route("doctors.index")}}')" />
         </div>
         {{ Form::close() }}
         @section('scripts')
@@ -165,7 +165,7 @@
                     });
 
                     var options = {
-                        saveCloseUrl: "{{route('users.index')}}",
+                        saveCloseUrl: "{{route('doctors.index')}}",
                         photoUploadUrl: "{{route('uploadProfilePic')}}",
                         photoInitialPreview :[
                             photoInitialPreview
