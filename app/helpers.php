@@ -223,10 +223,10 @@ function qualifications_drop_down(User $model = null){
 function get_profile_photo_url($fileName){
     $fileUrl = asset('images/profile-dumy.png');
 
-    $filePath = public_path(GlobalsConst::PROFILE_PHOTO_DIR.'/'.$fileName);
+    $filePath = public_path(GlobalsConst::UPLOADED_DATA_DIR.'/'.$fileName);
 
     if($fileName != '' && file_exists($filePath)){
-        $fileUrl = asset(GlobalsConst::PROFILE_PHOTO_DIR.'/'.$fileName);
+        $fileUrl = asset(GlobalsConst::UPLOADED_DATA_DIR.'/'.$fileName);
     }
     return $fileUrl;
 }

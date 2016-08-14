@@ -125,7 +125,8 @@ class UsersController extends \BaseController {
 		if (Input::hasFile('userPhoto')) {
 			$file            = Input::file('userPhoto');
 			$destinationPath = public_path(GlobalsConst::PROFILE_PHOTO_DIR);
-			$filename        = str_random(6) . '_' . $file->getClientOriginalName();
+//			$fileOriginalName        = $file->getClientOriginalName();
+			$filename        = str_random(8);
 			$uploadSuccess   = $file->move($destinationPath, $filename);
 //			$response = ['success'=>true,'error'=>false,'message'=>'Photo has been uploaded successfully!','uploadedFileName'=>$filename,'abc'=>$uploadSuccess];
 			$response = ['success'=>true,'uploaded'=>$filename,'message'=>'Photo has been uploaded successfully!'];

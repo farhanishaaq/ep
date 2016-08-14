@@ -90,4 +90,17 @@ class Ep {
     public static function currentEmployeeId(){
         return self::currentUser()->employee->id;
     }
+
+    /**
+     * @param $dir
+     * @return bool
+     */
+    public function checkOrMakeDir($dir)
+    {
+        if (!file_exists($dir)) {
+            return mkdir( $dir, 0777);
+        }else{
+            return true;
+        }
+    }
 } 
