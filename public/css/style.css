@@ -1413,7 +1413,20 @@ span.field-validation-msg {
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START SELECT2 CHANGES >>>>>>>>>>>>>>>>>>>>>>>>>>>
 ****************************************************************************************************
 */
-
+.prescription-qty-unit-css .select2.select2-container{
+  height: 44px;
+  font-size: 1.3em;
+  width: 70% !important;
+  margin-bottom: 10px;
+  -webkit-appearance: none;
+  background: #fff !important;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  border-radius: 2px;
+  box-shadow: 0 1px 6px 1px rgba(0,0,0,.08), 0 3px 2px rgba(0,0,0,.2);
+  padding: 0 8px;
+  box-sizing: border-box;
+}
 .select2.select2-container{
     height: 44px;
     font-size: 1.3em;
@@ -1677,6 +1690,27 @@ span.field-validation-msg {
     -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.prescription-qty-unit-css .form-control {
+  display: block;
+  width: 30%;
+  /*height: 38px;*/
+  height: 44px;
+  /*height: 30px;*/
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #E0E0E0;
+  border-radius: 0px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: 0 1px 6px 1px rgba(0,0,0,.08), 0 3px 2px rgba(0,0,0,.2);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
 .modal-header {
@@ -2245,6 +2279,7 @@ span.field-validation-msg {
 
 /* Start: px Width */
 .w20 {  width: 20px;  }
+.w40 {  width: 40px;  }
 .w50 {  width: 50px;  }
 .w70 {  width: 70px;  }
 .w200 {  width: 200px;  }
@@ -2362,6 +2397,8 @@ span.field-validation-msg {
 .h1150 {height: 1150px;}
 .h1300 {height: 1300px;}
 .h1315 {height: 1315px;}
+.h1500 {height: 1500px;}
+.h1800 {height: 1800px;}
 
 
 
@@ -2442,9 +2479,21 @@ span.field-validation-msg {
 */
 
 
+/*
+****************************************************************************************************
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Start Overflow styles >>>>>>>>>>>>>>>>>>>>>>>>>>>
+****************************************************************************************************
+*/
+.ofA{
+  overflow: auto;
+}
 
 
-
+/*
+****************************************************************************************************
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< End Overflow styles >>>>>>>>>>>>>>>>>>>>>>>>>>>
+****************************************************************************************************
+*/
 
 /*
 ****************************************************************************************************

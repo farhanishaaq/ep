@@ -212,6 +212,90 @@ class GlobalsConst {
         self::HOSPITAL => self::HOSPITAL,
     ];
 
+
+    //   DOSAGE FORMS
+    const CAPSULE = "Capsule";
+    const TABLET = "Tablet";
+    const SYRUP = "Syrup";
+    const INJECTION = "Injection";
+    const DRIP = "Drip";
+    const INHALER = "Inhaler";
+    const SPRAY = "Spray";
+    const EAR_DROP = "Ear Drop";
+    const EYE_DROP = "Eye Drop";
+    const ORAL_DROP = "Oral Drop";
+    const OINTMENT = "Ointment (Topical)";
+    const CREAM = "Cream (Topical)";
+    const PILL = "Pill";
+    const POWDER = "Powder";
+    public static $DOSAGE_FORMS = [
+        self::CAPSULE => self::CAPSULE,
+        self::TABLET => self::TABLET,
+        self::SYRUP => self::SYRUP,
+        self::INJECTION => self::INJECTION,
+        self::DRIP => self::DRIP,
+        self::INHALER => self::INHALER,
+        self::SPRAY => self::SPRAY,
+        self::EAR_DROP => self::EAR_DROP,
+        self::EYE_DROP => self::EYE_DROP,
+        self::ORAL_DROP => self::ORAL_DROP,
+        self::OINTMENT => self::OINTMENT,
+        self::CREAM => self::CREAM,
+        self::PILL => self::PILL,
+        self::POWDER => self::POWDER,
+        ];
+
+
+    //$DOSE_QTY_UNIT
+    const QTY_TABLET = "TABLET";
+    const QTY_CAPSULE = "Capsule";
+    const QTY_SPOON = "Spoon";
+    const QTY_TEA_SPOON = "Tea Spoon";
+    const QTY_DROP = "Drop";
+    const QTY_OTHER = "Other";
+
+    public static $DOSE_QTY_UNIT = [
+        self::QTY_TABLET => self::QTY_TABLET,
+        self::CAPSULE => self::CAPSULE,
+        self::QTY_SPOON => self::QTY_SPOON,
+        self::QTY_TEA_SPOON => self::QTY_TEA_SPOON,
+        self::QTY_DROP => self::QTY_DROP,
+        self::QTY_OTHER => self::QTY_OTHER,
+        ];
+
+    //   DOSAGE STRENGTHS
+    const MG = "Milligram (MG)";
+    const G = "Gram (G)";
+    const ML = "Milliliter (ML)";
+    const L = "Liter (L)";
+    public static $DOSAGE_STRENGTHS = [
+        self::MG => self::MG,
+        self::G => self::G,
+        self::ML => self::ML,
+        self::L => self::L,
+    ];
+
+    //   Usage Type
+    const NORMAL = "Normal";
+    const CONDITIONAL = "Conditional";
+    public static $USAGE_TYPES = [
+        self::NORMAL => self::NORMAL,
+        self::CONDITIONAL => self::CONDITIONAL,
+    ];
+
+    //   USAGE FREQUENCY
+    const MORNING = 1;
+    const NOON = 2;
+    const EVENING = 3;
+    public static $USAGE_FREQUENCIES = [
+        self::MORNING => "Morning",
+        self::NOON => "Noon",
+        self::EVENING => 'Evening',
+    ];
+
+
+
+
     //Countries
     public static $COUNTRIES = [
         "Afghanistan" => "Afghanistan"
