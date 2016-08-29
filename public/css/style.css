@@ -1456,6 +1456,15 @@ span.field-validation-msg {
   font-size: small;
   font-weight: bolder;
 }
+.select2-selection__placeholder{
+  font-size: 11px;
+}
+.select2-search__field{
+  font-size: 11px;
+}
+.select2-selection__rendered{
+  font-size: 14px;
+}
 /*
 ****************************************************************************************************
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< END SELECT2 CHANGES >>>>>>>>>>>>>>>>>>>>>>>>>>>
