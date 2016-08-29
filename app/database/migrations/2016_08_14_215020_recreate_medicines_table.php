@@ -25,8 +25,6 @@ class RecreateMedicinesTable extends Migration {
 			$table->text('description')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
-
-			$table->unique(array('name', 'business_unit_id'));
 		});
 	}
 
@@ -37,7 +35,8 @@ class RecreateMedicinesTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+		//****don't drop it here
+//		Schema::drop('medicines');
 	}
 
 }
