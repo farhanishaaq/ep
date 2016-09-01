@@ -26,7 +26,8 @@
             <div class="form-group col-xs-6">
                 <label class="col-xs-5 control-label asterisk">Medicine*</label>
                 <div class="col-xs-6">
-                    <select id="medicine_id" name="medicine_id[0]" ><option value="">Select Medicine</option></select>
+                    {{--<select id="medicine_id" name="medicine_id[0]" ><option value="">Select Medicine</option></select>--}}
+                    {{Medicine_drop_down()}}
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>
             </div>
@@ -42,7 +43,7 @@
             <div class="form-group col-xs-6">
                 <label class="col-xs-5 control-label asterisk">Quantity*</label>
                 <div class="col-xs-6 prescription-qty-unit-css">
-                    <input type="text" id="quantity" name="quantity[0]" class="form-control col-xs-3" value="">
+                    <input type="text" id="quantity" name="usage_quantity[0]" class="form-control col-xs-3" value="">
                     {{dosage_qty_unit_drop_down()}}
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>
@@ -59,7 +60,7 @@
             <div class="form-group col-xs-6">
                 <label class="col-xs-5 control-label asterisk">Conditional Note</label>
                 <div class="col-xs-6 auto-height-content">
-                    <textarea type="text" id="conditional_note" name="conditional_note" rows="7" cols="20" class="form-control" placeholder="Conditional Note">{{{ Form::getValueAttribute('conditional_note', null) }}}</textarea>
+                    <textarea type="text" id="conditional_note[0]" name="conditional_note[0]" rows="7" cols="20" class="form-control" placeholder="Conditional Note">{{{ Form::getValueAttribute('conditional_note', null) }}}</textarea>
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>
             </div>

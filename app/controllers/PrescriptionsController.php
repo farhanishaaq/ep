@@ -42,8 +42,8 @@ class PrescriptionsController extends \BaseController
         $prescriptionNextCount = (int)(Prescription::where('patient_id','=',$patient_id)->count()) + 1;
 //        $doctors = Employee::where('role', 'Doctor')->where('status', 'Active')->where('company_id', Auth::user()->company_id)->get();
 //        $doctors = Doctor::fetchDoctorsForDropDown();
-        $medicines = Medicine::where('company_id', Auth::user()->company_id)->get()->lists('name', 'id');
-
+//        $medicines = Medicine::where('company_id', Auth::user()->company_id)->get()->lists('name', 'id');
+        $medicines= null;
         return View::make('prescriptions.create')->nest('_form','prescriptions.partials._form', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount'));
     }
 
@@ -54,31 +54,63 @@ class PrescriptionsController extends \BaseController
      */
     public function store()
     {
+        $data = Input::all();
+        //dd($data);
+
+        $prescription = new Prescription();
+        $prescription->patient_id     = $data['patient_id'];
+        $prescription->appointment_id = $data['appointment_id'];
+        $prescription->code           = $data['code'];
+        $prescription->save();
+
+        $prescription_detail = new PrescriptionDetail();
+        $prescription_detail->prescription_id   = $prescription->id;
+        $prescription_detail->medicine_id       = 2;
+        $prescription_detail->usage_type        = $data['usage_type'][0];
+        $prescription_detail->dosage_strength   = "Milligram (MG)";
+        $prescription_detail->usage_quantity    = $data['usage_quantity'][0];;
+        $prescription_detail->quantity_unit     = $data['quantity_unit'][0];
+        $prescription_detail->frequencies       = $data['frequencies'][0];
+        //print_r($prescription_detail);
+        $prescription_detail->save();
+
+
 
         $validator = Validator::make($data = Input::all(), Prescription::$rules);
-
+//
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
-//        $data['company_id'] = Auth::user()->company_id;
-        $prescription = Prescription::create($data);
-
-        $quantity = Input::get('med_qty');
-//        dd($quantity);
-        foreach (Input::get('medicineName') as $key => $value) {
-
-            if ($value != null) {
-                $medicine = Medicine::find($value);
-                if ($quantity[$key] < $medicine->available_quantity) {
-                    $medicine->available_quantity -= $quantity[$key];
-                } else {
-                    $medicine->available_quantity = 0;
-                }
-                $medicine->update();
-                Medicine::find($value)->prescriptions()->attach($prescription->id, array('quantity' => $quantity[$key]));
-            }
+        if ($validator->fails())
+        {
+//			return Redirect::back()->withErrors($validator)->withInput();
+            return ['success'=>false, 'error'=> true, 'validatorErrors'=>$validator->errors()];
         }
-        return Redirect::route('appointments.index');
+//        foreach(){
+//
+//        }
+
+        $response = ['success'=>true, 'error'=> false, 'message'=>'has been saved successfully!'];
+        return $response;
+////        $data['company_id'] = Auth::user()->company_id;
+//        $prescription = Prescription::create($data);
+//
+//        $quantity = Input::get('med_qty');
+////        dd($quantity);
+//        foreach (Input::get('medicineName') as $key => $value) {
+//
+//            if ($value != null) {
+//                $medicine = Medicine::find($value);
+//                if ($quantity[$key] < $medicine->available_quantity) {
+//                    $medicine->available_quantity -= $quantity[$key];
+//                } else {
+//                    $medicine->available_quantity = 0;
+//                }
+//                $medicine->update();
+//                Medicine::find($value)->prescriptions()->attach($prescription->id, array('quantity' => $quantity[$key]));
+//            }
+//        }
+//        return Redirect::route('appointments.index');
     }
 
     /**

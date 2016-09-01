@@ -4,7 +4,7 @@
                 }
             </style>
         @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-            {{ Form::open(array('action' => 'PrescriptionsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm', 'onsubmit' => 'checkForm()')) }}
+            {{ Form::open(array('action' => 'PrescriptionsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm1')) }}
         @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
             DDD
         @endif
@@ -201,13 +201,6 @@
                 placeholder: "Select a Usage Type"
             });
 
-            /**
-             * dosage_form select2
-             */
-            $('#dosage_form').select2({
-                tags: "true",
-                placeholder: "Select a Dosage Form"
-            });
 
             /**
              * dosage_form select2
@@ -246,7 +239,44 @@
              */
             $('#frequencies').select2({
                 tags: "true",
-                placeholder: ""
+                placeholder: "Timing"
+            });
+
+            /**
+             * Form Submit Button Event
+             */
+//            $(s.dataFormId).submit(function(e){
+            $('#regForm1').submit(function(e){
+                e.preventDefault();
+                var frm = $(this);
+                // console.log(frm.serialize());
+//                var validator = s.validationRulesForForm(frm);
+
+                /*if (frm.valid()) {
+                    var formData = frm.serialize();
+                    var saveUrl = frm.attr('action') || "";
+
+                }else{
+                    showMsg('Invalid Form!',window.MESSAGE_TYPE_ERROR);
+                }*/
+                var formData = frm.serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{route('prescriptions.store')}}",
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.success){
+                            showMsg(response.message,window.MESSAGE_TYPE_SUCCESS);
+                            if(saveCloseClicked){
+                                goTo(s.saveCloseUrl);
+                            }else{
+                                window.location.reload();
+                            }
+                        }
+                    }
+                });
+                return false;
             });
         });
     </script>

@@ -275,6 +275,18 @@ class GlobalsConst {
         self::L => self::L,
     ];
 
+    //   MEDICINE
+    const Pn = "Penadol";
+    const R = "Risik";
+    const P = "Parasitamol";
+    const D = "Disprine";
+    public static $MEDICINE = [
+        self::Pn => self::Pn,
+        self::R => self::R,
+        self::P => self::P,
+        self::D => self::D,
+    ];
+
     //   Usage Type
     const NORMAL = "Normal";
     const CONDITIONAL = "Conditional";

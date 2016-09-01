@@ -335,7 +335,11 @@ function dosage_form_drop_down($i=0)
     $dataset = GlobalsConst::$DOSAGE_FORMS;
     $dataset[""] = "Select Dosage Form";
     ksort($dataset);
-    return Form::select('dosage_form['.$i.']',$dataset,Form::getValueAttribute('dosage_form', null),['id'=>"dosage_form", 'required'=>'true']);
+    $required = "'required'=>'true'";
+    if($i==-1){
+        $required = "";
+    }
+    return Form::select('dosage_form['.$i.']',$dataset,Form::getValueAttribute('dosage_form', null),['id'=>"dosage_form", $required]);
 }
 
 /**
@@ -344,11 +348,30 @@ function dosage_form_drop_down($i=0)
  */
 function dosage_strength_form_drop_down($i=0)
 {
-    $dataset = GlobalsConst::$DOSAGE_FORMS;
+    $dataset = GlobalsConst::$DOSAGE_STRENGTHS;
     $dataset[""] = "Select Dosage Strength";
     ksort($dataset);
-    return Form::select('dosage_strength['.$i.']',$dataset,Form::getValueAttribute('dosage_strength', null),['id'=>"dosage_strength", 'required'=>'true','class'=>'fL']);
+    $required = "'required'=>'true'";
+    if($i==-1){
+        $required = "";
+    }
+    return Form::select('dosage_strength['.$i.']',$dataset,Form::getValueAttribute('dosage_strength', null),['id'=>"dosage_strength", $required,'class'=>'fL']);
+
 }
+
+function Medicine_drop_down($i=0)
+{
+    $dataset = GlobalsConst::$MEDICINE;
+    $dataset[""] = "Select Medicine";
+    ksort($dataset);
+    $required = "'required'=>'true'";
+    if($i==-1){
+        $required = "";
+    }
+    return Form::select('dosage_strength['.$i.']',$dataset,Form::getValueAttribute('dosage_strength', null),['id'=>"medicine_id", $required,'class'=>'fL']);
+
+}
+
 
 /**
  * @param int $i
@@ -360,6 +383,8 @@ function frequency_drop_down($i=0){
     ksort($dataset);
     $selectedData = Form::getValueAttribute('medical_specialty_id', null);
     return Form::select('frequencies['.$i.']',$dataset, $selectedData,['id'=>"frequencies", 'multiple'=>true,]);
+
+
 }
 
 /**
