@@ -335,27 +335,45 @@ function dosage_form_drop_down($i=0)
     $dataset = GlobalsConst::$DOSAGE_FORMS;
     $dataset[""] = "Select Dosage Form";
     ksort($dataset);
-    $required = "'required'=>'true'";
-    if($i==-1){
+/*    if($i==-1){
+
         $required = "";
+        return Form::select('dosage_form['.$i.']',$dataset,Form::getValueAttribute('dosage_form', null),['id'=>"dosage_form", $required]);
+
+    }else{
+
+        return Form::select('dosage_form['.$i.']',$dataset,Form::getValueAttribute('dosage_form', null),['id'=>"dosage_form", 'required'=>'true']);
+    }*/
+
+
+    $attrs = ['id'=>"dosage_form", 'required'=>'true'];
+    if($i == -1){
+        $attrs = ['id'=>"dosage_form",];
     }
-    return Form::select('dosage_form['.$i.']',$dataset,Form::getValueAttribute('dosage_form', null),['id'=>"dosage_form", $required]);
+    return Form::select('dosage_form['.$i.']',$dataset,Form::getValueAttribute('dosage_form', null),$attrs);
 }
 
 /**
  * dosage_form_drop_down | This function is used to draw days select  box
  * @return mixed
  */
+
 function dosage_strength_form_drop_down($i=0)
 {
     $dataset = GlobalsConst::$DOSAGE_STRENGTHS;
     $dataset[""] = "Select Dosage Strength";
     ksort($dataset);
-    $required = "'required'=>'true'";
+//
     if($i==-1){
+
         $required = "";
+        return Form::select('dosage_strength['.$i.']',$dataset,Form::getValueAttribute('dosage_strength', null),['id'=>"dosage_strength", $required,'class'=>'fL']);
+
+    }else{
+
+        return Form::select('dosage_strength['.$i.']',$dataset,Form::getValueAttribute('dosage_strength', null),['id'=>"dosage_strength", 'required'=>'true','class'=>'fL']);
     }
-    return Form::select('dosage_strength['.$i.']',$dataset,Form::getValueAttribute('dosage_strength', null),['id'=>"dosage_strength", $required,'class'=>'fL']);
+
 
 }
 

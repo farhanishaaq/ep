@@ -68,7 +68,7 @@
             <div class="form-group col-xs-6">
                 <label class="col-xs-5 control-label asterisk">Extra Note</label>
                 <div class="col-xs-6">
-                    <textarea type="text" id="extra_note" name="extra_note" rows="7" cols="20" class="form-control" placeholder="Extra Note">{{{ Form::getValueAttribute('extra_note', null) }}}</textarea>
+                    <textarea type="text" id="extra_note" name="extra_note[0]" rows="7" cols="20" class="form-control" placeholder="Extra Note">{{{ Form::getValueAttribute('extra_note', null) }}}</textarea>
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="form-group col-xs-6">
                 <label class="col-xs-5 control-label asterisk">Quantity*</label>
                 <div class="col-xs-6 prescription-qty-unit-css">
-                    <input type="text" id="quantity" name="quantity[-1]" class="form-control col-xs-3" value="">
+                    <input type="text" id="quantity" name="usage_quantity[-1]" class="form-control col-xs-3" value="">
                     {{dosage_qty_unit_drop_down(-1)}}
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>

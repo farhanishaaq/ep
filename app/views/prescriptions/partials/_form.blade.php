@@ -4,7 +4,7 @@
                 }
             </style>
         @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-            {{ Form::open(array('action' => 'PrescriptionsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm1')) }}
+            {{ Form::open(array('action' => 'PrescriptionsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm')) }}
         @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
             DDD
         @endif
@@ -239,14 +239,14 @@
              */
             $('#frequencies').select2({
                 tags: "true",
-                placeholder: "Timing"
+                placeholder: ""
             });
 
             /**
              * Form Submit Button Event
              */
 //            $(s.dataFormId).submit(function(e){
-            $('#regForm1').submit(function(e){
+            $('#regForm').submit(function(e){
                 e.preventDefault();
                 var frm = $(this);
                 // console.log(frm.serialize());
