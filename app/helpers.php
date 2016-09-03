@@ -361,7 +361,7 @@ function dosage_form_drop_down($i=0)
 function dosage_strength_form_drop_down($i=0)
 {
     $dataset = GlobalsConst::$DOSAGE_STRENGTHS;
-    $dataset[""] = "Select Dosage Strength";
+    $dataset[""] = "Strength Unit";
     ksort($dataset);
 //
     if($i==-1){
@@ -377,7 +377,7 @@ function dosage_strength_form_drop_down($i=0)
 
 }
 
-function Medicine_drop_down($i=0)
+function medicine_drop_down($i=0)
 {
     $dataset = GlobalsConst::$MEDICINE;
     $dataset[""] = "Select Medicine";
@@ -397,7 +397,7 @@ function Medicine_drop_down($i=0)
  */
 function frequency_drop_down($i=0){
     $dataset = GlobalsConst::$USAGE_FREQUENCIES;
-    $dataset[""] = "Select Frequencies";
+//    $dataset[""] = "Select Frequencies";
     ksort($dataset);
     $selectedData = Form::getValueAttribute('medical_specialty_id', null);
     return Form::select('frequencies['.$i.']',$dataset, $selectedData,['id'=>"frequencies", 'multiple'=>true,]);
@@ -411,7 +411,7 @@ function frequency_drop_down($i=0){
  */
 function usage_type_drop_down($i=0){
     $dataset = GlobalsConst::$USAGE_TYPES;
-    $dataset[""] = "Select Usage Type";
+    $dataset[""] = "Usage Type";
     ksort($dataset);
     $selectedData = Form::getValueAttribute('medical_specialty_id', null);
     return Form::select('usage_type['.$i.']',$dataset, $selectedData,['id'=>"usage_type",]);
@@ -423,7 +423,7 @@ function usage_type_drop_down($i=0){
  */
 function dosage_qty_unit_drop_down($i=0){
     $dataset = GlobalsConst::$DOSE_QTY_UNIT;
-    $dataset[""] = "Select a Qty Unit";
+    $dataset[""] = "Qty Unit";
     ksort($dataset);
     $selectedData = Form::getValueAttribute('medical_specialty_id', null);
     return Form::select('quantity_unit['.$i.']',$dataset, $selectedData,['id'=>"quantity_unit",]);

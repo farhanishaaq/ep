@@ -21,6 +21,7 @@ class GlobalsConst {
     const FORM_EDIT = 2;
     const TIME_SLOT_INTERVAL = 20;
     const LIST_DATA_LIMIT = 60;
+    const TEMPLATE_INDEX = -1;
 
 
     const EP_DEMO_COMPANY_ONE = 1;

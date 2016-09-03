@@ -25,7 +25,7 @@
         </ul>
         @endif
         {{-- End Errors Code Container Block --}}
-        <section class="form-Section col-md-12 h1800 fL">
+        <section class="form-Section col-md-12 h1126 fL">
             <div class="container w100p">
                 <h3 class="mT15 mB0 c3">Prescription Info</h3>
                 <hr class="w95p fL mT0" />
@@ -76,9 +76,24 @@
                     </div>
                 </div>
 
+                <div class="form-group col-xs-6">
+                    <label class="col-xs-5 control-label asterisk">Follow Up Pres:</label>
+                    <div class="col-xs-6">
+                        <input type="text" id="parent_id" name="parent_id" required="true" value="{{{ Form::getValueAttribute('code', null) }}}" class="form-control" placeholder="Prescription Code">
+                        <span id="errorName" class="field-validation-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-6">
+                    <label class="col-xs-5 control-label asterisk">Check Up Note:</label>
+                    <div class="col-xs-6">
+                        <textarea type="text" id="check_up_note" name="check_up_note" rows="2" cols="20" class="form-control" placeholder="Check Up Note">{{{ Form::getValueAttribute('extra_note', null) }}}</textarea>
+                        <span id="errorName" class="field-validation-msg"></span>
+                    </div>
+                </div>
             </div>
             {{-- Prescription Detail --}}
-            <div class="container w100p ofA h1000">
+            <div class="container w100p ofA h761">
                 <h3 class="mT15 mB0 c3">Prescription Detail</h3>
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
@@ -128,35 +143,35 @@
                         .find('[name="usage_type[-1]"]').attr('name', 'usage_type[' + rowIndex + ']').end()
                         .find('[name="dosage_form[-1]"]').attr('name', 'dosage_form[' + rowIndex + ']').end()
                         .find('[name="medicine_id[-1]"]').attr('name', 'medicine_id[' + rowIndex + ']').end()
+                        .find('[name="strength_quantity[-1]"]').attr('name', 'strength_quantity[' + rowIndex + ']').end()
                         .find('[name="dosage_strength[-1]"]').attr('name', 'dosage_strength[' + rowIndex + ']').end()
-                        .find('[name="quantity[-1]"]').attr('name', 'quantity[' + rowIndex + ']').end()
+                        .find('[name="usage_quantity[-1]"]').attr('name', 'usage_quantity[' + rowIndex + ']').end()
                         .find('[name="quantity_unit[-1]"]').attr('name', 'quantity_unit[' + rowIndex + ']').end()
                         .find('[name="frequencies[-1]"]').attr('name', 'frequencies[' + rowIndex + ']').end()
-                        .find('[name="conditional_note[-1]"]').attr('name', 'conditional_note[' + rowIndex + ']').end()
                         .find('[name="extra_note[-1]"]').attr('name', 'extra_note[' + rowIndex + ']').end();
 
                 //** usage_type select2
                 $('[name="usage_type['+ rowIndex +']"]').select2({
                     tags: "true",
-                    placeholder: "Select an option"
+                    placeholder: "Dosage Type"
                  });
 
                 //** dosage_form select2
                 $('[name="dosage_form['+ rowIndex +']"]').select2({
                     tags: "true",
-                    placeholder: "Select Dosage Form"
+                    placeholder: "Dosage Form"
                  });
 
                 //** medicine_id select2
                 $('[name="medicine_id['+ rowIndex +']"]').select2({
                     tags: "true",
-                    placeholder: "Select Medicine"
+                    placeholder: "Medicine"
                  });
 
                 //** dosage_strength select2
                 $('[name="dosage_strength['+ rowIndex +']"]').select2({
                     tags: "true",
-                    placeholder: "Select Dosage Strength"
+                    placeholder: "Dosage Strength"
                  });
 
                 //** quantity_unit select2
@@ -168,7 +183,7 @@
                 //** frequencies select2
                 $('[name="frequencies['+ rowIndex +']"]').select2({
                     tags: "true",
-                    placeholder: "Select Frequency"
+                    placeholder: "Frequencies"
                  });
             })
 
@@ -198,7 +213,7 @@
              */
             $('#usage_type').select2({
                 tags: "true",
-                placeholder: "Select a Usage Type"
+                placeholder: "Usage Type"
             });
 
 
@@ -207,7 +222,7 @@
              */
             $('#dosage_form').select2({
                 tags: "true",
-                placeholder: "Select a Dosage Form"
+                placeholder: "Dosage Form"
             });
 
             /**
@@ -215,7 +230,7 @@
              */
             $('#medicine_id').select2({
                 tags: "true",
-                placeholder: "Select a Medicine"
+                placeholder: "Medicine"
             });
 
             /**
@@ -223,7 +238,7 @@
              */
             $('#dosage_strength').select2({
                 tags: "true",
-                placeholder: "Select a Strength"
+                placeholder: "Strength"
             });
 
             /**
@@ -239,7 +254,7 @@
              */
             $('#frequencies').select2({
                 tags: "true",
-                placeholder: ""
+                placeholder: "Frequencies"
             });
 
             /**

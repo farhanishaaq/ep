@@ -1408,6 +1408,9 @@ span.field-validation-msg {
 .form-Section .form-group .multi-select .select2.select2-container{
   height: auto !important;
 }
+.form-Section .form-group .frequencies-multi-slct .select2-container .selection .select2-selection--multiple .select2-selection__rendered .select2-search  .select2-search__field{
+  height: 14px;
+}
 /*
 ****************************************************************************************************
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START SELECT2 CHANGES >>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -1455,6 +1458,7 @@ span.field-validation-msg {
 .select2-container--default .select2-selection--multiple .select2-selection__choice{
   font-size: small;
   font-weight: bolder;
+  margin-top: 1px;
 }
 .select2-selection__placeholder{
   font-size: 11px;
@@ -2011,9 +2015,8 @@ span.field-validation-msg {
 /*End Padding Bottom*/
 
 
-.p0 {
-    padding: 0;
-}
+.p0 {padding: 0;}
+.p5 {padding: 5;}
 
 .p10 {  padding: 10px;}
 .p15 {  padding: 15px;}
@@ -2071,6 +2074,9 @@ span.field-validation-msg {
 .pL50i {  padding-left: 50px !important;  }
 
 .pR0 {padding-right: 0px;}
+.pR2 {padding-right: 2px;}
+.pR3 {padding-right: 3px;}
+.pR5 {padding-right: 5px;}
 .pR10 {padding-right: 10px;}
 .pR72 {
     padding-right: 72px;
@@ -2380,6 +2386,10 @@ span.field-validation-msg {
 .h60 {height: 60px;}
 .h66 {height: 66px;}
 .h100 {height: 100px;}
+.h130 {height: 130px;}
+.h150 {height: 150px;}
+.h170 {height: 170px;}
+.h175 {height: 175px;}
 .h200 {height: 200px;}
 .h250 {height: 250px;}
 .h260 {height: 260px;}
@@ -2396,12 +2406,15 @@ span.field-validation-msg {
 .h695 {height: 695px;}
 .h700 {height: 700px;}
 .h750 {height: 750px;}
+.h761 {height: 761px;}
 .h800 {height: 800px;}
 .h850 {height: 850px;}
 .h900 {height: 900px;}
 .h1000 {height: 1000px;}
 .h1100 {height: 1100px;}
 .h1110 {height: 1110px;}
+.h1115 {height: 1115px;}
+.h1126 {height: 1126px;}
 .h1130 {height: 1130px;}
 .h1150 {height: 1150px;}
 .h1300 {height: 1300px;}

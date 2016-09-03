@@ -21,13 +21,12 @@ class CreatePrescirptionDetailsTable extends Migration {
 			$table->integer('prescription_id');
 			$table->integer('medicine_id');
 			$table->enum('usage_type',array_values(GlobalsConst::$USAGE_TYPES))->nullable();
+			$table->integer('strength_quantity');
 			$table->enum('dosage_strength',array_values(GlobalsConst::$DOSAGE_STRENGTHS))->nullable();
 			$table->integer('usage_quantity');
 			$table->enum('quantity_unit',array_values(GlobalsConst::$DOSE_QTY_UNIT));
 			$table->string('frequencies',1024);//json string will handle it
-			$table->string('conditional_note')->nullable();
 			$table->text('extra_note')->nullable();
-			$table->timestamps();
 			$table->softDeletes();
 		});
 	}
