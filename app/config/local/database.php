@@ -58,6 +58,7 @@ return array(
 			'database'  => 'ep',
 			'username'  => 'root',
 			'password'  => '',
+			'port'=>'3308',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
