@@ -11,3 +11,6 @@ Thumbs.db
 /nbproject
 /public/tmp/*.html
 /public/tmp/*.htm
+/public/uploaded-data/profile-photos
+profile-photos
+/public/uploaded-data

@@ -78,7 +78,11 @@ try{
 		die('success');
 	}	
 	
-}catch(Exception $mail){
+}catch (Throwable $t) {
+	// Executed only in PHP 7, will not match in PHP 5.x
+	dd($t->getMessage());
+}
+catch(Exception $mail){
 	die($mail);
 }	
 ?>

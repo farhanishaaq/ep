@@ -30,9 +30,9 @@ class="current"
                                             <img src="{{asset('images/admin.jpg')}}" alt="Image 1"/>
                                         </div>
                                         <div class="caption">
-                                            <h3 class="text_2 color_2"><a href="#">Clinic Administration</a></h3>
+                                            <h3 class="text_2 color_2"><a href="#">Company Administration</a></h3>
                                             <p class="text_3" style="text-align: justify;">
-                                                Now Administrator of the Clinic can manage all tasks with greater ease on a
+                                                Now Administrator of the Company can manage all tasks with greater ease on a
                                                 single click including Employees' Management and all of their functionalists.
                                             </p>
                                         </div>

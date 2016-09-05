@@ -28,9 +28,8 @@
             <!--========================================================
                                      Data Table
             =========================================================-->
-            @if(Auth::user()->role == 'Administrator' || Auth::user()->role == 'Receptionist')
-                {{ link_to_route('appointments.create', 'Create Appointment', '', ['class' => 'btn_1'])}}
-            @endif
+
+            {{ link_to_route('appointments.create', 'Create Appointment', '', ['class' => 'btn_1'])}}
             <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
                 <thead>
                     <tr>
@@ -50,10 +49,10 @@
                     @foreach($appointments as $appointment)
 
                         <tr class="row-data">
-                            <td>{{{ $appointment->patient->name }}}</td>
-                            <td>{{{ $appointment->employee->name }}}</td>
+                            <td>{{{ $appointment->patient->user->full_name }}}</td>
+                            <td>{{{ $appointment->doctor->user->full_name}}}</td>
                             <td>{{{ date('j F, Y', strtotime($appointment->date)) }}}</td>
-                            <td>{{{$appointment->timeslot->slot}}}</td>
+                            <td>{{{$appointment->timeSlot->slot}}}</td>
                             <td>
                                 {{{ get_appointment_status_name($appointment->status)}}}
                             </td>
@@ -96,7 +95,6 @@
                 @endif
                 </tbody>
             </table>
-            {{ $appointments->links('partials.pagination') }}
         </section>
     </div>
 @stop

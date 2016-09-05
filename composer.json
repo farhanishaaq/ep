@@ -7,7 +7,9 @@
 	"require": {
 		"laravel/framework": "4.2.*",
         "bllim/laravel-to-jquery-validation": "*",
-		"nitmedia/wkhtml2pdf": "dev-master"
+		"nitmedia/wkhtml2pdf": "dev-master",
+		"fzaninotto/faker": "v1.3.0",
+		"doctrine/dbal": "^2.5"
 	},
 	"require-dev": {
         "way/generators": "~2.0"

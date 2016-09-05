@@ -4,7 +4,7 @@
                 }
             </style>
         @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-            {{ Form::open(array('action' => 'PrescriptionsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm', 'onsubmit' => 'checkForm()')) }}
+            {{ Form::open(array('action' => 'PrescriptionsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm')) }}
         @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
             DDD
         @endif
@@ -25,7 +25,7 @@
         </ul>
         @endif
         {{-- End Errors Code Container Block --}}
-        <section class="form-Section col-md-6 h695 fL">
+        <section class="form-Section col-md-12 h1126 fL">
             <div class="container w100p">
                 <h3 class="mT15 mB0 c3">Prescription Info</h3>
                 <hr class="w95p fL mT0" />
@@ -36,23 +36,39 @@
                 <input id="appointment_date" name="appointment_date" type="hidden" value="{{ date('Ymd', strtotime($appointment->date)) }}">
                 <input id="prescriptionNextCount" name="prescriptionNextCount" type="hidden" value="{{ $prescriptionNextCount }}">
 
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Current Visit Date*</label>
+                <div class="form-group col-xs-6">
+                    <label class="col-xs-5 control-label asterisk">Appointment Date*</label>
                     <div class="col-xs-6">
                         <label class="form-control">{{ (isset($appointment))?  date('j F, Y', strtotime($appointment->date)) :  date('j F, Y', strtotime($prescription->appointment->date)) }}</label>
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Doctor Name*</label>
+                <div class="form-group col-xs-6">
+                    <label class="col-xs-5 control-label asterisk">Appointment Type</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ (isset($appointment))? $appointment->employee->name : $prescription->appointment->employee->name}}</label>
+                        <label class="form-control">{{ (isset($appointment)) ? get_appointment_status_name($appointment->status) : '---'}}</label>
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-xs-6">
+                    <label class="col-xs-5 control-label asterisk">Patient Name*</label>
+                    <div class="col-xs-6">
+                        <label class="form-control">{{ (isset($appointment))? $appointment->patient->user->full_name : $prescription->appointment->doctor->user->full_name}}</label>
+                        <span id="errorName" class="field-validation-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-6">
+                    <label class="col-xs-5 control-label asterisk">Doctor Name*</label>
+                    <div class="col-xs-6">
+                        <label class="form-control">{{ (isset($appointment))? $appointment->doctor->user->full_name : $prescription->appointment->doctor->user->full_name}}</label>
+                        <span id="errorName" class="field-validation-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-6">
                     <label class="col-xs-5 control-label asterisk">Prescription Code:</label>
                     <div class="col-xs-6">
                         <input type="text" id="code" name="code" required="true" value="{{{ Form::getValueAttribute('code', null) }}}" class="form-control" placeholder="Prescription Code">
@@ -60,61 +76,38 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Medicines:</label>
-
-                    <div class="col-xs-6 hAi">
-                        {{ Form::select("medicineName[0]", [null => 'Select first medicine']+$medicines, null, ['id' => 'medicineName', 'class'=> 'medicinesCss']) }}
-                        <input type="text" class="form-control" name="med_qty[]" placeholder="quantity" />
-                        <button class="btn btn-default addButton" type="button"><i class="fa fa-plus"></i></button>
+                <div class="form-group col-xs-6">
+                    <label class="col-xs-5 control-label asterisk">Follow Up Pres:</label>
+                    <div class="col-xs-6">
+                        <input type="text" id="parent_id" name="parent_id" required="true" value="{{{ Form::getValueAttribute('code', null) }}}" class="form-control" placeholder="Prescription Code">
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
 
-                <div id="moreMedicine" class="form-group hide actual">
-                    <label class="col-xs-5 control-label asterisk">Medicines:</label>
-                    <div class="col-xs-6 hAi">
-                        {{ Form::select("medicineName[-1]", [null => 'Select first medicine']+$medicines, null, ['class'=> 'medicinesCss']) }}
-                        <input type="text" class="form-control" name="med_qty[]" placeholder="quantity" />
-                        <button class="btn btn-default removeButton" type="button"><i class="fa fa-minus"></i></button>
+                <div class="form-group col-xs-6">
+                    <label class="col-xs-5 control-label asterisk">Check Up Note:</label>
+                    <div class="col-xs-6">
+                        <textarea type="text" id="check_up_note" name="check_up_note" rows="2" cols="20" class="form-control" placeholder="Check Up Note">{{{ Form::getValueAttribute('extra_note', null) }}}</textarea>
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
-
             </div>
-        </section>
-
-        <section class="form-Section col-md-6 h695 fL">
-            <div class="container w100p">
-                <h3 class="mT15 mB0 c3"></h3>
+            {{-- Prescription Detail --}}
+            <div class="container w100p ofA h761">
+                <h3 class="mT15 mB0 c3">Prescription Detail</h3>
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
 
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Other Medicines:</label>
-                    <div class="col-xs-6 hAi">
-                        <textarea id="medicines" name="medicines" class="form-control" rows="7" cols="20" placeholder="Other medicines...">{{{ Form::getValueAttribute('medicines', null) }}}</textarea>
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
+                <div class="form-group mT30 list-group">
+                    <a href="javascript:void(0)" class="col-xs-12 list-group-item list-group-item-action ">
+                        <h3 class="col-xs-4">Prescription Detail Data</h3>
+                        <h3 class="col-xs-3 fR">
+                            <div class="fL mL5">Add Detail Row</div>
+                            <button class="fR btn btn-default addButton" type="button"><i class="fa fa-plus"></i></button>
+                        </h3>
+                    </a>
                 </div>
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Note:</label>
-                    <div class="col-xs-6 hAi">
-                        <textarea id="note" name="note" class="form-control" rows="7" cols="20" placeholder="Note">{{{ Form::getValueAttribute('note', null) }}}</textarea>
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Procedure:</label>
-                    <div class="col-xs-6 hAi">
-                        <textarea id="procedure" name="procedure" class="form-control" rows="7" cols="20" placeholder="Procedure">{{{ Form::getValueAttribute('procedure', null) }}}</textarea>
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
+                @include('prescriptions.includes.detail_row')
 
             </div>
         </section>
@@ -130,38 +123,82 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            bookIndex = 0;
+            rowIndex = 0;
             $('#regForm').on('click', '.addButton', function () {
-                bookIndex++;
-                var $template = $('#moreMedicine');
+                var $beforeCurrentRow = $('#detail-row-'+rowIndex);
+                rowIndex++;
+                var $template = $('#detailRowTemplate');
                 var $clone = $template
                                 .clone()
-                                .removeClass('hide')
+                                .removeClass('dN')
                                 .removeAttr('id')
-                                .attr('data-book-index', bookIndex)
-                                .insertBefore($template);
+                                .attr('id','detail-row-' + rowIndex)
+                                .attr('data-row-index', rowIndex)
+                                .addClass('removablRow')
+                                .insertBefore($beforeCurrentRow);
 
                 console.log($clone);
                 // Update the name attributes
-                $clone.find('[name="medicineName[-1]"]').attr('name', 'medicineName[' + bookIndex + ']').end().find('[name="med_qty"]').attr('name', 'quantity[' + bookIndex + ']').end();
+                $clone.find('.row-count-display').html(rowIndex+1).end()
+                        .find('[name="usage_type[-1]"]').attr('name', 'usage_type[' + rowIndex + ']').end()
+                        .find('[name="dosage_form[-1]"]').attr('name', 'dosage_form[' + rowIndex + ']').end()
+                        .find('[name="medicine_id[-1]"]').attr('name', 'medicine_id[' + rowIndex + ']').end()
+                        .find('[name="strength_quantity[-1]"]').attr('name', 'strength_quantity[' + rowIndex + ']').end()
+                        .find('[name="dosage_strength[-1]"]').attr('name', 'dosage_strength[' + rowIndex + ']').end()
+                        .find('[name="usage_quantity[-1]"]').attr('name', 'usage_quantity[' + rowIndex + ']').end()
+                        .find('[name="quantity_unit[-1]"]').attr('name', 'quantity_unit[' + rowIndex + ']').end()
+                        .find('[name="frequencies[-1]"]').attr('name', 'frequencies[' + rowIndex + ']').end()
+                        .find('[name="extra_note[-1]"]').attr('name', 'extra_note[' + rowIndex + ']').end();
 
-                $('[name="medicineName['+ bookIndex +']"]').select2({
+                //** usage_type select2
+                $('[name="usage_type['+ rowIndex +']"]').select2({
                     tags: "true",
-                    placeholder: "Select an option"
+                    placeholder: "Dosage Type"
+                 });
+
+                //** dosage_form select2
+                $('[name="dosage_form['+ rowIndex +']"]').select2({
+                    tags: "true",
+                    placeholder: "Dosage Form"
+                 });
+
+                //** medicine_id select2
+                $('[name="medicine_id['+ rowIndex +']"]').select2({
+                    tags: "true",
+                    placeholder: "Medicine"
+                 });
+
+                //** dosage_strength select2
+                $('[name="dosage_strength['+ rowIndex +']"]').select2({
+                    tags: "true",
+                    placeholder: "Dosage Strength"
+                 });
+
+                //** quantity_unit select2
+                $('[name="quantity_unit['+ rowIndex +']"]').select2({
+                    tags: "true",
+                    placeholder: "Select Unit"
+                 });
+
+                //** frequencies select2
+                $('[name="frequencies['+ rowIndex +']"]').select2({
+                    tags: "true",
+                    placeholder: "Frequencies"
                  });
             })
+
             // Remove button click handler
             .on('click', '.removeButton', function () {
-                var $row = $(this).parents('.actual'),
-                index = $row.attr('data-book-index');
+//                var $row = $(this).parents('.actual');
+                var $row = $(this).parents('.removablRow');
+
+                var index = $row.attr('data-row-index');
+//                console.log($row);
                 // Remove element containing the fields
                 $row.remove();
             });
 
-            $('#medicineName').select2({
-                tags: "true",
-                placeholder: "Select an option"
-             });
+
 
             var patientId = $('#patient_id').val();
             var appointmentId = $('#appointment_id').val();
@@ -169,6 +206,93 @@
             var prescriptionNextCount = $('#prescriptionNextCount').val();
             var PrescriptionCode = appointmentDate +'-'+ leftPad(patientId,"000") + leftPad(appointmentId,"000") + leftPad(prescriptionNextCount,"000");
             $('#code').val(PrescriptionCode);
+
+
+            /**
+             * usage_type select2
+             */
+            $('#usage_type').select2({
+                tags: "true",
+                placeholder: "Usage Type"
+            });
+
+
+            /**
+             * dosage_form select2
+             */
+            $('#dosage_form').select2({
+                tags: "true",
+                placeholder: "Dosage Form"
+            });
+
+            /**
+             * medicine_id select2
+             */
+            $('#medicine_id').select2({
+                tags: "true",
+                placeholder: "Medicine"
+            });
+
+            /**
+             * dosage_strength select2
+             */
+            $('#dosage_strength').select2({
+                tags: "true",
+                placeholder: "Strength"
+            });
+
+            /**
+             * quantity_unit select2
+             */
+            $('#quantity_unit').select2({
+                tags: "true",
+                placeholder: "Unit"
+            });
+
+            /**
+             * frequencies select2
+             */
+            $('#frequencies').select2({
+                tags: "true",
+                placeholder: "Frequencies"
+            });
+
+            /**
+             * Form Submit Button Event
+             */
+//            $(s.dataFormId).submit(function(e){
+            $('#regForm').submit(function(e){
+                e.preventDefault();
+                var frm = $(this);
+                // console.log(frm.serialize());
+//                var validator = s.validationRulesForForm(frm);
+
+                /*if (frm.valid()) {
+                    var formData = frm.serialize();
+                    var saveUrl = frm.attr('action') || "";
+
+                }else{
+                    showMsg('Invalid Form!',window.MESSAGE_TYPE_ERROR);
+                }*/
+                var formData = frm.serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{route('prescriptions.store')}}",
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.success){
+                            showMsg(response.message,window.MESSAGE_TYPE_SUCCESS);
+                            if(saveCloseClicked){
+                                goTo(s.saveCloseUrl);
+                            }else{
+                                window.location.reload();
+                            }
+                        }
+                    }
+                });
+                return false;
+            });
         });
     </script>
 

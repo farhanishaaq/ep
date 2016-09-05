@@ -30,11 +30,11 @@ class="current"
             <div class="col-md-6">
                 <p class="text_3" style="text-align: justify;">
                     Electronic Medical Records is a fully funcitonal service providor system, 
-                    that is commited to the actual needs of the Clinics.
-                    We offer services for five kinds of Users in Clinic i.e. "Doctors, Receptionists,
+                    that is commited to the actual needs of the Companies.
+                    We offer services for five kinds of Users in Company i.e. "Doctors, Receptionists,
                     Lab Assistants, Accountants and Administrator" so that they can perform their
                     daily tasks effectively and conviniently. By providing these services to each
-                    User we try to overcome difficulty of your daily intensive tasks in Clinics.
+                    User we try to overcome difficulty of your daily intensive tasks in Companies.
                 </p>
             </div>
             <div class="col-md-6">
@@ -135,7 +135,7 @@ class="current"
             <div class="box_5" data-index="3">
                 <h3 class="text_2 color_2"><a href="#">Easy Administration</a></h3>
                 <p class="text_3" style="text-align: justify;">
-                    Now Administrator of Clinic can manage all tasks including tasks of all 
+                    Now Administrator of Company can manage all tasks including tasks of all
                     users with greater ease. Employees' management becomes much convinient now and
                     on minimum clicks.
                 </p>

@@ -1,11 +1,15 @@
+        <?php
+        $patientPassword = isset($patientPassword) ? $patientPassword : null;
+        $patientUsername = isset($patientUsername)?$patientUsername:null;
+        $patientEmail = isset($patientEmail)?$patientEmail:null;
+
+        ?>
         @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-            {{ Form::open(array('action' => 'PatientsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm', 'onsubmit' => 'checkForm()')) }}
+            {{ Form::open(array('action' => 'PatientsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm','enctype' => 'multipart/form-data', 'novalidate')) }}
         @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-            {{Form::model($patient, ['route' => ['patients.update', $patient->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
+            {{Form::model($patient->user, ['route' => ['patients.update', $patient->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
         @endif
-        <h3 class="mT10 mB0 c3">Create Patient Form</h3>
-        <hr class="w95p fL mT0" />
-        <p class="col-xs-12 fL taR">Required Fields <kbd>*</kbd></p>
+        <h3 class="mT10 mB15 c3 bdrB1">Patient Form<p class="col-xs-3 fR taR p0 required-hint pT10">Required Fields <kbd>*</kbd></p></h3>
         {{-- Start Errors Code Container Block --}}
         @if(count($errors))
         <ul class="error-container">
@@ -20,147 +24,205 @@
         </ul>
         @endif
         {{-- End Errors Code Container Block --}}
-        <section class="form-Section col-md-6 h695 fL">
+        <section class="form-Section col-md-6 h1315 fL">
+            {{--Contact Info--}}
             <div class="container w100p">
-                <h3 class="mT15 mB0 c3">User Info</h3>
+                <h3 class="mT15 mB0 c3">Basic Info</h3>
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
                 <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Patient Name</label>
+                    <label class="col-xs-5 control-label asterisk">*Username</label>
                     <div class="col-xs-6">
-                        <input type="text" id="name" name="name" required="true" value="{{{ Form::getValueAttribute('name', null) }}}" class="form-control" placeholder="Employee Name">
-                        <span id="errorName" class="field-validation-msg"></span>
+
+                        <input type="text" id="username" name="username" required="true" value="{{{ Form::getValueAttribute('username',$patientUsername ) }}}" class="form-control" placeholder="Username">
+                        <span id="error_username" class="field-validation-msg"></span>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="col-xs-5 control-label asterisk">*Email</label>
+                    <div class="col-xs-6">
+                        <input type="text" id="email" name="email" required="true" value="{{{ Form::getValueAttribute('email', $patientEmail) }}}" class="form-control" placeholder="Email">
+                        <span id="error_email" class="field-validation-msg"></span>
+                    </div>
+                </div>
+
+                @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
+                    <div class="form-group">
+                        <label class="col-xs-5 control-label asterisk">*Password</label>
+                        <div class="col-xs-6">
+                            <input type="password" id="password" name="password" required="true" value="{{{ Form::getValueAttribute('password', $patientPassword) }}}" class="form-control" placeholder="Password">
+                            <span id="error_password" class="field-validation-msg"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-5 control-label asterisk">*Confirm Password</label>
+                        <div class="col-xs-6">
+                            <input type="password" id="confirm_password" name="confirm_password" required="true" value="{{{ Form::getValueAttribute('confirm_password', $patientPassword) }}}" class="form-control" placeholder="Confirm Password">
+                            <span id="error_confirm_password" class="field-validation-msg"></span>
+                        </div>
+                    </div>
+                @endif
+
+                <div class="form-group">
+                    <label class="col-xs-5 control-label asterisk">*First Name</label>
+                    <div class="col-xs-6">
+                        <input type="text" id="fname" name="fname" required="true" value="{{{ Form::getValueAttribute('fname', null) }}}" class="form-control" placeholder="First Name">
+                        <span id="error_fname" class="field-validation-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-5 control-label asterisk">*Last Name</label>
+                    <div class="col-xs-6">
+                        <input type="text" id="lname" name="lname" required="true" value="{{{ Form::getValueAttribute('lname', null) }}}" class="form-control" placeholder="Last Name">
+                        <span id="error_lname" class="field-validation-msg"></span>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Date of Birth</label>
                     <div class="col-xs-6">
                         <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control" id="dob" name="dob" required="true" value="{{{ Form::getValueAttribute('dob', null) }}}" readonly >
+                            <input type="text" class="form-control" id="dob" name="dob" value="{{{ get_display_date(Form::getValueAttribute('dob', null)) }}}" readonly >
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                             </div>
                         </div>
 
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
-                </div>
-                @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-                    <div class="form-group">
-                        <label class="col-xs-5 control-label asterisk">Password</label>
-                        <div class="col-xs-6">
-                            <input type="password" id="password" name="password" required="true" value="{{{ Form::getValueAttribute('password', null) }}}" class="form-control" placeholder="Password">
-                            <span id="errorPassword" class="field-validation-msg"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Confirm Password</label>
-                    <div class="col-xs-6">
-                        <input type="password" id="confirm_password" name="confirm_password" required="true" value="{{{ Form::getValueAttribute('password', null) }}}" class="form-control" placeholder="Confirm Password">
-                        <span id="errorPassword" class="field-validation-msg"></span>
-                    </div>
-                </div>
-                @endif
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Email</label>
-                    <div class="col-xs-6">
-                        <input type="email" id="email" name="email" required="true" value="{{{ Form::getValueAttribute('email', null) }}}" class="form-control" placeholder="Email">
-                        <span id="errorPassword" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label">Gender</label>
-                    <div class="col-xs-6">
-                        {{radio_btn_group(array( 'Male' => 'Male', 'None' => '' , 'Female' => 'Female' ),'gender')}}
+                        <span id="error_dob" class="field-validation-msg"></span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Age</label>
                     <div class="col-xs-6">
-                        <input type="number" id="age" name="age" required="true" value="{{{ Form::getValueAttribute('age', null) }}}" class="form-control" placeholder="Age">
-                        <span id="errorPassword" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">City</label>
-                    <div class="col-xs-6">
-                        <input type="text" id="city" name="city" required="true" value="{{{ Form::getValueAttribute('city', null) }}}" class="form-control" placeholder="City">
-                        <span id="errorCity" class="field-validation-msg"></span>
+                        <input type="text" id="age" name="age" required="true" value="{{{ Form::getValueAttribute('age', null) }}}" class="form-control" placeholder="Age">
+                        <span id="error_age" class="field-validation-msg"></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Country</label>
+                    <label class="col-xs-5 control-label">Gender</label>
                     <div class="col-xs-6">
-                        {{country_drop_down()}}
-                        <span id="errorCity" class="field-validation-msg"></span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="form-Section col-md-6 h695 fL">
-            <div class="container w100p">
-                <h3 class="mT15 mB0 c3">&nbsp;</h3>
-                <hr class="w95p fL mT0" />
-                <hr class="w95p fL mT0" />
-
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Address</label>
-                    <div class="col-xs-6">
-                        <input type="text" id="address" name="address" required="true" value="{{{ Form::getValueAttribute('address', null) }}}" class="form-control" placeholder="Address">
-                        <span id="errorAddress" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Mobile</label>
-                    <div class="col-xs-6">
-                        <input type="text" id="phone" name="phone" value="{{{ Form::getValueAttribute('phone', null) }}}" class="form-control" placeholder="Mobile">
-                        <span id="errorAddress" class="field-validation-msg"></span>
+                        {{radio_btn_group(array( 'Male' => 'Male', 'Female' => 'Female' ),'gender')}}
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">CNIC</label>
                     <div class="col-xs-6">
-                        <input type="text" id="cnic" name="cnic" required="true" value="{{{ Form::getValueAttribute('cnic', null) }}}" class="form-control" placeholder="cnic">
-                        <span id="errorAddress" class="field-validation-msg"></span>
+                        <input type="text" id="cnic" name="cnic" value="{{{ Form::getValueAttribute('cnic', null) }}}" class="form-control" placeholder="cnic">
+                        <span id="error_cnic" class="field-validation-msg"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            {{--Contact Info--}}
+            <div class="container w100p">
+                <h3 class="mT15 mB0 c3">Contact Info</h3>
+                <hr class="w95p fL mT0" />
+                <hr class="w95p fL mT0" />
+
+
+
+                <div class="form-group">
+                    <label class="col-xs-5 control-label">Address</label>
+                    <div class="col-xs-6">
+                        <input type="text" id="address" name="address" value="{{{ Form::getValueAttribute('address', null) }}}" class="form-control" placeholder="Address">
+                        <span id="error_address" class="field-validation-msg"></span>
                     </div>
                 </div>
 
                 <div class="form-group">
+                    <label class="col-xs-5 control-label asterisk">City</label>
+                    <div class="col-xs-6">
+                        {{city_drop_down()}}
+                        <span id="error_city_id" class="field-validation-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-5 control-label asterisk">Cell</label>
+                    <div class="col-xs-6">
+                        <input type="text" id="cell" name="cell" value="{{{ Form::getValueAttribute('cell', null) }}}" class="form-control" placeholder="Cell No">
+                        <span id="error_cell" class="field-validation-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-5 control-label asterisk">Phone</label>
+                    <div class="col-xs-6">
+                        <input type="text" id="phone" name="phone" value="{{{ Form::getValueAttribute('phone', null) }}}" class="form-control" placeholder="Phone No">
+                        <span id="error_phone" class="field-validation-msg"></span>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Additional Info</label>
                     <div class="col-xs-6">
-                        <textarea type="text" id="note" name="note" rows="7" cols="20" class="form-control" placeholder="note">{{{ Form::getValueAttribute('note', null) }}}</textarea>
+                        <textarea type="text" id="additional_info" name="additional_info" rows="7" cols="20" class="form-control" placeholder="note">{{{ Form::getValueAttribute('note', null) }}}</textarea>
                         <span id="errorNote" class="field-validation-msg"></span>
                     </div>
                 </div>
 
             </div>
         </section>
+        <section class="form-Section col-md-6 h1315 fL">
+            <div class="container w100p">
+                <h3 class="mT15 mB0 c3">Patient Photo</h3>
+                <hr class="w95p fL mT0" />
+                <hr class="w95p fL mT0" />
+
+                <div class="form-group profile-photo file-input">
+                    <label class="control-label">Profile Photo</label>
+                    <input id="photo" name="photo" type="hidden" value="{{{ Form::getValueAttribute('photo', null) }}}">
+                    <input id="userPhoto" name="userPhoto" type="file" class="file-loading" accept="image/*">
+                </div>
+
+
+
+            </div>
+        </section>
         <div class="col-xs-12 taR pR0 mT20">
             <input type="reset" id="reset" value="Reset" class="submit" />
-            <input type="submit" id="createClose" value="Save and Close" class="submit" />
-            <input type="submit" id="createContinue" name="createContinue" value="Save and Continue" class="submit" />
-            <input type="submit" id="cancel" value="Cancel" class="submit" />
+            <input type="submit" id="saveClose" name="saveClose" value="Save and Close" class="submit" />
+            <input type="submit" id="saveContinue" name="saveContinue" value="Save and Continue" class="submit" />
+            <input type="button" id="cancel" value="Cancel" class="submit" onclick="goTo('{{route("patients.index")}}')" />
         </div>
         {{ Form::close() }}
-
         @section('scripts')
+            <link media="all" type="text/css" rel="stylesheet" href="{{asset('plugins/file-input/css/fileinput.min.css')}}">
+            <script src="{{asset('plugins/file-input/js/fileinput.min.js')}}"></script>
+            <script src="{{asset('js/view-pages/patients/PatientsForm.js')}}"></script>
             <script>
-                $('#dob').datepicker();
+                var photoInitialPreview = '';
 
+                @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
+                        photoInitialPreview = "{{asset('images/profile-dumy.png')}}";
+                @else
+                        photoInitialPreview = "{{get_profile_photo_url($patient->user->photo)}}";
+                @endif
+            $(document).ready(function(){
+                    //***For gender Radio Selection
+                    $('.btn.btn-primary-2.gender').click(function(){
+                        setRadioValInHidden('gender',$(this));
+                    });
 
-                //***** Rdo btn script
-                //***For gender Radio Selection
-                        $('.btn.btn-primary-2.gender').click(function(){
-                            setRadioValInHidden('gender',$(this));
-                        });
+                    var options = {
+                        saveCloseUrl: "{{route('patients.index')}}",
+                        photoUploadUrl: "{{route('uploadProfilePic')}}",
+                        photoInitialPreview :[
+                            photoInitialPreview
+                        ],
+                        formMode: '{{$formMode}}'
+                    };
+                    var patientsForm = new PatientsForm(window,document,options);
+                    patientsForm.initializeAll();
+                });
             </script>
         @stop
