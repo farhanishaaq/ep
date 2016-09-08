@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use \App\Globals\GlobalsConst;
-class RecreateMedicinesTable extends Migration {
+
+class CreateMedicineLocationsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,19 +12,12 @@ class RecreateMedicinesTable extends Migration {
 	 */
 	public function up()
 	{
-		//old one should drop
-		Schema::drop('medicines');
-
-
-
-		Schema::create('medicines', function(Blueprint $table)
+		Schema::create('medicine_locations', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->integer('category_id');
+			$table->increments('id')->unsigned();
 			$table->string('name',70);
 			$table->text('description')->nullable();
 			$table->timestamps();
-			$table->softDeletes();
 		});
 	}
 
@@ -35,8 +28,7 @@ class RecreateMedicinesTable extends Migration {
 	 */
 	public function down()
 	{
-		//****don't drop it here
-//		Schema::drop('medicines');
+		Schema::drop('medicine_locations');
 	}
 
 }
