@@ -2,7 +2,7 @@
 
 
 
-class MadicinePurchaseDetail extends \Eloquent {
+class MedicinePurchaseDetail extends \Eloquent {
 	
 	protected $fillable = ['medicine_id','purchase_id','unit_price','quantity'];
 

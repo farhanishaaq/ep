@@ -2,7 +2,7 @@
 
 
 
-class MadicineSale extends \Eloquent {
+class MedicineSale extends \Eloquent {
 	
 	protected $fillable = ['patient_id','date'];
 

@@ -2,7 +2,7 @@
 
 
 
-class MadicineLocation extends \Eloquent {
+class MedicineLocation extends \Eloquent {
 	
 	protected $fillable = ['name'];
 

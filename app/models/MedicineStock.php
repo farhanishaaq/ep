@@ -2,7 +2,7 @@
 
 
 
-class MadicineStock extends \Eloquent {
+class MedicineStock extends \Eloquent {
 
 	protected $fillable = ['medicine_id','location_id','business_id','minimum_stock','quantity'];
 

@@ -2,7 +2,7 @@
 
 
 
-class MadicineMenufacturer extends \Eloquent {
+class MedicineMenufacturer extends \Eloquent {
 	
 	protected $fillable = ['name','contact','email','address'];
 
