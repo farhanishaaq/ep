@@ -17,6 +17,16 @@ class BusinessUnit extends \Eloquent {
 		'company_id' => 'required',
 	];
 
+	public function medicineStocks(){
+		return $this->hasMany('MedicineStock');
+	}
+
+
+	public function medicinePurchases()
+	{
+		return $this->hasMany('MedicinePurchase');
+	}
+
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
