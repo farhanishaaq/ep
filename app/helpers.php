@@ -326,6 +326,18 @@ function make_company_type_drop_down(){
 }
 
 /**
+ * follow_up_prescription__drop_down | This function is used to show patient prescription detail
+ * @return mixed
+ */
+function follow_up_prescription_drop_down($id)
+{
+    $patientData = Prescription::fetchPrescriptionOfPatient($id);
+    $patientData[""] = "Select Prescription";
+    ksort($patientData);
+    return Form::select('Prescription_id',$patientData,Form::getValueAttribute('Prescription_id', null),['id'=>"follow_up_pres"]);
+}
+
+/**
  * dosage_form_drop_down | This function is used to draw days select  box
  * @return mixed
  */
@@ -335,16 +347,6 @@ function dosage_form_drop_down($i=0)
     $dataset = GlobalsConst::$DOSAGE_FORMS;
     $dataset[""] = "Select Dosage Form";
     ksort($dataset);
-/*    if($i==-1){
-
-        $required = "";
-        return Form::select('dosage_form['.$i.']',$dataset,Form::getValueAttribute('dosage_form', null),['id'=>"dosage_form", $required]);
-
-    }else{
-
-        return Form::select('dosage_form['.$i.']',$dataset,Form::getValueAttribute('dosage_form', null),['id'=>"dosage_form", 'required'=>'true']);
-    }*/
-
 
     $attrs = ['id'=>"dosage_form", 'required'=>'true'];
     if($i == -1){
@@ -379,14 +381,20 @@ function dosage_strength_form_drop_down($i=0)
 
 function medicine_drop_down($i=0)
 {
-    $dataset = GlobalsConst::$MEDICINE;
+    //$dataset = GlobalsConst::$MEDICINE;
+    $dataset = Medicine::all()->lists('name','id');
     $dataset[""] = "Select Medicine";
     ksort($dataset);
-    $required = "'required'=>'true'";
     if($i==-1){
+
         $required = "";
+        return Form::select('dosage_strength['.$i.']',$dataset,Form::getValueAttribute('dosage_strength', null),['id'=>"medicine_id", $required,'class'=>'fL']);
+
+    }else{
+
+        return Form::select('dosage_strength['.$i.']',$dataset,Form::getValueAttribute('dosage_strength', null),['id'=>"medicine_id", 'required'=>'true','class'=>'fL']);
+
     }
-    return Form::select('dosage_strength['.$i.']',$dataset,Form::getValueAttribute('dosage_strength', null),['id'=>"medicine_id", $required,'class'=>'fL']);
 
 }
 
@@ -400,7 +408,7 @@ function frequency_drop_down($i=0){
 //    $dataset[""] = "Select Frequencies";
     ksort($dataset);
     $selectedData = Form::getValueAttribute('medical_specialty_id', null);
-    return Form::select('frequencies['.$i.']',$dataset, $selectedData,['id'=>"frequencies", 'multiple'=>true,]);
+    return Form::select('frequencies_dd['.$i.']',$dataset, $selectedData,['id'=>"frequencies_dd", 'multiple'=>true,]);
 
 
 }
@@ -414,7 +422,7 @@ function usage_type_drop_down($i=0){
     $dataset[""] = "Usage Type";
     ksort($dataset);
     $selectedData = Form::getValueAttribute('medical_specialty_id', null);
-    return Form::select('usage_type['.$i.']',$dataset, $selectedData,['id'=>"usage_type",]);
+    return Form::select('usage_type['.$i.']',$dataset, $selectedData,['id'=>"usage_type",'required'=>'true']);
 }
 
 /**

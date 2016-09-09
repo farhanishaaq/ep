@@ -9,7 +9,7 @@ class Prescription extends \Eloquent {
 
 	// Don't forget to fill this array
 	protected $fillable = ['code', 'note', 'patient_id', 'appointment_id', 'procedure',
-                            'company_id'];
+                            'company_id', 'check_up_note', 'parent_id', 'refill'];
 
     // Relationships
     public function patient()
@@ -58,12 +58,24 @@ class Prescription extends \Eloquent {
         $prescription->patient_id     = $data['patient_id'];
         $prescription->appointment_id = $data['appointment_id'];
         $prescription->code           = $data['code'];
+        $prescription->check_up_note  = $data['check_up_note'];
+        $prescription->refill         = $data['refill'];
+        //$prescription->parent_id    = $data['parent_id'];
+        $prescription->parent_id      = 3;
         $prescription->save();
+
         $data['PrescriptionDetailId']= $prescription->id;
         $pdResult = PrescriptionDetail::savePrescriptionDetail($data,GlobalsConst::DATA_SAVE);
         if($pdResult['success'] == true){
             $response = ['success'=>true, 'error'=> false, 'message'=>'Prescription has been saved successfully!'];
         }
+    }
+
+    public static function fetchPrescriptionOfPatient($id)
+    {
+
+        return Prescription::where('patient_id','=',$id)->lists('code','id');
+        //return Prescription::find($id);
     }
 
     
