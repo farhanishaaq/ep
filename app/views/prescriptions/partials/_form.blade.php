@@ -125,7 +125,15 @@
         $(document).ready(function () {
             rowIndex = 0;
             $('#regForm').on('click', '.addButton', function () {
-                var $beforeCurrentRow = $('#detail-row-'+rowIndex);
+
+                var availableRowsCount = $('[id^="detail-row-"]').length;
+                console.log(availableRowsCount);
+                if(availableRowsCount > 1 ){
+                    var $beforeCurrentRow = $('#detail-row-'+rowIndex);
+                }else{
+                    var $beforeCurrentRow = $('#detail-row-'+0)
+                    rowIndex = 0;
+                }
                 rowIndex++;
                 var $template = $('#detailRowTemplate');
                 var $clone = $template
