@@ -56,9 +56,11 @@ class PrescriptionsController extends \BaseController
     {
 
         $data = Input::all();
-        dd($data);
-//        $result = Prescription::savePrescription($data);
-//        return $result;
+        //dd($data);
+        //dd($data['frequencies']);
+
+        $result = Prescription::savePrescription($data);
+        //return $result;
 
 
     }

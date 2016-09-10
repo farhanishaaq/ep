@@ -18,6 +18,13 @@ class Patient extends \Eloquent {
     'phone', 'cnic', 'note', 'company_id'];
 
 //  Relationships
+
+
+    public function medicineSales()
+    {
+        return $this->hasMany('MedicineSale');
+    }
+
     public function allergies()
     {
         return $this->hasMany('Allergy');
