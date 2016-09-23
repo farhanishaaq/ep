@@ -39,8 +39,10 @@ class GlobalsConst {
     const COMPANY_ADMIN_ID = 2;
 
 
+    const UPLOAD_DIR = 'uploaded-data';
     const PROFILE_PHOTO_DIR = 'uploaded-data/profile-photos';
     const DUMMY_EMAIL_DOMAIN = '@test.com';
+    const CHECK_UP_PHOTO_DIR = 'check-up-photos';
 
 
     //Roles
@@ -99,6 +101,10 @@ class GlobalsConst {
 //        'DoctorsController@store', //@todo It is not public, remove from here
 //        'DoctorsController@show', //@todo It is not public, remove from here
 //        'DoctorsController@edit', //@todo It is not public, remove from here
+        'PrescriptionsController@uploadCheckUpPic', //@todo It is not public, remove from here
+        'PrescriptionsController@deleteCheckUpPic', //@todo It is not public, remove from here
+        'PrescriptionsController@followUpPrescriptions', //@todo It is not public, remove from here
+
     ];
 
     //User Types

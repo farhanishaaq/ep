@@ -9,6 +9,7 @@ var PrescriptionForm = function(win,doc, options){
         dataFormId: "#regForm",
         saveCloseUrl: "",
         photoUploadUrl: "",
+        photoDeleteUrl: "",
         photoInitialPreview: [],
         formMode: '',
         validationRulesForForm: function (frmElement) {
@@ -65,6 +66,7 @@ var PrescriptionForm = function(win,doc, options){
             });
         }
     };
+
     var settings = $.extend(defaults, options || {});
     var s = settings;
     var saveCloseClicked = false;
@@ -153,7 +155,7 @@ var PrescriptionForm = function(win,doc, options){
     var makePhotoUploadComponent = function () {
         //*********************FileInput plugin
         // with plugin options
-        $("#userPhoto").fileinput({
+        $("#checkUpPhoto").fileinput({
             uploadUrl: s.photoUploadUrl, // server upload action
             uploadAsync: true,
             initialPreview: s.photoInitialPreview,
@@ -163,7 +165,7 @@ var PrescriptionForm = function(win,doc, options){
             initialPreviewConfig: [
                 {caption: "profile-dumy.png", size: 930321, width: "120px", key: 1}
             ],
-            deleteUrl: "{{route('uploadProfilePic')}}",
+            deleteUrl: s.photoDeleteUrl,
             overwriteInitial: true,
             maxFileSize: window.PROFILE_MAX_FILE_SIZE, //KB
             initialCaption: "Profile Photo",
@@ -172,7 +174,7 @@ var PrescriptionForm = function(win,doc, options){
         });
 
         // CATCH RESPONSE
-        $('#userPhoto').on('filebatchuploaderror', function(event, data, previewId, index) {
+        $('#checkUpPhoto').on('filebatchuploaderror', function(event, data, previewId, index) {
             var form = data.form, files = data.files, extra = data.extra,
                 response = data.response, reader = data.reader;
 
@@ -188,15 +190,28 @@ var PrescriptionForm = function(win,doc, options){
          }
          });*/
 
-        $('#userPhoto').on('fileuploaded', function(event, data, previewId, index) {
+        $('#checkUpPhoto').on('fileuploaded', function(event, data, previewId, index) {
             var response = data.response;
             $('#photo').val(response.uploaded);
             console.log('File uploaded triggered');
             showMsg(response.message);
         });
 
-        $('#userPhoto').on('filecleared', function(event) {
-            alert('Cleared');
+        $('#checkUpPhoto').on('filecleared', function(event) {
+            //alert('Cleared');
+            var imageName = $('#photo').val();
+            $.ajax({
+                type: 'GET',
+                url: s.photoDeleteUrl,
+                data: {imageName: imageName},
+                dataType: 'json',
+                success: function (response) {
+                    if(response.success)
+                    {
+                        showMsg(response.message,window.MESSAGE_TYPE_SUCCESS);
+                    }
+                }
+            });
         });
     };
 
@@ -297,6 +312,31 @@ var PrescriptionForm = function(win,doc, options){
             });
         //****End OnClick Of New Row
 
+
+        /**
+         * Form follow_up_pres change Event
+         */
+        $('#follow_up_pres').on("change",function(){
+
+            var followUpId = $(this).val();
+                $.ajax({
+
+                    type: 'GET',
+                    url: 'http://localhost/ep/public/followUpPrescriptions',
+                    data: {followUpId: followUpId},
+                    dataType: 'html',
+                    success: function(result){
+                        $("#detailRowContainer").html(result);
+                    }
+
+                });
+
+        });
+
+
+
+
+
         /**
          * Form Submit Button Event
          */
@@ -334,7 +374,7 @@ var PrescriptionForm = function(win,doc, options){
 
             return false;
         });
-
+        //****End of form submit
 
 
         $('#saveClose').click(function (e) {
