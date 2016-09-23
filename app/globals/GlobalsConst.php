@@ -99,6 +99,10 @@ class GlobalsConst {
 //        'DoctorsController@store', //@todo It is not public, remove from here
 //        'DoctorsController@show', //@todo It is not public, remove from here
 //        'DoctorsController@edit', //@todo It is not public, remove from here
+          'inventory\MedicinePurchasesController@index',
+          'inventory\MedicinePurchasesController@create',
+
+
     ];
 
     //User Types

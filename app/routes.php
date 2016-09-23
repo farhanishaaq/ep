@@ -192,4 +192,40 @@ Route::get('testing', function(){
     print_r(get_class_methods(Route::getCurrentRoute()));die;
 });
 
+/**
+ * PrescriptionsController Routes
+ */
+
+Route::group(['Inventory'],function () {
+
+
+
+    /**
+     * ===========================================================================
+     * Private Routes
+     * ===========================================================================
+     */
+    Route::group(['Private', 'before' => 'auth'],function (){
+        Route::resource('prescriptions', 'PrescriptionsController');
+        Route::get('patientPrescriptions/{patientId}', array('before' => 'auth', 'as' => 'patientPrescriptions', 'uses' => 'PrescriptionsController@patientPrescriptions'));
+        Route::get('printPrescription/{id}', ['as' => 'printPrescription', 'uses' => 'PrescriptionsController@printPrescription']);
+
+        //testing
+        Route::resource('medicinePurchase','inventory\MedicinePurchasesController');
+
+    });
+
+
+
+    /**
+     * ===========================================================================
+     * Public Routes
+     * ===========================================================================
+     */
+    Route::group(['Public'],function () {
+
+    });
+
+
+});
 
