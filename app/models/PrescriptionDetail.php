@@ -1,15 +1,15 @@
 <?php
 
 class PrescriptionDetail extends \Eloquent {
-
+    public $timestamps = false;
 	// Add your validation rules here
 	public static $rules = [
 		// 'title' => 'required'
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = ['prescription_id', 'medicine_id', 'usage_type', 'dosage_strength', 'usage_quantity',
-                            'quantity_unit','frquencies', 'conditional_note','extra_note'];
+	protected $fillable = ['prescription_id', 'medicine_id', 'usage_type', 'strength_quantity', 'dosage_strength', 'usage_quantity',
+                            'quantity_unit','frquencies','extra_note'];
 
     // Relationships
     public function patient()
@@ -33,14 +33,12 @@ class PrescriptionDetail extends \Eloquent {
     }
 
     public static function savePrescriptionDetail($data,$dataProcessType=GlobalsConst::DATA_SAVE){
+
         $vRules = PrescriptionDetail::$rules;
 
 
-
-
-
-        $medicineIds = $data['medicine_id'];
-        foreach ($medicineIds as $k => $mId){
+        $usage_types = $data['usage_type'];
+        foreach ($usage_types as $k => $usage_type){
             if($k == -1){
                 continue;
             }
@@ -56,25 +54,37 @@ class PrescriptionDetail extends \Eloquent {
                 }
             }
 
-            //*****Start Rules Validators
+            //*****Start Rules Validators0
             $validator = Validator::make($data, $vRules);
             if ($validator->fails())
             {
                 return ['success'=>false, 'error'=> true, 'validatorErrors'=>$validator->errors()];
             }
             //*****End Rules Validators
+//            $fArr=[];
+//            $frequencies = $data['frequencies'][$k];
+////            echo $k;
+////            print_r($data['frequencies'][$k]);
+//
+//            foreach($frequencies as $key =>$f ){
+//                $fArr['key_'.$key] = $f;
+//            }
+//            $jsonStr = json_encode($fArr);
 
-            $prescription_detail->prescription_id   = $data['prescriptionId'];
+            $prescription_detail->prescription_id   = $data['PrescriptionDetailId'];
             $prescription_detail->medicine_id       = 2;
             $prescription_detail->usage_type        = $data['usage_type'][$k];
+            $prescription_detail->strength_quantity = $data['strength_quantity'][$k];
             $prescription_detail->dosage_strength   = $data['dosage_strength'][$k];
-            $prescription_detail->usage_quantity    = $data['usage_quantity'][$k];;
+            $prescription_detail->usage_quantity    = $data['usage_quantity'][$k];
             $prescription_detail->quantity_unit     = $data['quantity_unit'][$k];
             $prescription_detail->frequencies       = $data['frequencies'][$k];
-            $prescription_detail->conditional_note  = $data['conditional_note'][$k];
+            //$prescription_detail->frequencies       = $jsonStr;
             $prescription_detail->extra_note        = $data['extra_note'][$k];
             $prescription_detail->save();
+
         }
+        //dd($prescription_detail);
         $response = ['success'=>true, 'error'=> false, 'message'=> 'Prescription Detail has been saved successfully!'];
         return $response;
     }

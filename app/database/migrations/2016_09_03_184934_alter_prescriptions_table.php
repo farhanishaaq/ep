@@ -20,6 +20,7 @@ class AlterPrescriptionsTable extends Migration {
 			$table->string('procedures',1024)->nullable();
 			$table->text('check_up_note')->nullable();
 			$table->string('check_up_photo',100)->nullable();
+			$table->integer('refill');
 		});
 	}
 

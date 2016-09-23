@@ -95,12 +95,50 @@ class Ep {
      * @param $dir
      * @return bool
      */
-    public function checkOrMakeDir($dir)
+    public static function checkOrMakeDir($dir)
     {
         if (!file_exists($dir)) {
-            return mkdir( $dir, 0777);
+
+            $tags = explode('/' ,$dir);
+            $mkDir = "";
+
+            foreach($tags as $folder) {
+                $mkDir = $mkDir . $folder ."/";
+                if(!is_dir($mkDir)) {
+                    mkdir($mkDir, 0777);
+                }
+
+            }
+            return $mkDir;
+
         }else{
             return true;
         }
     }
-} 
+
+    public static function checkUpPrescrptionDirectory()
+    {
+        $upload_dir  = GlobalsConst::UPLOAD_DIR;
+        $companyId   = self::currentCompanyId();
+        $businessId  = self::currentBusinessUnitId();
+        $checkUp_dir = GlobalsConst::CHECK_UP_PHOTO_DIR;
+        $dir = $upload_dir .'/'. $companyId .'/'. $businessId .'/'. $checkUp_dir;
+        self::checkOrMakeDir($dir);
+        return $dir;
+    }
+
+
+    public static function userProfilePhotoDirectory()
+    {
+        $upload_dir  = GlobalsConst::UPLOAD_DIR;
+        $companyId   = self::currentCompanyId();
+        $businessId  = self::currentBusinessUnitId();
+        $checkUp_dir = GlobalsConst::CHECK_UP_PHOTO_DIR;
+        $dir = $upload_dir .'/'. $companyId .'/'. $businessId .'/'. $checkUp_dir;
+        self::checkOrMakeDir($dir);
+        return $dir;
+    }
+
+
+
+}

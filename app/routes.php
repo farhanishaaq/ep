@@ -179,6 +179,10 @@ Route::group(['Private', 'before' => 'auth'],function (){
         Route::resource('prescriptions', 'PrescriptionsController');
         Route::get('patientPrescriptions/{patientId}', array('before' => 'auth', 'as' => 'patientPrescriptions', 'uses' => 'PrescriptionsController@patientPrescriptions'));
         Route::get('printPrescription/{id}', ['as' => 'printPrescription', 'uses' => 'PrescriptionsController@printPrescription']);
+        Route::any('uploadCheckUpPic', array('as' => 'uploadCheckUpPic', 'uses' => 'PrescriptionsController@uploadCheckUpPic'));
+        Route::any('deleteCheckUpPic', array('as' => 'deleteCheckUpPic', 'uses' => 'PrescriptionsController@deleteCheckUpPic'));
+        Route::get('followUpPrescriptions', array('as' => 'followUpPrescriptions', 'uses' => 'PrescriptionsController@followUpPrescriptions'));
+
     });
 });
 
@@ -187,9 +191,11 @@ Route::group(['Private', 'before' => 'auth'],function (){
  * Testing Route
  */
 Route::get('testing', function(){
+    //App\Globals\Ep::checkUpPrescrptionDirectory();die;
+
 //    echo Route::getCurrentRoute()->getActionName();die;
-    echo Route::getCurrentRoute()->getActionName();die;
-    print_r(get_class_methods(Route::getCurrentRoute()));die;
+    //echo Route::getCurrentRoute()->getActionName();die;
+    //print_r(get_class_methods(Route::getCurrentRoute()));die;
 });
 
 /**

@@ -1,5 +1,8 @@
 <?php
 
+use App\Globals\GlobalsConst;
+use App\Globals\Ep;
+
 class PrescriptionsController extends \BaseController
 {
 
@@ -44,7 +47,19 @@ class PrescriptionsController extends \BaseController
 //        $doctors = Doctor::fetchDoctorsForDropDown();
 //        $medicines = Medicine::where('company_id', Auth::user()->company_id)->get()->lists('name', 'id');
         $medicines= null;
-        return View::make('prescriptions.create')->nest('_form','prescriptions.partials._form', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount'));
+        $prescriptionsDetails = null;
+        $_detail_row = View::make('prescriptions.partials._detail_row', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount', 'prescriptionsDetails'));
+        return View::make('prescriptions.create')->nest('_form','prescriptions.partials._form', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount','_detail_row'));
+    }
+
+    public function followUpPrescriptions()
+    {
+        //echo "Hello Ali";
+        $followUpId = Input::get('followUpId');
+
+        $prescriptionsDetails = PrescriptionDetail::where('prescription_id','=',$followUpId)->get();
+
+        return View::make('prescriptions.partials._detail_row', compact('prescriptionsDetails'));
     }
 
     /**
@@ -56,9 +71,11 @@ class PrescriptionsController extends \BaseController
     {
 
         $data = Input::all();
-        dd($data);
-//        $result = Prescription::savePrescription($data);
-//        return $result;
+        //dd($data);
+        //dd($data['frequencies']);
+
+        $result = Prescription::savePrescription($data);
+        //return $result;
 
 
     }
@@ -305,6 +322,42 @@ class PrescriptionsController extends \BaseController
         $medicines = $prescription->medicines()->get();
         $_viewPrescription = View::make('prescriptions.partials._viewPrescription', compact('prescription', 'medicines'))->render();
         return PDF::html('prescriptions.printPrescription',compact('_viewPrescription'));
+    }
+
+    public function uploadCheckUpPic(){
+        $response = null;
+
+        if (Input::hasFile('checkUpPhoto')) {
+            $file            = Input::file('checkUpPhoto');
+            $destinationPath = public_path(EP::checkUpPrescrptionDirectory());
+            $filename        = str_random(4).'_'.$file->getClientOriginalName();
+            $uploadSuccess   = $file->move($destinationPath, $filename);
+//			$response = ['success'=>true,'error'=>false,'message'=>'Photo has been uploaded successfully!','uploadedFileName'=>$filename,'abc'=>$uploadSuccess];
+            $response = ['success'=>true,'uploaded'=>$filename,'message'=>'Photo has been uploaded successfully!'];
+
+        }else{
+//			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
+            $response = ['success'=>false,'error'=>'No files were processed.'];
+        }
+        return Response::json($response);
+    }
+
+    public function deleteCheckUpPic()
+    {
+        $response = null;
+        if (Input::get('imageName')) {
+            $file = Input::get('imageName');
+            $destinationPath = public_path(EP::checkUpPrescrptionDirectory());
+            unlink($destinationPath .'/'. $file );
+            $response = ['success'=>true,'uploaded'=>$file,'message'=>'Photo has been Deleted successfully!'];
+
+        }else{
+//			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
+            $response = ['success'=>false,'error'=>'No files were processed.'];
+        }
+        return Response::json($response);
+
+
     }
 
 }
