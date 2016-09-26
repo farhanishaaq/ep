@@ -417,11 +417,11 @@ function frequency_drop_down($i=0){
  * @param int $i
  * @return mixed
  */
-function usage_type_drop_down($i=0){
+function usage_type_drop_down($i=0,$selectedData=null){
     $dataset = GlobalsConst::$USAGE_TYPES;
     $dataset[""] = "Usage Type";
     ksort($dataset);
-    $selectedData = Form::getValueAttribute('medical_specialty_id', null);
+//    $selectedData = Form::getValueAttribute('medical_specialty_id', null);
     return Form::select('usage_type['.$i.']',$dataset, $selectedData,['id'=>"usage_type",'required'=>'true']);
 }
 

@@ -1,12 +1,14 @@
 <?php
 $TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
 $i = 0;
+$prescriptionsDetailsCount = count($prescriptionsDetails);
+$rowCounter = $prescriptionsDetailsCount == 0 ? 1 : $prescriptionsDetailsCount;
 ?>
 {{-- Detail Row As At Zero Index --}}
 @if(($prescriptionsDetails) != null)
     @if(($prescriptionsDetails->count()))
         @foreach($prescriptionsDetails as $k => $pd)
-            <?php $i = $k ?>
+            <?php $i = --$rowCounter ?>
             @include('prescriptions.includes.zero_detail_row')
         @endforeach
     @else
@@ -15,7 +17,7 @@ $i = 0;
 @else
     @include('prescriptions.includes.zero_detail_row')
 @endif
-
+<span id="checkUpImgPath" class="dN">{{asset('')}}</span>
 
 
 
@@ -78,3 +80,16 @@ $i = 0;
         </a>
     </div>
 </div>
+
+<script src="{{asset('js/view-pages/prescriptions/PrescriptionDetailForm.js')}}"></script>
+<script type="text/javascript">
+
+        rowCount = "{{$prescriptionsDetailsCount}}";
+        window.PrescriptionDetailRowIndex = parseInt(rowCount) - 1;
+        var options = {rowCount: parseInt(rowCount)};
+
+        var prescriptionDetailForm = new PrescriptionDetailForm(window, document, options);
+        prescriptionDetailForm.initializeAll();
+
+
+</script>

@@ -11,6 +11,7 @@ var PrescriptionForm = function(win,doc, options){
         photoUploadUrl: "",
         photoDeleteUrl: "",
         photoInitialPreview: [],
+        parentPrescriptionUrl: "",
         formMode: '',
         validationRulesForForm: function (frmElement) {
             frmElement.validate({
@@ -70,7 +71,7 @@ var PrescriptionForm = function(win,doc, options){
     var settings = $.extend(defaults, options || {});
     var s = settings;
     var saveCloseClicked = false;
-    var rowIndex = 0;
+    //var rowIndex = 0;
 
     /**
      *
@@ -295,9 +296,9 @@ var PrescriptionForm = function(win,doc, options){
 
         //****Start OnClick Of New Row Plus Remove Row
         $(s.dataFormId).on('click', '.addButton', function () {
-                var $beforeCurrentRow = $('#detail-row-'+rowIndex);
-                rowIndex++;
-                createNewRow(rowIndex,$beforeCurrentRow);
+                var $beforeCurrentRow = $('#detail-row-'+window.PrescriptionDetailRowIndex);
+                window.PrescriptionDetailRowIndex++;
+                createNewRow(window.PrescriptionDetailRowIndex,$beforeCurrentRow);
             })
 
             // Remove button click handler
@@ -322,11 +323,12 @@ var PrescriptionForm = function(win,doc, options){
                 $.ajax({
 
                     type: 'GET',
-                    url: 'http://localhost/ep/public/followUpPrescriptions',
+                    url: s.parentPrescriptionUrl,
                     data: {followUpId: followUpId},
                     dataType: 'html',
                     success: function(result){
                         $("#detailRowContainer").html(result);
+                        $('#prescriptionDetailTab').trigger('click');
                     }
 
                 });

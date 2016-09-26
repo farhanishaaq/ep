@@ -1,8 +1,8 @@
 {{--Detail Row As At Zero Index--}}
-<div id="detail-row-{{$i}}" class="form-group list-group h170" data-row-index="0">
+<div class="form-group list-group h170" id="detail-row-{{$i}}" data-row-index="{{$i}}">
     <div class="col-xs-12">
         <a href="javascript:void(0)" class="col-xs-12 list-group-item list-group-item-action active  h55">
-            <h4 class="col-xs-4">Row 1</h4>
+            <h4 class="col-xs-4">Row {{($i+1)}}</h4>
             <h4 class="col-xs-3 fR mT0">
                 <div class="fL mL5 mT10">Remove Detail Row</div>
                 <button class="fR btn btn-default removeButton" type="button"><i class="fa fa-minus"></i></button>

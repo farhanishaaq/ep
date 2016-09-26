@@ -28,7 +28,7 @@
 
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#prescriptionInfoTab" aria-controls="prescriptionInfoTab" role="tab" data-toggle="tab">Prescription Info</a></li>
-                <li role="presentation"><a href="#prescriptionDetailInfoTab" aria-controls="prescriptionDetailInfoTab" role="tab" data-toggle="tab">Prescription Detail Info</a></li>
+                <li role="presentation"><a href="#prescriptionDetailInfoTab" id="prescriptionDetailTab" aria-controls="prescriptionDetailInfoTab" role="tab" data-toggle="tab">Prescription Detail Info</a></li>
             </ul>
 
             <div class="tab-content">
@@ -179,6 +179,7 @@
                         saveCloseUrl: "{{route('prescriptions.index')}}",
                         photoUploadUrl: "{{route('uploadCheckUpPic')}}",
                         photoDeleteUrl: "{{route('deleteCheckUpPic')}}",
+                        parentPrescriptionUrl: "{{route('followUpPrescriptions')}}",
                         photoInitialPreview :[
                             "{{asset('images/profile-dumy.png')}}"
                         ],
