@@ -3,7 +3,9 @@ namespace inventory;
 use App\Globals\Ep;
 use App\Globals\GlobalsConst;
 use BusinessUnit;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
+use MedicinePurchase;
 
 
 class MedicinePurchasesController extends \BaseController
@@ -19,11 +21,11 @@ class MedicinePurchasesController extends \BaseController
     {
 
         $formMode = GlobalsConst::FORM_CREATE;
-        $business_unit = BusinessUnit::lists('name','id');
-        dd($business_unit);
-        $medicines = null;
-
-         return View::make('medicine_purchases.create')->nest('_form','medicine_purchases.partials._form',compact('formMode','medicines','business_unit','menufacturer_id','code','date'));
+       // $company_id = 1;
+        //return "i am here";
+        $date = date('ymd');
+        $company_id = current_company_id();
+        return View::make('medicine_purchases.create')->nest('_form','medicine_purchases.partials._form',compact('formMode','company_id','code','date'));
 
     }
 
@@ -31,8 +33,9 @@ class MedicinePurchasesController extends \BaseController
     public function store()
     {
         $data = Input::all();
-       // dd($data);
-        $result = Prescription::savePrescription($data);
+        $result = MedicinePurchase::saveMedicinePurchase($data);
+//        dd($data);
+//        $result = Prescription::savePrescription($data);
         return $result;
     }
 
