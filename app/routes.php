@@ -30,6 +30,10 @@ Route::group(['Public'],function (){
      */
     Route::group(['Home'],function (){
         Route::get('/', 'HomeController@index');
+        Route::group(['domain' => '{companyDomain}.ep.loc'], function ($companyDomain) {
+            Route::get('companyHome', array('as'=>'showCompanyHomePage','uses'=>'HomeController@showCompanyHomePage'));
+        });
+        Route::get('fetchDoctorDutyAndFeeInfo', array('as'=>'fetchDoctorDutyAndFeeInfo','uses'=>'HomeController@fetchDoctorDutyAndFeeInfo'));
         Route::get('home', array('as'=>'home','uses'=>'HomeController@index'));
         Route::get('about', array('as'=>'about','uses'=>'HomeController@showAbout'));
         Route::get('services', array('as'=>'services','uses'=>'HomeController@showServices'));
@@ -187,9 +191,11 @@ Route::group(['Private', 'before' => 'auth'],function (){
  * Testing Route
  */
 Route::get('testing', function(){
-//    echo Route::getCurrentRoute()->getActionName();die;
+/*//    echo Route::getCurrentRoute()->getActionName();die;
     echo Route::getCurrentRoute()->getActionName();die;
-    print_r(get_class_methods(Route::getCurrentRoute()));die;
+    print_r(get_class_methods(Route::getCurrentRoute()));die;*/
+
+    return  Redirect::route('showCompanyHomePage', array("ep-clinic"));
 });
 
 

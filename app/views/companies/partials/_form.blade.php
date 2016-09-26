@@ -163,6 +163,7 @@
     <input type="submit" id="saveContinue" value="Save && Continue" class="submit" />
     <input type="button" id="cancel" name="cancel" value="Cancel" class="submit" onclick="goTo('{{route("companies.index")}}')" />
 </div>
+{{ Form::close() }}
 @section('scripts')
     <link rel="stylesheet" href="{{asset('plugins/calendar/css/fullcalendar.min.css')}}" type="text/css">
     <script src="{{asset('plugins/calendar/js/fullcalendar.min.js')}}"></script>

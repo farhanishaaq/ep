@@ -1,5 +1,7 @@
 <?php
 
+use \App\Globals\GlobalsConst;
+
 class HomeController extends BaseController {
 
 	public function index()
@@ -28,34 +30,42 @@ class HomeController extends BaseController {
 		return View::make('home.doctor_home', compact('appointments'));
 	}
 
-	public function showReceptionistHome()
-	{
-		return View::make('home.receptionist_home');
-	}
+    /**
+     * @param $companyName
+     * @param $companyId
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function showCompanyHomePage($companyDomain)
+    {
+        $object = 'Company';
+        $errorView = View::make('errors.notFound', compact('object'));
 
-	public function showLabManagerHome()
-	{
-		return View::make('home.labmanager_home');
-	}
-
-	public function showAccountantHome()
-	{
-		return View::make('home.accountant_home');
-	}
-
-	public function showAdminHome()
-	{
-		return View::make('home.admin_home');
-	}
-
-    public function showSuperHome(){
-        return View::make('home.super_home');
+        $Company = Company::where('domain','=',$companyDomain)->first();
+        if($Company){
+            if($Company->count() > GlobalsConst::ZERO_INDEX){
+                $doctors = Doctor::fetchDoctorsByCompanyId($companyDomain);
+                return View::make('home.companyHomePage', compact('Company','doctors'));
+            }else{
+                return $errorView;
+            }
+        }else{
+            return $errorView;
+        }
     }
 
-	public function showUserRegistrationForm(){
-
-		return View::make('admin.register_user');
-	}
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function fetchDoctorDutyAndFeeInfo()
+    {
+        $doctorId = Input::get('doctorId', null);
+        if($doctorId){
+            $DoctorDutyAndFeeInfos = Doctor::fetchDoctorDutyAndFeeInfoByDoctorId($doctorId);
+            return View::make('home.partials._doctorInfo', compact('DoctorDutyAndFeeInfos'));
+        }else{
+            return 'error';
+        }
+    }
 
     public function sendContactUsMail(){
         $data = [

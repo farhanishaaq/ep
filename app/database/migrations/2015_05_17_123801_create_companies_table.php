@@ -17,6 +17,7 @@ class CreateCompaniesTable extends Migration {
 			$table->increments('id');
 			$table->integer('city_id')->nullable();
             $table->string('name',60)->unique();
+            $table->string('domain',60)->unique();
             $table->enum('company_type', ['Hospital','Clinic']);
 			$table->string('address', 255)->nullable();
 			$table->string('phone',18)->nullable();//+92 42 36857203

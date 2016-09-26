@@ -62,7 +62,7 @@
        window.MESSAGE_TYPE_SUCCESS = 'Success';
        window.MESSAGE_TYPE_ERROR = 'Error';
        </script>
-       <link rel="icon" href="/images/icon.jpg" type="image/x-icon">
+       <link rel="icon" href="/images/icon.png" type="image/x-icon">
 
        {{--{{ HTML::style('/login_css/style.css') }}--}}
        {{ HTML::style('/css/windows_menu.css') }}

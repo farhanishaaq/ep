@@ -22,6 +22,7 @@ class GlobalsConst {
     const TIME_SLOT_INTERVAL = 20;
     const LIST_DATA_LIMIT = 60;
     const TEMPLATE_INDEX = -1;
+    const ZERO_INDEX = 0;
 
 
     const EP_DEMO_COMPANY_ONE = 1;
@@ -99,6 +100,8 @@ class GlobalsConst {
 //        'DoctorsController@store', //@todo It is not public, remove from here
 //        'DoctorsController@show', //@todo It is not public, remove from here
 //        'DoctorsController@edit', //@todo It is not public, remove from here
+        'HomeController@showCompanyHomePage', //@todo It is not public, remove from here
+        'HomeController@fetchDoctorDutyAndFeeInfo', //@todo It is not public, remove from here
     ];
 
     //User Types

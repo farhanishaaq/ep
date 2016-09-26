@@ -206,4 +206,30 @@ class Doctor extends \Eloquent {
 		else
 			return $qryBuilder->get();
 	}
+
+    /**
+     * @param $companyId
+     * @param bool $forDropDown
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|static[]
+     */
+    public static function fetchDoctorsByCompanyId($companyId, $forDropDown=false)
+    {
+        $qryBuilder = self::join('users','users.id','=','doctors.user_id','inner')
+            ->where('users.company_id','=',$companyId)
+            ->orderBy('users.full_name')
+            ->select(['users.full_name','doctors.id',]);
+
+//        dd($qryBuilder->toSql());
+        if ($forDropDown==true){
+            return $qryBuilder->lists('users.full_name','doctors.id');
+        }else{
+            return $qryBuilder->get();
+        }
+	}
+
+    public static function fetchDoctorDutyAndFeeInfoByDoctorId($doctorId){
+        $qryBuilder = Doctor::join('duty_days','duty_days.doctor_id','=','doctors.id')
+                            ->where('doctors.id','=',$doctorId);
+        return $qryBuilder->get();
+    }
 }
