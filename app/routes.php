@@ -183,6 +183,10 @@ Route::group(['Private', 'before' => 'auth'],function (){
         Route::resource('prescriptions', 'PrescriptionsController');
         Route::get('patientPrescriptions/{patientId}', array('before' => 'auth', 'as' => 'patientPrescriptions', 'uses' => 'PrescriptionsController@patientPrescriptions'));
         Route::get('printPrescription/{id}', ['as' => 'printPrescription', 'uses' => 'PrescriptionsController@printPrescription']);
+        Route::any('uploadCheckUpPic', array('as' => 'uploadCheckUpPic', 'uses' => 'PrescriptionsController@uploadCheckUpPic'));
+        Route::any('deleteCheckUpPic', array('as' => 'deleteCheckUpPic', 'uses' => 'PrescriptionsController@deleteCheckUpPic'));
+        Route::get('followUpPrescriptions', array('as' => 'followUpPrescriptions', 'uses' => 'PrescriptionsController@followUpPrescriptions'));
+
     });
 });
 
@@ -196,6 +200,47 @@ Route::get('testing', function(){
     print_r(get_class_methods(Route::getCurrentRoute()));die;*/
 
     return  Redirect::route('showCompanyHomePage', array("ep-clinic"));
+    //App\Globals\Ep::checkUpPrescrptionDirectory();die;
+
+//    echo Route::getCurrentRoute()->getActionName();die;
+    //echo Route::getCurrentRoute()->getActionName();die;
+    //print_r(get_class_methods(Route::getCurrentRoute()));die;
 });
 
+/**
+ * PrescriptionsController Routes
+ */
+
+Route::group(['Inventory'],function () {
+
+
+
+    /**
+     * ===========================================================================
+     * Private Routes
+     * ===========================================================================
+     */
+    Route::group(['Private', 'before' => 'auth'],function (){
+        Route::resource('prescriptions', 'PrescriptionsController');
+        Route::get('patientPrescriptions/{patientId}', array('before' => 'auth', 'as' => 'patientPrescriptions', 'uses' => 'PrescriptionsController@patientPrescriptions'));
+        Route::get('printPrescription/{id}', ['as' => 'printPrescription', 'uses' => 'PrescriptionsController@printPrescription']);
+
+        //testing
+        Route::resource('medicinePurchase','inventory\MedicinePurchasesController');
+
+    });
+
+
+
+    /**
+     * ===========================================================================
+     * Public Routes
+     * ===========================================================================
+     */
+    Route::group(['Public'],function () {
+
+    });
+
+
+});
 

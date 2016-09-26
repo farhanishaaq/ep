@@ -17,6 +17,7 @@ class CreateMedicinePurchasesTable extends Migration {
 			$table->increments('id');
 			$table->integer('business_unit_id');
 			$table->integer('menufacturer_id');
+			$table->string('code',20);
 			$table->date('date');
 			$table->timestamps();
 		});

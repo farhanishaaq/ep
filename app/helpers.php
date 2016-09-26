@@ -388,11 +388,11 @@ function medicine_drop_down($i=0)
     if($i==-1){
 
         $required = "";
-        return Form::select('dosage_strength['.$i.']',$dataset,Form::getValueAttribute('dosage_strength', null),['id'=>"medicine_id", $required,'class'=>'fL']);
+        return Form::select('medicine_id['.$i.']',$dataset,Form::getValueAttribute('medicine_id', null),['id'=>"medicine_id", $required,'class'=>'fL']);
 
     }else{
 
-        return Form::select('dosage_strength['.$i.']',$dataset,Form::getValueAttribute('dosage_strength', null),['id'=>"medicine_id", 'required'=>'true','class'=>'fL']);
+        return Form::select('medicine_id['.$i.']',$dataset,Form::getValueAttribute('medicine_id', null),['id'=>"medicine_id", 'required'=>'true','class'=>'fL']);
 
     }
 

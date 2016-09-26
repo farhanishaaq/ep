@@ -20,6 +20,7 @@ class MedicineCategory extends \Eloquent {
 
 	public static function saveMedicineCategory($data,$dataProcessType=GlobalsConst::DATA_SAVE){
 
+		$vRules = MedicineLocation::$rules;
 		$response = null;
 		if($dataProcessType==GlobalsConst::DATA_SAVE){
 			$medicine_category = new MedicineCategory();
@@ -32,10 +33,18 @@ class MedicineCategory extends \Eloquent {
 			}
 		}
 
-		$parentId = isset($data['parent_id']) ? $data['parent_id'] : null;
-		$menufacturerId= isset($data['menufacturer_id']) ? $data['menufacturer_id'] : null;
-		$medicine_category->parent_id = $parentId;
-		$medicine_category->menufacturer_id = $menufacturerId;
+		//*****Start Rules Validators
+		$validator = Validator::make($data, $vRules);
+		if ($validator->fails())
+		{
+			return ['success'=>false, 'error'=> true, 'validatorErrors'=>$validator->errors()];
+		}
+		//*****End Rules Validators
+
+		$medicine_parentId = isset($data['parent_id']) ? $data['parent_id'] : null;
+		$medicine_menufacturerId= isset($data['menufacturer_id']) ? $data['menufacturer_id'] : null;
+		$medicine_category->parent_id = $medicine_parentId;
+		$medicine_category->menufacturer_id = $medicine_menufacturerId;
 		$medicine_category->name = $data['name'];
 		$medicine_category->dosage_form = $data['dosage_form'];
 		$medicine_category->description = $data['description'];
