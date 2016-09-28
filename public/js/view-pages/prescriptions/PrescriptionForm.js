@@ -71,7 +71,6 @@ var PrescriptionForm = function(win,doc, options){
     var settings = $.extend(defaults, options || {});
     var s = settings;
     var saveCloseClicked = false;
-    //var rowIndex = 0;
 
     /**
      *
@@ -154,7 +153,7 @@ var PrescriptionForm = function(win,doc, options){
     };
 
     var makePhotoUploadComponent = function () {
-        //*********************FileInput plugin
+        //*********************FileInput plugin************************//
         // with plugin options
         $("#checkUpPhoto").fileinput({
             uploadUrl: s.photoUploadUrl, // server upload action
@@ -181,16 +180,6 @@ var PrescriptionForm = function(win,doc, options){
 
         });
 
-        /*$('#input').on('filepreupload', function(event, data, previewId, index, jqXHR) {
-         // do your validation and return an error like below
-         if (customValidationFailed) {
-         return {
-         message: 'You are not allowed to do that',
-         data: {key1: 'Key 1', detail1: 'Detail 1'}
-         };
-         }
-         });*/
-
         $('#checkUpPhoto').on('fileuploaded', function(event, data, previewId, index) {
             var response = data.response;
             $('#photo').val(response.uploaded);
@@ -199,7 +188,7 @@ var PrescriptionForm = function(win,doc, options){
         });
 
         $('#checkUpPhoto').on('filecleared', function(event) {
-            //alert('Cleared');
+
             var imageName = $('#photo').val();
             $.ajax({
                 type: 'GET',
@@ -294,14 +283,19 @@ var PrescriptionForm = function(win,doc, options){
      */
     var eventsBindings = function () {
 
-        //****Start OnClick Of New Row Plus Remove Row
+        /**
+         * ****Start OnClick Of New Row Plus Remove Row
+         */
         $(s.dataFormId).on('click', '.addButton', function () {
                 var $beforeCurrentRow = $('#detail-row-'+window.PrescriptionDetailRowIndex);
                 window.PrescriptionDetailRowIndex++;
                 createNewRow(window.PrescriptionDetailRowIndex,$beforeCurrentRow);
             })
 
-        // Remove button click handler
+
+        /**
+         * Remove button click handler
+         */
         .on('click', '.removeButton', function () {
 //                var $row = $(this).parents('.actual');
             var $row = $(this).parents('.removablRow');
@@ -320,6 +314,7 @@ var PrescriptionForm = function(win,doc, options){
         $('#follow_up_pres').on("change",function(){
 
             var parentPrescriptionId = $(this).val();
+
                 $.ajax({
 
                     type: 'GET',
@@ -333,7 +328,11 @@ var PrescriptionForm = function(win,doc, options){
 
                 });
 
-            var prescriptionCheckUpImgPath = $('#checkUpImgPath').html();
+            var imageReplica = $('#prescriptionPhotoTemplate').html();
+            $(imageReplica).insertBefore('.prescriptionPhotoAppend .file-input .file-preview');
+            $('.prescriptionPhotoAppend .file-input .file-preview').css({"width": "50%" , "float": "left"});
+
+
 
         });
 
@@ -344,8 +343,7 @@ var PrescriptionForm = function(win,doc, options){
         /**
          * Form Submit Button Event
          */
-//            $(s.dataFormId).submit(function(e){
-        $('#regForm').submit(function(e){
+        $(s.dataFormId).submit(function(e){
             e.preventDefault();
 
             var freVal = $('#frequencies_dd').val();
@@ -389,19 +387,7 @@ var PrescriptionForm = function(win,doc, options){
             saveCloseClicked = false;
         });
 
-        //$('#user_type').change(function () {
-        //    var userType = $(this).val();
-        //    switch (userType){
-        //        case window.USER_TYPES[window.DOCTOR]:
-        //            $('#doctorInfoTabHead').removeClass('dNi');
-        //            $('#doctorInfoTab').removeClass('dNi');
-        //            break;
-        //        default:
-        //            $('#doctorInfoTabHead').addClass('dNi');
-        //            $('#doctorInfoTab').addClass('dNi');
-        //            break;
-        //    }
-        //});
+
     };
 
 
@@ -414,8 +400,6 @@ var PrescriptionForm = function(win,doc, options){
     this.initializeAll = function () {
         allPluginsInitializer();
         eventsBindings();
-        //if(s.formMode == window.FORM_EDIT){
-        //    $('#user_type').trigger('change');
-        //}
+
     }
 };

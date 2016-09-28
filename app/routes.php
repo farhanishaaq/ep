@@ -191,11 +191,11 @@ Route::group(['Private', 'before' => 'auth'],function (){
  * Testing Route
  */
 Route::get('testing', function(){
-    App\Globals\Ep::checkUpPrescriptionDirectory();die;
 
-//    echo Route::getCurrentRoute()->getActionName();die;
+    //echo Route::getCurrentRoute()->getActionName();die;
     //echo Route::getCurrentRoute()->getActionName();die;
     //print_r(get_class_methods(Route::getCurrentRoute()));die;
+
 });
 
 /**

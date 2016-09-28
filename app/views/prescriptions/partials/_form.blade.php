@@ -121,16 +121,14 @@
 
                             {{-- Patient Image Upload --}}
                             <div class="form-group col-xs-12">
-                                <div class="form-group profile-photo file-input">
+                                <div class="form-group profile-photo file-input prescriptionPhotoAppend">
                                     <label>Check Up Photo:</label>
                                     <input id="photo" name="photo" type="hidden" value="{{{ Form::getValueAttribute('photo', null) }}}">
                                     <input id="checkUpPhoto" name="checkUpPhoto" type="file" class="file-loading" accept="image/*">
                                 </div>
                             </div>
                         </div>
-                        {{--<div>--}}
-                            {{--<img src="demo" alt="">--}}
-                        {{--</div>--}}
+
                     </section>
 
                 </div>

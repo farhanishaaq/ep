@@ -54,18 +54,20 @@ class PrescriptionsController extends \BaseController
         return View::make('prescriptions.create')->nest('_form','prescriptions.partials._form', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount','_detail_row'));
     }
 
+
     public function followUpPrescriptions()
     {
-        //echo "Hello Ali";
         $parentPrescriptionId = Input::get('parentPrescriptionId');
 
         $prescriptionsDetails = PrescriptionDetail::where('prescription_id','=',$parentPrescriptionId)->get();
         $prescription = Prescription::find($parentPrescriptionId);
+
         $chkupPrescriptionImgDir = Ep::checkUpPrescriptionDirectory();
         $prescriptionCheckUpImgPath = asset($chkupPrescriptionImgDir.'/'.$prescription->check_up_photo);
 
         return View::make('prescriptions.partials._detail_row', compact('prescriptionsDetails','prescriptionCheckUpImgPath'));
     }
+
 
     /**
      * Store a newly created prescription in storage.
