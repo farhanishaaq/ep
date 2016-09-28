@@ -5,7 +5,7 @@
 </style>
 
 @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-    {{ Form::open(array('action' => 'inventory\MedicinePurchasesController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm')) }}
+    {{ Form::open(array('action' => 'inventory\MedicinePurchasesController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm','novalidate')) }}
 @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
     DDD
 @endif
@@ -44,31 +44,62 @@
                 <div class="form-group col-xs-6">
                     <label class="col-xs-5 control-label asterisk">Business Unit:</label>
                     <div class="col-xs-6">
-                        <input type="text" id="business_unit_id" name="business_unit" required="true" value="" class="form-control" placeholder="Business unit name">
+                        {{business_unit_drop_down($company_id)}}
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
+
+                {{--<div class="form-group col-xs-5 pR2 mB3">--}}
+                    {{--<div class="col-xs-12">--}}
+                        {{--{{business_unit_drop_down(1)}}--}}
+                        {{--<span id="errorName" class="field-validation-msg"></span>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+
+                {{--<div class="form-group col-xs-12">--}}
+                    {{--<label class="col-xs-5 control-label asterisk">Follow Up Pres:</label>--}}
+                    {{--<div class="col-xs-6">--}}
+                        {{--{{follow_up_prescription_drop_down((isset($appointment))? $appointment->patient_id : $prescription->appointment->doctor->user->id)}}--}}
+                        {{--<span id="errorName" class="field-validation-msg"></span>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
                 <div class="form-group col-xs-6">
                     <label class="col-xs-5 control-label asterisk">Manufacturer:</label>
                     <div class="col-xs-6">
-                        <input type="text" id="menufacturer_id" name="menufacturer_id" required="true" value="" class="form-control" placeholder="Manufacturer name">
+                        {{manufacturer_drop_down()}}
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
+
+                {{--<div class="form-group col-xs-6">--}}
+                    {{--<label class="col-xs-5 control-label asterisk">Manufacturer:</label>--}}
+                    {{--<div class="col-xs-6">--}}
+                        {{--<input type="text" id="menufacturer_id" name="menufacturer_id" required="true" value="" class="form-control" placeholder="Manufacturer name">--}}
+                        {{--<span id="errorName" class="field-validation-msg"></span>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
                 <div class="form-group col-xs-6">
                     <label class="col-xs-5 control-label asterisk">Purchase Date:</label>
                     <div class="col-xs-6">
-                        <input type="text" id="purchase_date" name="purchase_date" required="true" value="" class="form-control" placeholder="purchase date">
+                        <input type="text" id="date" name="date" required="true" value="" class="form-control" placeholder="purchase date">
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
 
+                {{--<div class="form-group col-xs-6">--}}
+                    {{--<label class="col-xs-5 control-label asterisk">Purchase Code:</label>--}}
+                    {{--<div class="col-xs-6">--}}
+                        {{--<input type="text" id="purchase_code" name="purchase_code" required="true" value="" class="form-control" placeholder="purchase code">--}}
+                        {{--<span id="errorName" class="field-validation-msg"></span>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+
                 <div class="form-group col-xs-6">
                     <label class="col-xs-5 control-label asterisk">Purchase Code:</label>
                     <div class="col-xs-6">
-                        <input type="text" id="purchase_code" name="purchase_code" required="true" value="" class="form-control" placeholder="purchase code">
+                        <input type="text" id="code" name="code" required="true" value="{{{ Form::getValueAttribute('code', null) }}}" class="form-control" placeholder="Purchase Code">
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
@@ -164,13 +195,26 @@
 //        var PrescriptionCode = appointmentDate +'-'+ leftPad(patientId,"000") + leftPad(appointmentId,"000") + leftPad(prescriptionNextCount,"000");
 //        $('#code').val(PrescriptionCode);
 
+        var medicinePurchaseCode =
 
-        /**
-         * medicine_id select2
-         */
-        $('#medicine_id').select2({
+        //** medicine_id select2
+        $('[name="medicine_id['+ rowIndex +']"]').select2({
             tags: "true",
             placeholder: "Medicine"
+        });
+
+
+        /**
+         * business_unit_id select2
+         */
+        $('#business_unit_id').select2({
+            tags: "true",
+            placeholder: "Business unit"
+        });
+
+        $('#Manufacturer').select2({
+            tags: "true",
+            placeholder: "Manufacturer"
         });
 
 

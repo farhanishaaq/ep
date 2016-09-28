@@ -430,3 +430,14 @@ function dosage_qty_unit_drop_down($i=0 , $selectedData=null){
     ksort($dataset);
     return Form::select('quantity_unit['.$i.']',$dataset, $selectedData,['id'=>"quantity_unit",]);
 }
+
+/**
+ * company_drop_down | This function is used to make manufacturer dropdown
+ * @return mixed
+ */
+function manufacturer_drop_down(){
+    $manufacturerData = MedicineMenufacturer::all()->lists('name','id');
+    $manufacturerData[""] = "Select Manufacturer";
+    ksort($manufacturerData);
+    return Form::select('menufacturer_id',$manufacturerData,Form::getValueAttribute('menufacturer_id', null),['id'=>"Manufacturer",'required'=>'true']);
+}
