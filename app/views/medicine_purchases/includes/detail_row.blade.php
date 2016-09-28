@@ -33,7 +33,7 @@ $TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
 
             <div class="form-group col-xs-3 pR2 mB0">
                 <div class="col-xs-12">
-                    <input type="text" id="total_price" name="total_price" class="form-control col-xs-3" value="" placeholder="Total price">
+                    <input type="text" id="total_price" name="total_price[0]" class="form-control col-xs-3" value="" placeholder="Total price" readonly="readonly">
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>
             </div>
@@ -74,7 +74,7 @@ $TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
             </div>
             <div class="form-group col-xs-3 pR2 mB0">
                 <div class="col-xs-12">
-                    <input type="text" id="total_price" name="total_price" class="form-control col-xs-3" value="" placeholder="Total price">
+                    <input type="text" id="total_price" name="total_price[{{$TEMPLATE_INDEX}}]" class="form-control col-xs-3" value="" placeholder="Total price">
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>
             </div>

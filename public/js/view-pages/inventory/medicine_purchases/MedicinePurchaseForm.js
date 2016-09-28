@@ -9,65 +9,28 @@ var MedicinePurchaseForm = function(win,doc, options){
         dataFormId: "#regForm",
         saveCloseUrl: "",
         formMode: '',
-        validationRulesForForm: function (frmElement) {
-            frmElement.validate({
-                rules: {
-                    refill: {
-                        required: true
-                    },
-                    usage_type:{
-                        required: true
-                    },
-                    usage_quantity: {
-                        required: true,
-                        maxlength: 50
-                    },
-                    dosage_strength: {
-                        required: true
-                    },
-                    strength_quantity: {
-                        required: true,
-                        maxlength: 50
-                    },
-                    quantity_unit: {
-                        required: true
-                    },
-                    frequencies_dd: {
-                        required: true
-                    },
-
-                },
-                messages: {
-                    refill: {
-                        required: String.format(MessageDictionay.validationMsgs.required, "Refill")
-                    },
-                    usage_type: {
-                        required: String.format(MessageDictionay.validationMsgs.required, "Usage Type")
-                    },
-                    usage_quantity: {
-                        required: String.format(MessageDictionay.validationMsgs.required, "Usage Quantity")
-                    },
-                    dosage_strength: {
-                        required: String.format(MessageDictionay.validationMsgs.required, "Dosage Strength")
-                    },
-                    strength_quantity: {
-                        required: String.format(MessageDictionay.validationMsgs.required, "Strength Quantity")
-                    },
-                    quantity_unit: {
-                        required: String.format(MessageDictionay.validationMsgs.required, "Quantity Unit")
-                    },
-                    frequencies_dd: {
-                        required: String.format(MessageDictionay.validationMsgs.required, "Frequencies")
-                    },
-                }
-            });
-        }
     };
 
     var settings = $.extend(defaults, options || {});
     var s = settings;
     var saveCloseClicked = false;
     var rowIndex = 0;
+
+    /**
+     *
+     * @param rowIndex
+     */
+    var calculateTotalPrice = function(obj) {
+
+        if(!parseInt(obj.qty)){
+            obj.qty = 0;
+        }
+        if(!parseFloat(obj.unitPrice)){
+            obj.unitPrice = 0;
+        }
+        var total  = obj.qty * obj.unitPrice;
+        obj.totalElement.val(total);
+    };
 
     /**
      *
@@ -89,13 +52,34 @@ var MedicinePurchaseForm = function(win,doc, options){
         $clone.find('.row-count-display').html(rowIndex+1).end()
             .find('[name="quantity[-1]"]').attr('name', 'quantity[' + rowIndex + ']').end()
             .find('[name="unit_price[-1]"]').attr('name', 'unit_price[' + rowIndex + ']').end()
-            .find('[name="medicine_id[-1]"]').attr('name', 'medicine_id[' + rowIndex + ']').end();
+            .find('[name="medicine_id[-1]"]').attr('name', 'medicine_id[' + rowIndex + ']').end()
+            .find('[name="total_price[-1]"]').attr('name', 'total_price[' + rowIndex + ']').end();
 
 
         //** medicine_id select2
         $('[name="medicine_id['+ rowIndex +']"]').select2({
             tags: "true",
             placeholder: "Medicine"
+        });
+
+
+        //**** initialize with Zero
+        //$('[name="total_price['+ rowIndex +']"]').val(0);
+
+        //**** on blur of quantity calculate total
+        $('[name="quantity['+ rowIndex +']"]').blur(function(){
+            var qtyVal = $(this).val();
+            var unitPriceVal = $('[name="unit_price['+ rowIndex +']"]').val();
+            var totalElementVal = $('[name="total_price['+ rowIndex +']"]');
+            calculateTotalPrice({qty: qtyVal, unitPrice: unitPriceVal,totalElement: totalElementVal});
+        });
+
+        //**** on blur of unit_price calculate total
+        $('[name="unit_price['+ rowIndex +']"]').blur(function(){
+            var qtyVal = $('[name="quantity['+ rowIndex +']"]').val();
+            var unitPriceVal = $(this).val();
+            var totalElementVal = $('[name="total_price['+ rowIndex +']"]');
+            calculateTotalPrice({qty: qtyVal, unitPrice: unitPriceVal, totalElement: totalElementVal});
         });
     };
 
@@ -133,7 +117,24 @@ var MedicinePurchaseForm = function(win,doc, options){
      */
     var eventsBindings = function () {
 
-            rowIndex = 0;
+            //rowIndex = 0;
+
+        //**** on blur of quantity calculate total
+        $('[name="quantity['+ rowIndex +']"]').blur(function(){
+            var qtyVal = $(this).val();
+            var unitPriceVal = $('[name="unit_price['+ rowIndex +']"]').val();
+            var totalElementVal = $('[name="total_price['+ rowIndex +']"]');
+            calculateTotalPrice({qty: qtyVal, unitPrice: unitPriceVal,totalElement: totalElementVal});
+        });
+
+        //**** on blur of unit_price calculate total
+        $('[name="unit_price['+ rowIndex +']"]').blur(function(){
+            var qtyVal = $('[name="quantity['+ rowIndex +']"]').val();
+            var unitPriceVal = $(this).val();
+            var totalElementVal = $('[name="total_price['+ rowIndex +']"]');
+            calculateTotalPrice({qty: qtyVal, unitPrice: unitPriceVal, totalElement: totalElementVal});
+        });
+
             $('#regForm').on('click', '.addButton', function () {
                     var $beforeCurrentRow = $('#detail-row-'+rowIndex);
                     rowIndex++;
