@@ -1,12 +1,31 @@
 <?php
-$TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
-$i = 0;
+    $TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
+    $i = 0;
+    $usage_type = 0;
+    $strength_quantity = 0;
+    $dosage_strength = 0;
+    $usage_quantity = 0;
+    $quantity_unit = 0;
+    $frequencies = 0;
+    $extra_note = 0;
+
+$prescriptionsDetailsCount = count($prescriptionsDetails);
+$rowCounter = $prescriptionsDetailsCount == 0 ? 1 : $prescriptionsDetailsCount;
 ?>
 {{-- Detail Row As At Zero Index --}}
 @if(($prescriptionsDetails) != null)
     @if(($prescriptionsDetails->count()))
         @foreach($prescriptionsDetails as $k => $pd)
-            <?php $i = $k ?>
+            <?php
+                $i = --$rowCounter;
+                $usage_type         = $pd->usage_type;
+                $strength_quantity  = $pd->strength_quantity;
+                $dosage_strength    = $pd->dosage_strength;
+                $usage_quantity     = $pd->usage_quantity;
+                $quantity_unit      = $pd->quantity_unit;
+                $extra_note         = $pd->extra_note;
+
+            ?>
             @include('prescriptions.includes.zero_detail_row')
         @endforeach
     @else
@@ -15,7 +34,8 @@ $i = 0;
 @else
     @include('prescriptions.includes.zero_detail_row')
 @endif
-
+<span id="checkUpImgPath" class="dN">{{$prescriptionCheckUpImgPath}}</span>
+<img src="{{$prescriptionCheckUpImgPath}}" alt="">
 
 
 
@@ -78,3 +98,16 @@ $i = 0;
         </a>
     </div>
 </div>
+
+<script src="{{asset('js/view-pages/prescriptions/PrescriptionDetailForm.js')}}"></script>
+<script type="text/javascript">
+
+        rowCount = "{{$prescriptionsDetailsCount}}";
+        window.PrescriptionDetailRowIndex = parseInt(rowCount) - 1;
+        var options = {rowCount: parseInt(rowCount)};
+
+        var prescriptionDetailForm = new PrescriptionDetailForm(window, document, options);
+        prescriptionDetailForm.initializeAll();
+
+
+</script>

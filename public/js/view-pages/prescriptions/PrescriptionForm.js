@@ -11,6 +11,7 @@ var PrescriptionForm = function(win,doc, options){
         photoUploadUrl: "",
         photoDeleteUrl: "",
         photoInitialPreview: [],
+        parentPrescriptionUrl: "",
         formMode: '',
         validationRulesForForm: function (frmElement) {
             frmElement.validate({
@@ -70,7 +71,7 @@ var PrescriptionForm = function(win,doc, options){
     var settings = $.extend(defaults, options || {});
     var s = settings;
     var saveCloseClicked = false;
-    var rowIndex = 0;
+    //var rowIndex = 0;
 
     /**
      *
@@ -163,7 +164,7 @@ var PrescriptionForm = function(win,doc, options){
             initialPreviewAsData: true,
             browseLabel: "Pick Image",
             initialPreviewConfig: [
-                {caption: "profile-dumy.png", size: 930321, width: "120px", key: 1}
+                {caption: "prescription-dumy.png", size: 930321, width: "120px", key: 1}
             ],
             deleteUrl: s.photoDeleteUrl,
             overwriteInitial: true,
@@ -295,21 +296,21 @@ var PrescriptionForm = function(win,doc, options){
 
         //****Start OnClick Of New Row Plus Remove Row
         $(s.dataFormId).on('click', '.addButton', function () {
-                var $beforeCurrentRow = $('#detail-row-'+rowIndex);
-                rowIndex++;
-                createNewRow(rowIndex,$beforeCurrentRow);
+                var $beforeCurrentRow = $('#detail-row-'+window.PrescriptionDetailRowIndex);
+                window.PrescriptionDetailRowIndex++;
+                createNewRow(window.PrescriptionDetailRowIndex,$beforeCurrentRow);
             })
 
-            // Remove button click handler
-            .on('click', '.removeButton', function () {
+        // Remove button click handler
+        .on('click', '.removeButton', function () {
 //                var $row = $(this).parents('.actual');
-                var $row = $(this).parents('.removablRow');
+            var $row = $(this).parents('.removablRow');
 
-                var index = $row.attr('data-row-index');
+            var index = $row.attr('data-row-index');
 //                console.log($row);
-                // Remove element containing the fields
-                $row.remove();
-            });
+            // Remove element containing the fields
+            $row.remove();
+        });
         //****End OnClick Of New Row
 
 
@@ -318,18 +319,21 @@ var PrescriptionForm = function(win,doc, options){
          */
         $('#follow_up_pres').on("change",function(){
 
-            var followUpId = $(this).val();
+            var parentPrescriptionId = $(this).val();
                 $.ajax({
 
                     type: 'GET',
-                    url: 'http://localhost/ep/public/followUpPrescriptions',
-                    data: {followUpId: followUpId},
+                    url: s.parentPrescriptionUrl,
+                    data: {parentPrescriptionId: parentPrescriptionId},
                     dataType: 'html',
                     success: function(result){
-                        $("#detailRowContainer").html(result);
+                        $('#detailRowContainer').html(result);
+                        $('#prescriptionDetailTab').trigger('click');
                     }
 
                 });
+
+            var prescriptionCheckUpImgPath = $('#checkUpImgPath').html();
 
         });
 
@@ -385,19 +389,19 @@ var PrescriptionForm = function(win,doc, options){
             saveCloseClicked = false;
         });
 
-        $('#user_type').change(function () {
-            var userType = $(this).val();
-            switch (userType){
-                case window.USER_TYPES[window.DOCTOR]:
-                    $('#doctorInfoTabHead').removeClass('dNi');
-                    $('#doctorInfoTab').removeClass('dNi');
-                    break;
-                default:
-                    $('#doctorInfoTabHead').addClass('dNi');
-                    $('#doctorInfoTab').addClass('dNi');
-                    break;
-            }
-        });
+        //$('#user_type').change(function () {
+        //    var userType = $(this).val();
+        //    switch (userType){
+        //        case window.USER_TYPES[window.DOCTOR]:
+        //            $('#doctorInfoTabHead').removeClass('dNi');
+        //            $('#doctorInfoTab').removeClass('dNi');
+        //            break;
+        //        default:
+        //            $('#doctorInfoTabHead').addClass('dNi');
+        //            $('#doctorInfoTab').addClass('dNi');
+        //            break;
+        //    }
+        //});
     };
 
 
@@ -410,8 +414,8 @@ var PrescriptionForm = function(win,doc, options){
     this.initializeAll = function () {
         allPluginsInitializer();
         eventsBindings();
-        if(s.formMode == window.FORM_EDIT){
-            $('#user_type').trigger('change');
-        }
+        //if(s.formMode == window.FORM_EDIT){
+        //    $('#user_type').trigger('change');
+        //}
     }
 };
