@@ -1,6 +1,14 @@
 <?php
-$TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
-$i = 0;
+    $TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
+    $i = 0;
+    $usage_type = 0;
+    $strength_quantity = 0;
+    $dosage_strength = 0;
+    $usage_quantity = 0;
+    $quantity_unit = 0;
+    $frequencies = 0;
+    $extra_note = 0;
+
 $prescriptionsDetailsCount = count($prescriptionsDetails);
 $rowCounter = $prescriptionsDetailsCount == 0 ? 1 : $prescriptionsDetailsCount;
 ?>
@@ -8,7 +16,16 @@ $rowCounter = $prescriptionsDetailsCount == 0 ? 1 : $prescriptionsDetailsCount;
 @if(($prescriptionsDetails) != null)
     @if(($prescriptionsDetails->count()))
         @foreach($prescriptionsDetails as $k => $pd)
-            <?php $i = --$rowCounter ?>
+            <?php
+                $i = --$rowCounter;
+                $usage_type         = $pd->usage_type;
+                $strength_quantity  = $pd->strength_quantity;
+                $dosage_strength    = $pd->dosage_strength;
+                $usage_quantity     = $pd->usage_quantity;
+                $quantity_unit      = $pd->quantity_unit;
+                $extra_note         = $pd->extra_note;
+
+            ?>
             @include('prescriptions.includes.zero_detail_row')
         @endforeach
     @else
@@ -17,7 +34,8 @@ $rowCounter = $prescriptionsDetailsCount == 0 ? 1 : $prescriptionsDetailsCount;
 @else
     @include('prescriptions.includes.zero_detail_row')
 @endif
-<span id="checkUpImgPath" class="dN">{{asset('')}}</span>
+<span id="checkUpImgPath" class="dN">{{$prescriptionCheckUpImgPath}}</span>
+<img src="{{$prescriptionCheckUpImgPath}}" alt="">
 
 
 

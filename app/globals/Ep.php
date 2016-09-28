@@ -116,7 +116,7 @@ class Ep {
         }
     }
 
-    public static function checkUpPrescrptionDirectory()
+    public static function checkUpPrescriptionDirectory()
     {
         $upload_dir  = GlobalsConst::UPLOAD_DIR;
         $companyId   = self::currentCompanyId();

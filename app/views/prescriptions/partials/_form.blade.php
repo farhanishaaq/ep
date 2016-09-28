@@ -128,12 +128,15 @@
                                 </div>
                             </div>
                         </div>
+                        {{--<div>--}}
+                            {{--<img src="demo" alt="">--}}
+                        {{--</div>--}}
                     </section>
 
                 </div>
                 <div role="tabpanel" class="tab-pane" id="prescriptionDetailInfoTab">
                     {{-- Prescription Detail --}}
-                    <section class="form-Section col-md-12 h650 fL">
+                    <section class="form-Section col-md-12 h800 fL">
                         <div class="container w100p ofA">
                         <h3 class="mT15 mB0 c3">Prescription Detail:</h3>
                         <hr class="w95p fL mT0" />
@@ -181,7 +184,7 @@
                         photoDeleteUrl: "{{route('deleteCheckUpPic')}}",
                         parentPrescriptionUrl: "{{route('followUpPrescriptions')}}",
                         photoInitialPreview :[
-                            "{{asset('images/profile-dumy.png')}}"
+                            "{{asset('images/prescription-dumy.png')}}"
                         ],
                         formMode: '{{$formMode}}'
                     };
