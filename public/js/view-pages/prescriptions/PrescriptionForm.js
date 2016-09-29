@@ -264,6 +264,14 @@ var PrescriptionForm = function(win,doc, options){
             placeholder: "follow up pres"
         });
 
+        /**
+         * test_procedure select2
+         */
+        $('#test_procedure').select2({
+            tags: "true",
+            placeholder: "Test Procedure"
+        });
+
 
         //*****Tabs
         $('.nav.nav-tabs').responsiveTabs();
@@ -315,6 +323,7 @@ var PrescriptionForm = function(win,doc, options){
 
             var parentPrescriptionId = $(this).val();
 
+
                 $.ajax({
 
                     type: 'GET',
@@ -323,7 +332,7 @@ var PrescriptionForm = function(win,doc, options){
                     dataType: 'html',
                     success: function(result){
                         $('#detailRowContainer').html(result);
-                        $('#prescriptionDetailTab').trigger('click');
+                        //$('#prescriptionDetailTab').trigger('click');
                     }
 
                 });
@@ -331,6 +340,19 @@ var PrescriptionForm = function(win,doc, options){
             var imageReplica = $('#prescriptionPhotoTemplate').html();
             $(imageReplica).insertBefore('.prescriptionPhotoAppend .file-input .file-preview');
             $('.prescriptionPhotoAppend .file-input .file-preview').css({"width": "50%" , "float": "left"});
+
+            var prescriptionCheckUpImgPath = $(checkUpImgPath).html();
+            $('.prescriptionPhotoAppend .file-input .previousCheckUpPhoto .file-drop-zone .file-preview-thumbnails .file-initial-thumbs .file-preview-frame .kv-file-content .file-preview-image').attr({
+                "src"   : prescriptionCheckUpImgPath,
+                "title" : "prescription_Previous_CheckUp_Photo",
+                "alt"   : "Previous Photo",
+                "id"    : "previous_photo"
+            });
+
+            $('<h4>Before</h4>').insertBefore('#previous_photo');
+            $('<h4>After</h4>').insertBefore('.prescriptionPhotoAppend .file-input .file-preview .file-drop-zone .file-preview-thumbnails .file-initial-thumbs .file-preview-frame .kv-file-content .file-preview-image').last();
+            $('#previous_photo').parent().find('h4').last().remove();
+
 
 
 

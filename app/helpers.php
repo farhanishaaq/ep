@@ -420,6 +420,18 @@ function usage_type_drop_down($i=0 , $selectedData=null){
     return Form::select('usage_type['.$i.']',$dataset, $selectedData,['id'=>"usage_type",'required'=>'true']);
 }
 
+
+
+function test_procedure_drop_down(){
+    $dataset = GlobalsConst::$TEST_PROCEDURE_FREQUENCIES;
+    //$dataset[""] = "Select Frequencies";
+    ksort($dataset);
+    $selectedData = Form::getValueAttribute('medical_specialty_id', null);
+    return Form::select('test_procedure',$dataset, $selectedData,['id'=>"test_procedure", 'multiple'=>true,]);
+
+}
+
+
 /**
  * @param int $i
  * @return mixed
