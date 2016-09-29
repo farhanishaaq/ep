@@ -48,19 +48,26 @@ class PrescriptionsController extends \BaseController
 //        $medicines = Medicine::where('company_id', Auth::user()->company_id)->get()->lists('name', 'id');
         $medicines= null;
         $prescriptionsDetails = null;
-        $_detail_row = View::make('prescriptions.partials._detail_row', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount', 'prescriptionsDetails'));
+        $prescriptionCheckUpImgPath = null;
+
+        $_detail_row = View::make('prescriptions.partials._detail_row', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount', 'prescriptionsDetails', 'prescriptionCheckUpImgPath'));
         return View::make('prescriptions.create')->nest('_form','prescriptions.partials._form', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount','_detail_row'));
     }
 
+
     public function followUpPrescriptions()
     {
-        //echo "Hello Ali";
-        $followUpId = Input::get('followUpId');
+        $parentPrescriptionId = Input::get('parentPrescriptionId');
 
-        $prescriptionsDetails = PrescriptionDetail::where('prescription_id','=',$followUpId)->get();
+        $prescriptionsDetails = PrescriptionDetail::where('prescription_id','=',$parentPrescriptionId)->get();
+        $prescription = Prescription::find($parentPrescriptionId);
 
-        return View::make('prescriptions.partials._detail_row', compact('prescriptionsDetails'));
+        $chkupPrescriptionImgDir = Ep::checkUpPrescriptionDirectory();
+        $prescriptionCheckUpImgPath = asset($chkupPrescriptionImgDir.'/'.$prescription->check_up_photo);
+
+        return View::make('prescriptions.partials._detail_row', compact('prescriptionsDetails','prescriptionCheckUpImgPath'));
     }
+
 
     /**
      * Store a newly created prescription in storage.
@@ -329,7 +336,7 @@ class PrescriptionsController extends \BaseController
 
         if (Input::hasFile('checkUpPhoto')) {
             $file            = Input::file('checkUpPhoto');
-            $destinationPath = public_path(EP::checkUpPrescrptionDirectory());
+            $destinationPath = public_path(EP::checkUpPrescriptionDirectory());
             $filename        = str_random(4).'_'.$file->getClientOriginalName();
             $uploadSuccess   = $file->move($destinationPath, $filename);
 //			$response = ['success'=>true,'error'=>false,'message'=>'Photo has been uploaded successfully!','uploadedFileName'=>$filename,'abc'=>$uploadSuccess];
@@ -347,7 +354,7 @@ class PrescriptionsController extends \BaseController
         $response = null;
         if (Input::get('imageName')) {
             $file = Input::get('imageName');
-            $destinationPath = public_path(EP::checkUpPrescrptionDirectory());
+            $destinationPath = public_path(EP::checkUpPrescriptionDirectory());
             unlink($destinationPath .'/'. $file );
             $response = ['success'=>true,'uploaded'=>$file,'message'=>'Photo has been Deleted successfully!'];
 

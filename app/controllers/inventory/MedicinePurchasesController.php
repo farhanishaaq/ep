@@ -2,7 +2,7 @@
 namespace App\Controllers\Inventory;
 use App\Globals\Ep;
 use App\Globals\GlobalsConst;
-
+use \MedicinePurchase;
 
 class MedicinePurchasesController extends \BaseController
 {
@@ -10,18 +10,22 @@ class MedicinePurchasesController extends \BaseController
 
     public function index()
     {
-        dd('HHH');
+        $medicinePurchases = MedicinePurchase::fetchMedicinePurchases();
+        return View::make('inventory.medicine_purchases.index', compact('medicinePurchases'));
     }
+
 
     public function create()
     {
-
+        $data = Input::all();
         $formMode = GlobalsConst::FORM_CREATE;
        // $company_id = 1;
         //return "i am here";
-        $date = date('ymd');
+        $date = date('Y-m-d');
         $company_id = current_company_id();
-        return View::make('medicine_purchases.create')->nest('_form','medicine_purchases.partials._form',compact('formMode','company_id','code','date'));
+        $purchaseNextCount= MedicinePurchase::max('id')+1;
+        $code = MedicinePurchase::createPurchaseCode($purchaseNextCount);
+        return View::make('inventory.medicine_purchases.create')->nest('_form','inventory.medicine_purchases.partials._form',compact('formMode','company_id','date','purchaseNextCount','code'));
 
     }
 
@@ -30,8 +34,6 @@ class MedicinePurchasesController extends \BaseController
     {
         $data = Input::all();
         $result = MedicinePurchase::saveMedicinePurchase($data);
-//        dd($data);
-//        $result = Prescription::savePrescription($data);
         return $result;
     }
 

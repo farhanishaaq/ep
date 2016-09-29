@@ -83,7 +83,7 @@
                 <div class="form-group col-xs-6">
                     <label class="col-xs-5 control-label asterisk">Purchase Date:</label>
                     <div class="col-xs-6">
-                        <input type="text" id="date" name="date" required="true" value="" class="form-control" placeholder="purchase date">
+                        <input type="text" id="date" name="date" required="true" value="{{$date}}" class="form-control" placeholder="purchase date">
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                 <div class="form-group col-xs-6">
                     <label class="col-xs-5 control-label asterisk">Purchase Code:</label>
                     <div class="col-xs-6">
-                        <input type="text" id="code" name="code" required="true" value="{{{ Form::getValueAttribute('code', null) }}}" class="form-control" placeholder="Purchase Code">
+                        <input type="text" id="code" name="code" required="true" value="{{ $code}}" class="form-control" placeholder="Purchase Code">
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
 
     </div>
     <div role="tabpanel" class="tab-pane" id="medicinePurchaseDetailTab">
-        <section class="form-Section col-md-12 h300 fL">
+        <section class="form-Section col-md-12 h500 fL">
             {{-- Medicine Purchase Detail --}}
             <div class="container w100p ofA h761">
                 <h3 class="mT15 mB0 c3">Medicine Purchase Detail</h3>
@@ -125,7 +125,7 @@
                         </h3>
                     </a>
                 </div>
-                @include('medicine_purchases.includes.detail_row')
+                @include('inventory.medicine_purchases.includes.detail_row')
 
             </div>
         </section>
@@ -143,118 +143,23 @@
 </div>
 {{ Form::close() }}
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        rowIndex = 0;
-        $('#regForm').on('click', '.addButton', function () {
-                    var $beforeCurrentRow = $('#detail-row-'+rowIndex);
-                    rowIndex++;
-                    var $template = $('#detailRowTemplate');
-                    var $clone = $template
-                            .clone()
-                            .removeClass('dN')
-                            .removeAttr('id')
-                            .attr('id','detail-row-' + rowIndex)
-                            .attr('data-row-index', rowIndex)
-                            .addClass('removablRow')
-                            .insertBefore($beforeCurrentRow);
-
-                    console.log($clone);
-                    // Update the name attributes
-                    $clone.find('.row-count-display').html(rowIndex+1).end()
-                            .find('[name="purchase_quantity[-1]"]').attr('name', 'purchase_quantity[' + rowIndex + ']').end()
-                            .find('[name="unit_price[-1]"]').attr('name', 'unit_price[' + rowIndex + ']').end()
-                            .find('[name="medicine_id[-1]"]').attr('name', 'medicine_id[' + rowIndex + ']').end();
 
 
-                    //** medicine_id select2
-                    $('[name="medicine_id['+ rowIndex +']"]').select2({
-                        tags: "true",
-                        placeholder: "Medicine"
-                    });
+@section('scripts')
 
-                })
+    <script src="{{asset('js/view-pages/inventory/medicine_purchases/MedicinePurchaseForm.js')}}"></script>
 
-                // Remove button click handler
-                .on('click', '.removeButton', function () {
-//                var $row = $(this).parents('.actual');
-                    var $row = $(this).parents('.removablRow');
+    <script type="text/javascript">
+        $(document).ready(function () {
 
-                    var index = $row.attr('data-row-index');
-//                console.log($row);
-                    // Remove element containing the fields
-                    $row.remove();
-                });
+            var options = {
+                saveCloseUrl: "{{route('medicinePurchase.store')}}",
+                formMode: '{{$formMode}}'
+            };
 
-
-
-//        var patientId = $('#patient_id').val();
-//        var appointmentId = $('#appointment_id').val();
-//        var appointmentDate = $('#appointment_date').val();
-//        var prescriptionNextCount = $('#prescriptionNextCount').val();
-//        var PrescriptionCode = appointmentDate +'-'+ leftPad(patientId,"000") + leftPad(appointmentId,"000") + leftPad(prescriptionNextCount,"000");
-//        $('#code').val(PrescriptionCode);
-
-        var medicinePurchaseCode =
-
-        //** medicine_id select2
-        $('[name="medicine_id['+ rowIndex +']"]').select2({
-            tags: "true",
-            placeholder: "Medicine"
+            var medicinePurchaseForm = new MedicinePurchaseForm(window,document,options);
+            medicinePurchaseForm.initializeAll();
         });
+    </script>
 
-
-        /**
-         * business_unit_id select2
-         */
-        $('#business_unit_id').select2({
-            tags: "true",
-            placeholder: "Business unit"
-        });
-
-        $('#Manufacturer').select2({
-            tags: "true",
-            placeholder: "Manufacturer"
-        });
-
-
-        /**
-         * Form Submit Button Event
-         */
-//            $(s.dataFormId).submit(function(e){
-        $('#regForm').submit(function(e){
-            e.preventDefault();
-            var frm = $(this);
-            // console.log(frm.serialize());
-//                var validator = s.validationRulesForForm(frm);
-
-            /*if (frm.valid()) {
-             var formData = frm.serialize();
-             var saveUrl = frm.attr('action') || "";
-
-             }else{
-             showMsg('Invalid Form!',window.MESSAGE_TYPE_ERROR);
-             }*/
-            var formData = frm.serialize();
-            $.ajax({
-                type: 'POST',
-                url: "{{route('medicinePurchase.store')}}",
-                data: formData,
-                dataType: 'json',
-                success: function (response) {
-                    if(response.success){
-                        showMsg(response.message,window.MESSAGE_TYPE_SUCCESS);
-                        if(saveCloseClicked){
-                            goTo(s.saveCloseUrl);
-                        }else{
-                            window.location.reload();
-                        }
-                    }
-                }
-            });
-            return false;
-        });
-    });
-</script>
-
-
+@stop

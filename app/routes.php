@@ -195,16 +195,13 @@ Route::group(['Private', 'before' => 'auth'],function (){
  * Testing Route
  */
 Route::get('testing', function(){
+
 /*//    echo Route::getCurrentRoute()->getActionName();die;
     echo Route::getCurrentRoute()->getActionName();die;
     print_r(get_class_methods(Route::getCurrentRoute()));die;*/
 
     return  Redirect::route('showCompanyHomePage', array("ep-clinic"));
     //App\Globals\Ep::checkUpPrescrptionDirectory();die;
-
-//    echo Route::getCurrentRoute()->getActionName();die;
-    //echo Route::getCurrentRoute()->getActionName();die;
-    //print_r(get_class_methods(Route::getCurrentRoute()));die;
 });
 
 /**

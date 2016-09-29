@@ -58,6 +58,9 @@
        window.FORM_CREATE = 1;
        window.FORM_EDIT = 2;
 
+       //***Prescription Form
+       window.PrescriptionDetailRowIndex = 0;
+
 
        window.MESSAGE_TYPE_SUCCESS = 'Success';
        window.MESSAGE_TYPE_ERROR = 'Error';

@@ -28,7 +28,7 @@
 
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#prescriptionInfoTab" aria-controls="prescriptionInfoTab" role="tab" data-toggle="tab">Prescription Info</a></li>
-                <li role="presentation"><a href="#prescriptionDetailInfoTab" aria-controls="prescriptionDetailInfoTab" role="tab" data-toggle="tab">Prescription Detail Info</a></li>
+                <li role="presentation"><a href="#prescriptionDetailInfoTab" id="prescriptionDetailTab" aria-controls="prescriptionDetailInfoTab" role="tab" data-toggle="tab">Prescription Detail Info</a></li>
             </ul>
 
             <div class="tab-content">
@@ -121,19 +121,20 @@
 
                             {{-- Patient Image Upload --}}
                             <div class="form-group col-xs-12">
-                                <div class="form-group profile-photo file-input">
+                                <div class="form-group profile-photo file-input prescriptionPhotoAppend">
                                     <label>Check Up Photo:</label>
                                     <input id="photo" name="photo" type="hidden" value="{{{ Form::getValueAttribute('photo', null) }}}">
                                     <input id="checkUpPhoto" name="checkUpPhoto" type="file" class="file-loading" accept="image/*">
                                 </div>
                             </div>
                         </div>
+
                     </section>
 
                 </div>
                 <div role="tabpanel" class="tab-pane" id="prescriptionDetailInfoTab">
                     {{-- Prescription Detail --}}
-                    <section class="form-Section col-md-12 h650 fL">
+                    <section class="form-Section col-md-12 h800 fL">
                         <div class="container w100p ofA">
                         <h3 class="mT15 mB0 c3">Prescription Detail:</h3>
                         <hr class="w95p fL mT0" />
@@ -179,8 +180,9 @@
                         saveCloseUrl: "{{route('prescriptions.index')}}",
                         photoUploadUrl: "{{route('uploadCheckUpPic')}}",
                         photoDeleteUrl: "{{route('deleteCheckUpPic')}}",
+                        parentPrescriptionUrl: "{{route('followUpPrescriptions')}}",
                         photoInitialPreview :[
-                            "{{asset('images/profile-dumy.png')}}"
+                            "{{asset('images/prescription-dumy.png')}}"
                         ],
                         formMode: '{{$formMode}}'
                     };

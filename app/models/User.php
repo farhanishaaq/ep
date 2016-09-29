@@ -5,6 +5,8 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use \App\Globals\GlobalsConst;
+use \App\Globals\Ep;
+
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
@@ -102,10 +104,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function getCurrentRoles()
 	{
 		try{
-			if(Auth::user()->roles->count()){
+            $currentUser = Ep::currentUser();
+			if($currentUser->roles->count()){
 				
 			}
-			foreach(Auth::user()->roles as $role){
+			foreach($currentUser->roles as $role){
 
 			}
 		}catch (Throwable $t) {
@@ -134,9 +137,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	public static function hasRole(\Illuminate\Database\Eloquent\Collection $userRoles){
 		try{
-			if(Auth::user()->roles->count()){
+            $currentUser = Ep::currentUser();
+			if($currentUser->roles->count()){
 				$rolesIds = $userRoles->lists('id');
-				foreach (Auth::user()->roles as $role){
+				foreach ($currentUser->roles as $role){
 					if(in_array($role->id , $rolesIds)){
 						return true;
 					}
@@ -155,8 +159,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public static function check($controller,$action){
 		try{
-			if(Auth::user()->roles->count()){
-				foreach (Auth::user()->roles as $role){
+		    $currentUser = Ep::currentUser();
+			if($currentUser->roles->count()){
+				foreach ($currentUser->roles as $role){
 					if($role->id == GlobalsConst::SUPER_ADMIN_ID){
 						return true;
 					}else{
@@ -203,10 +208,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		try{
 			if(Auth::user()->user_type == GlobalsConst::SUPER_ADMIN){
 				$users = User::all();
-			}elseif(Auth::user()->user_type == GlobalsConst::ADMIN){
-				$users = User::where('company_id', Auth::user()->company_id);
+			}elseif(Ep::currentUserType() == GlobalsConst::ADMIN){
+				$users = User::where('company_id', Ep::currentCompanyId());
 			}else{
-				$users = User::where('company_id', Auth::user()->company_id)->where('user_type','!=',GlobalsConst::ADMIN);
+				$users = User::where('company_id', Ep::currentCompanyId())->where('user_type','!=',GlobalsConst::ADMIN);
 			}
 			if($filterParams){
 				$searchKey = isset($filterParams['searchKey']) ? '%' . $filterParams['searchKey'].'%' : '';

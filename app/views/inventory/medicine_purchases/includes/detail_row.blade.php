@@ -20,7 +20,7 @@ $TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
             </div>
             <div class="form-group col-xs-3 pR2 mB0">
                 <div class="col-xs-12">
-                    <input type="text" id="quantity" name="purchase_quantity[0]" class="form-control col-xs-3" value="" placeholder="Purchase quantity">
+                    <input type="text" id="quantity" name="quantity[0]" class="form-control col-xs-3" value="" placeholder="Purchase quantity">
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>
             </div>
@@ -33,7 +33,7 @@ $TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
 
             <div class="form-group col-xs-3 pR2 mB0">
                 <div class="col-xs-12">
-                    <input type="text" id="total_price" name="total_price" class="form-control col-xs-3" value="" placeholder="Total price">
+                    <input type="text" id="total_price" name="total_price[0]" class="form-control col-xs-3" value="" placeholder="Total price" readonly="readonly">
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>
             </div>
@@ -43,7 +43,7 @@ $TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
 
 
 {{--Detail Row As Template--}}
-<div id="detailRowTemplate" class="form-group list-group h170 dN">
+<div id="detailRowTemplate" class="form-group list-group h250 dN">
     <div class="col-xs-12 prnt3">
         <a href="javascript:void(0)" class="col-xs-12 list-group-item list-group-item-action active  h55">
             <h4 class="col-xs-4">Row <span class="row-count-display">1</span></h4>
@@ -62,7 +62,7 @@ $TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
             </div>
             <div class="form-group col-xs-3 pR2 mB0">
                 <div class="col-xs-12">
-                    <input type="text" id="purcahse_quantity" name="purchase_quantity[{{$TEMPLATE_INDEX}}]" class="form-control col-xs-3" value="" placeholder="Purchase quantity">
+                    <input type="text" id="quantity" name="quantity[{{$TEMPLATE_INDEX}}]" class="form-control col-xs-3" value="" placeholder="Purchase quantity">
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>
             </div>
@@ -74,7 +74,7 @@ $TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
             </div>
             <div class="form-group col-xs-3 pR2 mB0">
                 <div class="col-xs-12">
-                    <input type="text" id="total_price" name="total_price" class="form-control col-xs-3" value="" placeholder="Total price">
+                    <input type="text" id="total_price" name="total_price[{{$TEMPLATE_INDEX}}]" class="form-control col-xs-3" value="" placeholder="Total price">
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>
             </div>

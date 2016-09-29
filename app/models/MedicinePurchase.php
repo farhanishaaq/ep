@@ -2,6 +2,7 @@
 
 
 use App\Globals\GlobalsConst;
+use \App\Globals\Ep;
 
 class MedicinePurchase extends \Eloquent {
 	
@@ -57,10 +58,11 @@ class MedicinePurchase extends \Eloquent {
 		$medicine_purchase->business_unit_id = $business_unitId;
 
 		$medicine_purchase->date = $data['date'];
+		$medicine_purchase->code = $data['code'];
 		$medicine_purchase->save();
 
 		//passing dummy data to purchaseDetail for testing
-		//$data = ['MedicinePurchaseID'=>$medicine_purchase->id,'medicine_id'=>['0'=>1,'1'=>2],'unit_price'=>['0'=>10,'1'=>20],'quantity'=>['0'=>100,'1'=>200]];
+		//$data = ['MedicinePurchaseID'=>$medicine_purchases->id,'medicine_id'=>['0'=>1,'1'=>2],'unit_price'=>['0'=>10,'1'=>20],'quantity'=>['0'=>100,'1'=>200]];
 		$data['MedicinePurchaseID'] = $medicine_purchase->id;
 		$mpdResult = MedicinePurchaseDetail::saveMedicinePurchaseDetail($data,GlobalsConst::DATA_SAVE);
 
@@ -72,4 +74,38 @@ class MedicinePurchase extends \Eloquent {
 		return $response;
 	}
 
+	public static function createPurchaseCode($purchaseNextCount){
+
+		$date = date('ymd');
+		$purchaseCode = $date ."-". $purchaseNextCount;
+		return $purchaseCode;
+	}
+
+	//
+    public static function fetchMedicinePurchases(array $filterParams = null, $offset=0, $limit=GlobalsConst::LIST_DATA_LIMIT){
+        try{
+            if(Auth::user()->user_type == GlobalsConst::SUPER_ADMIN){
+                $medicinePurchases = self::all();
+            }elseif(Ep::currentUserType() == GlobalsConst::ADMIN){
+                $medicinePurchases = self::where('company_id', Ep::currentCompanyId());
+            }else{
+                $medicinePurchases = User::where('company_id', Ep::currentCompanyId())
+                    ->where('business_unit_id','=',Ep::currentBusinessUnitId());
+            }
+            if($filterParams){
+                $searchKey = isset($filterParams['searchKey']) ? '%' . $filterParams['searchKey'].'%' : '';
+                $medicinePurchases->where('full_name','LIKE',$searchKey);
+            }
+            return $medicinePurchases->skip($offset)->take($limit)
+                ->orderBy('id','DESC')->get();
+        }
+        catch (Throwable $t) {
+            // Executed only in PHP 7, will not match in PHP 5.x
+            dd($t->getMessage());
+        }
+        catch (Exception $e){
+            dd($e->getMessage());
+        }
+
+    }
 }
