@@ -85,18 +85,25 @@ class MedicinePurchase extends \Eloquent {
     public static function fetchMedicinePurchases(array $filterParams = null, $offset=0, $limit=GlobalsConst::LIST_DATA_LIMIT){
         try{
             if(Auth::user()->user_type == GlobalsConst::SUPER_ADMIN){
-                $medicinePurchases = self::all();
+                $medicinePurchases = self::join('business_units','business_units.id','=','medicine_purchases.business_unit_id')
+                    ->join('companies','companies.id','=','business_units.company_id');
+                $selectArr = ['companies.name As company_name','business_units.name AS business_unit_name', 'medicine_purchases.id','business_unit_id','menufacturer_id', 'date'];
             }elseif(Ep::currentUserType() == GlobalsConst::ADMIN){
-                $medicinePurchases = self::where('company_id', Ep::currentCompanyId());
+                $medicinePurchases = self::join('business_units','business_units.id','=','medicine_purchases.business_unit_id')
+                    ->join('companies','companies.id','=','business_units.company_id')
+                    ->where('company_id', Ep::currentCompanyId());
+                $selectArr = ['companies.name As company_name','business_units.name AS business_unit_name', 'medicine_purchases.id','business_unit_id','menufacturer_id', 'date'];
             }else{
                 $medicinePurchases = User::where('company_id', Ep::currentCompanyId())
                     ->where('business_unit_id','=',Ep::currentBusinessUnitId());
+                $selectArr = ['"" As company_name','business_units.name AS business_unit_name', 'medicine_purchases.id','business_unit_id','menufacturer_id', 'date'];
             }
             if($filterParams){
                 $searchKey = isset($filterParams['searchKey']) ? '%' . $filterParams['searchKey'].'%' : '';
                 $medicinePurchases->where('full_name','LIKE',$searchKey);
             }
-            return $medicinePurchases->skip($offset)->take($limit)
+
+            return $medicinePurchases->select($selectArr)->skip($offset)->take($limit)
                 ->orderBy('id','DESC')->get();
         }
         catch (Throwable $t) {

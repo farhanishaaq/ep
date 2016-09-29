@@ -1,12 +1,13 @@
 <?php
+
 namespace App\Controllers\Inventory;
+
 use App\Globals\Ep;
 use App\Globals\GlobalsConst;
 use BusinessUnit;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use MedicinePurchase;
-
 
 class MedicineSalesController extends \BaseController
 {
@@ -25,7 +26,7 @@ class MedicineSalesController extends \BaseController
         //return "i am here";
         $date = date('ymd');
         $company_id = current_company_id();
-        return View::make('medicine_purchases.create')->nest('_form','medicine_purchases.partials._form',compact('formMode','company_id','code','date'));
+        return View::make('inventory.medicine_purchases.create')->nest('_form','inventory.medicine_purchases.partials._form',compact('formMode','company_id','code','date'));
 
     }
 

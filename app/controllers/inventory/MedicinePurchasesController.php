@@ -3,6 +3,7 @@ namespace App\Controllers\Inventory;
 use App\Globals\Ep;
 use App\Globals\GlobalsConst;
 use \MedicinePurchase;
+use \View;
 
 class MedicinePurchasesController extends \BaseController
 {
@@ -11,7 +12,7 @@ class MedicinePurchasesController extends \BaseController
     public function index()
     {
         $medicinePurchases = MedicinePurchase::fetchMedicinePurchases();
-        return View::make('inventory.medicine_purchases.index', compact('medicinePurchases'));
+        return View::make('inventory.medicine_purchases.index')->nest('_list','inventory.medicine_purchases.partials._list', compact('medicinePurchases'));
     }
 
 
