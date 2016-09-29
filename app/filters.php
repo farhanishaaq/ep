@@ -52,6 +52,7 @@ Route::filter('auth', function($request)
 	}*/
 
 	list($controller, $action) = explode('@',$request->getActionName());
+//    dd($controller.'  '.$action);
 	if(in_array($controller.'@'.$action, GlobalsConst::$PUBLIC_RESOURCES)){
 		//filter is pass
 	}else{

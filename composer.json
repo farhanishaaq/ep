@@ -25,6 +25,9 @@
 			"app/tests/TestCase.php",
 			"app/globals"
 		],
+		"psr-4": {
+			"App\\Controllers\\Inventory\\": "app/controllers/inventory"
+		},
         "files": [
             "app/helpers.php",
             "app/validators.php"

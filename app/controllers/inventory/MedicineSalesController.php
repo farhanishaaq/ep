@@ -2,15 +2,19 @@
 namespace App\Controllers\Inventory;
 use App\Globals\Ep;
 use App\Globals\GlobalsConst;
+use BusinessUnit;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\View;
+use MedicinePurchase;
 
 
-class MedicinePurchasesController extends \BaseController
+class MedicineSalesController extends \BaseController
 {
 
 
     public function index()
     {
-        dd('HHH');
+        dd('KKKK');
     }
 
     public function create()
@@ -54,6 +58,4 @@ class MedicinePurchasesController extends \BaseController
     public function destroy($id)
     {
     }
-
-
 }

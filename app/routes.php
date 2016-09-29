@@ -208,10 +208,10 @@ Route::get('testing', function(){
 });
 
 /**
- * PrescriptionsController Routes
+ * Inventory Module Routes
  */
 
-Route::group(['Inventory'],function () {
+Route::group(['namespace' => 'App\Controllers\Inventory'],function () {
 
 
 
@@ -221,12 +221,16 @@ Route::group(['Inventory'],function () {
      * ===========================================================================
      */
     Route::group(['Private', 'before' => 'auth'],function (){
-        Route::resource('prescriptions', 'PrescriptionsController');
-        Route::get('patientPrescriptions/{patientId}', array('before' => 'auth', 'as' => 'patientPrescriptions', 'uses' => 'PrescriptionsController@patientPrescriptions'));
-        Route::get('printPrescription/{id}', ['as' => 'printPrescription', 'uses' => 'PrescriptionsController@printPrescription']);
 
-        //testing
-        Route::resource('medicinePurchase','inventory\MedicinePurchasesController');
+        /**
+         * MedicinePurchasesController Routes
+         */
+        Route::resource('medicinePurchase','MedicinePurchasesController');
+
+        /**
+         * MedicineSalesController Routes
+         */
+        Route::resource('medicineSales','MedicineSalesController');
 
     });
 
