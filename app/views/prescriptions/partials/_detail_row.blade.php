@@ -101,13 +101,13 @@ $rowCounter = $prescriptionsDetailsCount == 0 ? 1 : $prescriptionsDetailsCount;
 
 {{--Prescription Photo Upload Plugin HTML As Template--}}
 <div id="prescriptionPhotoTemplate" class="dN">
-    <div class="file-preview">
+    <div class="file-preview previousCheckUpPhoto">
         <div class="close fileinput-remove">×</div>
         <div class=" file-drop-zone">
             <div class="file-preview-thumbnails"><div class="file-initial-thumbs"><div class="file-preview-frame file-preview-initial" id="preview-1475066414124-init_0" data-fileindex="init_0" data-template="image"><div class="kv-file-content">
                             <img src="http://localhost/ep/public/images/ali.png" class="kv-preview-data file-preview-image" title="prescription_dumy.png" alt="prescription_dumy.png" style="width:auto;height:160px;">
                         </div><div class="file-thumbnail-footer">
-                            <div class="file-footer-caption" title="prescription-dumy.png">Ali Mughal.png <br><samp>(908.52 KB)</samp></div>
+                            <div class="file-footer-caption" title="Previous CheckUp Photo">Previous CheckUp Photo <br><samp>(908.52 KB)</samp></div>
                             <div class="file-thumb-progress hide"><div class="progress">
                                     <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
                                         0%

@@ -34,7 +34,7 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="prescriptionInfoTab">
                     {{-- Prescription info --}}
-                    <section class="form-Section col-md-6 h650 fL">
+                    <section class="form-Section col-md-6 h800 fL">
                         <div class="container w100p ">
                             <h3 class="mT15 mB0 c3">Prescription Info:</h3>
                             <hr class="w95p fL mT0" />
@@ -109,11 +109,19 @@
                                 </div>
                             </div>
 
+                            <div class="form-group col-xs-12">
+                                <label class="col-xs-5 control-label asterisk">Test Procedure:</label>
+                                <div class="col-xs-6 frequencies-multi-slct">
+                                    {{test_procedure_drop_down()}}
+                                    <span id="errorName" class="field-validation-msg"></span>
+                                </div>
+                            </div>
+
 
                         </div>
                     </section>
                     {{-- Patient Image --}}
-                    <section class="form-Section col-md-6 h650 fL">
+                    <section class="form-Section col-md-6 h800 fL">
                         <div class="container w100p">
                             <h3 class="mT15 mB0 c3">Check Up Photo</h3>
                             <hr class="w95p fL mT0" />

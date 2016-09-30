@@ -58,7 +58,6 @@ class PrescriptionsController extends \BaseController
     public function followUpPrescriptions()
     {
         $parentPrescriptionId = Input::get('parentPrescriptionId');
-
         $prescriptionsDetails = PrescriptionDetail::where('prescription_id','=',$parentPrescriptionId)->get();
         $prescription = Prescription::find($parentPrescriptionId);
 

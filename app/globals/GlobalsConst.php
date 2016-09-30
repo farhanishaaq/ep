@@ -320,7 +320,25 @@ class GlobalsConst {
         self::EVENING => 'Evening',
     ];
 
-
+    //   TEST PROCEDURE FREQUENCY
+    const CBC        = "CBC";
+    const ACIDTY     = "Acidity (pH)";
+    const ECG        = "ECG";
+    const MRI        = "MRI";
+    const CT_SCAN    = "CT-Scan";
+    const ULTRASOUND = "Ultrasound";
+    const HG         = "Hemoglobin";
+    const PLATELET   = "Platelet count";
+    public static $TEST_PROCEDURE_FREQUENCIES = [
+        self::CBC       => self::CBC,
+        self::ACIDTY    => self::ACIDTY,
+        self::ECG       => self::ECG,
+        self::MRI       => self::MRI,
+        self::CT_SCAN   => self::CT_SCAN,
+        self::ULTRASOUND=> self::ULTRASOUND,
+        self::HG        => self::HG,
+        self::PLATELET  => self::PLATELET,
+    ];
 
 
     //Countries
