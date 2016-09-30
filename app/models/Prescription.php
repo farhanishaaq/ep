@@ -59,7 +59,9 @@ class Prescription extends \Eloquent {
         $prescription->appointment_id = $data['appointment_id'];
         $prescription->code           = $data['code'];
         $prescription->check_up_note  = $data['check_up_note'];
+        $prescription->check_up_photo  = $data['photo'];
         $prescription->refill         = $data['refill'];
+        $prescription->test_procedures = $data['test_procedure'];
         //$prescription->parent_id    = $data['parent_id'];
         $prescription->parent_id      = 3;
         $prescription->save();

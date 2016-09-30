@@ -10,6 +10,7 @@ class UsersTableSeeder extends Seeder {
 	{
 		DB::table('users')->truncate();
 		DB::table('employees')->truncate();
+		DB::table('doctors')->truncate();
 		DB::table('patients')->truncate();
 
 		//For Super Admin (1)
