@@ -15,9 +15,8 @@ class CreateMedicineSaleDetailsTable extends Migration {
 		Schema::create('medicine_sale_details', function(Blueprint $table)
 		{
 			$table->increments('id')->unsigned();
-			$table->integer('medicine_id');
 			$table->integer('sale_id');
-			$table->integer('business_unit_id');
+			$table->integer('medicine_id');
 			$table->integer('unit_price');
 			$table->integer('quantity');
 		});

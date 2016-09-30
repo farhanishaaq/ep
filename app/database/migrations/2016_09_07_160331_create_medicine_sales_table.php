@@ -16,6 +16,8 @@ class CreateMedicineSalesTable extends Migration {
 		{
 			$table->increments('id')->unsigned();
 			$table->integer('patient_id');
+			$table->integer('business_unit_id');
+			$table->string('code',20);
 			$table->date('date');
 			$table->timestamps();
 		});

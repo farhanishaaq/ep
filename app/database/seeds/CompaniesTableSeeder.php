@@ -12,7 +12,7 @@ class CompaniesTableSeeder extends Seeder {
         Company::create([
 			'city_id'=> 1,
             'name' => 'EP Clinic',
-            'name' => 'ep-clinic',
+            'domain' => 'ep-clinic',
             'company_type' => 'Clinic',
             'address' => 'DHA Lahore',
             'phone' => '+92 42 36852203',
@@ -24,7 +24,7 @@ class CompaniesTableSeeder extends Seeder {
 		Company::create([
 			'city_id'=> 1,
 			'name' => 'EP Hospital',
-			'name' => 'ep-hospital',
+			'domain' => 'ep-hospital',
 			'company_type' => 'Hospital',
 			'address' => 'DHA Lahore',
 			'phone' => '+92 42 36852203',

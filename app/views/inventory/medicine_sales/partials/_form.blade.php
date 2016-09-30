@@ -9,7 +9,7 @@
 @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
     DDD
 @endif
-<h3 class="mT10 mB0 c3">Create Medicine Purchase Form</h3>
+<h3 class="mT10 mB0 c3">Create Medicine Sale Form</h3>
 <hr class="w95p fL mT0" />
 <p class="col-xs-12 fL taR">Required Fields <kbd>*</kbd></p>
 {{-- Start Errors Code Container Block --}}
@@ -28,51 +28,43 @@
 {{-- End Errors Code Container Block --}}
 
 <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#medicinePurchaseInfoTab" area-controls="medicinePurchaseInfoTab" role="tab" data-toggle="tab">Medicine Purchase Info</a></li>
-    <li role="presentation"><a href="#medicinePurchaseDetailTab" area-controls="medicinePurchaseDetailTab" role="tab" data-toggle="tab">Medicine Purchase Detail</a></li>
+    <li role="presentation" class="active"><a href="#medicineSaleInfoTab" area-controls="medicineSaleInfoTab" role="tab" data-toggle="tab">Medicine Sale Info</a></li>
+    <li role="presentation"><a href="#medicineSaleDetailTab" area-controls="medicineSaleDetailTab" role="tab" data-toggle="tab">Medicine Sale Detail</a></li>
 </ul>
 
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="medicinePurchaseInfoTab">
         <section class="form-Section col-md-12 h300 fL">
             <div class="container w100p">
-                <h3 class="mT15 mB0 c3">Medicine Purchase Info</h3>
+                <h3 class="mT15 mB0 c3">Medicine Sale Info</h3>
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
 
+                {{--<div class="form-group">--}}
+                    {{--<label class="col-xs-5 control-label asterisk">Select Patient</label>--}}
+                    {{--<div class="col-xs-6">--}}
+                        {{--{{ Form::select('patient_id', ["" => 'Select Patient'] + $patients->lists('full_name', 'id'), null, ['id' => 'patient_id'] ); }}--}}
+                        {{--<span id="error_patient_id" class="field-validation-msg"></span>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
                 <div class="form-group col-xs-6">
-                    <label class="col-xs-5 control-label asterisk">Business Unit*:</label>
+                    <label class="col-xs-5 control-label asterisk">Sale Code:</label>
                     <div class="col-xs-6">
-                        {{business_unit_drop_down($company_id)}}
+                        <input type="text" id="code" name="code" required="true" value="{{ $code}}" class="form-control" placeholder="Sale Code">
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
 
                 <div class="form-group col-xs-6">
-                    <label class="col-xs-5 control-label asterisk">Manufacturer*:</label>
+                    <label class="col-xs-5 control-label asterisk">Sale Date:</label>
                     <div class="col-xs-6">
-                        {{manufacturer_drop_down()}}
+                        <input type="text" id="date" name="date" required="true" value="{{$date}}" class="form-control" placeholder="Sale date">
                         <span id="errorName" class="field-validation-msg"></span>
                     </div>
                 </div>
 
-                <div class="form-group col-xs-6">
-                    <label class="col-xs-5 control-label asterisk">Purchase Date:</label>
-                    <div class="col-xs-6">
-                        <input type="text" id="date" name="date" required="true" value="{{$date}}" class="form-control" placeholder="purchase date">
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-                <div class="form-group col-xs-6">
-                    <label class="col-xs-5 control-label asterisk">Purchase Code:</label>
-                    <div class="col-xs-6">
-                        <input type="text" id="code" name="code" required="true" value="{{ $code}}" class="form-control" placeholder="Purchase Code">
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
-                </div>
-             </div>
+            </div>
 
         </section>
 
