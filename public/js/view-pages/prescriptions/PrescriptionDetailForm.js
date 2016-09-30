@@ -5,7 +5,7 @@ var PrescriptionDetailForm = function(win,doc, options){
     var W = win;
     var D = doc;
     var defaults = {
-        rowCount: ""
+        rowCount: window.PrescriptionDetailRowIndex
 
     };
 

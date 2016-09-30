@@ -1,13 +1,13 @@
 <?php
     $TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
     $i = 0;
-    $usage_type = 0;
-    $strength_quantity = 0;
-    $dosage_strength = 0;
-    $usage_quantity = 0;
-    $quantity_unit = 0;
-    $frequencies = 0;
-    $extra_note = 0;
+    $usage_type = null;
+    $strength_quantity = null;
+    $dosage_strength = null;
+    $usage_quantity = null;
+    $quantity_unit = null;
+    $frequencies = null;
+    $extra_note = null;
 
 $prescriptionsDetailsCount = count($prescriptionsDetails);
 $rowCounter = $prescriptionsDetailsCount == 0 ? 1 : $prescriptionsDetailsCount;
@@ -134,9 +134,9 @@ $rowCounter = $prescriptionsDetailsCount == 0 ? 1 : $prescriptionsDetailsCount;
 <script src="{{asset('js/view-pages/prescriptions/PrescriptionDetailForm.js')}}"></script>
 <script type="text/javascript">
 
-        rowCount = "{{$prescriptionsDetailsCount}}";
-        window.PrescriptionDetailRowIndex = parseInt(rowCount) - 1;
-        var options = {rowCount: parseInt(rowCount)};
+        var rowCount = "{{ ($prescriptionsDetailsCount == 0) ? 0 : ($prescriptionsDetailsCount - 1)}}";
+        window.PrescriptionDetailRowIndex = parseInt(rowCount);
+        var options = {};
 
         var prescriptionDetailForm = new PrescriptionDetailForm(window, document, options);
         prescriptionDetailForm.initializeAll();

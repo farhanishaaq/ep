@@ -35,6 +35,7 @@ class CreatePrescriptionsTable extends Migration {
 	public function down()
 	{
 		Schema::drop('prescriptions');
+
 	}
 
 }

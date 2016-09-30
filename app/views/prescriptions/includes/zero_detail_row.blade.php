@@ -29,14 +29,14 @@
             </div>
             <div class="form-group col-xs-3 pR2 mB3">
                 <div class="col-xs-12 prescription-qty-unit-css">
-                    <input type="text" id="quantity" name="usage_quantity[{{$i}}]" class="form-control col-xs-3" value="" placeholder="{{$usage_quantity}}">
+                    <input type="text" id="quantity" name="strength_quantity[{{$i}}]" class="form-control col-xs-3" value="{{$strength_quantity}}" placeholder="Qty">
                     {{dosage_strength_form_drop_down($i, $dosage_strength)}}
                     <span id="error_usage_quantity[0]" class="field-validation-msg"></span>
                 </div>
             </div>
             <div class="form-group col-xs-3 pR2 mB3">
                 <div class="col-xs-12 prescription-qty-unit-css">
-                    <input type="text" id="quantity" name="strength_quantity[{{$i}}]" class="form-control col-xs-3" value="" placeholder="{{$strength_quantity}}">
+                    <input type="text" id="quantity" name="usage_quantity[{{$i}}]" class="form-control col-xs-3" value="{{$usage_quantity}}" placeholder="Qty">
                     {{dosage_qty_unit_drop_down($i,$quantity_unit)}}
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>

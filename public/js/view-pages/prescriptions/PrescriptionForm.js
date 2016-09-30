@@ -105,7 +105,7 @@ var PrescriptionForm = function(win,doc, options){
         //** usage_type select2
         $('[name="usage_type['+ rowIndex +']"]').select2({
             tags: "true",
-            placeholder: "Dosage Type"
+            placeholder: "Usage Type"
         });
 
         //** dosage_form select2
@@ -237,7 +237,7 @@ var PrescriptionForm = function(win,doc, options){
          */
         $('#dosage_strength').select2({
             tags: "true",
-            placeholder: "Strength"
+            placeholder: "Dosage Strength"
         });
 
         /**
@@ -245,7 +245,7 @@ var PrescriptionForm = function(win,doc, options){
          */
         $('#quantity_unit').select2({
             tags: "true",
-            placeholder: "Unit"
+            placeholder: "Select Unit"
         });
 
         /**
@@ -267,7 +267,7 @@ var PrescriptionForm = function(win,doc, options){
         /**
          * test_procedure select2
          */
-        $('#test_procedure').select2({
+        $('#test_procedure_dd').select2({
             tags: "true",
             placeholder: "Test Procedure"
         });
@@ -323,6 +323,7 @@ var PrescriptionForm = function(win,doc, options){
 
             var parentPrescriptionId = $(this).val();
 
+            //$('.file-preview.previousCheckUpPhoto').remove();
 
                 $.ajax({
 
@@ -332,7 +333,7 @@ var PrescriptionForm = function(win,doc, options){
                     dataType: 'html',
                     success: function(result){
                         $('#detailRowContainer').html(result);
-                        //$('#prescriptionDetailTab').trigger('click');
+                        $('#prescriptionDetailTab').trigger('click');
                     }
 
                 });
@@ -370,6 +371,9 @@ var PrescriptionForm = function(win,doc, options){
 
             var freVal = $('#frequencies_dd').val();
             $('#frequencies').val(freVal);
+            var testProcedureVal = $('#test_procedure_dd').val();
+            $('#test_procedure').val(testProcedureVal);
+
             var frm = $(this);
             console.log(frm.serialize());
             var validator = s.validationRulesForForm(frm);
@@ -395,7 +399,6 @@ var PrescriptionForm = function(win,doc, options){
              }else{
                 showMsg('Invalid Form!',window.MESSAGE_TYPE_ERROR);
              }
-
             return false;
         });
         //****End of form submit

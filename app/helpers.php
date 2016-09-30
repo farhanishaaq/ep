@@ -427,7 +427,7 @@ function test_procedure_drop_down(){
     //$dataset[""] = "Select Frequencies";
     ksort($dataset);
     $selectedData = Form::getValueAttribute('medical_specialty_id', null);
-    return Form::select('test_procedure',$dataset, $selectedData,['id'=>"test_procedure", 'multiple'=>true,]);
+    return Form::select('test_procedure_dd',$dataset, $selectedData,['id'=>"test_procedure_dd", 'multiple'=>true,]);
 
 }
 

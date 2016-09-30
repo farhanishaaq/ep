@@ -102,7 +102,7 @@
                             </div>
 
                             <div class="form-group col-xs-12">
-                                <label class="col-xs-5 control-label asterisk">Refill:</label>
+                                <label class="col-xs-5 control-label asterisk">Refill:*</label>
                                 <div class="col-xs-6">
                                     <input type="text" id="refill" name="refill"  value="{{{ Form::getValueAttribute('code', null) }}}" class="form-control" placeholder="Refill" required="required">
                                     <span id="error_refill" class="field-validation-msg"></span>
@@ -112,6 +112,7 @@
                             <div class="form-group col-xs-12">
                                 <label class="col-xs-5 control-label asterisk">Test Procedure:</label>
                                 <div class="col-xs-6 frequencies-multi-slct">
+                                    <input type="hidden" id="test_procedure" name="test_procedure" class="form-control col-xs-3" value="">
                                     {{test_procedure_drop_down()}}
                                     <span id="errorName" class="field-validation-msg"></span>
                                 </div>
