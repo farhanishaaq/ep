@@ -5,7 +5,7 @@
 </style>
 
 @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-    {{ Form::open(array('action' => 'inventory', 'class' =>"form-horizontal w100p ", 'id' => 'regForm','novalidate')) }}
+    {{ Form::open(array('action' => 'medicinePurchases.store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm','novalidate')) }}
 @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
     DDD
 @endif
@@ -122,7 +122,7 @@
         $(document).ready(function () {
 
             var options = {
-                saveCloseUrl: "{{route('medicinePurchase.store')}}",
+                saveCloseUrl: "{{route('medicinePurchases.store')}}",
                 formMode: '{{$formMode}}'
             };
 

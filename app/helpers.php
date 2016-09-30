@@ -453,3 +453,18 @@ function manufacturer_drop_down(){
     ksort($manufacturerData);
     return Form::select('menufacturer_id',$manufacturerData,Form::getValueAttribute('menufacturer_id', null),['id'=>"Manufacturer",'required'=>'true']);
 }
+
+function patient_drop_down()
+{
+    $companyId = current_company_id();
+    $patientDataSet = Patient::where('company_id','=',$companyId)->get();
+    $patientArr = array();
+    $counter = 1;
+    foreach($patientDataSet as $patientData){
+        $patientArr[$counter] = $patientData->user->username;
+        $counter++;
+    }
+    $patientArr[0] = "Select Patient";
+    ksort($patientArr);
+    return Form::select('patient_id',$patientArr,Form::getValueAttribute('patient_id', null),['id'=>"patient_id",'required'=>'true']);
+}

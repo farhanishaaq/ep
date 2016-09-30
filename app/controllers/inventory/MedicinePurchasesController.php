@@ -18,10 +18,7 @@ class MedicinePurchasesController extends \BaseController
 
     public function create()
     {
-        $data = Input::all();
         $formMode = GlobalsConst::FORM_CREATE;
-       // $company_id = 1;
-        //return "i am here";
         $date = date('Y-m-d');
         $company_id = current_company_id();
         $purchaseNextCount= MedicinePurchase::max('id')+1;

@@ -222,7 +222,7 @@ Route::group(['namespace' => 'App\Controllers\Inventory'],function () {
         /**
          * MedicinePurchasesController Routes
          */
-        Route::resource('medicinePurchase','MedicinePurchasesController');
+        Route::resource('medicinePurchases','MedicinePurchasesController');
 
         /**
          * MedicineSalesController Routes

@@ -4,11 +4,10 @@
 
 class MedicineSale extends \Eloquent {
 	
-	protected $fillable = ['patient_id','date'];
+	protected $fillable = ['patient_id','business_unit_id', 'code','date'];
 
 	public static $rules = [
-		'sale_id' 	 => 'required',
-		'patient_id' => 'required',
+
 	];
 
 	public function medicineSaleDetails()
@@ -64,5 +63,16 @@ class MedicineSale extends \Eloquent {
 
 		$response = ['success'=>true, 'error'=>false, 'message'=>'Medicine Sale has been saved successfully'];
 		return $response;
+	}
+
+	/**
+	 	function to generate code for medicine sale
+	 */
+
+	public static function createSaleCode($saleNextCount){
+
+		$date = date('ymd');
+		$saleCode = $date ."-". $saleNextCount;
+		return $saleCode;
 	}
 }

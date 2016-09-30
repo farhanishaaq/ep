@@ -8,6 +8,7 @@ use BusinessUnit;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use MedicinePurchase;
+use MedicineSale;
 
 class MedicineSalesController extends \BaseController
 {
@@ -22,9 +23,11 @@ class MedicineSalesController extends \BaseController
     {
 
         $formMode = GlobalsConst::FORM_CREATE;
-        $date = date('ymd');
+        $date = date('Y-m-d');
         $company_id = current_company_id();
-        return View::make('inventory.medicine_purchases.create')->nest('_form','inventory.medicine_purchases.partials._form',compact('formMode','company_id','code','date'));
+        $saleNextCount= MedicineSale::max('id')+1;
+        $code = MedicineSale::createSaleCode($saleNextCount);
+        return View::make('inventory.medicine_sales.create')->nest('_form','inventory.medicine_sales.partials._form',compact('formMode','company_id','code','date'));
 
     }
 
@@ -32,9 +35,7 @@ class MedicineSalesController extends \BaseController
     public function store()
     {
         $data = Input::all();
-        $result = MedicinePurchase::saveMedicinePurchase($data);
-//        dd($data);
-//        $result = Prescription::savePrescription($data);
+        $result = MedicineSale::saveMedicineSale($data);
         return $result;
     }
 

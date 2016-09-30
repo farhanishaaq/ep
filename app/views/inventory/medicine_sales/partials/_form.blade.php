@@ -5,7 +5,7 @@
 </style>
 
 @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-    {{ Form::open(array('action' => 'inventory', 'class' =>"form-horizontal w100p ", 'id' => 'regForm','novalidate')) }}
+    {{ Form::open(array('action' => 'medicineSales.store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm','novalidate')) }}
 @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
     DDD
 @endif
@@ -33,7 +33,7 @@
 </ul>
 
 <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="medicinePurchaseInfoTab">
+    <div role="tabpanel" class="tab-pane active" id="medicineSaleInfoTab">
         <section class="form-Section col-md-12 h300 fL">
             <div class="container w100p">
                 <h3 class="mT15 mB0 c3">Medicine Sale Info</h3>
@@ -47,6 +47,22 @@
                         {{--<span id="error_patient_id" class="field-validation-msg"></span>--}}
                     {{--</div>--}}
                 {{--</div>--}}
+
+                <div class="form-group col-xs-6">
+                    <label class="col-xs-5 control-label asterisk">Patient Name*:</label>
+                    <div class="col-xs-6">
+                        {{patient_drop_down()}}
+                        <span id="errorName" class="field-validation-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-6">
+                    <label class="col-xs-5 control-label asterisk">Business Unit*:</label>
+                    <div class="col-xs-6">
+                        {{business_unit_drop_down($company_id)}}
+                        <span id="errorName" class="field-validation-msg"></span>
+                    </div>
+                </div>
 
                 <div class="form-group col-xs-6">
                     <label class="col-xs-5 control-label asterisk">Sale Code:</label>
@@ -69,24 +85,24 @@
         </section>
 
     </div>
-    <div role="tabpanel" class="tab-pane" id="medicinePurchaseDetailTab">
+    <div role="tabpanel" class="tab-pane" id="medicineSaleDetailTab">
         <section class="form-Section col-md-12 h500 fL">
-            {{-- Medicine Purchase Detail --}}
+            {{-- Medicine Sale Detail --}}
             <div class="container w100p ofA h761">
-                <h3 class="mT15 mB0 c3">Medicine Purchase Detail</h3>
+                <h3 class="mT15 mB0 c3">Medicine Sale Detail</h3>
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
 
                 <div class="form-group mT30 list-group">
                     <a href="javascript:void(0)" class="col-xs-12 list-group-item list-group-item-action ">
-                        <h3 class="col-xs-4">Medicine Purchase Detail</h3>
+                        <h3 class="col-xs-4">Medicine Sale Detail</h3>
                         <h3 class="col-xs-3 fR">
                             <div class="fL mL5">Add Detail Row</div>
                             <button class="fR btn btn-default addButton" type="button"><i class="fa fa-plus"></i></button>
                         </h3>
                     </a>
                 </div>
-                @include('inventory.medicine_purchases.includes.detail_row')
+                @include('inventory.medicine_sales.includes.detail_row')
 
             </div>
         </section>
@@ -108,18 +124,18 @@
 
 @section('scripts')
 
-    <script src="{{asset('js/view-pages/inventory/medicine_purchases/MedicinePurchaseForm.js')}}"></script>
+    <script src="{{asset('js/view-pages/inventory/medicine_sales/MedicineSaleForm.js')}}"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
 
             var options = {
-                saveCloseUrl: "{{route('medicinePurchase.store')}}",
+                saveCloseUrl: "{{route('medicineSales.store')}}",
                 formMode: '{{$formMode}}'
             };
 
-            var medicinePurchaseForm = new MedicinePurchaseForm(window,document,options);
-            medicinePurchaseForm.initializeAll();
+            var medicineSaleForm = new MedicineSaleForm(window,document,options);
+            medicineSaleForm.initializeAll();
         });
     </script>
 

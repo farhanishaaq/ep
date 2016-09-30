@@ -8,7 +8,6 @@ class MedicineSaleDetail extends \Eloquent {
 
 	public static $rules = [
 		'medicine_id' => 'required',
-		'business_unit_id' => 'required',
 		'quantity' => 'required',
 		'unit_price' => 'required',
 
@@ -63,7 +62,6 @@ class MedicineSaleDetail extends \Eloquent {
 
 			$medicine_sale_detail->sale_id			=	$data['MedicineSaleID'];
 			$medicine_sale_detail->medicine_id 		= 	$data['medicine_id'][$k];
-			$medicine_sale_detail->business_unit_id	= 	$data['business_unit_id'][$k];
 			$medicine_sale_detail->unit_price		= 	$data['unit_price'][$k];
 			$medicine_sale_detail->quantity			=	$data['quantity'][$k];
 			$medicine_sale_detail->save();
