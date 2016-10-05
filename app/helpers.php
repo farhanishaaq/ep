@@ -389,8 +389,6 @@ function medicine_drop_down($i=0)
     }
 
     return Form::select('medicine_id['.$i.']',$dataset,Form::getValueAttribute('medicine_id', null),$attrs);
-
-
 }
 
 
@@ -444,7 +442,7 @@ function dosage_qty_unit_drop_down($i=0 , $selectedData=null){
 }
 
 /**
- * company_drop_down | This function is used to make manufacturer dropdown
+ * manufacturer_drop_down | This function is used to make manufacturer dropdown
  * @return mixed
  */
 function manufacturer_drop_down(){
@@ -453,6 +451,11 @@ function manufacturer_drop_down(){
     ksort($manufacturerData);
     return Form::select('menufacturer_id',$manufacturerData,Form::getValueAttribute('menufacturer_id', null),['id'=>"Manufacturer",'required'=>'true']);
 }
+
+/**
+ * patient_drop_down | This function is used to make dropdown of patients
+ * @return mixed
+ */
 
 function patient_drop_down()
 {
@@ -467,4 +470,26 @@ function patient_drop_down()
     $patientArr[0] = "Select Patient";
     ksort($patientArr);
     return Form::select('patient_id',$patientArr,Form::getValueAttribute('patient_id', null),['id'=>"patient_id",'required'=>'true']);
+}
+
+/**
+ * medicine_location_drop_down | This function is used to make medicine location dropdown
+ */
+function medicine_location_drop_down(){
+    $locationData = MedicineLocation::all()->lists('name','id');
+    $locationData[""] = "Select Location";
+    ksort($locationData);
+    return Form::select('location_id',$locationData,Form::getValueAttribute('location_id', null),['id'=>"location_id",'required'=>'true']);
+}
+
+/**
+ * single_medicine_location_drop_down | This function is used to make dropdown to store a single medicine at a time
+ */
+
+function single_medicine_drop_down()
+{
+    $dataset = Medicine::all()->lists('name','id');
+    $dataset[""] = "Select Medicine";
+    ksort($dataset);
+    return Form::select('medicine_id',$dataset,Form::getValueAttribute('medicine_id', null),['id'=>"medicine_id",'required'=>'true']);
 }

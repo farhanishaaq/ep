@@ -67,9 +67,9 @@ class MedicinePurchase extends \Eloquent {
 		$mpdResult = MedicinePurchaseDetail::saveMedicinePurchaseDetail($data,GlobalsConst::DATA_SAVE);
 
 		//passing dummy data to purchaseDetail for testing
-		$data 	   = ['medicine_id'=>1,'business_unit_id'=>1,'location_id'=>1,'minimum_quantity'=>5,'quantity'=>7];
+		//$data 	   = ['medicine_id'=>1,'business_unit_id'=>1,'location_id'=>1,'minimum_quantity'=>5,'quantity'=>7];
 
-		$msResult  = MedicineStock::saveMedicineStock($data,GlobalsConst::DATA_SAVE);
+		//$msResult  = MedicineStock::saveMedicineStock($data,GlobalsConst::DATA_SAVE);
 		$response  = ['success'=>'true','error'=>'false','message'=>'Medicine purchase has been saved successfully!'];
 		return $response;
 	}

@@ -229,6 +229,10 @@ Route::group(['namespace' => 'App\Controllers\Inventory'],function () {
          */
         Route::resource('medicineSales','MedicineSalesController');
 
+        /**
+         * MedicineStocksController Routes
+         */
+        Route::resource('medicineStocks','MedicineStocksController');
     });
 
 

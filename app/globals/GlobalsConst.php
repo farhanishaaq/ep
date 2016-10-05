@@ -107,6 +107,9 @@ class GlobalsConst {
           'App\Controllers\Inventory\MedicinePurchasesController@index', //@todo It is not public, remove from here
           'App\Controllers\Inventory\MedicinePurchasesController@create', //@todo It is not public, remove from here
         'App\Controllers\Inventory\MedicineSalesController@index', //@todo It is not public, remove from here
+        'App\Controllers\Inventory\MedicineStocksController@index', //@todo It is not public, remove from here
+        'App\Controllers\Inventory\MedicineStocksController@create', //@todo It is not public, remove from here
+        'App\Controllers\Inventory\MedicineStocksController@store', //@todo It is not public, remove from here
 
 
         'PrescriptionsController@uploadCheckUpPic', //@todo It is not public, remove from here
