@@ -43,9 +43,7 @@ class PrescriptionsController extends \BaseController
         $appointment = Appointment::find(Input::get('appointmentId'));
         $patient_id = $appointment->patient_id;
         $prescriptionNextCount = (int)(Prescription::where('patient_id','=',$patient_id)->count()) + 1;
-//        $doctors = Employee::where('role', 'Doctor')->where('status', 'Active')->where('company_id', Auth::user()->company_id)->get();
-//        $doctors = Doctor::fetchDoctorsForDropDown();
-//        $medicines = Medicine::where('company_id', Auth::user()->company_id)->get()->lists('name', 'id');
+
         $medicines= null;
         $prescriptionsDetails = null;
         $prescriptionCheckUpImgPath = null;
@@ -77,11 +75,9 @@ class PrescriptionsController extends \BaseController
     {
 
         $data = Input::all();
-        //dd($data);
-        //dd($data['frequencies']);
 
         $result = Prescription::savePrescription($data);
-        //return $result;
+        return $result;
 
 
     }

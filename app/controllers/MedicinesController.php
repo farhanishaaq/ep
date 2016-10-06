@@ -1,5 +1,7 @@
 <?php
 
+use App\Globals\GlobalsConst;
+
 class MedicinesController extends \BaseController {
 
 	/**
@@ -9,9 +11,9 @@ class MedicinesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$medicines = Medicine::where('company_id', Auth::user()->company_id)->paginate(10);
+		$medicines = Medicine::paginate(20);
+		return View::make('medicines.index')->nest('_list','medicines.partials._list', compact('medicines'));
 
-		return View::make('medicines.index', compact('medicines'));
 	}
 
 	/**
@@ -21,7 +23,10 @@ class MedicinesController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('medicines.create');
+		$formMode = GlobalsConst::FORM_CREATE;
+
+		return View::make('medicines.create')->nest('_form','medicines.partials._form', compact('formMode'));
+
 	}
 
 	/**
@@ -31,17 +36,12 @@ class MedicinesController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Medicine::$rules);
+		$data = Input::all();
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+		$response = Medicine::saveMedicine($data);
 
-        $data['company_id'] = Auth::user()->company_id;
-		Medicine::create($data);
-
-		return Redirect::route('medicines.index');
+		return $response;
+		//return Redirect::route('medicines.index');
 	}
 
 	/**

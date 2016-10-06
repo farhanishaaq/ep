@@ -88,7 +88,7 @@
                             <div class="form-group col-xs-12">
                                 <label class="col-xs-5 control-label asterisk">Follow Up Pres:</label>
                                 <div class="col-xs-6">
-                                    {{follow_up_prescription_drop_down((isset($appointment))? $appointment->patient_id : $prescription->appointment->doctor->user->id)}}
+                                    {{follow_up_prescription_drop_down($appointment->patient_id)}}
                                     <span id="errorName" class="field-validation-msg"></span>
                                 </div>
                             </div>
@@ -104,14 +104,14 @@
                             <div class="form-group col-xs-12">
                                 <label class="col-xs-5 control-label asterisk">Refill:*</label>
                                 <div class="col-xs-6">
-                                    <input type="text" id="refill" name="refill"  value="{{{ Form::getValueAttribute('code', null) }}}" class="form-control" placeholder="Refill" required="required">
+                                    <input type="text" id="refill" name="refill"  value="{{{ Form::getValueAttribute('refill', null) }}}" class="form-control" placeholder="Refill" required="required">
                                     <span id="error_refill" class="field-validation-msg"></span>
                                 </div>
                             </div>
 
                             <div class="form-group col-xs-12">
                                 <label class="col-xs-5 control-label asterisk">Test Procedure:</label>
-                                <div class="col-xs-6 frequencies-multi-slct">
+                                <div class="col-xs-6 multi-select">
                                     <input type="hidden" id="test_procedure" name="test_procedure" class="form-control col-xs-3" value="">
                                     {{test_procedure_drop_down()}}
                                     <span id="errorName" class="field-validation-msg"></span>
@@ -171,9 +171,9 @@
 
         <div class="col-xs-12 taR pR0 mT20">
             <input type="reset" id="reset" value="Reset" class="submit" />
-            <input type="submit" id="createClose" value="Save and Close" class="submit" />
-            <input type="submit" id="createContinue" name="createContinue" value="Save and Continue" class="submit" />
-            <input type="submit" id="cancel" value="Cancel" class="submit" />
+            <input type="submit" id="saveClose" name="saveClose" value="Save and Close" class="submit" />
+            <input type="submit" id="saveContinue" name="saveContinue" value="Save and Continue" class="submit" />
+            <input type="button" id="cancel" value="Cancel" class="submit" onclick="goTo('{{route("prescriptions.index")}}')" />
         </div>
         {{ Form::close() }}
 

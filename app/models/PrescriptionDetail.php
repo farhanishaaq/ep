@@ -84,7 +84,7 @@ class PrescriptionDetail extends \Eloquent {
             $prescription_detail->save();
 
         }
-        //dd($prescription_detail);
+
         $response = ['success'=>true, 'error'=> false, 'message'=> 'Prescription Detail has been saved successfully!'];
         return $response;
     }

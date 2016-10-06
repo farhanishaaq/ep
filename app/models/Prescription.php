@@ -48,22 +48,21 @@ class Prescription extends \Eloquent {
             }
         }
         //*****Start Rules Validators
-        $validator = Validator::make($data, $vRules);
-        if ($validator->fails())
-        {
-            return ['success'=>false, 'error'=> true, 'validatorErrors'=>$validator->errors()];
-        }
+//        $validator = Validator::make($data, $vRules);
+//        if ($validator->fails())
+//        {
+//            return ['success'=>false, 'error'=> true, 'validatorErrors'=>$validator->errors()];
+//        }
         //*****End Rules Validators
         $prescription = new Prescription();
         $prescription->patient_id     = $data['patient_id'];
         $prescription->appointment_id = $data['appointment_id'];
         $prescription->code           = $data['code'];
         $prescription->check_up_note  = $data['check_up_note'];
-        $prescription->check_up_photo  = $data['photo'];
+        $prescription->check_up_photo = $data['photo'];
         $prescription->refill         = $data['refill'];
-        $prescription->test_procedures = $data['test_procedure'];
-        //$prescription->parent_id    = $data['parent_id'];
-        $prescription->parent_id      = 3;
+        $prescription->test_procedures= $data['test_procedure'];
+        $prescription->parent_id      = isset($data['Prescription_id']) ? $data['Prescription_id'] : null;
         $prescription->save();
 
         $data['PrescriptionDetailId']= $prescription->id;

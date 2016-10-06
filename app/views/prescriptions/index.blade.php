@@ -37,6 +37,7 @@
                 <thead>
                 <tr>
                     <th>Prescription Code</th>
+                    <th>Date</th>
                     <th>Patient Name</th>
                     <th>Doctor Name</th>
                     <th>Manage</th>

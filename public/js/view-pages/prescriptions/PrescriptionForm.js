@@ -205,6 +205,33 @@ var PrescriptionForm = function(win,doc, options){
         });
     };
 
+    /*****
+     * get Plugin image html Template Replica
+     */
+    var imageReplicate = function(){
+        var imageReplica = $('#prescriptionPhotoTemplate').html();
+        $(imageReplica).insertBefore('.prescriptionPhotoAppend .file-input .file-preview');
+        $('.prescriptionPhotoAppend .file-input .file-preview').css({"width": "50%" , "float": "left"});
+    };
+
+    /*****
+     * set the src of image that get from Span
+     */
+    var setPrescriptionImageSrcPath = function (){
+        var prescriptionCheckUpImgPath = $(checkUpImgPath).html();
+        $('.prescriptionPhotoAppend .file-input .previousCheckUpPhoto .file-drop-zone .file-preview-thumbnails .file-initial-thumbs .file-preview-frame .kv-file-content .file-preview-image').attr({
+            "src"   : prescriptionCheckUpImgPath,
+            "title" : "prescription_Previous_CheckUp_Photo",
+            "alt"   : "Previous Photo",
+            "id"    : "previous_photo"
+        });
+
+        $('<h4>Before</h4>').insertBefore('#previous_photo');
+        $('<h4>After</h4>').insertBefore('.prescriptionPhotoAppend .file-input .file-preview .file-drop-zone .file-preview-thumbnails .file-initial-thumbs .file-preview-frame .kv-file-content .file-preview-image').last();
+        $('#previous_photo').parent().find('h4').last().remove();
+    };
+
+
     var allPluginsInitializer = function(){
 
         /**
@@ -282,6 +309,8 @@ var PrescriptionForm = function(win,doc, options){
         //***fileInput plugin for upload photo
         makePhotoUploadComponent();
 
+
+
     };
 
     /**
@@ -333,27 +362,14 @@ var PrescriptionForm = function(win,doc, options){
                     dataType: 'html',
                     success: function(result){
                         $('#detailRowContainer').html(result);
-                        $('#prescriptionDetailTab').trigger('click');
+                        //$('#prescriptionDetailTab').trigger('click');
+
+                        imageReplicate();
+                        setPrescriptionImageSrcPath();
+
                     }
 
                 });
-
-            var imageReplica = $('#prescriptionPhotoTemplate').html();
-            $(imageReplica).insertBefore('.prescriptionPhotoAppend .file-input .file-preview');
-            $('.prescriptionPhotoAppend .file-input .file-preview').css({"width": "50%" , "float": "left"});
-
-            var prescriptionCheckUpImgPath = $(checkUpImgPath).html();
-            $('.prescriptionPhotoAppend .file-input .previousCheckUpPhoto .file-drop-zone .file-preview-thumbnails .file-initial-thumbs .file-preview-frame .kv-file-content .file-preview-image').attr({
-                "src"   : prescriptionCheckUpImgPath,
-                "title" : "prescription_Previous_CheckUp_Photo",
-                "alt"   : "Previous Photo",
-                "id"    : "previous_photo"
-            });
-
-            $('<h4>Before</h4>').insertBefore('#previous_photo');
-            $('<h4>After</h4>').insertBefore('.prescriptionPhotoAppend .file-input .file-preview .file-drop-zone .file-preview-thumbnails .file-initial-thumbs .file-preview-frame .kv-file-content .file-preview-image').last();
-            $('#previous_photo').parent().find('h4').last().remove();
-
 
 
 

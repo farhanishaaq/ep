@@ -34,7 +34,7 @@ Edit Medicine
 
             {{ Form::model($medicine, ['route' => ['medicines.update', $medicine->id], 'method' => 'put' ,'style' => 'padding: 40px', 'id' => 'regForm'])}}
 
-                @include('medicines._form')
+                @include('medicines.partials._form')
 
             {{ Form::close() }}
             </div>
