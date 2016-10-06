@@ -46,7 +46,7 @@ class MedicineStock extends \Eloquent {
 
 		//*****Start Rules Validators
 		$validator = Validator::make($data, $vRules);
-		
+
 		if ($validator->fails())
 		{
 

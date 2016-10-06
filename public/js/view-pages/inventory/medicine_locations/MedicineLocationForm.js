@@ -2,7 +2,7 @@
  * Created by Zeeshan on 9/8/2016.
  */
 
-var MedicineStockForm = function(win,doc, options){
+var MedicineLocationForm = function(win,doc, options){
     var W = win;
     var D = doc;
     var defaults = {
@@ -18,20 +18,6 @@ var MedicineStockForm = function(win,doc, options){
 
     var allPluginsInitializer = function(){
 
-        //** medicine_id select2
-        $('#medicine_id').select2({
-            tags: "true",
-            placeholder: "Medicine"
-        });
-
-
-        /**
-         * location_id select2
-         */
-        $('#location_id').select2({
-            tags: "true",
-            placeholder: " Medicine Location"
-        });
 
     };
 

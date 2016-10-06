@@ -4,7 +4,7 @@
 
 class MedicineLocation extends \Eloquent {
 	
-	protected $fillable = ['name'];
+	protected $fillable = ['name','description'];
 
 	public static $rules = [
 		'name' => 'required'

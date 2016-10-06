@@ -2,6 +2,7 @@
 namespace App\Controllers\Inventory;
 use App\Globals\Ep;
 use App\Globals\GlobalsConst;
+use Illuminate\Support\Facades\Input;
 use \MedicinePurchase;
 use \View;
 
