@@ -5,7 +5,7 @@
                           TITLE
 =========================================================-->
 @section('title')
-    Create Medicine Purchase
+    Create Medicine Manufacturer
 @stop
 
 @section('redBar')

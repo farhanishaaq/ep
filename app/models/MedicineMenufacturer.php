@@ -8,7 +8,7 @@ class MedicineMenufacturer extends \Eloquent {
 
 	public static $rules = [
 
-		'email' => 'required|unique:manufacturers',
+		'email' => 'required|unique:medicine_menufacturers',
 		'name' => 'required',
 	];
 

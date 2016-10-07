@@ -27,16 +27,3 @@
         {{$_form}}
     </div>
 @stop
-
-@section('scripts')
-    <script src="{{asset('js/view-pages/users/UserForm.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            /*var options = {};
-             var employeeForm = new EmployeeForm(window,document,options);
-             employeeForm.initializeAll();*/
-        });
-
-
-    </script>
-@stop

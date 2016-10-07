@@ -238,6 +238,17 @@ Route::group(['namespace' => 'App\Controllers\Inventory'],function () {
          * MedicineLocationsController Routes
          */
         Route::resource('medicineLocations','MedicineLocationsController');
+
+        /**
+         * MedicineMenufacturersController Routes
+         */
+        Route::resource('medicineMenufacturers','MedicineMenufacturersController');
+
+        /**
+         * MedicineCategoryController Routes
+         */
+        Route::resource('medicineCategories','MedicineCategoriesController');
+
     });
 
 

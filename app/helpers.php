@@ -493,3 +493,29 @@ function single_medicine_drop_down()
     ksort($dataset);
     return Form::select('medicine_id',$dataset,Form::getValueAttribute('medicine_id', null),['id'=>"medicine_id",'required'=>'true']);
 }
+
+/**
+ * parent_medicine_category_drop_down | This function is used to make dropdown to store a medicine category
+ */
+
+function parent_medicine_category_drop_down()
+{
+    $dataset = MedicineCategory::where('is_derived','=','No')->lists('name','id');
+    $dataset[""] = "Select Category";
+    ksort($dataset);
+    return Form::select('parent_id',$dataset,Form::getValueAttribute('parent_id', null),['id'=>"parent_id",'required'=>'true']);
+}
+
+/**
+ * single_dosage_form_drop_down | This function is used to make dropdown of dosage from for medicine category
+ * @return mixed
+ */
+function single_dosage_form_drop_down()
+{
+
+    $dataset = GlobalsConst::$DOSAGE_FORMS;
+    $dataset[""] = "Select Dosage Form";
+    ksort($dataset);
+    return Form::select('dosage_form',$dataset,Form::getValueAttribute('dosage_form', null),['id'=>"dosage_form",'required'=>'true']);
+}
+

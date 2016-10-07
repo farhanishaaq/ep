@@ -7,6 +7,11 @@ class MedicineCategory extends \Eloquent {
 	
 	protected $fillable = ['name','parent_id','manufacturer_id','dosage_form','description','is_derived'];
 
+	public static $rules = [
+		'name' => 'required',
+
+	];
+
 
 	public function medicineStocks()
 	{
@@ -18,7 +23,7 @@ class MedicineCategory extends \Eloquent {
 		return $this->belongsTo('MedicineMenufacturer');
 	}
 
-	public static function saveMedicineCategory($data,$dataProcessType=GlobalsConst::DATA_SAVE){
+	public static function saveMedicineCategories($data,$dataProcessType=GlobalsConst::DATA_SAVE){
 
 		$vRules = MedicineLocation::$rules;
 		$response = null;

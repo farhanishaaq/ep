@@ -113,6 +113,12 @@ class GlobalsConst {
         'App\Controllers\Inventory\MedicineLocationsController@index', //@todo It is not public, remove from here
         'App\Controllers\Inventory\MedicineLocationsController@create', //@todo It is not public, remove from here
         'App\Controllers\Inventory\MedicineLocationsController@store', //@todo It is not public, remove from here
+        'App\Controllers\Inventory\MedicineMenufacturersController@index', //@todo It is not public, remove from here
+        'App\Controllers\Inventory\MedicineMenufacturersController@create', //@todo It is not public, remove from here
+        'App\Controllers\Inventory\MedicineMenufacturersController@store', //@todo It is not public, remove from here
+        'App\Controllers\Inventory\MedicineCategoriesController@index', //@todo It is not public, remove from here
+        'App\Controllers\Inventory\MedicineCategoriesController@create', //@todo It is not public, remove from here
+        'App\Controllers\Inventory\MedicineCategoriesController@store', //@todo It is not public, remove from here
 
 
 
