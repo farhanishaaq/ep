@@ -1,46 +1,46 @@
-@extends('medicines.layouts.master')
-<!--========================================================
+{{-- users.layouts.master --}}
+@extends('layouts.master')
+        <!--========================================================
                           TITLE
 =========================================================-->
 @section('title')
-Edit Medicine
+    Medicine Edit
 @stop
 
+@section('redBar')
+    <div class = "user_logo">
+        <div class="header_1 wrap_3 color_3 login-bar">Easy Physician
+            {{--<div class="col-md-12 mL25 taL">Easy Physician</div>--}}
+        </div>
+    </div>
+    @stop
 
-<!--========================================================
+    @section('sliderContent')
+    @stop
+            <!--========================================================
                           CONTENT
 =========================================================-->
-@section('content1')
-    <section id="content">
 
-		<div class = "user_logo">
-			<div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                        Edit Medicine
-            </div>
-		</div>
-		<br><br><br>
+
+@section('content')
+
+    <div class="container">
+        {{$_form}}
+    </div>
 @stop
 
+@section('scripts')
+    <script src="{{asset('js/view-pages/users/MedicineForm.js')}}"></script>
+    <script>
+        $(document).ready(function(){
 
-@section('content2')
+            var options = {
+                saveCloseUrl: "{{route('medicines.index')}}",
+                formMode: '{{$formMode}}'
+            };
 
-        @foreach($errors->all("<p class='error'>:message</p>") as $message)
-	    {{ $message }}
-		@endforeach
-
-		<br/>
-	   <center>
-            <div style="border: 4px solid #129894; width: 800px; border-radius: 10px; background-color: #EBEBEB">
-
-            {{ Form::model($medicine, ['route' => ['medicines.update', $medicine->id], 'method' => 'put' ,'style' => 'padding: 40px', 'id' => 'regForm'])}}
-
-                @include('medicines.partials._form')
-
-            {{ Form::close() }}
-            </div>
-        </center>
-
-		<br><br>
-
-      
+            var medicineForm = new MedicineForm(window,document,options);
+            medicineForm.initializeAll();
+        });
+    </script>
 @stop

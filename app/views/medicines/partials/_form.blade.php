@@ -5,9 +5,13 @@
     }
 </style>
 @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
+
     {{ Form::open(array('action' => 'MedicinesController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm', 'novalidate')) }}
+
 @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-    DDD
+
+    {{Form::model($medicine, ['route' => ['medicines.update', $medicine->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
+
 @endif
 <h3 class="mT10 mB0 c3">Medicine Form</h3>
 <hr class="w95p fL mT0" />
@@ -39,7 +43,7 @@
         <div class="form-group col-xs-12">
             <label class="col-xs-5 control-label asterisk">Medicine Name:*</label>
             <div class="col-xs-4">
-                <input type="text" id="medicine_name" name="name"  value="{{{ Form::getValueAttribute('medicine_name', null) }}}" class="form-control" placeholder="Medicine Name" required="required">
+                <input type="text" id="medicine_name" name="name"  value="{{{ Form::getValueAttribute('name', null) }}}" class="form-control" placeholder="Medicine Name" required="required">
                 <span id="error_refill" class="field-validation-msg"></span>
             </div>
         </div>
@@ -47,7 +51,7 @@
         <div class="form-group col-xs-12">
             <label class="col-xs-5 control-label asterisk">Description:</label>
             <div class="col-xs-4">
-                <textarea type="text" id="description" name="description" rows="2" cols="20" class="form-control" placeholder="Description">{{{ Form::getValueAttribute('medicine_description', null) }}}</textarea>
+                <textarea type="text" id="description" name="description" rows="2" cols="20" class="form-control" placeholder="Description">{{{ Form::getValueAttribute('description', null) }}}</textarea>
                 <span id="errorName" class="field-validation-msg"></span>
             </div>
         </div>

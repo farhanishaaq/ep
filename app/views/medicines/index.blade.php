@@ -94,9 +94,8 @@
             <!--========================================================
                                      Data Table
             =========================================================-->
-            @if(Auth::user()->role == 'Administrator' || Auth::user()->role == 'Receptionist')
-                {{-- link_to_route('prescriptions.create', 'Create Prescription', '', ['class' => 'btn_1']) --}}
-            @endif
+            {{link_to_route('medicines.create', 'Add Medicine', '', ['class' => 'btn_1'])}}
+
             <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
                 <thead>
                     <tr>
@@ -110,7 +109,10 @@
                 </tbody>
             </table>
         </section>
-    </div>
+
+        </div>
+
+
 @stop
 @section('scripts')
     <script type="text/javascript">

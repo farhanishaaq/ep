@@ -6,7 +6,8 @@
         @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
             {{ Form::open(array('action' => 'PrescriptionsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm', 'novalidate')) }}
         @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-            DDD
+            {{Form::model($prescription, ['route' => ['prescriptions.update', $prescription->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
+
         @endif
         <h3 class="mT10 mB0 c3">Create Prescription Form</h3>
         <hr class="w95p fL mT0" />

@@ -24,8 +24,8 @@ class MedicinesController extends \BaseController {
 	public function create()
 	{
 		$formMode = GlobalsConst::FORM_CREATE;
-
-		return View::make('medicines.create')->nest('_form','medicines.partials._form', compact('formMode'));
+		$medicine = null;
+		return View::make('medicines.create')->nest('_form','medicines.partials._form', compact('formMode', 'medicine'));
 
 	}
 
@@ -37,11 +37,9 @@ class MedicinesController extends \BaseController {
 	public function store()
 	{
 		$data = Input::all();
-
 		$response = Medicine::saveMedicine($data);
 
 		return $response;
-		//return Redirect::route('medicines.index');
 	}
 
 	/**
@@ -53,8 +51,7 @@ class MedicinesController extends \BaseController {
 	public function show($id)
 	{
 		$medicine = Medicine::findOrFail($id);
-
-		return View::make('medicines.show', compact('medicine'));
+		return View::make('medicines.show')->nest('_view','medicines.partials._view', compact('medicine'));
 	}
 
 	/**
@@ -65,9 +62,10 @@ class MedicinesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+		$formMode = GlobalsConst::FORM_EDIT;
 		$medicine = Medicine::find($id);
+		return View::make('medicines.edit')->nest('_form','medicines.partials._form',compact('formMode','medicine'));
 
-		return View::make('medicines.edit', compact('medicine'));
 	}
 
 	/**
@@ -79,8 +77,8 @@ class MedicinesController extends \BaseController {
 	public function update($id)
 	{
 		$medicine = Medicine::findOrFail($id);
-
-		$validator = Validator::make($data = Input::all(), Medicine::$rules);
+		$data = Input::all();
+		$validator = Validator::make($data , Medicine::$rules);
 
 		if ($validator->fails())
 		{
@@ -89,7 +87,8 @@ class MedicinesController extends \BaseController {
 
 		$medicine->update($data);
 
-		return Redirect::route('medicines.index');
+		$response = ['success'=>true, 'error'=> false, 'message'=> 'Medicine has been Update successfully!'];
+		return $response;
 	}
 
 	/**

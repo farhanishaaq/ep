@@ -7,7 +7,8 @@
                 <td>{{ $medicine->description }}</td>
 
                 <td>
-                    <a href="{{route('medicines.show',[$medicine->id])}}" class="btn-view-icon fL" title="View Medicine"></a>
+                    <a href="{{route('medicines.show',[$medicine->id])}}" class="btn-view-icon fL" id="view_medicine" title="View Medicine"></a>
+                    <span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('medicines.edit', '', [$medicine->id], ['class' => 'btn-edit-icon fL','title'=> 'Edit Record'])}}
                 </td>
             </tr>
         @endforeach

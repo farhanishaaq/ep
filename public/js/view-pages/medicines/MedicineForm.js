@@ -79,6 +79,35 @@ var MedicineForm = function(win,doc, options){
         //****End of form submit
 
 
+        /**
+         * Medicine View Button Event
+         */
+        $('#view_medicine').on("click",function(){
+            alert("Hello");
+            //var frm = $(this);
+            //var saveUrl = frm.attr('action') || "";
+            //$.ajax({
+            //    type: 'POST',
+            //    url: saveUrl,
+            //    data: formData,
+            //    dataType: 'json',
+            //    success: function (response) {
+            //        if(response.success){
+            //            showMsg(response.message,window.MESSAGE_TYPE_SUCCESS);
+            //            if(saveCloseClicked){
+            //                goTo(s.saveCloseUrl);
+            //            }else{
+            //                window.location.reload();
+            //            }
+            //        }
+            //    }
+            //});
+
+        });
+        //****End of form submit
+
+
+
         $('#saveClose').click(function (e) {
             saveCloseClicked = true;
         });
