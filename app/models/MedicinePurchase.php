@@ -8,7 +8,6 @@ class MedicinePurchase extends \Eloquent {
 	
 	protected $fillable = ['business_unit_id','manufacturer_id','date'];
 	public static $rules = [
-		'business_unit_id' => 'required',
 		'menufacturer_id' => 'required',
 	];
 
@@ -52,11 +51,9 @@ class MedicinePurchase extends \Eloquent {
 		//*****End Rules Validators
 
 		$medicine_menufacturerId = isset($data['menufacturer_id']) ? $data['menufacturer_id'] : null;
-		$business_unitId= isset($data['business_unit_id']) ? $data['business_unit_id'] : null;
 
 		$medicine_purchase->menufacturer_id = $medicine_menufacturerId;
-		$medicine_purchase->business_unit_id = $business_unitId;
-
+		$medicine_purchase->business_unit_id = Ep::currentBusinessUnitId();
 		$medicine_purchase->date = $data['date'];
 		$medicine_purchase->code = $data['code'];
 		$medicine_purchase->save();

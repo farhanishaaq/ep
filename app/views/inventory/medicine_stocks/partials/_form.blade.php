@@ -86,9 +86,9 @@
 
 @section('scripts')
 
-    <script src="{{asset('MedicineCategoryForm.js')}}"></script>
+    <script src="{{asset('js/view-pages/inventory/medicine_stocks/MedicineStockForm.js')}}"></script>
 
-MedicineCategoryForm.jsxt/javascript">
+    <script type="text/javascript">
         $(document).ready(function () {
 
             var options = {
