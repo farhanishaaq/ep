@@ -97,8 +97,8 @@
 
 <div class="col-xs-12 taR pR0 mT20">
     <input type="reset" id="reset" value="Reset" class="submit" />
-    <input type="submit" id="createClose" value="Save and Close" class="submit" />
-    <input type="submit" id="createContinue" name="createContinue" value="Save and Continue" class="submit" />
+    <input type="submit" id="saveClose" value="Save and Close" class="submit" />
+    <input type="submit" id="saveContinue" name="createContinue" value="Save and Continue" class="submit" />
     <input type="submit" id="cancel" value="Cancel" class="submit" />
 </div>
 {{ Form::close() }}

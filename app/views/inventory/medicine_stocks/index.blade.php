@@ -30,6 +30,7 @@
             <!--========================================================
                                      Data Table
             =========================================================-->
+            {{ link_to_route('medicineStocks.create', 'Register Medicine Stock', '', ['class' => 'btn_1'])}}
             <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
                 <thead>
                 <tr>
