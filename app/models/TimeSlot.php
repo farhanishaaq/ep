@@ -1,6 +1,6 @@
 <?php
 use \Illuminate\Support\Facades\DB;
-class Timeslot extends \Eloquent {
+class TimeSlot extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [

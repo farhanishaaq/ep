@@ -1,6 +1,6 @@
 <?php
 use \App\Globals\GlobalsConst;
-class Dutyday extends \Eloquent {
+class DutyDay extends \Eloquent {
 
 	// Add your validation rules here
 
@@ -37,10 +37,10 @@ class Dutyday extends \Eloquent {
         $start = strtotime($start_time);
         $end = strtotime($end_time);
 
-        Timeslot::where('dutyday_id', '=', $day_id)->delete();
+        TimeSlot::where('dutyday_id', '=', $day_id)->delete();
 
         while($start <= $end){
-            $timeslot = new Timeslot();
+            $timeslot = new TimeSlot();
             $timeslot->slot = date("H:i:s", $start);
             $timeslot->save();
             $timeslot->dutyday_id = $day_id;
