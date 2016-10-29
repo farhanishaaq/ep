@@ -40,13 +40,6 @@
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
 
-                {{--<div class="form-group">--}}
-                    {{--<label class="col-xs-5 control-label asterisk">Select Patient</label>--}}
-                    {{--<div class="col-xs-6">--}}
-                        {{--{{ Form::select('patient_id', ["" => 'Select Patient'] + $patients->lists('full_name', 'id'), null, ['id' => 'patient_id'] ); }}--}}
-                        {{--<span id="error_patient_id" class="field-validation-msg"></span>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
 
                 <div class="form-group col-xs-6">
                     <label class="col-xs-5 control-label asterisk">Patient Name*:</label>
@@ -56,13 +49,13 @@
                     </div>
                 </div>
 
-                <div class="form-group col-xs-6">
-                    <label class="col-xs-5 control-label asterisk">Business Unit*:</label>
-                    <div class="col-xs-6">
-                        {{business_unit_drop_down($company_id)}}
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
-                </div>
+                {{--<div class="form-group col-xs-6">--}}
+                    {{--<label class="col-xs-5 control-label asterisk">Business Unit*:</label>--}}
+                    {{--<div class="col-xs-6">--}}
+                        {{--{{business_unit_drop_down($company_id)}}--}}
+                        {{--<span id="errorName" class="field-validation-msg"></span>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
                 <div class="form-group col-xs-6">
                     <label class="col-xs-5 control-label asterisk">Sale Code:</label>

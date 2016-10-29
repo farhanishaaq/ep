@@ -95,7 +95,8 @@ class Ep {
      * @param $dir
      * @return bool
      */
-    public static function checkOrMakeDir($dir)
+    public static function
+    checkOrMakeDir($dir)
     {
         if (!file_exists($dir)) {
 

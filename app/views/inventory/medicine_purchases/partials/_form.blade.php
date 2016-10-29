@@ -40,15 +40,6 @@
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
 
-
-                <div class="form-group col-xs-6">
-                    <label class="col-xs-5 control-label asterisk">Business Unit*:</label>
-                    <div class="col-xs-6">
-                        {{business_unit_drop_down($company_id)}}
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
                 <div class="form-group col-xs-6">
                     <label class="col-xs-5 control-label asterisk">Manufacturer*:</label>
                     <div class="col-xs-6">

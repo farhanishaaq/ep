@@ -1,5 +1,5 @@
 <?php
-
+use \App\Globals\Ep;
 
 
 class MedicineSale extends \Eloquent {
@@ -51,13 +51,13 @@ class MedicineSale extends \Eloquent {
 		//***End Rules Validators
 
 		$patient_Id = isset($data['patient_id']) ? $data['patient_id'] : null;
-
+		$medicine_sale->business_unit_id = Ep::currentBusinessUnitId();
 		$medicine_sale->patient_id 	= $patient_Id;
 		$medicine_sale->date 		= $data['date'];
 		$medicine_sale->save();
 
 		//passing dumy data to MedicineSaleDetail for testing
-		$data	= ['medicine_id'=>[2,3],'business_unit_id'=>[2,3],'unit_price'=>[2,3],'quantity'=>[2,3]];
+		//$data	= ['medicine_id'=>[2,3],'business_unit_id'=>[2,3],'unit_price'=>[2,3],'quantity'=>[2,3]];
 		$data['MedicineSaleID'] = $medicine_sale->id;
 		$msdResult = MedicineSaleDetail::saveMedicineSaleDetail($data,GlobalsConst::DATA_SAVE);
 
