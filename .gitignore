@@ -13,5 +13,5 @@ Thumbs.db
 /public/tmp/*.htm
 /public/uploaded-data/profile-photos
 profile-photos
-/public/uploaded-data
+/public/uploaded-data/
 local
