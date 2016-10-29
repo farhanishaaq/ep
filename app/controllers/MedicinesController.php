@@ -1,5 +1,7 @@
 <?php
 
+use App\Globals\GlobalsConst;
+
 class MedicinesController extends \BaseController {
 
 	/**
@@ -9,9 +11,9 @@ class MedicinesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$medicines = Medicine::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+		$medicines = Medicine::paginate(20);
+		return View::make('medicines.index')->nest('_list','medicines.partials._list', compact('medicines'));
 
-		return View::make('medicines.index', compact('medicines'));
 	}
 
 	/**
@@ -21,7 +23,10 @@ class MedicinesController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('medicines.create');
+		$formMode = GlobalsConst::FORM_CREATE;
+		$medicine = null;
+		return View::make('medicines.create')->nest('_form','medicines.partials._form', compact('formMode', 'medicine'));
+
 	}
 
 	/**
@@ -31,17 +36,10 @@ class MedicinesController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Medicine::$rules);
+		$data = Input::all();
+		$response = Medicine::saveMedicine($data);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
-        $data['clinic_id'] = Auth::user()->clinic_id;
-		Medicine::create($data);
-
-		return Redirect::route('medicines.index');
+		return $response;
 	}
 
 	/**
@@ -53,8 +51,7 @@ class MedicinesController extends \BaseController {
 	public function show($id)
 	{
 		$medicine = Medicine::findOrFail($id);
-
-		return View::make('medicines.show', compact('medicine'));
+		return View::make('medicines.show')->nest('_view','medicines.partials._view', compact('medicine'));
 	}
 
 	/**
@@ -65,9 +62,10 @@ class MedicinesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+		$formMode = GlobalsConst::FORM_EDIT;
 		$medicine = Medicine::find($id);
+		return View::make('medicines.edit')->nest('_form','medicines.partials._form',compact('formMode','medicine'));
 
-		return View::make('medicines.edit', compact('medicine'));
 	}
 
 	/**
@@ -79,8 +77,8 @@ class MedicinesController extends \BaseController {
 	public function update($id)
 	{
 		$medicine = Medicine::findOrFail($id);
-
-		$validator = Validator::make($data = Input::all(), Medicine::$rules);
+		$data = Input::all();
+		$validator = Validator::make($data , Medicine::$rules);
 
 		if ($validator->fails())
 		{
@@ -89,7 +87,8 @@ class MedicinesController extends \BaseController {
 
 		$medicine->update($data);
 
-		return Redirect::route('medicines.index');
+		$response = ['success'=>true, 'error'=> false, 'message'=> 'Medicine has been Update successfully!'];
+		return $response;
 	}
 
 	/**

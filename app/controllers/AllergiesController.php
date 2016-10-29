@@ -1,6 +1,6 @@
 <?php
 
-class BranchController extends \BaseController {
+class AllergiesController extends \BaseController {
 
 
 }

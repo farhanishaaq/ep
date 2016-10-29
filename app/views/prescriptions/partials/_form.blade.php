@@ -4,11 +4,12 @@
                 }
             </style>
         @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-            {{ Form::open(array('action' => 'PrescriptionsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm', 'onsubmit' => 'checkForm()')) }}
+            {{ Form::open(array('action' => 'PrescriptionsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm', 'novalidate')) }}
         @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-            DDD
+            {{Form::model($prescription, ['route' => ['prescriptions.update', $prescription->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
+
         @endif
-        <h3 class="mT10 mB0 c3">Create Employee Form</h3>
+        <h3 class="mT10 mB0 c3">Create Prescription Form</h3>
         <hr class="w95p fL mT0" />
         <p class="col-xs-12 fL taR">Required Fields <kbd>*</kbd></p>
         {{-- Start Errors Code Container Block --}}
@@ -25,150 +26,180 @@
         </ul>
         @endif
         {{-- End Errors Code Container Block --}}
-        <section class="form-Section col-md-6 h695 fL">
-            <div class="container w100p">
-                <h3 class="mT15 mB0 c3">Prescription Info</h3>
-                <hr class="w95p fL mT0" />
-                <hr class="w95p fL mT0" />
 
-                <input id="patient_id" name="patient_id" type="hidden" value="{{ $appointment->patient->id }}">
-                <input id="appointment_id" name="appointment_id" type="hidden" value="{{ $appointment->id }}">
-                <input id="appointment_date" name="appointment_date" type="hidden" value="{{ date('Ymd', strtotime($appointment->date)) }}">
-                <input id="prescriptionNextCount" name="prescriptionNextCount" type="hidden" value="{{ $prescriptionNextCount }}">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#prescriptionInfoTab" aria-controls="prescriptionInfoTab" role="tab" data-toggle="tab">Prescription Info</a></li>
+                <li role="presentation"><a href="#prescriptionDetailInfoTab" id="prescriptionDetailTab" aria-controls="prescriptionDetailInfoTab" role="tab" data-toggle="tab">Prescription Detail Info</a></li>
+            </ul>
 
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Current Visit Date*</label>
-                    <div class="col-xs-6">
-                        <label class="form-control">{{ (isset($appointment))?  date('j F, Y', strtotime($appointment->date)) :  date('j F, Y', strtotime($prescription->appointment->date)) }}</label>
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="prescriptionInfoTab">
+                    {{-- Prescription info --}}
+                    <section class="form-Section col-md-6 h800 fL">
+                        <div class="container w100p ">
+                            <h3 class="mT15 mB0 c3">Prescription Info:</h3>
+                            <hr class="w95p fL mT0" />
+                            <hr class="w95p fL mT0" />
+
+                            <input id="patient_id" name="patient_id" type="hidden" value="{{ $appointment->patient->id }}">
+                            <input id="appointment_id" name="appointment_id" type="hidden" value="{{ $appointment->id }}">
+                            <input id="appointment_date" name="appointment_date" type="hidden" value="{{ date('Ymd', strtotime($appointment->date)) }}">
+                            <input id="prescriptionNextCount" name="prescriptionNextCount" type="hidden" value="{{ $prescriptionNextCount }}">
+
+                            <div class="form-group col-xs-12">
+                                <label class="col-xs-5 control-label asterisk">Appointment Date</label>
+                                <div class="col-xs-6">
+                                    <label class="form-control">{{ (isset($appointment))?  date('j F, Y', strtotime($appointment->date)) :  date('j F, Y', strtotime($prescription->appointment->date)) }}</label>
+                                    <span id="errorName" class="field-validation-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label class="col-xs-5 control-label asterisk">Appointment Type</label>
+                                <div class="col-xs-6">
+                                    <label class="form-control">{{ (isset($appointment)) ? get_appointment_status_name($appointment->status) : '---'}}</label>
+                                    <span id="errorName" class="field-validation-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label class="col-xs-5 control-label asterisk">Patient Name*</label>
+                                <div class="col-xs-6">
+                                    <label class="form-control">{{ (isset($appointment))? $appointment->patient->user->full_name : $prescription->appointment->doctor->user->full_name}}</label>
+                                    <span id="errorName" class="field-validation-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label class="col-xs-5 control-label asterisk">Doctor Name*</label>
+                                <div class="col-xs-6">
+                                    <label class="form-control">{{ (isset($appointment))? $appointment->doctor->user->full_name : $prescription->appointment->doctor->user->full_name}}</label>
+                                    <span id="errorName" class="field-validation-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label class="col-xs-5 control-label asterisk">Prescription Code:</label>
+                                <div class="col-xs-6">
+                                    <input type="text" id="code" name="code" required="true" value="{{{ Form::getValueAttribute('code', null) }}}" class="form-control" placeholder="Prescription Code">
+                                    <span id="errorName" class="field-validation-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label class="col-xs-5 control-label asterisk">Follow Up Pres:</label>
+                                <div class="col-xs-6">
+                                    {{follow_up_prescription_drop_down($appointment->patient_id)}}
+                                    <span id="errorName" class="field-validation-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label class="col-xs-5 control-label asterisk">Check Up Note:</label>
+                                <div class="col-xs-6">
+                                    <textarea type="text" id="check_up_note" name="check_up_note" rows="2" cols="20" class="form-control" placeholder="Check Up Note">{{{ Form::getValueAttribute('extra_note', null) }}}</textarea>
+                                    <span id="errorName" class="field-validation-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label class="col-xs-5 control-label asterisk">Refill:*</label>
+                                <div class="col-xs-6">
+                                    <input type="text" id="refill" name="refill"  value="{{{ Form::getValueAttribute('refill', null) }}}" class="form-control" placeholder="Refill" required="required">
+                                    <span id="error_refill" class="field-validation-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label class="col-xs-5 control-label asterisk">Test Procedure:</label>
+                                <div class="col-xs-6 multi-select">
+                                    <input type="hidden" id="test_procedure" name="test_procedure" class="form-control col-xs-3" value="">
+                                    {{test_procedure_drop_down()}}
+                                    <span id="errorName" class="field-validation-msg"></span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </section>
+                    {{-- Patient Image --}}
+                    <section class="form-Section col-md-6 h800 fL">
+                        <div class="container w100p">
+                            <h3 class="mT15 mB0 c3">Check Up Photo</h3>
+                            <hr class="w95p fL mT0" />
+                            <hr class="w95p fL mT0" />
+
+                            {{-- Patient Image Upload --}}
+                            <div class="form-group col-xs-12">
+                                <div class="form-group profile-photo file-input prescriptionPhotoAppend">
+                                    <label>Check Up Photo:</label>
+                                    <input id="photo" name="photo" type="hidden" value="{{{ Form::getValueAttribute('photo', null) }}}">
+                                    <input id="checkUpPhoto" name="checkUpPhoto" type="file" class="file-loading" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
                 </div>
+                <div role="tabpanel" class="tab-pane" id="prescriptionDetailInfoTab">
+                    {{-- Prescription Detail --}}
+                    <section class="form-Section col-md-12 h800 fL">
+                        <div class="container w100p ofA">
+                        <h3 class="mT15 mB0 c3">Prescription Detail:</h3>
+                        <hr class="w95p fL mT0" />
+                        <hr class="w95p fL mT0" />
 
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Doctor Name*</label>
-                    <div class="col-xs-6">
-                        <label class="form-control">{{ (isset($appointment))? $appointment->employee->name : $prescription->appointment->employee->name}}</label>
-                        <span id="errorName" class="field-validation-msg"></span>
+                        <div class="form-group mT30 list-group">
+                            <a href="javascript:void(0)" class="col-xs-12 list-group-item list-group-item-action ">
+                                <h3 class="col-xs-4">Prescription Detail Data</h3>
+                                <h3 class="col-xs-3 fR">
+                                    <div class="fL mL5">Add Detail Row</div>
+                                    <button class="fR btn btn-default addButton" type="button"><i class="fa fa-plus"></i></button>
+                                </h3>
+                            </a>
+                        </div>
+                            {{-- Make Rows according to prescriptions --}}
+                            <div id="detailRowContainer">
+                                {{$_detail_row}}
+                            </div>
                     </div>
+                    </section>
                 </div>
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Prescription Code:</label>
-                    <div class="col-xs-6">
-                        <input type="text" id="code" name="code" required="true" value="{{{ Form::getValueAttribute('code', null) }}}" class="form-control" placeholder="Prescription Code">
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Medicines:</label>
-
-                    <div class="col-xs-6 hAi">
-                        {{ Form::select("medicineName[0]", [null => 'Select first medicine']+$medicines, null, ['id' => 'medicineName', 'class'=> 'medicinesCss']) }}
-                        <input type="text" class="form-control" name="med_qty[]" placeholder="quantity" />
-                        <button class="btn btn-default addButton" type="button"><i class="fa fa-plus"></i></button>
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-                <div id="moreMedicine" class="form-group hide actual">
-                    <label class="col-xs-5 control-label asterisk">Medicines:</label>
-                    <div class="col-xs-6 hAi">
-                        {{ Form::select("medicineName[-1]", [null => 'Select first medicine']+$medicines, null, ['class'=> 'medicinesCss']) }}
-                        <input type="text" class="form-control" name="med_qty[]" placeholder="quantity" />
-                        <button class="btn btn-default removeButton" type="button"><i class="fa fa-minus"></i></button>
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
             </div>
-        </section>
-
-        <section class="form-Section col-md-6 h695 fL">
-            <div class="container w100p">
-                <h3 class="mT15 mB0 c3"></h3>
-                <hr class="w95p fL mT0" />
-                <hr class="w95p fL mT0" />
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Other Medicines:</label>
-                    <div class="col-xs-6 hAi">
-                        <textarea id="medicines" name="medicines" class="form-control" rows="7" cols="20" placeholder="Other medicines...">{{{ Form::getValueAttribute('medicines', null) }}}</textarea>
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Note:</label>
-                    <div class="col-xs-6 hAi">
-                        <textarea id="note" name="note" class="form-control" rows="7" cols="20" placeholder="Note">{{{ Form::getValueAttribute('note', null) }}}</textarea>
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
-                </div>
 
 
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Procedure:</label>
-                    <div class="col-xs-6 hAi">
-                        <textarea id="procedure" name="procedure" class="form-control" rows="7" cols="20" placeholder="Procedure">{{{ Form::getValueAttribute('procedure', null) }}}</textarea>
-                        <span id="errorName" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-
-            </div>
-        </section>
 
         <div class="col-xs-12 taR pR0 mT20">
             <input type="reset" id="reset" value="Reset" class="submit" />
-            <input type="submit" id="createClose" value="Save and Close" class="submit" />
-            <input type="submit" id="createContinue" name="createContinue" value="Save and Continue" class="submit" />
-            <input type="submit" id="cancel" value="Cancel" class="submit" />
+            <input type="submit" id="saveClose" name="saveClose" value="Save and Close" class="submit" />
+            <input type="submit" id="saveContinue" name="saveContinue" value="Save and Continue" class="submit" />
+            <input type="button" id="cancel" value="Cancel" class="submit" onclick="goTo('{{route("prescriptions.index")}}')" />
         </div>
         {{ Form::close() }}
 
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            bookIndex = 0;
-            $('#regForm').on('click', '.addButton', function () {
-                bookIndex++;
-                var $template = $('#moreMedicine');
-                var $clone = $template
-                                .clone()
-                                .removeClass('hide')
-                                .removeAttr('id')
-                                .attr('data-book-index', bookIndex)
-                                .insertBefore($template);
+        @section('scripts')
+            <link media="all" type="text/css" rel="stylesheet" href="{{asset('plugins/file-input/css/fileinput.min.css')}}">
+            <script src="{{asset('plugins/file-input/js/fileinput.min.js')}}"></script>
+            <script src="{{asset('js/view-pages/prescriptions/PrescriptionForm.js')}}"></script>
+            <script type="text/javascript">
+                $(document).ready(function () {
 
-                console.log($clone);
-                // Update the name attributes
-                $clone.find('[name="medicineName[-1]"]').attr('name', 'medicineName[' + bookIndex + ']').end().find('[name="med_qty"]').attr('name', 'quantity[' + bookIndex + ']').end();
+                    var options = {
+                        saveCloseUrl: "{{route('prescriptions.index')}}",
+                        photoUploadUrl: "{{route('uploadCheckUpPic')}}",
+                        photoDeleteUrl: "{{route('deleteCheckUpPic')}}",
+                        parentPrescriptionUrl: "{{route('followUpPrescriptions')}}",
+                        photoInitialPreview :[
+                            "{{asset('images/prescription-dumy.png')}}"
+                        ],
+                        formMode: '{{$formMode}}'
+                    };
 
-                $('[name="medicineName['+ bookIndex +']"]').select2({
-                    tags: "true",
-                    placeholder: "Select an option"
-                 });
-            })
-            // Remove button click handler
-            .on('click', '.removeButton', function () {
-                var $row = $(this).parents('.actual'),
-                index = $row.attr('data-book-index');
-                // Remove element containing the fields
-                $row.remove();
-            });
-
-            $('#medicineName').select2({
-                tags: "true",
-                placeholder: "Select an option"
-             });
-
-            var patientId = $('#patient_id').val();
-            var appointmentId = $('#appointment_id').val();
-            var appointmentDate = $('#appointment_date').val();
-            var prescriptionNextCount = $('#prescriptionNextCount').val();
-            var PrescriptionCode = appointmentDate +'-'+ leftPad(patientId,"000") + leftPad(appointmentId,"000") + leftPad(prescriptionNextCount,"000");
-            $('#code').val(PrescriptionCode);
-        });
-    </script>
+                    var prescriptionForm = new PrescriptionForm(window,document,options);
+                    prescriptionForm.initializeAll();
+                });
+            </script>
+        @stop
 

@@ -1,0 +1,60 @@
+<?php
+namespace App\Controllers\Inventory;
+use App\Globals\Ep;
+use App\Globals\GlobalsConst;
+use Illuminate\Support\Facades\Input;
+use \MedicinePurchase;
+use \View;
+
+class MedicinePurchasesController extends \BaseController
+{
+
+
+    public function index()
+    {
+        $medicinePurchases = MedicinePurchase::fetchMedicinePurchases();
+        return View::make('inventory.medicine_purchases.index')->nest('_list','inventory.medicine_purchases.partials._list', compact('medicinePurchases'));
+    }
+
+
+    public function create()
+    {
+        $formMode = GlobalsConst::FORM_CREATE;
+        $date = date('Y-m-d');
+        $company_id = current_company_id();
+        $purchaseNextCount= MedicinePurchase::max('id')+1;
+        $code = MedicinePurchase::createPurchaseCode($purchaseNextCount);
+        return View::make('inventory.medicine_purchases.create')->nest('_form','inventory.medicine_purchases.partials._form',compact('formMode','company_id','date','purchaseNextCount','code'));
+
+    }
+
+
+    public function store()
+    {
+        $data = Input::all();
+        $result = MedicinePurchase::saveMedicinePurchase($data);
+        return $result;
+    }
+
+
+    public function show($id)
+    {
+    }
+
+
+    public function edit($id)
+    {
+
+    }
+
+    public function update($id)
+    {
+    }
+
+
+    public function destroy($id)
+    {
+    }
+
+
+}

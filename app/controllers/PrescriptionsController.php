@@ -1,5 +1,8 @@
 <?php
 
+use App\Globals\GlobalsConst;
+use App\Globals\Ep;
+
 class PrescriptionsController extends \BaseController
 {
 
@@ -40,11 +43,28 @@ class PrescriptionsController extends \BaseController
         $appointment = Appointment::find(Input::get('appointmentId'));
         $patient_id = $appointment->patient_id;
         $prescriptionNextCount = (int)(Prescription::where('patient_id','=',$patient_id)->count()) + 1;
-        $doctors = Employee::where('role', 'Doctor')->where('status', 'Active')->where('clinic_id', Auth::user()->clinic_id)->get();
-        $medicines = Medicine::where('clinic_id', Auth::user()->clinic_id)->get()->lists('name', 'id');
 
-        return View::make('prescriptions.create')->nest('_form','prescriptions.partials._form', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount'));
+        $medicines= null;
+        $prescriptionsDetails = null;
+        $prescriptionCheckUpImgPath = null;
+
+        $_detail_row = View::make('prescriptions.partials._detail_row', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount', 'prescriptionsDetails', 'prescriptionCheckUpImgPath'));
+        return View::make('prescriptions.create')->nest('_form','prescriptions.partials._form', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount','_detail_row'));
     }
+
+
+    public function followUpPrescriptions()
+    {
+        $parentPrescriptionId = Input::get('parentPrescriptionId');
+        $prescriptionsDetails = PrescriptionDetail::where('prescription_id','=',$parentPrescriptionId)->get();
+        $prescription = Prescription::find($parentPrescriptionId);
+
+        $chkupPrescriptionImgDir = Ep::checkUpPrescriptionDirectory();
+        $prescriptionCheckUpImgPath = asset($chkupPrescriptionImgDir.'/'.$prescription->check_up_photo);
+
+        return View::make('prescriptions.partials._detail_row', compact('prescriptionsDetails','prescriptionCheckUpImgPath'));
+    }
+
 
     /**
      * Store a newly created prescription in storage.
@@ -54,29 +74,12 @@ class PrescriptionsController extends \BaseController
     public function store()
     {
 
-        $validator = Validator::make($data = Input::all(), Prescription::$rules);
+        $data = Input::all();
 
-        if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator)->withInput();
-        }
-        $data['clinic_id'] = Auth::user()->clinic_id;
-        $prescription = Prescription::create($data);
+        $result = Prescription::savePrescription($data);
+        return $result;
 
-        $quantity = Input::get('quantity');
-        foreach (Input::get('medicineName') as $key => $value) {
 
-            if ($value != null) {
-                $medicine = Medicine::find($value);
-                if ($quantity[$key] < $medicine->quantity) {
-                    $medicine->quantity -= $quantity[$key];
-                } else {
-                    $medicine->quantity = 0;
-                }
-                $medicine->update();
-                Medicine::find($value)->prescriptions()->attach($prescription->id, array('quantity' => $quantity[$key]));
-            }
-        }
-        return Redirect::route('appointments.index');
     }
 
     /**
@@ -90,6 +93,7 @@ class PrescriptionsController extends \BaseController
 //        $prescription = Prescription::with('medicines')->where('appointment_id', $id)->first();
         $prescription = Prescription::find($id);
         $medicines = $prescription->medicines()->get();
+//        dd($medicines);
         return View::make('prescriptions.show')
                             ->nest('_viewPrescription','prescriptions.partials._viewPrescription', compact('prescription', 'medicines'));
     }
@@ -104,7 +108,7 @@ class PrescriptionsController extends \BaseController
     {
         $prescription = Prescription::where('appointment_id', $id)->get()->first();
 
-        $medicines = Medicine::where('clinic_id', Auth::user()->clinic_id)->get()->lists('name', 'id');
+        $medicines = Medicine::where('company_id', Auth::user()->company_id)->get()->lists('name', 'id');
         return View::make('prescriptions.edit', compact('medicines', 'prescription'))->nest('_form','prescriptions.partials._form', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode'));;
 
 
@@ -320,6 +324,42 @@ class PrescriptionsController extends \BaseController
         $medicines = $prescription->medicines()->get();
         $_viewPrescription = View::make('prescriptions.partials._viewPrescription', compact('prescription', 'medicines'))->render();
         return PDF::html('prescriptions.printPrescription',compact('_viewPrescription'));
+    }
+
+    public function uploadCheckUpPic(){
+        $response = null;
+
+        if (Input::hasFile('checkUpPhoto')) {
+            $file            = Input::file('checkUpPhoto');
+            $destinationPath = public_path(EP::checkUpPrescriptionDirectory());
+            $filename        = str_random(4).'_'.$file->getClientOriginalName();
+            $uploadSuccess   = $file->move($destinationPath, $filename);
+//			$response = ['success'=>true,'error'=>false,'message'=>'Photo has been uploaded successfully!','uploadedFileName'=>$filename,'abc'=>$uploadSuccess];
+            $response = ['success'=>true,'uploaded'=>$filename,'message'=>'Photo has been uploaded successfully!'];
+
+        }else{
+//			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
+            $response = ['success'=>false,'error'=>'No files were processed.'];
+        }
+        return Response::json($response);
+    }
+
+    public function deleteCheckUpPic()
+    {
+        $response = null;
+        if (Input::get('imageName')) {
+            $file = Input::get('imageName');
+            $destinationPath = public_path(EP::checkUpPrescriptionDirectory());
+            unlink($destinationPath .'/'. $file );
+            $response = ['success'=>true,'uploaded'=>$file,'message'=>'Photo has been Deleted successfully!'];
+
+        }else{
+//			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
+            $response = ['success'=>false,'error'=>'No files were processed.'];
+        }
+        return Response::json($response);
+
+
     }
 
 }

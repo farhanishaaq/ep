@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `status` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `checkup_fee` double NOT NULL,
   `fee_note` text COLLATE utf8_unicode_ci NOT NULL,
-  `timeslot_id` int(11) NOT NULL,
+  `time_slot_id` int(11) NOT NULL,
   `employee_id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -90,10 +90,10 @@ CREATE TABLE IF NOT EXISTS `diagonosticprocedures` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `drugusages`
+-- Table structure for table `drug_usages`
 --
 
-CREATE TABLE IF NOT EXISTS `drugusages` (
+CREATE TABLE IF NOT EXISTS `drug_usages` (
 `id` int(10) unsigned NOT NULL,
   `drug_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `usage_note` text COLLATE utf8_unicode_ci NOT NULL,
@@ -105,10 +105,10 @@ CREATE TABLE IF NOT EXISTS `drugusages` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dutydays`
+-- Table structure for table `duty_days`
 --
 
-CREATE TABLE IF NOT EXISTS `dutydays` (
+CREATE TABLE IF NOT EXISTS `duty_days` (
 `id` int(10) unsigned NOT NULL,
   `day` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `start` time DEFAULT NULL,
@@ -159,10 +159,10 @@ INSERT INTO `employees` (`id`, `name`, `password`, `email`, `gender`, `age`, `ci
 -- --------------------------------------------------------
 
 --
--- Table structure for table `familyhistories`
+-- Table structure for table `family_histories`
 --
 
-CREATE TABLE IF NOT EXISTS `familyhistories` (
+CREATE TABLE IF NOT EXISTS `family_histories` (
 `id` int(10) unsigned NOT NULL,
   `f_member_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `patient_relation` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -212,19 +212,19 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2015_02_03_060752_create_patients_table', 1),
 ('2015_02_05_194923_add_remember_token_to_employees_table', 1),
 ('2015_02_06_062003_create_surgicalhistories_table', 1),
-('2015_02_06_103433_create_familyhistories_table', 1),
-('2015_02_10_120710_create_previousdiseases_table', 1),
+('2015_02_06_103433_create_family_histories_table', 1),
+('2015_02_10_120710_create_previous_diseases_table', 1),
 ('2015_02_11_060123_create_allergies_table', 1),
-('2015_02_11_070250_create_drugusages_table', 1),
+('2015_02_11_070250_create_drug_usages_table', 1),
 ('2015_02_11_074218_create_diagonosticprocedures_table', 1),
-('2015_02_11_095950_create_vitalsigns_table', 1),
+('2015_02_11_095950_create_vital_signs_table', 1),
 ('2015_02_12_084106_add_patient_id_to_allergies_table', 1),
-('2015_02_12_084722_add_patient_id_to_drugusages_table', 1),
-('2015_02_12_085330_add_patient_id_to_familyhistories_table', 1),
-('2015_02_12_085656_add_patient_id_to_previousdiseases_table', 1),
+('2015_02_12_084722_add_patient_id_to_drug_usages_table', 1),
+('2015_02_12_085330_add_patient_id_to_family_histories_table', 1),
+('2015_02_12_085656_add_patient_id_to_previous_diseases_table', 1),
 ('2015_02_12_090044_add_patient_id_to_surgicalhistories_table', 1),
-('2015_02_14_110516_create_dutydays_table', 1),
-('2015_02_14_111359_create_timeslots_table', 1),
+('2015_02_14_110516_create_duty_days_table', 1),
+('2015_02_14_111359_create_time_slots_table', 1),
 ('2015_02_17_060819_create_labtests_table', 1),
 ('2015_02_17_080659_create_appointments_table', 1),
 ('2015_02_18_064352_create_prescriptions_table', 1),
@@ -296,10 +296,10 @@ CREATE TABLE IF NOT EXISTS `prescriptions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `previousdiseases`
+-- Table structure for table `previous_diseases`
 --
 
-CREATE TABLE IF NOT EXISTS `previousdiseases` (
+CREATE TABLE IF NOT EXISTS `previous_diseases` (
 `id` int(10) unsigned NOT NULL,
   `disease_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `disease_notes` text COLLATE utf8_unicode_ci NOT NULL,
@@ -311,7 +311,7 @@ CREATE TABLE IF NOT EXISTS `previousdiseases` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `surgicalhistories`
+-- Table structure for table `surgical_histories`
 --
 
 CREATE TABLE IF NOT EXISTS `surgicalhistories` (
@@ -341,14 +341,14 @@ CREATE TABLE IF NOT EXISTS `testfees` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `timeslots`
+-- Table structure for table `time_slots`
 --
 
-CREATE TABLE IF NOT EXISTS `timeslots` (
+CREATE TABLE IF NOT EXISTS `time_slots` (
 `id` int(10) unsigned NOT NULL,
   `slot` time NOT NULL,
   `reserved` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `dutyday_id` int(11) NOT NULL,
+  `duty_day_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -356,10 +356,10 @@ CREATE TABLE IF NOT EXISTS `timeslots` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vitalsigns`
+-- Table structure for table `vital_signs`
 --
 
-CREATE TABLE IF NOT EXISTS `vitalsigns` (
+CREATE TABLE IF NOT EXISTS `vital_signs` (
 `id` int(10) unsigned NOT NULL,
   `weight` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `weight_unit` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -412,15 +412,15 @@ ALTER TABLE `diagonosticprocedures`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `drugusages`
+-- Indexes for table `drug_usages`
 --
-ALTER TABLE `drugusages`
+ALTER TABLE `drug_usages`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `dutydays`
+-- Indexes for table `duty_days`
 --
-ALTER TABLE `dutydays`
+ALTER TABLE `duty_days`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -430,9 +430,9 @@ ALTER TABLE `employees`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `familyhistories`
+-- Indexes for table `family_histories`
 --
-ALTER TABLE `familyhistories`
+ALTER TABLE `family_histories`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -460,13 +460,13 @@ ALTER TABLE `prescriptions`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `previousdiseases`
+-- Indexes for table `previous_diseases`
 --
-ALTER TABLE `previousdiseases`
+ALTER TABLE `previous_diseases`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `surgicalhistories`
+-- Indexes for table `surgical_histories`
 --
 ALTER TABLE `surgicalhistories`
  ADD PRIMARY KEY (`id`);
@@ -478,15 +478,15 @@ ALTER TABLE `testfees`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `timeslots`
+-- Indexes for table `time_slots`
 --
-ALTER TABLE `timeslots`
+ALTER TABLE `time_slots`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `vitalsigns`
+-- Indexes for table `vital_signs`
 --
-ALTER TABLE `vitalsigns`
+ALTER TABLE `vital_signs`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -514,14 +514,14 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 ALTER TABLE `diagonosticprocedures`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `drugusages`
+-- AUTO_INCREMENT for table `drug_usages`
 --
-ALTER TABLE `drugusages`
+ALTER TABLE `drug_usages`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `dutydays`
+-- AUTO_INCREMENT for table `duty_days`
 --
-ALTER TABLE `dutydays`
+ALTER TABLE `duty_days`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `employees`
@@ -529,9 +529,9 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 ALTER TABLE `employees`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `familyhistories`
+-- AUTO_INCREMENT for table `family_histories`
 --
-ALTER TABLE `familyhistories`
+ALTER TABLE `family_histories`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `labtests`
@@ -549,12 +549,12 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `prescriptions`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `previousdiseases`
+-- AUTO_INCREMENT for table `previous_diseases`
 --
-ALTER TABLE `previousdiseases`
+ALTER TABLE `previous_diseases`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `surgicalhistories`
+-- AUTO_INCREMENT for table `surgical_histories`
 --
 ALTER TABLE `surgicalhistories`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
@@ -564,14 +564,14 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 ALTER TABLE `testfees`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `timeslots`
+-- AUTO_INCREMENT for table `time_slots`
 --
-ALTER TABLE `timeslots`
+ALTER TABLE `time_slots`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
--- AUTO_INCREMENT for table `vitalsigns`
+-- AUTO_INCREMENT for table `vital_signs`
 --
-ALTER TABLE `vitalsigns`
+ALTER TABLE `vital_signs`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
