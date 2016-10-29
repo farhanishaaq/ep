@@ -1,1 +1,0 @@
-C:\wamp\www\emr\app/views/timeslots/index.blade.php

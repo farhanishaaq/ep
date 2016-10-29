@@ -27,6 +27,7 @@ return array(
 	*/
 
 	'url' => 'http://localhost',
+//	'url' => 'http://localhost:8585',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,7 +40,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Asia/Karachi',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -122,9 +123,8 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
-        'Bllim\LaravelToJqueryValidation\LaravelToJqueryValidationServiceProvider',
 		'Nitmedia\Wkhtml2pdf\Wkhtml2pdfServiceProvider',
-    ),
+	),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -190,10 +190,9 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
-        'PDF'               => 'Nitmedia\Wkhtml2pdf\Facades\Wkhtml2pdf',
+		'PDF'               => 'Nitmedia\Wkhtml2pdf\Facades\Wkhtml2pdf',
 		'GlobalsConst'      => 'App\Globals\GlobalsConst',
 		'Ep'                => 'App\Globals\Ep',
-
 	),
 
 );

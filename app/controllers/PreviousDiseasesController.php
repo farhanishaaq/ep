@@ -1,9 +1,9 @@
 <?php
 
-class PreviousdiseasesController extends \BaseController {
+class PreviousDiseasesController extends \BaseController {
 
 	/**
-	 * Display a listing of previousdiseases
+	 * Display a listing of previousDiseases
 	 *
 	 * @return Response
 	 */
@@ -11,9 +11,9 @@ class PreviousdiseasesController extends \BaseController {
 	{
 		$patient_id = Input::get('id');
         $patient = Patient::find($patient_id);
-        $previousdiseases = $patient->previousdiseases()->paginate(1);
+        $previousDiseases = $patient->previousDiseases()->paginate(1);
 
-		return View::make('previousdiseases.index', compact('patient', 'previousdiseases'));
+		return View::make('previous_diseases.index', compact('patient', 'previousDiseases'));
 	}
 
 	/**
@@ -24,7 +24,7 @@ class PreviousdiseasesController extends \BaseController {
 	public function create()
 	{
 		$patient_id = Input::get('id');
-		return View::make('previousdiseases.create', compact('patient_id'));
+		return View::make('previous_diseases.create', compact('patient_id'));
 	}
 
 	/**
@@ -41,10 +41,10 @@ class PreviousdiseasesController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-        $data['clinic_id'] = Auth::user()->clinic_id;
-		Previousdisease::create($data);
+        $data['company_id'] = Auth::user()->company_id;
+		PreviousDisease::create($data);
 
-		return Redirect::to('previousdiseases?id='.$data['patient_id']);
+		return Redirect::to('previousDiseases?id='.$data['patient_id']);
 	}
 
 	/**
@@ -55,9 +55,9 @@ class PreviousdiseasesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$previousdisease = Previousdisease::findOrFail($id);
+		$previousDisease = PreviousDisease::findOrFail($id);
 
-		return View::make('previousdiseases.show', compact('previousdisease'));
+		return View::make('previous_diseases.show', compact('previousDisease'));
 	}
 
 	/**
@@ -68,9 +68,9 @@ class PreviousdiseasesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$previousdisease = Previousdisease::find($id);
+		$previousDisease = PreviousDisease::find($id);
 
-		return View::make('previousdiseases.edit', compact('previousdisease'));
+		return View::make('previous_diseases.edit', compact('previousDisease'));
 	}
 
 	/**
@@ -81,7 +81,7 @@ class PreviousdiseasesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$previousdisease = Previousdisease::findOrFail($id);
+		$previousDisease = PreviousDisease::findOrFail($id);
 
 		$validator = Validator::make($data = Input::all(), array('disease_name' => 'required'));
 
@@ -90,11 +90,11 @@ class PreviousdiseasesController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 		
-		$data['patient_id'] = $previousdisease->patient_id;
+		$data['patient_id'] = $previousDisease->patient_id;
 
-		$previousdisease->update($data);
+		$previousDisease->update($data);
 
-		return Redirect::to('previousdiseases?id='.$previousdisease->patient_id);
+		return Redirect::to('previousDiseases?id='.$previousDisease->patient_id);
 	}
 
 	/**
@@ -105,9 +105,9 @@ class PreviousdiseasesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Previousdisease::destroy($id);
+		PreviousDisease::destroy($id);
 
-		return Redirect::route('previousdiseases.index');
+		return Redirect::route('previousDiseases.index');
 	}
 
 }

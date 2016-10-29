@@ -15,12 +15,14 @@ class CreatePrescriptionsTable extends Migration {
 		Schema::create('prescriptions', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('code');
-			$table->text('medicines');
-			$table->text('note');
 			$table->integer('patient_id');
 			$table->integer('appointment_id');
+			$table->string('code',20);
+			$table->string('other_medicines',1024)->nullable();
+			$table->text('procedure')->nullable();
+			$table->text('note')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
@@ -33,6 +35,7 @@ class CreatePrescriptionsTable extends Migration {
 	public function down()
 	{
 		Schema::drop('prescriptions');
+
 	}
 
 }

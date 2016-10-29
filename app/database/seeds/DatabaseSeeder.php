@@ -11,15 +11,40 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-        $this->call('ClinicsTableSeeder');
-        $this->command->info('Clinics Table seeded!');
+		$this->call('CountriesTableSeeder');
+		$this->command->info('Countries Table seeded!');
 
-		$this->call('EmployeesTableSeeder');
-        $this->command->info('Employees Table seeded!');
+		$this->call('StatesTableSeeder');
+		$this->command->info('States Table seeded!');
 
-        $this->call('PatientsTableSeeder');
-        $this->command->info('Patients Table seeded!');
+		$this->call('CitiesTableSeeder');
+		$this->command->info('Cities Table seeded!');
 
+        $this->call('CompaniesTableSeeder');
+        $this->command->info('Companies Table seeded!');
+
+		$this->call('BusinessUnitsTableSeeder');
+        $this->command->info('BusinessUnits Table seeded!');
+
+
+		$this->call('MedicalSpecialtiesTableSeeder');
+        $this->command->info('MedicalSpecialties Tables seeded!');
+
+		$this->call('QualificationsTableSeeder');
+		$this->command->info('Qualifications Tables seeded!');
+
+		$this->call('UsersTableSeeder');
+        $this->command->info('Users, Employees and Patients Tables seeded!');
+
+		$this->call('RolesTableSeeder');
+        $this->command->info('Roles Table seeded!');
+
+		$this->call('ResourcesTableSeeder');
+        $this->command->info('Resources Table seeded!');
+
+		$this->call('ResourcesRolesTableSeeder');
+        $this->command->info('ResourcesRoles Table seeded!');
+		
 	}
 
 }

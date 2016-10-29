@@ -15,9 +15,10 @@ class CreateAllergiesTable extends Migration {
 		Schema::create('allergies', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('allergy_name');
-			$table->text('allergy_note');
+			$table->string('name',60)->unique();
+			$table->string('description',255)->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

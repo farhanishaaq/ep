@@ -1,9 +1,9 @@
 <?php
 
-class FamilyhistoriesController extends \BaseController {
+class FamilyHistoriesController extends \BaseController {
 
 	/**
-	 * Display a listing of familyhistories
+	 * Display a listing of family_histories
 	 *
 	 * @return Response
 	 */
@@ -11,9 +11,9 @@ class FamilyhistoriesController extends \BaseController {
 	{
         $patient_id = Input::get('id');
         $patient = Patient::find($patient_id);
-        $familyhistories = $patient->familyhistories()->paginate(10);
+        $familyHistories = $patient->familyHistories()->paginate(10);
 
-		return View::make('familyhistories.index', compact('patient', 'familyhistories'));
+		return View::make('family_histories.index', compact('patient', 'familyHistories'));
 	}
 
 	/**
@@ -24,7 +24,7 @@ class FamilyhistoriesController extends \BaseController {
 	public function create()
 	{
         $patient_id = Input::get('id');
-		return View::make('familyhistories.create', compact('patient_id'));
+		return View::make('family_histories.create', compact('patient_id'));
 	}
 
 	/**
@@ -42,11 +42,11 @@ class FamilyhistoriesController extends \BaseController {
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
-        $data['clinic_id'] = Auth::user()->clinic_id;
+        $data['company_id'] = Auth::user()->company_id;
 
-		Familyhistory::create($data);
+		FamilyHistory::create($data);
 
-		return Redirect::to('familyhistories?id='.$data['patient_id']);
+		return Redirect::to('familyHistories?id='.$data['patient_id']);
 	}
 
 	/**
@@ -57,9 +57,9 @@ class FamilyhistoriesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$familyhistory = Familyhistory::findOrFail($id);
+		$familyhistory = FamilyHistory::findOrFail($id);
 
-		return View::make('familyhistories.show', compact('familyhistory'));
+		return View::make('family_histories.show', compact('familyhistory'));
 	}
 
 	/**
@@ -70,9 +70,9 @@ class FamilyhistoriesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$familyhistory = Familyhistory::find($id);
+		$familyhistory = FamilyHistory::find($id);
 
-		return View::make('familyhistories.edit', compact('familyhistory'));
+		return View::make('family_histories.edit', compact('familyhistory'));
 	}
 
 	/**
@@ -83,7 +83,7 @@ class FamilyhistoriesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$familyhistory = Familyhistory::findOrFail($id);
+		$familyhistory = FamilyHistory::findOrFail($id);
 
 		$data = Input::all();
         $validator = Validator::make($data, array('f_member_name' => 'required', 'patient_relation' => 'required', 'gender' => 'required', 'age' => 'required'));
@@ -97,7 +97,7 @@ class FamilyhistoriesController extends \BaseController {
 
 		$familyhistory->update($data);
 
-		return Redirect::to('familyhistories?id='.$familyhistory->patient_id);
+		return Redirect::to('familyHistories?id='.$familyhistory->patient_id);
 	}
 
 	/**
@@ -108,9 +108,9 @@ class FamilyhistoriesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Familyhistory::destroy($id);
+		FamilyHistory::destroy($id);
 
-		return Redirect::route('familyhistories.index');
+		return Redirect::route('familyHistories.index');
 	}
 
 }

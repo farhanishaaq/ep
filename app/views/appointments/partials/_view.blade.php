@@ -27,7 +27,7 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Select Doctor</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $appointment->employee->name }}</label>
+                        <label class="form-control">{{ $appointment->doctor->user->full_name }}</label>
                         <span id="errorEmployeeId" class="field-validation-msg"></span>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Select Patient</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $appointment->patient->name }}</label>
+                        <label class="form-control">{{ $appointment->patient->user->full_name }}</label>
                         <span id="errorPatientId" class="field-validation-msg"></span>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Checkup Fee</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $appointment->fee }}</label>
+                        <label class="form-control">{{ $appointment->paid_fee }}</label>
                         <span id="errorFee" class="field-validation-msg"></span>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Checkup Reason</label>
                     <div class="col-xs-6">
-                        <label class="form-control">{{ $appointment->checkup_reason }}</label>
+                        <label class="form-control">{{ $appointment->checkup_detail }}</label>
                         <span id="errorStatus" class="field-validation-msg"></span>
                     </div>
                 </div>

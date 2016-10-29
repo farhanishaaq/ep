@@ -1,6 +1,6 @@
 <?php
 
-class Familyhistory extends \Eloquent {
+class FamilyHistory extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
@@ -9,7 +9,7 @@ class Familyhistory extends \Eloquent {
 
 	// Don't forget to fill this array
 	protected $fillable = ['f_member_name','patient_relation','gender','age',
-        'diesease_note', 'patient_id', 'clinic_id'];
+        'diesease_note', 'patient_id', 'company_id'];
 
     // Relationships
     public function patient()

@@ -12,12 +12,7 @@ class AppointmentsController extends \BaseController {
 	 */
 	public function index()
 	{
-		if(Auth::user()->role == 'Doctor'){
-			$appointments = Auth::user()->appointments()->paginate(50);
-		}else{
-			$appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-		}
-
+		$appointments = Appointment::where('business_unit_id', Ep::currentBusinessUnitId())->take(50)->get();
 		return View::make('appointments.index', compact('appointments'));
 	}
 
@@ -30,11 +25,19 @@ class AppointmentsController extends \BaseController {
 	{
 
         $formMode = GlobalsConst::FORM_CREATE;
-        $doctors = Employee::where('role', 'Doctor')->where('status', 'active')
-                    ->where('clinic_id', Auth::user()->clinic_id)->get();
-        $patients = Patient::where('clinic_id', Auth::user()->clinic_id)->get();
-		return View::make('appointments.create', compact('doctors','patients'))->nest('_form','appointments.partials._form',compact('doctors','patients','formMode'));;
-	}
+		$appointmentMaxId = Appointment::where('business_unit_id','=',Ep::currentBusinessUnitId())->max('id');
+		$appointmentMaxId += 1;
+		$appointmentMaxIdPad = str_pad($appointmentMaxId,4,'0',STR_PAD_LEFT);
+
+		$appointmentCode = date('Ymd').'-'.$appointmentMaxIdPad;
+        /*$doctors = User::where('user_type', GlobalsConst::DOCTOR)
+					->where('status', GlobalsConst::STATUS_ON)
+                    ->where('company_id', Auth::user()->company_id)->lists('full_name', 'id');
+		$patients = Patient::where('business_unit_id', Auth::user()->business_unit_id)->get();*/
+		$doctors = Doctor::fetchDoctorsForDropDown();
+		$patients = Patient::fetchPatientsForDropDown();
+		
+		return View::make('appointments.create', compact('doctors','patients'))->nest('_form','appointments.partials._form',compact('doctors','patients','formMode','appointmentCode'));	}
 
 	/**
 	 * Store a newly created appointment in storage.
@@ -43,16 +46,14 @@ class AppointmentsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Appointment::$rules);
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+		$data = Input::all();
         $data['date'] = date('Y-m-d', strtotime($data['date']));
-		$data['time'] = Timeslot::findOrFail($data['timeslot_id'])->slot;
-        $data['clinic_id'] = Auth::user()->clinic_id;
-        $appointment = Appointment::create($data);
-		return Redirect::route('appointments.index');
+		$data['time'] = TimeSlot::findOrFail($data['time_slot_id'])->slot;
+        $data['business_unit_id'] = Ep::currentBusinessUnitId();
+		unset($data['remaining_fee']);
+		unset($data['total_paid']);
+		$response = Appointment::saveAppointment($data);
+		return $response;
 	}
 
 	/**
@@ -63,13 +64,15 @@ class AppointmentsController extends \BaseController {
 	 */
 	public function show($id)
 	{
+//		dd('dd');
+		$timeSlot = null;
         $formMode = GlobalsConst::FORM_EDIT;
-        $doctors = Employee::where('role', 'Doctor')->where('status', 'active')->get();
-        $patients = Patient::where('clinic_id', Auth::user()->clinic_id)->get();
+		$doctors = Doctor::fetchDoctorsForDropDown();
+		$patients = Patient::fetchPatientsForDropDown();
         $appointment = Appointment::find($id);
-        $timeslot = $appointment->timeslot->first()->where('dutyday_id', $appointment->timeslot->dutyday_id)->lists('slot','id');
+//        $timeSlot = $appointment->timeSlot->first()->where('duty_day_id', $appointment->timeSlot->duty_day_id)->lists('slot','id');
 
-        return View::make('appointments.show', compact('timeslot','appointment', 'doctors', 'patients'))->nest('_view','appointments.partials._view',compact('formMode','employee','appointment','doctors','patients'));
+        return View::make('appointments.show', compact('timeSlot','appointment', 'doctors', 'patients'))->nest('_view','appointments.partials._view',compact('formMode','employee','appointment','doctors','patients'));
 	}
 
 	/**
@@ -80,17 +83,14 @@ class AppointmentsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-        $formMode = GlobalsConst::FORM_EDIT;
-		$doctors = Employee::where('role', 'Doctor')->where('status', 'active')->get();
-        $patients = Patient::where('clinic_id', Auth::user()->clinic_id)->get();
+		$appointmentCode=null;
+		$formMode = GlobalsConst::FORM_EDIT;
+		$doctors = Doctor::fetchDoctorsForDropDown();
+		$patients = Patient::fetchPatientsForDropDown();
 		$appointment = Appointment::find($id);
-        $timeslot = $appointment->timeslot->first()->where('dutyday_id', $appointment->timeslot->dutyday_id)->lists('slot','id');
-        $strDay = date('l',strtotime($appointment->date));
-//        $strDay = GlobalsConst::$DAYS_WITH_NUM_KEYS[$day];
-        $appointmentDateAvailableTimeslots = Timeslot::fetchAvailableTimeSlots($appointment->employee->id,$strDay,true);
-//        echo '<pre>';
-//dd($appointmentDateAvailableTimeslots);
-		return View::make('appointments.edit', compact('timeslot','appointment', 'doctors', 'patients'))->nest('_form','appointments.partials._form',compact('formMode','employee','appointment','doctors','patients','appointmentDateAvailableTimeslots'));
+		$timeSlot = $appointment->timeSlot()->where('duty_day_id', $appointment->timeSlot->duty_day_id)->first()->id;
+		$timeSlotsByAppointmentDate = TimeSlot::fetchTimeSlotsByAppointmentDate($appointment,true);
+		return View::make('appointments.edit')->nest('_form','appointments.partials._form',compact('formMode','employee','appointment','doctors','patients','timeSlotsByAppointmentDate','timeSlot', 'appointmentCode'));
 	}
 
 	/**
@@ -109,7 +109,7 @@ class AppointmentsController extends \BaseController {
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
-		$data['time'] = Timeslot::findOrFail($data['timeslot_id'])->slot;
+		$data['time'] = TimeSlot::findOrFail($data['time_slot_id'])->slot;
 
 		if(Input::get('status') == '3' || Input::get('status') == '4' || Input::get('status') == '5'){
 			$data['time'] = null;
@@ -132,74 +132,13 @@ class AppointmentsController extends \BaseController {
 
 		return Redirect::route('appointments.index');
 	}
-        
-        public function fetchVitalSign(){
-        if(Auth::user()->role == 'Administrator' || Auth::user()->role == 'Receptionist'){
-            $appointments = Appointment::has('vitalsign', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        }elseif(Auth::user()->role == 'Doctor'){
-            $appointments = Appointment::has('vitalsign')->where('employee_id', Auth::id())->paginate(10);
-        }
-        $flag = "vitals";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
 
-    public function addPrescriptions(){
-        $appointments = Appointment::has('prescription', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        $flag = "prescription";
-        return View::make('appointments.index', compact('appointments', 'flag'));
-    }
-
-    public function showTestReports(){
-        if(Input::get('id') !== null){
-            $appointments = Appointment::where('patient_id', Input::get('id'))->paginate(10);
-        }else{
-            $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        }
-        $flag = "test";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
-
-    public function printTestReports(){
-        $appointments = Appointment::has('labtests')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        $flag = "test_print";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
-
-    public function addCheckUpFee(){
-        if(Auth::user()->role == "Accountant"){
-            $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        }else{
-            $appointments = Appointment::has('checkupfee', '=', 0)->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        }
-        $flag = "check_fee";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
-
-    public function addTestFee(){
-        if(Input::get('id') !== null){
-            $appointments = Appointment::where('patient_id', Input::get('id'))->paginate(10);
-        }else{
-            $appointments = Appointment::has('labtests')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        }
-        $flag = "test_fee";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
-
-    public function testFeeInvoice(){
-        $appointments = Appointment::has('labtests')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        $flag = "test_invoice";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
-
-    public function checkupFeeInvoice(){
-        $appointments = Appointment::has('checkupfee')->where('clinic_id', Auth::user()->clinic_id)->paginate(10);
-        $flag = "checkup_invoice";
-        return View::make('appointment_based_data.appointments', compact('appointments', 'flag'));
-    }
-
+	/**
+	 * @return \Illuminate\Http\JsonResponse
+	 */
     public function fetchTimeSlotsAndBookedAppointments(){
         $day = Input::get('day','');
-        $doctorId = Input::get('employee_id','');
+        $doctorId = Input::get('doctor_id','');
         if($day == ''){
             $response = ['success'=>false,'error'=>true,'message' => 'Please select Date'];
         }
@@ -207,24 +146,31 @@ class AppointmentsController extends \BaseController {
             $response = ['success'=>false,'error'=>true,'message' => 'Please select Doctor'];
         }
         else{
+			if ($day == 0){
+				$day = 7;
+			}
             $strDay = GlobalsConst::$DAYS_WITH_NUM_KEYS[$day];
-//            $dutyDay = Dutyday::where('day','=',GlobalsConst::$DAYS_WITH_NUM_KEYS[$day])->first();
-//            $timeSlots = $dutyDay->timeslots()->lists('slot','id');
-//            $timeSlots = $dutyDay->timeslots()->get(['id','slot']);
-            $timeSlots = Timeslot::fetchAvailableTimeSlots($doctorId,$strDay);
+//            $dutyDay = DutyDay::where('day','=',GlobalsConst::$DAYS_WITH_NUM_KEYS[$day])->first();
+//            $timeSlots = $dutyDay->timeSlots()->lists('slot','id');
+//            $timeSlots = $dutyDay->timeSlots()->get(['id','slot']);
+            $timeSlots = TimeSlot::fetchAvailableTimeSlots($doctorId,$strDay);
             $appointments = Appointment::fetchAppointmentsByDay($strDay);
 
             if($timeSlots != null){
                 if(count($timeSlots)){
-                    $data['timeslots'] = $timeSlots;
+                    $data['timeSlots'] = $timeSlots;
                     $makeDayPilotArr = [];
                     foreach($appointments as $k=>$ap){
 //                    $doctors = $dd->employee;
-                        $dpDay = array_search($ap->day, GlobalsConst::$DP_DAYS);
+                        /*$dpDay = array_search($ap->day, GlobalsConst::$DP_DAYS);
                         $makeDayPilotArr[$k]['start'] =  $dpDay.'T'. $ap->start;
                         $makeDayPilotArr[$k]['end'] =  $dpDay.'T'. $ap->end;
                         $makeDayPilotArr[$k]['id'] =  $dpDay.'T'. $ap->id;
-                        $makeDayPilotArr[$k]['text'] =  $ap->name.' '.$ap->start .' To '. $ap->end;
+                        $makeDayPilotArr[$k]['text'] =  $ap->name.' '.$ap->start .' To '. $ap->end;*/
+						$makeDayPilotArr[$k]['id'] = $ap->id;
+						$makeDayPilotArr[$k]['title'] = $ap->title;
+						$makeDayPilotArr[$k]['start'] = $ap->start;
+						$makeDayPilotArr[$k]['end'] = $ap->end;
                     }
                     $data['appointments'] = $makeDayPilotArr;
                     $response = ['success'=>true,'error'=>false,'data'=> $data];

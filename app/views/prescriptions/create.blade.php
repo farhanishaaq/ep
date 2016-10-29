@@ -1,4 +1,4 @@
-{{-- employees.layouts.master --}}
+{{-- users.layouts.master --}}
 @extends('layouts.master')
 <!--========================================================
                           TITLE
@@ -28,7 +28,7 @@ Create Prescriptions
 @stop
 
 @section('scripts')
-    {{--<script src="{{asset('js/view-pages/employees/EmployeeForm.js')}}"></script>--}}
+    {{--<script src="{{asset('js/view-pages/users/UserForm.js')}}"></script>--}}
     <script>
         $(document).ready(function(){
             /*var options = {};

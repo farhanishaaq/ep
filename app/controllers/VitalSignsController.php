@@ -1,19 +1,19 @@
 <?php
 
-class VitalsignsController extends \BaseController {
+class VitalSignsController extends \BaseController {
 
     /**
-     * Display a listing of vitalsigns
+     * Display a listing of vital_signs
      *
      * @return Response
      */
     public function index() {
         $patient_id = Input::get('id');
         $patient = Patient::find($patient_id);
-        $appointments = Appointment::where('clinic_id', Auth::user()->clinic_id)->paginate(10);
+        $appointments = Appointment::where('company_id', Auth::user()->company_id)->paginate(10);
 //        $appointments = $patient->appointments()->has('vitalsign')->paginate(1);
 
-        return View::make('vitalsigns.index', compact('appointments', 'patient_id'));
+        return View::make('vital_signs.index', compact('appointments', 'patient_id'));
     }
 
     /**
@@ -24,7 +24,7 @@ class VitalsignsController extends \BaseController {
     public function create() {
         $appointment = Appointment::findOrFail(Input::get('id'));
 
-        return View::make('vitalsigns.create', compact('appointment'));
+        return View::make('vital_signs.create', compact('appointment'));
     }
 
     /**
@@ -33,14 +33,14 @@ class VitalsignsController extends \BaseController {
      * @return Response
      */
     public function store() {
-        $validator = Validator::make($data = Input::all(), Vitalsign::$rules);
+        $validator = Validator::make($data = Input::all(), VitalSign::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $data['clinic_id'] = Auth::user()->clinic_id;
-        Vitalsign::create($data);
+        $data['company_id'] = Auth::user()->company_id;
+        VitalSign::create($data);
 
         return Redirect::to('/app_vitals');
     }
@@ -52,9 +52,9 @@ class VitalsignsController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        $vitalsign = Vitalsign::where('appointment_id', $id)->get()->first();
+        $vitalsign = VitalSign::where('appointment_id', $id)->get()->first();
 
-        return View::make('vitalsigns.show', compact('vitalsign'));
+        return View::make('vital_signs.show', compact('vitalsign'));
     }
 
     /**
@@ -64,9 +64,9 @@ class VitalsignsController extends \BaseController {
      * @return Response
      */
     public function edit($id) {
-        $vitalsign = Vitalsign::where('appointment_id', $id)->get()->first();
+        $vitalsign = VitalSign::where('appointment_id', $id)->get()->first();
 
-        return View::make('vitalsigns.edit', compact('vitalsign'));
+        return View::make('vital_signs.edit', compact('vitalsign'));
     }
 
     /**
@@ -76,9 +76,9 @@ class VitalsignsController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        $vitalsign = Vitalsign::findOrFail($id);
+        $vitalsign = VitalSign::findOrFail($id);
 
-        $validator = Validator::make($data = Input::all(), Vitalsign::$rules);
+        $validator = Validator::make($data = Input::all(), VitalSign::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
@@ -88,7 +88,7 @@ class VitalsignsController extends \BaseController {
 
         $vitalsign->update($data);
 
-        return Redirect::to('vitalsigns?id=' . $vitalsign->patient_id);
+        return Redirect::to('vitalSigns?id=' . $vitalsign->patient_id);
     }
 
     /**
@@ -98,9 +98,9 @@ class VitalsignsController extends \BaseController {
      * @return Response
      */
     public function destroy($id) {
-        Vitalsign::destroy($id);
+        VitalSign::destroy($id);
 
-        return Redirect::route('vitalsigns.index');
+        return Redirect::route('vitalSigns.index');
     }
 
 }
