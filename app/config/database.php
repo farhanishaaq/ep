@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'ep',
+			'database'  => 'ep_production',
 			'username'  => 'root',
 			'password'  => 'srws@!',
 			'port'		=>'3306',
