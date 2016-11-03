@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'ep_production',
 			'username'  => 'root',
-			'password'  => 'srws@!',
+			'password'  => 'srws@!1234',
 			'port'		=>'3306',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
