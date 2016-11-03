@@ -18,7 +18,8 @@ class MedicineMenufacturersController extends \BaseController
 
     public function index()
     {
-        dd('inside index');
+        $medicineMenufacturers = MedicineMenufacturer::fetchMedicineMenufacturers();
+        return View::make('inventory.medicine_menufacturers.index')->nest('_list','inventory.medicine_menufacturers.partials._list', compact('medicineMenufacturers'));
     }
 
 

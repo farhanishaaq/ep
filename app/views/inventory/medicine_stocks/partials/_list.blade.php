@@ -8,8 +8,8 @@
                 <td>{{{ $mS->minimum_quantity }}}</td>
                 <td>{{{ $mS->quantity }}}</td>
                 <td>
-                    <a href="{{route('medicineStocks.show',[$mS->id])}}" class="btn-view-icon fL" title="View Medicine Stock"></a>
-                    <span class="fL">&nbsp;|&nbsp;</span><a href="{{route('printPrescription',[$mS->id])}}" class="btn-pdf-icon fL" title="PDF Medicine Stock"></a>
+                    {{--<a href="{{route('medicineStocks.show',[$mS->id])}}" class="btn-view-icon fL" title="View Medicine Stock"></a>--}}
+                    {{--<span class="fL">&nbsp;|&nbsp;</span><a href="{{route('printPrescription',[$mS->id])}}" class="btn-pdf-icon fL" title="PDF Medicine Stock"></a>--}}
                 </td>
             </tr>
         @endforeach

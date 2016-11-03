@@ -61,9 +61,9 @@
 
 <div class="col-xs-12 taR pR0 mT20">
     <input type="reset" id="reset" value="Reset" class="submit" />
-    <input type="submit" id="createClose" value="Save and Close" class="submit" />
-    <input type="submit" id="createContinue" name="createContinue" value="Save and Continue" class="submit" />
-    <input type="submit" id="cancel" value="Cancel" class="submit" />
+    <input type="submit" id="saveClose" name="saveClose" value="Save and Close" class="submit" />
+    <input type="submit" id="saveContinue" name="saveContinue" value="Save and Continue" class="submit" />
+    <input type="submit" id="cancel" value="Cancel" class="submit" onclick="goTo('{{route("medicineLocations.index")}}')" />
 </div>
 {{ Form::close() }}
 
@@ -77,7 +77,7 @@
         $(document).ready(function () {
 
             var options = {
-                saveCloseUrl: "{{route('medicineLocations.store')}}",
+                saveCloseUrl: "{{route('medicineLocations.index')}}",
                 formMode: '{{$formMode}}'
             };
 
