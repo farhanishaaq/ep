@@ -12,7 +12,9 @@ var PrescriptionForm = function(win,doc, options){
         photoDeleteUrl: "",
         photoInitialPreview: [],
         parentPrescriptionUrl: "",
-        formMode: '',
+        formMode: "",
+        formCreate:"",
+        formEdit:"",
         validationRulesForForm: function (frmElement) {
             frmElement.validate({
                 rules: {
@@ -147,9 +149,10 @@ var PrescriptionForm = function(win,doc, options){
         var appointmentId = $('#appointment_id').val();
         var appointmentDate = $('#appointment_date').val();
         var prescriptionNextCount = $('#prescriptionNextCount').val();
-        var PrescriptionCode = appointmentDate +'-'+ leftPad(patientId,"000") + leftPad(appointmentId,"000") + leftPad(prescriptionNextCount,"000");
-        $('#code').val(PrescriptionCode);
-
+        if(s.formMode == s.formCreate) {
+            var PrescriptionCode = appointmentDate + '-' + leftPad(patientId, "000") + leftPad(appointmentId, "000") + leftPad(prescriptionNextCount, "000");
+            $('#code').val(PrescriptionCode);
+        }
     };
 
     var makePhotoUploadComponent = function () {
@@ -362,7 +365,7 @@ var PrescriptionForm = function(win,doc, options){
                     dataType: 'html',
                     success: function(result){
                         $('#detailRowContainer').html(result);
-                        //$('#prescriptionDetailTab').trigger('click');
+                        $('#prescriptionDetailTab').trigger('click');
 
                         imageReplicate();
                         setPrescriptionImageSrcPath();
@@ -370,8 +373,6 @@ var PrescriptionForm = function(win,doc, options){
                     }
 
                 });
-
-
 
         });
 
@@ -393,7 +394,7 @@ var PrescriptionForm = function(win,doc, options){
             var frm = $(this);
             console.log(frm.serialize());
             var validator = s.validationRulesForForm(frm);
-            if (frm.valid()) {
+            //if (frm.valid()) {
                 var formData = frm.serialize();
                 var saveUrl = frm.attr('action') || "";
                 $.ajax({
@@ -412,9 +413,9 @@ var PrescriptionForm = function(win,doc, options){
                         }
                     }
                 });
-             }else{
-                showMsg('Invalid Form!',window.MESSAGE_TYPE_ERROR);
-             }
+             //}else{
+             //   showMsg('Invalid Form!',window.MESSAGE_TYPE_ERROR);
+             //}
             return false;
         });
         //****End of form submit

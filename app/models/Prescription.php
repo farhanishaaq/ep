@@ -54,7 +54,6 @@ class Prescription extends \Eloquent {
 //            return ['success'=>false, 'error'=> true, 'validatorErrors'=>$validator->errors()];
 //        }
         //*****End Rules Validators
-        $prescription = new Prescription();
         $prescription->patient_id     = $data['patient_id'];
         $prescription->appointment_id = $data['appointment_id'];
         $prescription->code           = $data['code'];
