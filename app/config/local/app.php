@@ -26,8 +26,7 @@ return array(
 	|
 	*/
 
-	// 'url' => 'http://localhost',
-	'url' => 'http://53.38.74.233/',
+	'url' => 'http://localhost',
 //	'url' => 'http://localhost:8585',
 
 	/*

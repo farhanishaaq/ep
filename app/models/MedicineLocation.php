@@ -45,4 +45,45 @@ class MedicineLocation extends \Eloquent {
 		$response = ['success'=>'true','error'=>'false','message'=>'Medicine location has been saved successfully!'];
 		return $response;
 	}
+
+	/**
+	 *  This function fetches medicine locations data from database
+	 */
+	public static function fetchMedicineLocations(array $filterParams = null, $offset=0, $limit=GlobalsConst::LIST_DATA_LIMIT){
+		try{
+			if(Auth::user()->user_type == GlobalsConst::SUPER_ADMIN){
+				$medicineLocations = DB::table('medicine_locations')->select('id','name','description');
+			}elseif(Ep::currentUserType() == GlobalsConst::ADMIN){
+				$medicineLocations = DB::table('medicine_locations')
+					->join('medicine_stocks','medicine_stocks.location_id','=','medicine_locations.id')
+					->join('business_units','business_units.id','=','medicine_stocks.business_unit_id')
+					->select('medicine_locations.id','medicine_locations.name','medicine_locations.description')
+					->where('business_units.company_id','=',Ep::currentCompanyId());
+			}
+			else{
+				$medicineLocations = DB::table('medicine_locations')
+					->join('medicine_stocks','medicine_stocks.location_id','=','medicine_locations.id')
+					->join('business_units','business_units.id','=','medicine_stocks.business_unit_id')
+					->select('medicine_locations.id','medicine_locations.name','medicine_locations.description')
+					->where('business_units.company_id','=',Ep::currentCompanyId())
+					->where('business_units.id','=',Ep::currentBusinessUnitId());
+			}
+			if($filterParams){
+				$searchKey = isset($filterParams['searchKey']) ? '%' . $filterParams['searchKey'].'%' : '';
+				$medicineLocations->where('full_name','LIKE',$searchKey);
+			}
+
+			return $medicineLocations->skip($offset)->take($limit)
+				->orderBy('id','DESC')->get();
+		}
+		catch (Throwable $t) {
+			// Executed only in PHP 7, will not match in PHP 5.x
+			dd($t->getMessage());
+		}
+		catch (Exception $e){
+			dd($e->getMessage());
+		}
+
+	}
+
 }

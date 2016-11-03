@@ -7,8 +7,8 @@
                 <td>{{{ $mC->dosage_form }}}</td>
                 <td>{{{ $mC->description }}}</td>
                 <td>
-                    <a href="{{route('medicineCategories.show',[$mC->id])}}" class="btn-view-icon fL" title="View Category"></a>
-                    <span class="fL">&nbsp;|&nbsp;</span><a href="{{route('printPrescription',[$mC->id])}}" class="btn-pdf-icon fL" title="PDF Category"></a>
+                    {{--<a href="{{route('medicineCategories.show',[$mC->id])}}" class="btn-view-icon fL" title="View Category"></a>--}}
+                    {{--<span class="fL">&nbsp;|&nbsp;</span><a href="{{route('printPrescription',[$mC->id])}}" class="btn-pdf-icon fL" title="PDF Category"></a>--}}
                 </td>
             </tr>
         @endforeach

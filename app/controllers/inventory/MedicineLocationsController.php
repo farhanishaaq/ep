@@ -18,7 +18,8 @@ class MedicineLocationsController extends \BaseController
 
     public function index()
     {
-        dd('inside index');
+        $medicineLocations = MedicineLocation::fetchMedicineLocations();
+        return View::make('inventory.medicine_locations.index')->nest('_list','inventory.medicine_locations.partials._list', compact('medicineLocations'));
    }
 
 
