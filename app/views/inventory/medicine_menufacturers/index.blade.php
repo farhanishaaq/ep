@@ -30,7 +30,7 @@
             <!--========================================================
                                      Data Table
             =========================================================-->
-            {{ link_to_route('medicineCategories.create', 'Register Medicine Manufacturer', '', ['class' => 'btn_1'])}}
+            {{ link_to_route('medicineMenufacturers.create', 'Register Medicine Manufacturer', '', ['class' => 'btn_1'])}}
             <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
                 <thead>
                 <tr>

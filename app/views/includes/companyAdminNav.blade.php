@@ -28,6 +28,14 @@
                 <li><a href="{{URL::route('dutyDays.index')}}">Doctor Schedules</a></li>--}}
                 <li class="divider"></li>
                 <li><a href="{{URL::route('medicines.index')}}">Manage Medicines</a></li>
+                <li class="divider"></li>
+                <li><a href="{{URL::route('medicineStocks.index')}}">Manage Stocks</a></li>
+                <li class="divider"></li>
+                <li><a href="{{URL::route('medicineMenufacturers.index')}}">Manage Manufacturers</a></li>
+                <li class="divider"></li>
+                <li><a href="{{URL::route('medicineLocations.index')}}">Manage Locations</a></li>
+                <li class="divider"></li>
+                <li><a href="{{URL::route('medicineCategories.index')}}">Manage Categories</a></li>
             </ul>
         </li>
 

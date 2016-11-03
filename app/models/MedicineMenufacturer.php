@@ -67,29 +67,31 @@ class MedicineMenufacturer extends \Eloquent {
 	public static function fetchMedicineMenufacturers(array $filterParams = null, $offset=0, $limit=GlobalsConst::LIST_DATA_LIMIT){
 		try{
 			if(Auth::user()->user_type == GlobalsConst::SUPER_ADMIN){
-				$medicineMenufacturers = DB::table('medicine_menufacturers')->select('id','name','email','cell','phone','address','description');
+				self::join('medicine_purchases','medicine_purchases.menufacturer_id','=','medicine_menufacturers.id')
+					->join('business_units','business_units.id','=','medicine_purchases.business_unit_id');
+				$selectArr = ['medicine_menufacturers.id','medicine_menufacturers.name','medicine_menufacturers.email','medicine_menufacturers.cell','medicine_menufacturers.phone','medicine_menufacturers.address','medicine_menufacturers.description'];
 			}elseif(Ep::currentUserType() == GlobalsConst::ADMIN){
-				$medicineMenufacturers = DB::table('medicine_menufacturers')
-					->join('medicine_purchases','medicine_purchases.menufacturer_id','=','medicine_menufacturers.id')
+				$medicineMenufacturers =
+					self::join('medicine_purchases','medicine_purchases.menufacturer_id','=','medicine_menufacturers.id')
 					->join('business_units','business_units.id','=','medicine_purchases.business_unit_id')
-					->select('medicine_menufacturers.id','medicine_menufacturers.name','medicine_menufacturers.email','medicine_menufacturers.cell','medicine_menufacturers.phone','medicine_menufacturers.address','medicine_menufacturers.description')
 					->where('business_units.company_id','=',Ep::currentCompanyId());
+				$selectArr = ['medicine_menufacturers.id','medicine_menufacturers.name','medicine_menufacturers.email','medicine_menufacturers.cell','medicine_menufacturers.phone','medicine_menufacturers.address','medicine_menufacturers.description'];
 			}
 			else{
-				$medicineMenufacturers = DB::table('medicine_menufacturers')
-					->join('medicine_purchases','medicine_purchases.menufacturer_id','=','medicine_menufacturers.id')
+				self::join('medicine_purchases','medicine_purchases.menufacturer_id','=','medicine_menufacturers.id')
 					->join('business_units','business_units.id','=','medicine_purchases.business_unit_id')
-					->select('medicine_menufacturers.id','medicine_menufacturers.name','medicine_menufacturers.email','medicine_menufacturers.cell','medicine_menufacturers.phone','medicine_menufacturers.address','medicine_menufacturers.description')
 					->where('business_units.company_id','=',Ep::currentCompanyId())
 					->where('business_units.id','=',Ep::currentBusinessUnitId());
+				$selectArr = ['medicine_menufacturers.id','medicine_menufacturers.name','medicine_menufacturers.email','medicine_menufacturers.cell','medicine_menufacturers.phone','medicine_menufacturers.address','medicine_menufacturers.description'];
+
 			}
 			if($filterParams){
 				$searchKey = isset($filterParams['searchKey']) ? '%' . $filterParams['searchKey'].'%' : '';
 				$medicineMenufacturers->where('full_name','LIKE',$searchKey);
 			}
 
-			return $medicineMenufacturers->skip($offset)->take($limit)
-				->orderBy('id','DESC')->get();
+			return $medicineMenufacturers->select($selectArr)->skip($offset)->take($limit)
+				->orderBy('medicine_menufacturers.id','DESC')->get();
 		}
 		catch (Throwable $t) {
 			// Executed only in PHP 7, will not match in PHP 5.x

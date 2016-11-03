@@ -38,7 +38,6 @@
                     <th>Name</th>
                     <th>Dosage Form</th>
                     <th>Description</th>
-                    <th>Date</th>
                 </tr>
                 </thead>
                 <tbody>

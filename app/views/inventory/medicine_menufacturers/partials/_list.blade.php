@@ -1,15 +1,16 @@
 @if(($medicineMenufacturers) != null)
-    @if((count($medicineMenufacturers)))
+    @if(($medicineMenufacturers->count()))
         @foreach($medicineMenufacturers as $mM)
             <tr class="row-data">
                 <td>{{{ $mM->name }}}</td>
                 <td>{{{ $mM->email }}}</td>
                 <td>{{{ $mM->cell }}}</td>
                 <td>{{{ $mM->phone }}}</td>
+                <td>{{{ $mM->address }}}</td>
                 <td>{{{ $mM->description }}}</td>
                 <td>
-                    <a href="{{route('medicineMenufacturers.show',[$mM->id])}}" class="btn-view-icon fL" title="View Medicine Manufacturer"></a>
-                    <span class="fL">&nbsp;|&nbsp;</span><a href="{{route('printPrescription',[$mM->id])}}" class="btn-pdf-icon fL" title="PDF Medicine Manufacturer"></a>
+                    {{--<a href="{{route('medicineMenufacturers.show',[$mM->id])}}" class="btn-view-icon fL" title="View Medicine Manufacturer"></a>--}}
+                    {{--<span class="fL">&nbsp;|&nbsp;</span><a href="{{route('printPrescription',[$mM->id])}}" class="btn-pdf-icon fL" title="PDF Medicine Manufacturer"></a>--}}
                 </td>
             </tr>
         @endforeach
