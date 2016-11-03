@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Globals\Ep;
 use App\Globals\GlobalsConst;
 
 class MedicineCategory extends \Eloquent {
@@ -57,5 +58,40 @@ class MedicineCategory extends \Eloquent {
 		$medicine_category->save();
 		$response = ['success'=>'true','error'=>'false','message'=>'Medicine category has been saved successfully!'];
 		return $response;
+	}
+
+	/**
+	 *  This function fetches medicine categories data from database
+	 */
+	public static function fetchMedicineCategories(array $filterParams = null, $offset=0, $limit=GlobalsConst::LIST_DATA_LIMIT){
+		try{
+			if(Auth::user()->user_type == GlobalsConst::SUPER_ADMIN){
+				$medicineCategories = self::join('medicine_menufacturers','medicine_menufacturers.id','=','medicine_categories.menufacturer_id');
+				$selectArr = ['medicine_menufacturers.name AS medicine_menufacturer_name','menufacturer_id','medicine_categories.name','medicine_categories.dosage_form','medicine_categories.description'];
+			}elseif(Ep::currentUserType() == GlobalsConst::ADMIN){
+				$medicineCategories = self::join('medicine_menufacturers','medicine_menufacturers.id','=','medicine_categories.menufacturer_id');
+				$selectArr = ['medicine_menufacturers.name AS medicine_menufacturer_name','menufacturer_id','medicine_categories.name','medicine_categories.dosage_form','medicine_categories.description',];
+			}
+			else{
+				$medicineCategories = self::join('medicine_menufacturers','medicine_menufacturers.id','=','medicine_categories.menufacturer_id');
+				$selectArr = ['medicine_menufacturers.name AS medicine_menufacturer_name','menufacturer_id','medicine_categories.name','medicine_categories.dosage_form','medicine_categories.description',];
+
+			}
+			if($filterParams){
+				$searchKey = isset($filterParams['searchKey']) ? '%' . $filterParams['searchKey'].'%' : '';
+				$medicineCategories->where('full_name','LIKE',$searchKey);
+			}
+
+			return $medicineCategories->select($selectArr)->skip($offset)->take($limit)
+				->orderBy('medicine_categories.id','DESC')->get();
+		}
+		catch (Throwable $t) {
+			// Executed only in PHP 7, will not match in PHP 5.x
+			dd($t->getMessage());
+		}
+		catch (Exception $e){
+			dd($e->getMessage());
+		}
+
 	}
 }

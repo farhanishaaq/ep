@@ -6,8 +6,8 @@
                 <td>{{{ $mP->business_unit_name }}}</td>
                 <td>{{{ $mP->date }}}</td>
                 <td>
-                    <a href="{{route('prescriptions.show',[$mP->id])}}" class="btn-view-icon fL" title="View Prescription"></a>
-                    <span class="fL">&nbsp;|&nbsp;</span><a href="{{route('printPrescription',[$mP->id])}}" class="btn-pdf-icon fL" title="PDF Prescription"></a>
+                    {{--<a href="{{route('prescriptions.show',[$mP->id])}}" class="btn-view-icon fL" title="View Prescription"></a>--}}
+                    {{--<span class="fL">&nbsp;|&nbsp;</span><a href="{{route('printPrescription',[$mP->id])}}" class="btn-pdf-icon fL" title="PDF Prescription"></a>--}}
                 </td>
             </tr>
         @endforeach

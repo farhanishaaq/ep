@@ -12,6 +12,8 @@ class MedicineCategoriesController extends \BaseController
 
     public function index()
     {
+        $medicineCategories = MedicineCategory::fetchMedicineCategories();
+        return View::make('inventory.medicine_categories.index')->nest('_list','inventory.medicine_categories.partials._list', compact('medicineCategories'));
     }
 
 

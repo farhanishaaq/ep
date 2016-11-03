@@ -12,6 +12,8 @@ class MedicineStocksController extends \BaseController
 
     public function index()
     {
+        $medicineStocks = MedicineStock::fetchMedicineStocks();
+        return View::make('inventory.medicine_stocks.index')->nest('_list','inventory.medicine_stocks.partials._list', compact('medicineStocks'));
 
     }
 

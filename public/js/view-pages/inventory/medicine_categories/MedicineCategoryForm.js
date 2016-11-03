@@ -91,6 +91,14 @@ var MedicineCategoryForm = function(win,doc, options){
             });
             return false;
         });
+
+        $('#saveClose').click(function (e) {
+            saveCloseClicked = true;
+        });
+
+        $('#saveContinue').click(function (e) {
+            saveCloseClicked = false;
+        });
     };
 
 
