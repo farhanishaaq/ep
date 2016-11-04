@@ -14,5 +14,5 @@ Thumbs.db
 /public/uploaded-data/profile-photos
 profile-photos
 /public/uploaded-data/
-config/local
-local
+/app/config/local
+/app/config/database.php
