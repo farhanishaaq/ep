@@ -66,7 +66,7 @@ var DoctorsList = function(win,doc, options){
         //******
         scheduleModalEvents();
 
-    }
+    };
 
     /**
      * Events Bindings | All Events Bindings Goes here

@@ -12,8 +12,14 @@ class AppointmentsController extends \BaseController {
 	 */
 	public function index()
 	{
+		$formMode = GlobalsConst::FORM_CREATE;
 		$appointments = Appointment::where('business_unit_id', Ep::currentBusinessUnitId())->take(50)->get();
-		return View::make('appointments.index', compact('appointments'));
+		$patient_id = "";
+		$appointment_id = "";
+		$vitalSign = "";
+
+		return View::make('appointments.index',compact('appointments'))->nest('_form','vital_signs.partials._form',compact('formMode', 'appointments', 'id', 'patient_id', 'appointment_id','vitalSign'));
+		//return View::make('appointments.index', compact('appointments'));
 	}
 
 	/**
@@ -54,6 +60,19 @@ class AppointmentsController extends \BaseController {
 		unset($data['total_paid']);
 		$response = Appointment::saveAppointment($data);
 		return $response;
+	}
+
+	public function fetchAppointmentsByPatientId()
+	{
+		$patientId = Input::get('patientId',null);
+		if($patientId !== null){
+
+			$appointments = Appointment::where('patient_id','=',$patientId)->get();
+			return View::make('appointments.partials._fetchAppointmentsByPatientId',compact('patientId','appointments'));
+		}else{
+			return 'Error';
+		}
+
 	}
 
 	/**

@@ -150,7 +150,7 @@ Route::group(['Private', 'before' => 'auth'],function (){
     /**
      * VitalSignsController Routes
      */
-    Route::resource('vitalSigns', 'VitalSignsController');
+    Route::resource('vital_signs', 'VitalSignsController');
 
 
     /**
@@ -173,6 +173,7 @@ Route::group(['Private', 'before' => 'auth'],function (){
         Route::get('checkupFeeInvoice', ['as'=>'checkupFeeInvoice','uses'=>'AppointmentsController@checkupFeeInvoice']);
         Route::get('testFeeInvoice', ['as'=>'testFeeInvoice','uses'=>'AppointmentsController@testFeeInvoice']);
         Route::get('fetchTimeSlotsAndBookedAppointments',['as'=>'fetchTimeSlotsAndBookedAppointments','uses' => 'AppointmentsController@fetchTimeSlotsAndBookedAppointments']);
+        Route::get('fetchAppointmentsByPatientId', array('as'=>'fetchAppointmentsByPatientId', 'uses' => 'AppointmentsController@fetchAppointmentsByPatientId'));
     });
 
 
@@ -188,6 +189,25 @@ Route::group(['Private', 'before' => 'auth'],function (){
         Route::get('followUpPrescriptions', array('as' => 'followUpPrescriptions', 'uses' => 'PrescriptionsController@followUpPrescriptions'));
 
     });
+
+
+    /**
+     * PrescriptionsController Routes
+     */
+    Route::group(['VitalSigns'],function () {
+        Route::resource('vital_signs', 'VitalSignsController');
+        Route::resource('vitalSigns', 'VitalSignsController');
+        Route::get('create', array('as' => 'create', 'uses' => 'VitalSignsController@create'));
+        Route::get('vitalSignFetchHistory', array('as' => 'vitalSignFetchHistory', 'uses' => 'VitalSignsController@vitalSignFetchHistory'));
+        Route::get('show/{patientId}', array('before' => 'auth', 'as' => 'show', 'uses' => 'VitalSignsController@show'));
+        Route::get('fetchVitalSignsByPatientId', array('as' => 'fetchVitalSignsByPatientId', 'uses' => 'VitalSignsController@fetchVitalSignsByPatientId'));
+
+
+
+//        Route::get('create', array('before' => 'auth', 'as' => 'create', 'uses' => 'VitalSingsController@create'));
+
+    });
+
 });
 
 

@@ -25,6 +25,9 @@ class CreateVitalSignsTable extends Migration {
 			$table->string('pulse_rate')->nullable();//heartbeats per minute
 			$table->string('respiration_rate')->nullable();//breaths per minute
 			$table->integer('temperature')->nullable();//In fahrenheit
+			$table->integer('gait_speed')->nullable();//In meter/mintues
+			$table->string('addiction')->nullable();//words
+			$table->string('communities')->nullable();//words
 			$table->text('note');
 			$table->timestamps();
 			$table->softDeletes();

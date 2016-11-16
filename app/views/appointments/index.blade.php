@@ -22,9 +22,9 @@
 =========================================================-->
 @section('content')
     <div class="container mT20">
-    <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'">Appointments List</h1>
-    <hr class="w100p fL mT0" />
-    <section id="form-Section">
+        <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'">Appointments List</h1>
+        <hr class="w100p fL mT0" />
+        <section id="form-Section">
             <!--========================================================
                                      Data Table
             =========================================================-->
@@ -79,6 +79,7 @@
                                         <span class="fL">&nbsp;|&nbsp;</span><a href="{{route('printPrescription',[$appointment->prescription->id])}}" class="btn-pdf-prescription-icon fL" title="PDF Prescription"></a>
                                 @else
                                         <span class="fL">&nbsp;|&nbsp;</span><a href="{{route('prescriptions.create')}}?appointmentId={{$appointment->id}}" class="btn-add-prescription-icon fL" title="Add Prescription"></a>
+                                        <span class="fL">&nbsp;|&nbsp;</span><a href="javascript:void(0);" class="glyphicon glyphicon-log-in fL viewVitalSign" title="VitalSigns of {{$appointment->id}}" data-toggle="modal" data-target="#patientVitalSigns"  patient_id="{{{ $appointment->patient_id }}}" appointment_id="{{{ $appointment->id }}}"></a>
                                 @endif
                             </td>
                         </tr>
@@ -97,27 +98,51 @@
             </table>
         </section>
     </div>
-@stop
 
-@section('scripts')
-<script type="text/javascript">
+    @include('vital_signs.includes.modal_form')
 
+<script>
 
-$(document).ready(function() {
-    if($('#tblRecordsList tr.row-data').length){
-        $('#tblRecordsList').DataTable({
-            "columnDefs": [ {
-            "targets": 5,
-            "orderable": false
-            } ]
+ window.patientPrescriptionUrl = 0;
+
+  $(document).ready(function() {
+
+     $(".viewVitalSign").click(function(){
+          var patientIdVal = $(this).attr('patient_id');
+          var appointmentIdVal = $(this).attr('appointment_id');
+             $("#patient_id").val(patientIdVal);
+             $("#appointment_id").val(appointmentIdVal);
+               $.ajax({
+                    type: "GET",
+                    url: "{{ route('vital_signs.create') }}",
+                    data: {patientId: patientIdVal, appointmentId: appointmentIdVal },
+                    success: function(response) {
+                        if(response == "Error"){
+
+                        }else{
+                            $('#vitalSignsViewTbody').html(response);
+                            $('#patientVitalSigns').show();
+                        }
+                    }
+                });
+            });
+
+        if($('#tblRecordsList tr.row-data').length){
+            $('#tblRecordsList').DataTable({
+                "columnDefs": [ {
+                "targets": 5,
+                "orderable": false
+            }]
         });
-    }
 
+
+    }
 
     @if(Session::has('appointmentErrorMsg'))
     showMsg("{{Session::get('appointmentErrorMsg')}}");
 
     @endif
+
 });
 </script>
 @stop

@@ -393,7 +393,7 @@ var PrescriptionForm = function(win,doc, options){
             var frm = $(this);
             console.log(frm.serialize());
             var validator = s.validationRulesForForm(frm);
-            if (frm.valid()) {
+            //if (frm.valid()) {
                 var formData = frm.serialize();
                 var saveUrl = frm.attr('action') || "";
                 $.ajax({
@@ -412,10 +412,10 @@ var PrescriptionForm = function(win,doc, options){
                         }
                     }
                 });
-             }else{
-                showMsg('Invalid Form!',window.MESSAGE_TYPE_ERROR);
-             }
-            return false;
+            // }else{
+            //    showMsg('Invalid Form!',window.MESSAGE_TYPE_ERROR);
+            // }
+            //return false;
         });
         //****End of form submit
 

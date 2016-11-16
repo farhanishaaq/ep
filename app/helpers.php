@@ -87,6 +87,15 @@ function city_drop_down($params=['name'=>'city_id']){
     return Form::select($name,$dataset,Form::getValueAttribute('city_id', null),['id'=>$name]);
 }
 
+function vitalsigns_drop_down($params=['created_at'=>'id'], $patient_id=""){
+    $created_at = $params['created_at'];
+    $dataset = DB::table('vital_signs')->select('vital_signs.id',DB::raw("CONCAT(vital_signs.created_at) AS patient_vital_signs_date"))->where('patient_id','=',$patient_id)->lists('patient_vital_signs_date','id');
+
+    $dataset[""] = "select created_at";
+    ksort($dataset);
+    return Form::select($created_at,$dataset,Form::getValueAttribute('id', null),['id'=>$created_at]);
+}
+
 
 /**
  * radio_btn_group | This function is used to make radio button as a selection boxes
