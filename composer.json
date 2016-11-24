@@ -26,7 +26,8 @@
 			"app/globals"
 		],
 		"psr-4": {
-			"App\\Controllers\\Inventory\\": "app/controllers/inventory"
+			"App\\Controllers\\Inventory\\": "app/controllers/inventory",
+			"App\\Controllers\\CommunitySite\\": "app/controllers/community_site"
 		},
         "files": [
             "app/helpers.php",

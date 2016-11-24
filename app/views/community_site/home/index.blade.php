@@ -27,7 +27,7 @@ class="active"
             <div class="col-md-3">
                 <div class="box_1">
                     <div class="icon_1"></div>
-                    <h3 class="text_2 color_7 maxheight1"><a href="#">Fee Management</a></h3>
+                    <h3 class="text_2 color_7 maxheight1"><a href="#">Category</a></h3>
                     <p class="text_3 color_2 maxheight">
                         Online creation and generation of patient's Bills anywhere, anytime.
 
@@ -37,7 +37,7 @@ class="active"
             <div class="col-md-3">
                 <div class="box_1">
                     <div class="icon_2"></div>
-                    <h3 class="text_2 color_7 maxheight1"><a href="#">Appointment on Phone</a></h3>
+                    <h3 class="text_2 color_7 maxheight1"><a href="#">Top Doctors</a></h3>
                     <p class="text_3 color_2 maxheight">
                         Now Appointment reservation also is just ahead of a Phone Call, by Receptionist.
                     </p>
@@ -46,7 +46,7 @@ class="active"
             <div class="col-md-3">
                 <div class="box_1">
                     <div class="icon_3"></div>
-                    <h3 class="text_2 color_7 maxheight1"><a href="#">Patient Check-Up</a></h3>
+                    <h3 class="text_2 color_7 maxheight1"><a href="#">Most Searched Doctors</a></h3>
                     <p class="text_3 color_2 maxheight">
                         Now Check your patients with much convinience by keeping medical records
                         Online.
@@ -56,7 +56,7 @@ class="active"
             <div class="col-md-3">
                 <div class="box_1">
                     <div class="icon_4"></div>
-                    <h3 class="text_2 color_7 maxheight1"><a href="#">Administration</a></h3>
+                    <h3 class="text_2 color_7 maxheight1"><a href="#">Online Appointment</a></h3>
                     <p class="text_3 color_2 maxheight">
                         Now administrator could manage everything in the system using his full access rights.
                     </p>
@@ -166,6 +166,7 @@ class="active"
             </div>
         </div>
     </div>
+
 </section>
 <div class="container">
     {{--<div class="row wrap_9 wrap_4 wrap_10">--}}

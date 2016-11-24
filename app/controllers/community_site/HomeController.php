@@ -1,13 +1,16 @@
 <?php
 
-use \App\Globals\GlobalsConst;
+namespace App\Controllers\CommunitySite;
+use App\Globals\Ep;
+use App\Globals\GlobalsConst;
+use Illuminate\Support\Facades\Input;
+use \View;
 
-class HomeController extends BaseController {
+class HomeController extends \BaseController {
 
 	public function index()
 	{
-//		echo Route::getCurrentRoute()->getPrefix();die('KKKK');
-        return View::make('home.index');
+        return View::make('community_site.home.index');
 	}
 
 	public function showAbout()

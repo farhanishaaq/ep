@@ -17,6 +17,29 @@
  * Public Routes
  * ===========================================================================
  */
+Route::group(['namespace' => 'App\Controllers\CommunitySite'],function () {
+
+    Route::group(['Public'],function (){
+        /**
+         * HomeController Routes
+         */
+        Route::group(['Home'],function (){
+            Route::get('/', 'HomeController@index');
+
+            Route::group(['domain' => '{companyDomain}.ep.loc'], function ($companyDomain) {
+                Route::get('companyHome', array('as'=>'showCompanyHomePage','uses'=>'HomeController@showCompanyHomePage'));
+            });
+
+            Route::get('fetchDoctorDutyAndFeeInfo', array('as'=>'fetchDoctorDutyAndFeeInfo','uses'=>'HomeController@fetchDoctorDutyAndFeeInfo'));
+            Route::get('home', array('as'=>'home','uses'=>'HomeController@index'));
+            Route::get('about', array('as'=>'about','uses'=>'HomeController@showAbout'));
+            Route::get('services', array('as'=>'services','uses'=>'HomeController@showServices'));
+            Route::get('contacts', array('as'=>'contacts','uses'=>'HomeController@showContacts'));
+            Route::post('sendContactUsMail', array('as'=>'sendContactUsMail','uses'=>'HomeController@sendContactUsMail'));
+        });
+    });
+});
+
 Route::group(['Public'],function (){
     /**
      * AuthController Routes
@@ -25,21 +48,6 @@ Route::group(['Public'],function (){
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
     Route::get('unauthorized', array('as'=>'unauthorized','uses'=>'AuthController@unauthorized'));
 
-    /**
-     * HomeController Routes
-     */
-    Route::group(['Home'],function (){
-        Route::get('/', 'HomeController@index');
-        Route::group(['domain' => '{companyDomain}.ep.loc'], function ($companyDomain) {
-            Route::get('companyHome', array('as'=>'showCompanyHomePage','uses'=>'HomeController@showCompanyHomePage'));
-        });
-        Route::get('fetchDoctorDutyAndFeeInfo', array('as'=>'fetchDoctorDutyAndFeeInfo','uses'=>'HomeController@fetchDoctorDutyAndFeeInfo'));
-        Route::get('home', array('as'=>'home','uses'=>'HomeController@index'));
-        Route::get('about', array('as'=>'about','uses'=>'HomeController@showAbout'));
-        Route::get('services', array('as'=>'services','uses'=>'HomeController@showServices'));
-        Route::get('contacts', array('as'=>'contacts','uses'=>'HomeController@showContacts'));
-        Route::post('sendContactUsMail', array('as'=>'sendContactUsMail','uses'=>'HomeController@sendContactUsMail'));
-    });
 
     /**
      * RemindersController Routes
@@ -283,5 +291,41 @@ Route::group(['namespace' => 'App\Controllers\Inventory'],function () {
     });
 
 
+});
+
+Route::get('test', function () {
+    $ParentId = 1;
+    $controllers = \App\Globals\Ep::getAllEpControllers();
+    echo '<pre>';
+    print_r($controllers);
+    $class = new ReflectionClass(trim('App\Controllers\CommunitySite\HomeController'));
+    var_dump($class);
+//    die;
+    foreach ($controllers as $controller) {
+
+        //*******Add controllers
+        $resources[] = [
+            'parent_id' => $ParentId,
+            'name' => $controller,
+            'type' => 'Controller',
+        ];
+
+        //*******Add Actions of controllers
+        echo $controller .'<br/>';
+
+        $class = new ReflectionClass(($controller));
+//        if(class_exists($class) ) continue;
+        $cMethods = $class->getMethods(ReflectionMethod::IS_PUBLIC);
+        $cUniqueMethods = array_unique($cMethods);
+        foreach ($cUniqueMethods as $m) {
+            if ($m->class == $controller)
+                $resources[] = [
+                    'parent_id' => $ParentId,
+                    'name' => $m->name,
+                    'type' => 'Action',
+                ];
+        }
+        $ParentId++;
+    }
 });
 

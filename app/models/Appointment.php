@@ -16,7 +16,7 @@ class Appointment extends \Eloquent {
 
 	// Don't forget to fill this array
 	protected $fillable = [ 'id',
-        'business_unit_id',
+                            'business_unit_id',
                             'doctor_id',
                             'patient_id',
                             'time_slot_id',

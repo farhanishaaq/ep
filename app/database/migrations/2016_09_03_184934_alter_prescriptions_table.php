@@ -35,7 +35,7 @@ class AlterPrescriptionsTable extends Migration {
 			$table->text('note');
 
 			$table->dropColumn('parent_id')->nullable();
-			$table->dropColumn('test_procedures',1024)->nullable();
+			$table->dropColumn('test_procedures')->nullable();
 			$table->dropColumn('check_up_note')->nullable();
 			$table->dropColumn('check_up_photo')->nullable();
 		});

@@ -90,7 +90,7 @@ class GlobalsConst {
 
     //PUBLIC RESOURCES LIST
     public static $PUBLIC_RESOURCES = [
-        'HomeController@index',
+        'App\Controllers\CommunitySite\HomeController@index',
         'AuthController@showLogin',
         'AuthController@doLogin',
         'AuthController@unauthorized',
@@ -102,8 +102,8 @@ class GlobalsConst {
 //        'DoctorsController@store', //@todo It is not public, remove from here
 //        'DoctorsController@show', //@todo It is not public, remove from here
 //        'DoctorsController@edit', //@todo It is not public, remove from here
-        'HomeController@showCompanyHomePage', //@todo It is not public, remove from here
-        'HomeController@fetchDoctorDutyAndFeeInfo', //@todo It is not public, remove from here
+        'App\Controllers\CommunitySite\HomeController@showCompanyHomePage', //@todo It is not public, remove from here
+        'App\Controllers\CommunitySite\HomeController@fetchDoctorDutyAndFeeInfo', //@todo It is not public, remove from here
           'App\Controllers\Inventory\MedicinePurchasesController@index', //@todo It is not public, remove from here
           'App\Controllers\Inventory\MedicinePurchasesController@create', //@todo It is not public, remove from here
         'App\Controllers\Inventory\MedicineSalesController@index', //@todo It is not public, remove from here

@@ -75,7 +75,7 @@ class VitalSign extends \Eloquent {
 		$vital_signs->save();
 
 
-		$response = ['success'=>true, 'error'=> false, 'message'=> 'Medicine has been saved successfully!'];
+		$response = ['success'=>true, 'error'=> false, 'message'=> 'Vital Sign has been saved successfully!'];
 		return $response;
 	}
 }
