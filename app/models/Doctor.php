@@ -4,7 +4,7 @@ use \App\Globals\Ep;
 
 class Doctor extends \Eloquent {
 	
-	protected $fillable = ['user_id', 'employee_id', 'min_fee', 'max_fee'];
+	protected $fillable = ['user_id', 'employee_id', 'min_fee', 'max_fee', 'current_rating'];
 
 
 	/**
@@ -34,6 +34,11 @@ class Doctor extends \Eloquent {
 	public function appointments()
 	{
 		return $this->hasMany('Appointment');
+	}
+
+	public function comment()
+	{
+		return $this->hasMany('Comment');
 	}
 
 	/**
@@ -232,4 +237,24 @@ class Doctor extends \Eloquent {
                             ->where('doctors.id','=',$doctorId);
         return $qryBuilder->get();
     }
+
+	public static function saveNewRatings($data,$dataProcessType=GlobalsConst::DATA_SAVE){
+
+		$doctor_id = $data['doctor_id'];
+		$user_id = $data['user_id'];
+		$ratingOfDoctor = explode(" ",$data['rating']);
+		$ratings = $ratingOfDoctor['0'];
+
+		$doctor = Doctor::find("$doctor_id");
+		$previous_rating = $doctor['current_rating'];
+
+		$new_rating = ($previous_rating + $ratings) / 2;
+
+		$doctor->current_rating = $new_rating;
+
+		$doctor->save();
+
+//		$response1 = ['success'=>true, 'error'=> false, 'message'=> 'Rating has been updated successfully!'];
+		return $new_rating;
+	}
 }

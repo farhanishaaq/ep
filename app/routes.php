@@ -36,6 +36,21 @@ Route::group(['namespace' => 'App\Controllers\CommunitySite'],function () {
             Route::get('services', array('as'=>'services','uses'=>'HomeController@showServices'));
             Route::get('contacts', array('as'=>'contacts','uses'=>'HomeController@showContacts'));
             Route::post('sendContactUsMail', array('as'=>'sendContactUsMail','uses'=>'HomeController@sendContactUsMail'));
+            Route::get('create', ['as'=>'create','uses'=>'AppointmentsController@create']);
+        });
+
+        Route::group(['PublicSearch'],function () {
+            Route::resource('publicsearch', 'PublicSearchController');
+            Route::get('fetchDoctorsSpecialties', array('as'=>'fetchDoctorsSpecialties','uses'=>'PublicSearchController@fetchDoctorsSpecialties'));
+            Route::get('fetchDoctorDetails/{id}', array('as'=>'fetchDoctorDetails','uses'=>'PublicSearchController@fetchDoctorDetails'));
+            Route::get('fetchDoctors/{name}', array('as'=>'fetchDoctors','uses'=>'PublicSearchController@fetchDoctors'));
+            Route::post('searchAllDoctors', array('as'=>'searchAllDoctors','uses'=>'PublicSearchController@searchAllDoctors'));
+            Route::post('commentOnDoctors', array('as'=>'commentOnDoctors','uses'=>'PublicSearchController@commentOnDoctors'));
+            Route::post('searchDoctors', array('as'=>'searchDoctors','uses'=>'PublicSearchController@searchDoctors'));
+            Route::get('fetchTopDoctors', ['as'=>'fetchTopDoctors','uses'=>'PublicSearchController@fetchTopDoctors']);
+            Route::get('giveRating', array('as' => 'giveRating', 'uses' => 'PublicSearchController@giveRating'));
+            Route::get('index', array('as'=>'index','uses'=>'PublicSearchController@index'));
+
         });
     });
 });
@@ -328,4 +343,3 @@ Route::get('test', function () {
         $ParentId++;
     }
 });
-

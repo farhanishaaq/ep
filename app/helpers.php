@@ -78,7 +78,9 @@ function country_drop_down(){
  */
 function city_drop_down($params=['name'=>'city_id']){
     $name = $params['name'];
-    $dataset = DB::table('cities')->select('cities.id',DB::raw("CONCAT(cities.name,', ', states.name,', ', countries.name) AS full_city_name"))->join('states','states.id','=','cities.state_id')
+    $dataset = DB::table('cities')
+        ->select('cities.id',DB::raw("CONCAT(cities.name,', ', states.name,', ', countries.name) AS full_city_name"))
+        ->join('states','states.id','=','cities.state_id')
         ->join('countries','countries.id','=','states.country_id')
         ->lists('full_city_name','id');
 

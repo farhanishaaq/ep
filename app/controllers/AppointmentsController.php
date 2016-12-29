@@ -29,7 +29,6 @@ class AppointmentsController extends \BaseController {
 	 */
 	public function create()
 	{
-
         $formMode = GlobalsConst::FORM_CREATE;
 		$appointmentMaxId = Appointment::where('business_unit_id','=',Ep::currentBusinessUnitId())->max('id');
 		$appointmentMaxId += 1;

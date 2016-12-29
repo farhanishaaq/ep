@@ -24,7 +24,18 @@ class="active"
 <section id="content">
     <div class="container">
         <div class="row mT30">
-            <div class="col-md-3">
+            <div class="col-md-2">
+                <div class="box_1">
+                    <a href="fetchDoctorsSpecialties"><div class="icon_3"></div></a>
+                    <h3 class="text_2 color_7 maxheight1"><a href="fetchDoctorsSpecialties">Find Doctor</a></h3>
+                    <p class="text_3 color_2 maxheight">
+                        Online see doctors anytime.
+
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-2">
                 <div class="box_1">
                     <div class="icon_1"></div>
                     <h3 class="text_2 color_7 maxheight1"><a href="#">Category</a></h3>
@@ -34,10 +45,10 @@ class="active"
                     </p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="box_1">
-                    <div class="icon_2"></div>
-                    <h3 class="text_2 color_7 maxheight1"><a href="#">Top Doctors</a></h3>
+                    <a href="fetchTopDoctors"></h3><div class="icon_2"></div></a>
+                    <h3 class="text_2 color_7 maxheight1"><a href="fetchTopDoctors">Top Doctors</a></h3>
                     <p class="text_3 color_2 maxheight">
                         Now Appointment reservation also is just ahead of a Phone Call, by Receptionist.
                     </p>
@@ -56,7 +67,7 @@ class="active"
             <div class="col-md-3">
                 <div class="box_1">
                     <div class="icon_4"></div>
-                    <h3 class="text_2 color_7 maxheight1"><a href="#">Online Appointment</a></h3>
+                    <h3 class="text_2 color_7 maxheight1"><a href="create">Online Appointment</a></h3>
                     <p class="text_3 color_2 maxheight">
                         Now administrator could manage everything in the system using his full access rights.
                     </p>

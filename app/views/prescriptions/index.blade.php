@@ -3,7 +3,7 @@
                           TITLE
 =========================================================-->
 @section('title')
-    Manage Appointments
+    Manage Prescription
 @stop
 
 @section('redBar')

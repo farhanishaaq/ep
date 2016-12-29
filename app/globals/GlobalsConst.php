@@ -120,6 +120,9 @@ class GlobalsConst {
         'App\Controllers\Inventory\MedicineCategoriesController@create', //@todo It is not public, remove from here
         'App\Controllers\Inventory\MedicineCategoriesController@store', //@todo It is not public, remove from here
 
+        'App\Controllers\CommunitySite\PublicSearchController@findDoctors', //@todo It is not public, remove from here
+        'App\Controllers\CommunitySite\PublicSearchController@index', //@todo It is not public, remove from here
+
         'PrescriptionsController@uploadCheckUpPic', //@todo It is not public, remove from here
         'PrescriptionsController@deleteCheckUpPic', //@todo It is not public, remove from here
         'PrescriptionsController@followUpPrescriptions', //@todo It is not public, remove from here
