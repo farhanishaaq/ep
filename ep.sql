@@ -1,20 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 4.4.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2016 at 11:09 AM
--- Server version: 5.5.27
--- PHP Version: 5.4.7
+-- Generation Time: Dec 29, 2016 at 04:38 PM
+-- Server version: 5.6.26
+-- PHP Version: 5.6.12
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `ep`
@@ -66,15 +66,13 @@ DELIMITER ;
 --
 
 CREATE TABLE IF NOT EXISTS `allergies` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `allergies_name_unique` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -83,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `allergies` (
 --
 
 CREATE TABLE IF NOT EXISTS `appointments` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `business_unit_id` int(11) NOT NULL,
   `doctor_id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
@@ -100,19 +98,18 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `checkup_detail` text COLLATE utf8_unicode_ci,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `appointments`
 --
 
 INSERT INTO `appointments` (`id`, `business_unit_id`, `doctor_id`, `patient_id`, `time_slot_id`, `code`, `date`, `time`, `payment_status`, `expected_fee`, `discount_amount`, `paid_fee`, `status`, `reason_type`, `checkup_detail`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 1, 2, '20161020-0001', '2016-10-03', '06:20:00', 'Advance', 1000.00, 0.00, 1000.00, 1, 'Medical Check up', 'Yes', '2016-10-20 15:26:00', '2016-10-20 15:26:00', NULL),
-(2, 1, 1, 1, 3, '20161024-0002', '2016-10-03', '06:40:00', NULL, 1000.00, 0.00, 1000.00, 1, 'Medical Check up', '', '2016-10-24 15:53:44', '2016-10-24 15:53:44', NULL),
-(3, 1, 1, 2, 4, '20161025-0003', '2016-10-03', '07:00:00', NULL, 1000.00, 0.00, 1000.00, 1, 'Medical Check up', 'head injury', '2016-10-25 08:55:40', '2016-10-25 08:55:40', NULL),
-(4, 1, 1, 3, 6, '20161026-0004', '2016-10-03', '07:40:00', NULL, 1000.00, 0.00, 1000.00, 1, 'Medical Check up', 'Head Injury', '2016-10-26 12:03:26', '2016-10-26 12:03:26', NULL);
+(1, 1, 1, 1, 2, '20161020-0001', '2016-10-03', '06:20:00', 'Advance', '1000.00', '0.00', '1000.00', 1, 'Medical Check up', 'Yes', '2016-10-20 15:26:00', '2016-10-20 15:26:00', NULL),
+(2, 1, 1, 1, 3, '20161024-0002', '2016-10-03', '06:40:00', NULL, '1000.00', '0.00', '1000.00', 1, 'Medical Check up', '', '2016-10-24 15:53:44', '2016-10-24 15:53:44', NULL),
+(3, 1, 1, 2, 4, '20161025-0003', '2016-10-03', '07:00:00', NULL, '1000.00', '0.00', '1000.00', 1, 'Medical Check up', 'head injury', '2016-10-25 08:55:40', '2016-10-25 08:55:40', NULL),
+(4, 1, 1, 3, 6, '20161026-0004', '2016-10-03', '07:40:00', NULL, '1000.00', '0.00', '1000.00', 1, 'Medical Check up', 'Head Injury', '2016-10-26 12:03:26', '2016-10-26 12:03:26', NULL);
 
 -- --------------------------------------------------------
 
@@ -121,7 +118,7 @@ INSERT INTO `appointments` (`id`, `business_unit_id`, `doctor_id`, `patient_id`,
 --
 
 CREATE TABLE IF NOT EXISTS `business_units` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `company_id` int(11) DEFAULT NULL,
   `city_id` int(11) DEFAULT NULL,
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
@@ -132,10 +129,8 @@ CREATE TABLE IF NOT EXISTS `business_units` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `is_main` enum('Yes','No') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `business_units_name_company_id_unique` (`name`,`company_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+  `is_main` enum('Yes','No') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No'
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `business_units`
@@ -154,15 +149,13 @@ INSERT INTO `business_units` (`id`, `company_id`, `city_id`, `name`, `address`, 
 --
 
 CREATE TABLE IF NOT EXISTS `cities` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `state_id` int(11) NOT NULL,
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `cities_name_state_id_unique` (`name`,`state_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `cities`
@@ -187,13 +180,12 @@ INSERT INTO `cities` (`id`, `state_id`, `name`, `created_at`, `updated_at`, `del
 --
 
 CREATE TABLE IF NOT EXISTS `clinics` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -202,15 +194,14 @@ CREATE TABLE IF NOT EXISTS `clinics` (
 --
 
 CREATE TABLE IF NOT EXISTS `comments` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `doctor_id` int(11) DEFAULT NULL,
   `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `comments`
@@ -243,7 +234,7 @@ INSERT INTO `comments` (`id`, `user_id`, `doctor_id`, `status`, `created_at`, `u
 --
 
 CREATE TABLE IF NOT EXISTS `community_users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -261,12 +252,8 @@ CREATE TABLE IF NOT EXISTS `community_users` (
   `end` time DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `community_users_name_unique` (`name`),
-  UNIQUE KEY `community_users_email_unique` (`email`),
-  UNIQUE KEY `community_users_password_unique` (`password`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -275,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `community_users` (
 --
 
 CREATE TABLE IF NOT EXISTS `companies` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `city_id` int(11) DEFAULT NULL,
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `domain` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
@@ -286,11 +273,8 @@ CREATE TABLE IF NOT EXISTS `companies` (
   `description` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `companies_name_unique` (`name`),
-  UNIQUE KEY `companies_domain_unique` (`domain`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `companies`
@@ -307,13 +291,12 @@ INSERT INTO `companies` (`id`, `city_id`, `name`, `domain`, `company_type`, `add
 --
 
 CREATE TABLE IF NOT EXISTS `countries` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `countries`
@@ -334,7 +317,7 @@ INSERT INTO `countries` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`)
 --
 
 CREATE TABLE IF NOT EXISTS `doctors` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `employee_id` int(11) DEFAULT NULL,
   `min_fee` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -342,9 +325,8 @@ CREATE TABLE IF NOT EXISTS `doctors` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `current_rating` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+  `current_rating` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `doctors`
@@ -358,7 +340,7 @@ INSERT INTO `doctors` (`id`, `user_id`, `employee_id`, `min_fee`, `max_fee`, `cr
 (5, 11, 10, '436', '2575', '2016-10-19 15:52:41', '2016-10-19 15:52:41', NULL, '4.7'),
 (6, 12, 11, '664', '1604', '2016-10-19 15:52:42', '2016-10-19 15:52:42', NULL, '3.9'),
 (7, 13, 12, '658', '1963', '2016-10-19 15:52:43', '2016-10-19 15:52:43', NULL, '4.6'),
-(8, 14, 13, '482', '1890', '2016-10-19 15:52:43', '2016-12-27 13:08:41', NULL, '4.6'),
+(8, 14, 13, '482', '1890', '2016-10-19 15:52:43', '2016-12-28 10:40:21', NULL, '4.7'),
 (9, 15, 14, '218', '2303', '2016-10-19 15:52:44', '2016-10-19 15:52:44', NULL, '3.6');
 
 -- --------------------------------------------------------
@@ -391,14 +373,13 @@ INSERT INTO `doctor_medical_specialty` (`doctor_id`, `medical_specialty_id`) VAL
 --
 
 CREATE TABLE IF NOT EXISTS `doctor_qualification` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `doctor_id` int(11) NOT NULL,
   `qualification_id` int(11) NOT NULL,
   `institute` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `start_date` date DEFAULT NULL,
-  `end_date` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+  `end_date` date DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `doctor_qualification`
@@ -417,16 +398,15 @@ INSERT INTO `doctor_qualification` (`id`, `doctor_id`, `qualification_id`, `inst
 --
 
 CREATE TABLE IF NOT EXISTS `drug_usages` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `business_unit_id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
   `drug_name` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
   `usage_note` text COLLATE utf8_unicode_ci,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -435,16 +415,15 @@ CREATE TABLE IF NOT EXISTS `drug_usages` (
 --
 
 CREATE TABLE IF NOT EXISTS `duty_days` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `doctor_id` int(11) DEFAULT NULL,
   `day` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `start` time DEFAULT NULL,
   `end` time DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `duty_days`
@@ -460,7 +439,7 @@ INSERT INTO `duty_days` (`id`, `doctor_id`, `day`, `start`, `end`, `created_at`,
 --
 
 CREATE TABLE IF NOT EXISTS `employees` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `company_id` int(11) NOT NULL,
   `business_unit_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -472,29 +451,28 @@ CREATE TABLE IF NOT EXISTS `employees` (
   `current_salary` decimal(8,2) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `employees`
 --
 
 INSERT INTO `employees` (`id`, `company_id`, `business_unit_id`, `user_id`, `ntn`, `bank_account_no`, `joining_date`, `quite_date`, `joining_salary`, `current_salary`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 2, NULL, NULL, '2013-04-15', NULL, 25000.00, 35000.00, '2016-10-19 15:52:37', '2016-10-19 15:52:37', NULL),
-(2, 1, 1, 3, NULL, NULL, '2013-04-15', NULL, 25000.00, 35000.00, '2016-10-19 15:52:38', '2016-10-19 15:52:38', NULL),
-(3, 1, 1, 4, NULL, NULL, '2013-04-15', NULL, 25000.00, 35000.00, '2016-10-19 15:52:38', '2016-10-19 15:52:38', NULL),
-(4, 1, 1, 5, NULL, NULL, '2013-04-15', NULL, 25000.00, 35000.00, '2016-10-19 15:52:39', '2016-10-19 15:52:39', NULL),
-(5, 1, 1, 6, NULL, NULL, '2013-04-15', NULL, 25000.00, 35000.00, '2016-10-19 15:52:39', '2016-10-19 15:52:39', NULL),
-(6, 1, 1, 7, NULL, NULL, '2013-04-15', NULL, 25000.00, 35000.00, '2016-10-19 15:52:40', '2016-10-19 15:52:40', NULL),
-(7, 1, 1, 8, NULL, NULL, '2011-02-09', NULL, 9022.00, 13832.00, '2016-10-19 15:52:40', '2016-10-19 15:52:40', NULL),
-(8, 1, 2, 9, NULL, NULL, '2016-02-18', NULL, 9773.00, 12321.00, '2016-10-19 15:52:41', '2016-10-19 15:52:41', NULL),
-(9, 2, 3, 10, NULL, NULL, '2010-10-18', NULL, 6071.00, 24138.00, '2016-10-19 15:52:41', '2016-10-19 15:52:41', NULL),
-(10, 2, 4, 11, NULL, NULL, '2013-05-20', NULL, 10322.00, 21921.00, '2016-10-19 15:52:41', '2016-10-19 15:52:41', NULL),
-(11, 1, 1, 12, NULL, NULL, '2008-04-07', NULL, 14210.00, 10681.00, '2016-10-19 15:52:42', '2016-10-19 15:52:42', NULL),
-(12, 1, 2, 13, NULL, NULL, '2015-11-07', NULL, 6214.00, 20119.00, '2016-10-19 15:52:43', '2016-10-19 15:52:43', NULL),
-(13, 2, 3, 14, NULL, NULL, '2011-06-29', NULL, 12999.00, 12970.00, '2016-10-19 15:52:43', '2016-10-19 15:52:43', NULL),
-(14, 2, 4, 15, NULL, NULL, '2014-08-21', NULL, 12562.00, 19397.00, '2016-10-19 15:52:44', '2016-10-19 15:52:44', NULL);
+(1, 1, 1, 2, NULL, NULL, '2013-04-15', NULL, '25000.00', '35000.00', '2016-10-19 15:52:37', '2016-10-19 15:52:37', NULL),
+(2, 1, 1, 3, NULL, NULL, '2013-04-15', NULL, '25000.00', '35000.00', '2016-10-19 15:52:38', '2016-10-19 15:52:38', NULL),
+(3, 1, 1, 4, NULL, NULL, '2013-04-15', NULL, '25000.00', '35000.00', '2016-10-19 15:52:38', '2016-10-19 15:52:38', NULL),
+(4, 1, 1, 5, NULL, NULL, '2013-04-15', NULL, '25000.00', '35000.00', '2016-10-19 15:52:39', '2016-10-19 15:52:39', NULL),
+(5, 1, 1, 6, NULL, NULL, '2013-04-15', NULL, '25000.00', '35000.00', '2016-10-19 15:52:39', '2016-10-19 15:52:39', NULL),
+(6, 1, 1, 7, NULL, NULL, '2013-04-15', NULL, '25000.00', '35000.00', '2016-10-19 15:52:40', '2016-10-19 15:52:40', NULL),
+(7, 1, 1, 8, NULL, NULL, '2011-02-09', NULL, '9022.00', '13832.00', '2016-10-19 15:52:40', '2016-10-19 15:52:40', NULL),
+(8, 1, 2, 9, NULL, NULL, '2016-02-18', NULL, '9773.00', '12321.00', '2016-10-19 15:52:41', '2016-10-19 15:52:41', NULL),
+(9, 2, 3, 10, NULL, NULL, '2010-10-18', NULL, '6071.00', '24138.00', '2016-10-19 15:52:41', '2016-10-19 15:52:41', NULL),
+(10, 2, 4, 11, NULL, NULL, '2013-05-20', NULL, '10322.00', '21921.00', '2016-10-19 15:52:41', '2016-10-19 15:52:41', NULL),
+(11, 1, 1, 12, NULL, NULL, '2008-04-07', NULL, '14210.00', '10681.00', '2016-10-19 15:52:42', '2016-10-19 15:52:42', NULL),
+(12, 1, 2, 13, NULL, NULL, '2015-11-07', NULL, '6214.00', '20119.00', '2016-10-19 15:52:43', '2016-10-19 15:52:43', NULL),
+(13, 2, 3, 14, NULL, NULL, '2011-06-29', NULL, '12999.00', '12970.00', '2016-10-19 15:52:43', '2016-10-19 15:52:43', NULL),
+(14, 2, 4, 15, NULL, NULL, '2014-08-21', NULL, '12562.00', '19397.00', '2016-10-19 15:52:44', '2016-10-19 15:52:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -503,7 +481,7 @@ INSERT INTO `employees` (`id`, `company_id`, `business_unit_id`, `user_id`, `ntn
 --
 
 CREATE TABLE IF NOT EXISTS `family_histories` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `business_unit_id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
@@ -513,9 +491,8 @@ CREATE TABLE IF NOT EXISTS `family_histories` (
   `disease_note` text COLLATE utf8_unicode_ci,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -524,15 +501,14 @@ CREATE TABLE IF NOT EXISTS `family_histories` (
 --
 
 CREATE TABLE IF NOT EXISTS `medical_specialties` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `photo` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
+  `photo` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `medical_specialties`
@@ -559,14 +535,12 @@ INSERT INTO `medical_specialties` (`id`, `parent_id`, `name`, `description`, `cr
 --
 
 CREATE TABLE IF NOT EXISTS `medical_tests` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `medical_tests_name_unique` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -575,15 +549,14 @@ CREATE TABLE IF NOT EXISTS `medical_tests` (
 --
 
 CREATE TABLE IF NOT EXISTS `medicines` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `category_id` int(11) NOT NULL,
   `name` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -592,7 +565,7 @@ CREATE TABLE IF NOT EXISTS `medicines` (
 --
 
 CREATE TABLE IF NOT EXISTS `medicine_categories` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `menufacturer_id` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -600,9 +573,8 @@ CREATE TABLE IF NOT EXISTS `medicine_categories` (
   `description` text COLLATE utf8_unicode_ci,
   `is_derived` enum('Yes','No') COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -611,13 +583,12 @@ CREATE TABLE IF NOT EXISTS `medicine_categories` (
 --
 
 CREATE TABLE IF NOT EXISTS `medicine_locations` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -626,7 +597,7 @@ CREATE TABLE IF NOT EXISTS `medicine_locations` (
 --
 
 CREATE TABLE IF NOT EXISTS `medicine_menufacturers` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `cell` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -635,9 +606,8 @@ CREATE TABLE IF NOT EXISTS `medicine_menufacturers` (
   `description` text COLLATE utf8_unicode_ci,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -646,15 +616,14 @@ CREATE TABLE IF NOT EXISTS `medicine_menufacturers` (
 --
 
 CREATE TABLE IF NOT EXISTS `medicine_purchases` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `business_unit_id` int(11) NOT NULL,
   `menufacturer_id` int(11) NOT NULL,
   `code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -663,13 +632,12 @@ CREATE TABLE IF NOT EXISTS `medicine_purchases` (
 --
 
 CREATE TABLE IF NOT EXISTS `medicine_purchase_details` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `purchase_id` int(11) NOT NULL,
   `medicine_id` int(11) NOT NULL,
   `unit_price` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -678,15 +646,14 @@ CREATE TABLE IF NOT EXISTS `medicine_purchase_details` (
 --
 
 CREATE TABLE IF NOT EXISTS `medicine_sales` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `patient_id` int(11) NOT NULL,
   `business_unit_id` int(11) NOT NULL,
   `code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -695,13 +662,12 @@ CREATE TABLE IF NOT EXISTS `medicine_sales` (
 --
 
 CREATE TABLE IF NOT EXISTS `medicine_sale_details` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `sale_id` int(11) NOT NULL,
   `medicine_id` int(11) NOT NULL,
   `unit_price` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -710,16 +676,15 @@ CREATE TABLE IF NOT EXISTS `medicine_sale_details` (
 --
 
 CREATE TABLE IF NOT EXISTS `medicine_stocks` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `medicine_id` int(11) NOT NULL,
   `business_unit_id` int(11) NOT NULL,
   `location_id` int(11) NOT NULL,
   `minimum_quantity` int(11) NOT NULL DEFAULT '5',
   `quantity` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -800,9 +765,7 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 CREATE TABLE IF NOT EXISTS `password_reminders` (
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  KEY `password_reminders_email_index` (`email`),
-  KEY `password_reminders_token_index` (`token`)
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -812,16 +775,15 @@ CREATE TABLE IF NOT EXISTS `password_reminders` (
 --
 
 CREATE TABLE IF NOT EXISTS `patients` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `company_id` int(11) NOT NULL,
   `business_unit_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `code` varchar(13) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+  `code` varchar(13) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `patients`
@@ -839,7 +801,7 @@ INSERT INTO `patients` (`id`, `company_id`, `business_unit_id`, `user_id`, `crea
 --
 
 CREATE TABLE IF NOT EXISTS `prescriptions` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `patient_id` int(11) NOT NULL,
   `appointment_id` int(11) NOT NULL,
   `code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
@@ -851,9 +813,8 @@ CREATE TABLE IF NOT EXISTS `prescriptions` (
   `check_up_note` text COLLATE utf8_unicode_ci,
   `check_up_photo` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `refill` int(11) NOT NULL,
-  `test_procedures` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+  `test_procedures` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `prescriptions`
@@ -872,7 +833,7 @@ INSERT INTO `prescriptions` (`id`, `patient_id`, `appointment_id`, `code`, `othe
 --
 
 CREATE TABLE IF NOT EXISTS `prescription_details` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `prescription_id` int(11) NOT NULL,
   `medicine_id` int(11) NOT NULL,
   `usage_type` enum('Normal','Conditional') COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -882,9 +843,8 @@ CREATE TABLE IF NOT EXISTS `prescription_details` (
   `quantity_unit` enum('TABLET','Capsule','Spoon','Tea Spoon','Drop','Other') COLLATE utf8_unicode_ci NOT NULL,
   `frequencies` varchar(1024) COLLATE utf8_unicode_ci NOT NULL,
   `extra_note` text COLLATE utf8_unicode_ci,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `prescription_details`
@@ -903,16 +863,15 @@ INSERT INTO `prescription_details` (`id`, `prescription_id`, `medicine_id`, `usa
 --
 
 CREATE TABLE IF NOT EXISTS `previous_diseases` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `business_unit_id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
   `disease_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `disease_notes` text COLLATE utf8_unicode_ci,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -921,14 +880,13 @@ CREATE TABLE IF NOT EXISTS `previous_diseases` (
 --
 
 CREATE TABLE IF NOT EXISTS `qualifications` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `code` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `title` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `qualifications`
@@ -958,7 +916,7 @@ INSERT INTO `qualifications` (`id`, `code`, `title`, `description`, `created_at`
 --
 
 CREATE TABLE IF NOT EXISTS `rating_logs` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `doctor_id` int(11) DEFAULT NULL,
   `rating` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -966,9 +924,8 @@ CREATE TABLE IF NOT EXISTS `rating_logs` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=26 ;
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `rating_logs`
@@ -986,7 +943,8 @@ INSERT INTO `rating_logs` (`id`, `user_id`, `doctor_id`, `rating`, `created_at`,
 (22, 3, 1, '5.0', '2016-12-27 12:54:45', '2016-12-27 12:54:45', NULL, 'Awesome Doctor', 'I did not see  this type of doctor in my life in terms of method of treatment, behaviours etc'),
 (23, 9, 3, '4.5', '2016-12-27 13:03:58', '2016-12-27 13:03:58', NULL, '', ''),
 (24, 14, 8, '4.8', '2016-12-27 13:07:32', '2016-12-27 13:07:32', NULL, 'Good Doctor', 'Should improve more'),
-(25, 14, 8, '4.8', '2016-12-27 13:08:41', '2016-12-27 13:08:41', NULL, 'Good', 'Today he was more good');
+(25, 14, 8, '4.8', '2016-12-27 13:08:41', '2016-12-27 13:08:41', NULL, 'Good', 'Today he was more good'),
+(26, 14, 8, '4.8', '2016-12-28 10:40:20', '2016-12-28 10:40:20', NULL, 'why i like it', 'his treatement method is so good');
 
 -- --------------------------------------------------------
 
@@ -995,15 +953,14 @@ INSERT INTO `rating_logs` (`id`, `user_id`, `doctor_id`, `rating`, `created_at`,
 --
 
 CREATE TABLE IF NOT EXISTS `resources` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `type` enum('Module','Group','Controller','Action') COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `display` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=197 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `resources`
@@ -1214,12 +1171,11 @@ INSERT INTO `resources` (`id`, `parent_id`, `type`, `name`, `display`, `created_
 --
 
 CREATE TABLE IF NOT EXISTS `resource_role` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `resource_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
-  `status` enum('Allow','Deny','Indeterminate') COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=197 ;
+  `status` enum('Allow','Deny','Indeterminate') COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `resource_role`
@@ -1430,16 +1386,14 @@ INSERT INTO `resource_role` (`id`, `resource_id`, `role_id`, `status`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `roles` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `company_id` int(11) DEFAULT NULL,
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `roles_name_company_id_unique` (`name`,`company_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `roles`
@@ -1481,15 +1435,13 @@ INSERT INTO `role_user` (`role_id`, `user_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `states` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `country_id` int(11) NOT NULL,
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `states_name_country_id_unique` (`name`,`country_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `states`
@@ -1513,16 +1465,15 @@ INSERT INTO `states` (`id`, `country_id`, `name`, `created_at`, `updated_at`, `d
 --
 
 CREATE TABLE IF NOT EXISTS `surgical_histories` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `business_unit_id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
   `surgery_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `surgery_date` date DEFAULT NULL,
   `surgery_notes` text COLLATE utf8_unicode_ci,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1531,14 +1482,13 @@ CREATE TABLE IF NOT EXISTS `surgical_histories` (
 --
 
 CREATE TABLE IF NOT EXISTS `time_slots` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `doctor_id` int(11) NOT NULL,
   `duty_day_id` int(11) NOT NULL,
   `slot` time NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=24 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `time_slots`
@@ -1576,7 +1526,7 @@ INSERT INTO `time_slots` (`id`, `doctor_id`, `duty_day_id`, `slot`, `created_at`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `company_id` int(11) DEFAULT NULL,
   `business_unit_id` int(11) DEFAULT NULL,
   `city_id` int(11) DEFAULT NULL,
@@ -1599,32 +1549,29 @@ CREATE TABLE IF NOT EXISTS `users` (
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_username_unique` (`username`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `company_id`, `business_unit_id`, `city_id`, `username`, `email`, `password`, `fname`, `lname`, `full_name`, `user_type`, `photo`, `dob`, `cnic`, `gender`, `address`, `cell`, `phone`, `status`, `additional_info`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, NULL, NULL, 1, 'superAdmin', 'superAdmin@easyphysicians.com', '$2y$10$/B23TVvKQ8KalDHapDvg7erF0p6t4YMBn3TetEeLcLsOyquAqbQ0S', 'Rashid', 'Hussain', 'Rashid Hussain', 'Super Admin', 'rashid.png', '1988-12-01', '35200-1478048-1', 'Male', NULL, NULL, NULL, 'Active', NULL, NULL, '2016-10-19 15:52:37', '2016-10-19 15:52:37', NULL),
+(1, NULL, NULL, 1, 'superAdmin', 'superAdmin@easyphysicians.com', '$2y$10$/B23TVvKQ8KalDHapDvg7erF0p6t4YMBn3TetEeLcLsOyquAqbQ0S', 'Rashid', 'Hussain', 'Rashid Hussain', 'Super Admin', 'rashid.png', '1988-12-01', '35200-1478048-1', 'Male', 'gulberg 2 lahore', NULL, NULL, 'Active', NULL, NULL, '2016-10-19 15:52:37', '2016-10-19 15:52:37', NULL),
 (2, 1, 1, 1, 'adminD1', 'admin@easyphysicians.com', '$2y$10$PyYXIRaRq3PbRjCnyzSRdOxNwHZPKe/5axExdZDZHGgyE9/Hv8/ZW', 'Ahmad', 'Raza', 'Ahmad Raza', 'Admin', 'ali.png', '1988-12-01', '35200-1478048-1', 'Male', NULL, NULL, NULL, 'Active', NULL, 'r3f3YkLNWyPcLrlgzwVQ44SJlsC1uw0sVrHB8zwKUKNtBMy3mWgAjIDHLbJE', '2016-10-19 15:52:37', '2016-12-27 14:41:02', NULL),
-(3, 1, 1, 1, 'doctor', 'doctor@easyphysicians.com', '$2y$10$Z1HnqRzaEnO2wW6J3ul4ZuSkKxOZuaPU1lO8A65uCRddJ.Lhwk7ny', 'Ehsaan', 'Ali', 'Ehsaan Ali', 'Doctor', 'aitzaz.jpg', '1988-12-01', '35200-1478048-1', 'Male', NULL, '03347009694', '03347009694', 'Active', NULL, NULL, '2016-10-19 15:52:38', '2016-10-19 15:52:38', NULL),
+(3, 1, 1, 1, 'doctor', 'doctor@easyphysicians.com', '$2y$10$Z1HnqRzaEnO2wW6J3ul4ZuSkKxOZuaPU1lO8A65uCRddJ.Lhwk7ny', 'Ehsaan', 'Ali', 'Ehsaan Ali', 'Doctor', 'aitzaz.jpg', '1988-12-01', '35200-1478048-1', 'Male', 'gulberg 3 lahore, Pakistan', '03347009694', '03347009694', 'Active', NULL, NULL, '2016-10-19 15:52:38', '2016-10-19 15:52:38', NULL),
 (4, 1, 1, 1, 'receptionist', 'receptionist@easyphysicians.com', '$2y$10$8zZ40AGMh6xJXAVf8YCKgenc1FamKRuee6QNnJsh/uxq5Ga4XGbAW', 'Rafia', 'Khan', 'Rafia Khan', 'Employee', 'index-1_img07.jpg', '1988-12-01', '35200-1478048-1', 'Female', NULL, NULL, NULL, 'Active', NULL, NULL, '2016-10-19 15:52:38', '2016-10-19 15:52:38', NULL),
 (5, 1, 1, 1, 'nurse', 'nurse@easyphysicians.com', '$2y$10$klP8xcMYo06dSuUu34hV9OUCzYLfelTdbI/HVgdsYATKhQskYu.8u', 'Shaziya', 'Tariq', 'Shaziya Tariq', 'Employee', 'index-2_img04.jpg', '1988-12-01', '35200-1478048-1', 'Female', NULL, NULL, NULL, 'Active', NULL, NULL, '2016-10-19 15:52:39', '2016-10-19 15:52:39', NULL),
 (6, 1, 1, 1, 'accountant', 'accountant@easyphysicians.com', '$2y$10$EA.0CdTlQ881lZEDZacI2..N5bsDxKcSuLffpjJG17NntU7ubtCwO', 'Umer', 'Khan', 'Umer Khan', 'Employee', 'index-1_img06.jpg', '1988-12-01', '35200-1478048-1', 'Female', NULL, NULL, NULL, 'Active', NULL, NULL, '2016-10-19 15:52:39', '2016-10-19 15:52:39', NULL),
 (7, 2, 3, 1, 'adminD2', 'adminTwo@easyphysicians.com', '$2y$10$mh5FJCUyigxo8M7/mrRS8uISAzGf.EptAzBKbZ7hOCFPW/GwqEuky', 'Atif', 'Khan', 'Atif Khan', 'Admin', 'index-3_img02.jpg', '1988-12-01', '35200-1478048-1', 'Male', NULL, NULL, NULL, 'Active', NULL, NULL, '2016-10-19 15:52:40', '2016-10-19 15:52:40', NULL),
-(8, 1, 1, 1, 'roel.haag', 'nienow.pearl@blick.net', '$2y$10$PBe.8X3lvg4Ex9cgHrjY9OWAXjlmyMTZgnTaam.5UUVthsZqhYDW2', 'Scottie', 'Kemmer', 'Deontae Toy', 'Doctor', 'index-1_img08.jpg', '1984-11-06', '35200-1664795-7', 'Male', '07217 Clotilde Estate Apt. 672\nPort Arishire, MO 30983', '567.313.5363x712', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:40', '2016-10-19 15:52:40', NULL),
-(9, 1, 2, 2, 'stracke.josefina', 'adaline.stokes@hotmail.com', '$2y$10$00aAL4BM6TNq82Fxx27lYevK3jCrIFzTYAeM578uZ.Iv7aCedqvjW', 'Arch', 'Flatley', 'Aliyah Hirthe', 'Doctor', 'index-1_img03.jpg', '1921-01-06', '35200-1588321-3', 'Female', '92109 Oda Field\nWest Jacynthestad, FM 49038-3190', '1-564-978-3858x6', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:40', '2016-10-19 15:52:40', NULL),
-(10, 2, 3, 3, 'jena68', 'wwalter@waelchiwisoky.com', '$2y$10$RllxpnIGoM2nPRKbkYSctuffg5sSPlW6MimNMPb9P2LZhpzuREz4u', 'Caleigh', 'O''Connell', 'Amy Bogan', 'Doctor', 'index-1_img04.jpg', '1984-11-06', '35200-1786051-7', 'Male', '40873 McClure Harbors Suite 850\nVeldafort, FL 35944-0751', '515.725.7171', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:41', '2016-10-19 15:52:41', NULL),
-(11, 2, 4, 4, 'eschowalter', 'bturner@gleichner.com', '$2y$10$yd7rRaH3EVu7ctVBiAbqfu5mvCJit6cp.IZiEJnY6HZ1F5fDE.hOm', 'Frida', 'Rolfson', 'Elizabeth King', 'Doctor', 'index-1_img05.jpg', '1984-11-06', '35200-1939266-8', 'Male', '2343 Linnea Village\nPort Lexus, SD 16170-5954', '783-125-9195', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:41', '2016-10-19 15:52:41', NULL),
-(12, 1, 1, 5, 'zena.mraz', 'soledad.beer@yahoo.com', '$2y$10$gy5fVtJRqSz8oQXpnNi/u.oE4Cw7DMYEhWLcSM3Zuzhw4bj7faGlO', 'Sheridan', 'Harris', 'Joelle Thompson', 'Doctor', 'index-1_img04.jpg', '1931-11-19', '35200-1837710-5', 'Female', '8095 Schoen Light\nDenesikborough, NJ 11395-4074', '(495)057-9811x86', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:42', '2016-10-19 15:52:42', NULL),
-(13, 1, 2, 6, 'felipa.oberbrunner', 'freddie54@hotmail.com', '$2y$10$RFPyRIdtYP3L0xo4zo.I/OFtZE/kES/Ffig1pRGffmALfGU.tZMUC', 'Kathryne', 'Kerluke', 'Mable Kunze', 'Doctor', 'index-1_img07.jpg', '1984-11-06', '35200-2702372-1', 'Female', '799 Spinka Trail\nNew Rahulshire, AR 85553', '299.690.5415', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:42', '2016-10-19 15:52:42', NULL),
-(14, 2, 3, 7, 'metz.cristopher', 'pmertz@gmail.com', '$2y$10$2oxaf0SKdluxYEO86flCjuZHOCrlTfGoCmNE8BG8OsLwUfbUitd/2', 'Whitney', 'Wehner', 'Johann Dare', 'Doctor', 'index-1_img06.jpg', '1955-10-12', '35200-1790354-6', 'Male', '9001 Hirthe Loaf\nNorth Abnershire, WV 05085-8689', '(870)992-5157', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:43', '2016-10-19 15:52:43', NULL),
-(15, 2, 4, 8, 'alexander29', 'felicia05@yahoo.com', '$2y$10$7h1xWqhZMeL9LxkFNPJU..BdE8X28KHSOYUqs0P8bzV7URuu36fTu', 'Moises', 'Veum', 'Kari Brakus', 'Doctor', 'index-1_img08.jpg', '1937-07-01', '35200-2658454-7', 'Male', '097 Darlene Islands\nJeremyton, AS 31078-1602', '(950)570-3470x78', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:43', '2016-10-19 15:52:43', NULL),
+(8, 1, 1, 1, 'roel.haag', 'nienow.pearl@blick.net', '$2y$10$PBe.8X3lvg4Ex9cgHrjY9OWAXjlmyMTZgnTaam.5UUVthsZqhYDW2', 'Scottie', 'Kemmer', 'Deontae Toy', 'Doctor', 'index-1_img08.jpg', '1984-11-06', '35200-1664795-7', 'Male', 'gulberg lahore, Pakistan', '567.313.5363x712', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:40', '2016-10-19 15:52:40', NULL),
+(9, 1, 2, 2, 'stracke.josefina', 'adaline.stokes@hotmail.com', '$2y$10$00aAL4BM6TNq82Fxx27lYevK3jCrIFzTYAeM578uZ.Iv7aCedqvjW', 'Arch', 'Flatley', 'Aliyah Hirthe', 'Doctor', 'index-1_img03.jpg', '1921-01-06', '35200-1588321-3', 'Female', 'Modle Town lahore, Pakistan', '1-564-978-3858x6', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:40', '2016-10-19 15:52:40', NULL),
+(10, 2, 3, 3, 'jena68', 'wwalter@waelchiwisoky.com', '$2y$10$RllxpnIGoM2nPRKbkYSctuffg5sSPlW6MimNMPb9P2LZhpzuREz4u', 'Caleigh', 'O''Connell', 'Amy Bogan', 'Doctor', 'index-1_img04.jpg', '1984-11-06', '35200-1786051-7', 'Male', 'Dubai chowk branch, Ahmedpur Rd, Bahawalpur, Pakistan', '515.725.7171', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:41', '2016-10-19 15:52:41', NULL),
+(11, 2, 4, 4, 'eschowalter', 'bturner@gleichner.com', '$2y$10$yd7rRaH3EVu7ctVBiAbqfu5mvCJit6cp.IZiEJnY6HZ1F5fDE.hOm', 'Frida', 'Rolfson', 'Elizabeth King', 'Doctor', 'index-1_img05.jpg', '1984-11-06', '35200-1939266-8', 'Male', 'Dubai chowk branch, Ahmedpur Rd, Bahawalpur, Pakistan', '783-125-9195', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:41', '2016-10-19 15:52:41', NULL),
+(12, 1, 1, 5, 'zena.mraz', 'soledad.beer@yahoo.com', '$2y$10$gy5fVtJRqSz8oQXpnNi/u.oE4Cw7DMYEhWLcSM3Zuzhw4bj7faGlO', 'Sheridan', 'Harris', 'Joelle Thompson', 'Doctor', 'index-1_img04.jpg', '1931-11-19', '35200-1837710-5', 'Female', 'Firdous Market, Ali Zaib Road, Lahore, Pakistan', '(495)057-9811x86', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:42', '2016-10-19 15:52:42', NULL),
+(13, 1, 2, 6, 'felipa.oberbrunner', 'freddie54@hotmail.com', '$2y$10$RFPyRIdtYP3L0xo4zo.I/OFtZE/kES/Ffig1pRGffmALfGU.tZMUC', 'Kathryne', 'Kerluke', 'Mable Kunze', 'Doctor', 'index-1_img07.jpg', '1984-11-06', '35200-2702372-1', 'Female', 'Township, Lahore, Punjab, Pakistan', '299.690.5415', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:42', '2016-10-19 15:52:42', NULL),
+(14, 2, 3, 7, 'metz.cristopher', 'pmertz@gmail.com', '$2y$10$2oxaf0SKdluxYEO86flCjuZHOCrlTfGoCmNE8BG8OsLwUfbUitd/2', 'Whitney', 'Wehner', 'Johann Dare', 'Doctor', 'index-1_img06.jpg', '1955-10-12', '35200-1790354-6', 'Male', 'Mughal Eye Hospital, Lahore, Punjab, Pakistan', '(870)992-5157', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:43', '2016-10-19 15:52:43', NULL),
+(15, 2, 4, 8, 'alexander29', 'felicia05@yahoo.com', '$2y$10$7h1xWqhZMeL9LxkFNPJU..BdE8X28KHSOYUqs0P8bzV7URuu36fTu', 'Moises', 'Veum', 'Kari Brakus', 'Doctor', 'index-1_img08.jpg', '1937-07-01', '35200-2658454-7', 'Male', 'Jinnah Hospital Lahore, Usmani Road, Lahore, Pakistan', '(950)570-3470x78', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:43', '2016-10-19 15:52:43', NULL),
 (16, 1, 1, 9, 'tamia.nicolas', 'sophia85@yahoo.com', '$2y$10$qHfStgWPwjbWqnnEa0CQL.RlcAVHI1rBzzV/a1HGfS6UkRXiUgtk.', 'Randy', 'O''Conner', 'Armand Bahringer', 'Patient', 'index-1_img05.jpg', '1957-10-15', '35200-2362840-4', 'Male', '14134 Wilfredo Manor\nKuhlmanborough, MN 03379', '+98(9)2539395266', NULL, 'Active', NULL, NULL, '2016-10-19 15:52:44', '2016-10-19 15:52:44', NULL),
 (17, 1, 2, 10, 'rodger.heidenreich', 'jovany15@hotmail.com', '$2y$10$DxJU1me7KkpXpceWMWHfPO0DoJBVvb32t3oW4c3k/VMqGn8JvS56O', 'Heath', 'Keeling', 'Kenna Mohr', 'Patient', 'index-1_img06.jpg', '1984-11-06', '35200-1594242-4', 'Male', '67111 Stanley Plains Apt. 035\nWest Jakayla, WY 29213', '(824)572-9234', NULL, 'Inactive', NULL, NULL, '2016-10-19 15:52:45', '2016-10-19 15:52:45', NULL),
 (18, 1, 1, 1, 'Aitzaz', 'aitzazwattoo96@gmail.com', '$2y$10$L26ivWps//G1iwt1UDLol.M6.5WwVFTk3ZqQcOt0zmMEVH5ah.izK', 'Aitzaz', 'Hassan', 'Aitzaz Hassan', 'Patient', 'aitzaz.jpg', '1995-04-15', '3110166247333', 'Male', 'Bahawalnaagr', '3347009694', '3347009694', 'Active', 'yead', NULL, '2016-11-03 12:30:00', '2016-11-03 12:30:00', NULL);
@@ -1636,7 +1583,7 @@ INSERT INTO `users` (`id`, `company_id`, `business_unit_id`, `city_id`, `usernam
 --
 
 CREATE TABLE IF NOT EXISTS `vital_signs` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `patient_id` int(11) NOT NULL,
   `appointment_id` int(11) NOT NULL,
   `weight` smallint(6) DEFAULT NULL,
@@ -1653,9 +1600,8 @@ CREATE TABLE IF NOT EXISTS `vital_signs` (
   `note` text COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `vital_signs`
@@ -1667,6 +1613,474 @@ INSERT INTO `vital_signs` (`id`, `patient_id`, `appointment_id`, `weight`, `heig
 (29, 2, 3, 55, 6, 123, 98, 'A+', '78', '65', 98, 123, 'No', 'No', 'No', '2016-11-16 15:14:41', '2016-11-16 15:14:41', NULL),
 (30, 2, 3, 48, 54, 124, 89, 'O+', '76', '76', 98, 123, 'No', 'Scouting', 'No', '2016-11-16 15:18:35', '2016-11-16 15:18:35', NULL);
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `allergies`
+--
+ALTER TABLE `allergies`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `allergies_name_unique` (`name`);
+
+--
+-- Indexes for table `appointments`
+--
+ALTER TABLE `appointments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `business_units`
+--
+ALTER TABLE `business_units`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `business_units_name_company_id_unique` (`name`,`company_id`);
+
+--
+-- Indexes for table `cities`
+--
+ALTER TABLE `cities`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `cities_name_state_id_unique` (`name`,`state_id`);
+
+--
+-- Indexes for table `clinics`
+--
+ALTER TABLE `clinics`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `community_users`
+--
+ALTER TABLE `community_users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `community_users_name_unique` (`name`),
+  ADD UNIQUE KEY `community_users_email_unique` (`email`),
+  ADD UNIQUE KEY `community_users_password_unique` (`password`);
+
+--
+-- Indexes for table `companies`
+--
+ALTER TABLE `companies`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `companies_name_unique` (`name`),
+  ADD UNIQUE KEY `companies_domain_unique` (`domain`);
+
+--
+-- Indexes for table `countries`
+--
+ALTER TABLE `countries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `doctors`
+--
+ALTER TABLE `doctors`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `doctor_qualification`
+--
+ALTER TABLE `doctor_qualification`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `drug_usages`
+--
+ALTER TABLE `drug_usages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `duty_days`
+--
+ALTER TABLE `duty_days`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `employees`
+--
+ALTER TABLE `employees`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `family_histories`
+--
+ALTER TABLE `family_histories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `medical_specialties`
+--
+ALTER TABLE `medical_specialties`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `medical_tests`
+--
+ALTER TABLE `medical_tests`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `medical_tests_name_unique` (`name`);
+
+--
+-- Indexes for table `medicines`
+--
+ALTER TABLE `medicines`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `medicine_categories`
+--
+ALTER TABLE `medicine_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `medicine_locations`
+--
+ALTER TABLE `medicine_locations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `medicine_menufacturers`
+--
+ALTER TABLE `medicine_menufacturers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `medicine_purchases`
+--
+ALTER TABLE `medicine_purchases`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `medicine_purchase_details`
+--
+ALTER TABLE `medicine_purchase_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `medicine_sales`
+--
+ALTER TABLE `medicine_sales`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `medicine_sale_details`
+--
+ALTER TABLE `medicine_sale_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `medicine_stocks`
+--
+ALTER TABLE `medicine_stocks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `password_reminders`
+--
+ALTER TABLE `password_reminders`
+  ADD KEY `password_reminders_email_index` (`email`),
+  ADD KEY `password_reminders_token_index` (`token`);
+
+--
+-- Indexes for table `patients`
+--
+ALTER TABLE `patients`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `prescriptions`
+--
+ALTER TABLE `prescriptions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `prescription_details`
+--
+ALTER TABLE `prescription_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `previous_diseases`
+--
+ALTER TABLE `previous_diseases`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `qualifications`
+--
+ALTER TABLE `qualifications`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rating_logs`
+--
+ALTER TABLE `rating_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `resources`
+--
+ALTER TABLE `resources`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `resource_role`
+--
+ALTER TABLE `resource_role`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_name_company_id_unique` (`name`,`company_id`);
+
+--
+-- Indexes for table `states`
+--
+ALTER TABLE `states`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `states_name_country_id_unique` (`name`,`country_id`);
+
+--
+-- Indexes for table `surgical_histories`
+--
+ALTER TABLE `surgical_histories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `time_slots`
+--
+ALTER TABLE `time_slots`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_username_unique` (`username`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Indexes for table `vital_signs`
+--
+ALTER TABLE `vital_signs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `allergies`
+--
+ALTER TABLE `allergies`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `appointments`
+--
+ALTER TABLE `appointments`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `business_units`
+--
+ALTER TABLE `business_units`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `cities`
+--
+ALTER TABLE `cities`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `clinics`
+--
+ALTER TABLE `clinics`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `community_users`
+--
+ALTER TABLE `community_users`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `companies`
+--
+ALTER TABLE `companies`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `countries`
+--
+ALTER TABLE `countries`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `doctors`
+--
+ALTER TABLE `doctors`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `doctor_qualification`
+--
+ALTER TABLE `doctor_qualification`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `drug_usages`
+--
+ALTER TABLE `drug_usages`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `duty_days`
+--
+ALTER TABLE `duty_days`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `employees`
+--
+ALTER TABLE `employees`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `family_histories`
+--
+ALTER TABLE `family_histories`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `medical_specialties`
+--
+ALTER TABLE `medical_specialties`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `medical_tests`
+--
+ALTER TABLE `medical_tests`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `medicines`
+--
+ALTER TABLE `medicines`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `medicine_categories`
+--
+ALTER TABLE `medicine_categories`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `medicine_locations`
+--
+ALTER TABLE `medicine_locations`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `medicine_menufacturers`
+--
+ALTER TABLE `medicine_menufacturers`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `medicine_purchases`
+--
+ALTER TABLE `medicine_purchases`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `medicine_purchase_details`
+--
+ALTER TABLE `medicine_purchase_details`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `medicine_sales`
+--
+ALTER TABLE `medicine_sales`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `medicine_sale_details`
+--
+ALTER TABLE `medicine_sale_details`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `medicine_stocks`
+--
+ALTER TABLE `medicine_stocks`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `patients`
+--
+ALTER TABLE `patients`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `prescriptions`
+--
+ALTER TABLE `prescriptions`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `prescription_details`
+--
+ALTER TABLE `prescription_details`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `previous_diseases`
+--
+ALTER TABLE `previous_diseases`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `qualifications`
+--
+ALTER TABLE `qualifications`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `rating_logs`
+--
+ALTER TABLE `rating_logs`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
+--
+-- AUTO_INCREMENT for table `resources`
+--
+ALTER TABLE `resources`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=197;
+--
+-- AUTO_INCREMENT for table `resource_role`
+--
+ALTER TABLE `resource_role`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=197;
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `states`
+--
+ALTER TABLE `states`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `surgical_histories`
+--
+ALTER TABLE `surgical_histories`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `time_slots`
+--
+ALTER TABLE `time_slots`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `vital_signs`
+--
+ALTER TABLE `vital_signs`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

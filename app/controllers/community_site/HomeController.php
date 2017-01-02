@@ -10,7 +10,12 @@ class HomeController extends \BaseController {
 
 	public function index()
 	{
-        return View::make('community_site.home.index');
+        $doctors_list =\DB::table('doctors')
+            ->join('users', 'users.id', '=', 'doctors.user_id')
+            ->join('cities', 'cities.id', '=', 'users.city_id')
+            ->select('doctors.user_id','doctors.id','doctors.max_fee','doctors.min_fee','doctors.current_rating','users.full_name', 'users.gender', 'users.address', 'users.photo')
+            ->get();
+        return View::make('community_site.home.index', compact('doctors_list'));
 	}
 
 	public function showAbout()

@@ -17,6 +17,7 @@ class PublicSearchController extends \BaseController {
     public function fetchDoctorsSpecialties()
     {
         $doctors_specialties_list = \MedicalSpecialty::all();
+
         return View::make('community_site.publicsearch.fetchDoctorsSpecialties', compact('doctors_specialties_list'));
     }
 
@@ -64,7 +65,15 @@ class PublicSearchController extends \BaseController {
             ->Where('doctors.id', 'LIKE', "%$id%")
             ->select('comments.status', 'users.full_name', 'users.photo')
             ->get();
-        return View::make('community_site.publicsearch.fetchDoctorDetails', compact('doctors_list', 'doctors_comments'));
+
+        $doctors_duty_days =\DB::table('doctors')
+            ->join('users', 'users.id', '=', 'doctors.user_id')
+            ->join('duty_days', 'duty_days.doctor_id', '=', 'doctors.id')
+            ->join('time_slots', 'time_slots.doctor_id', '=', 'doctors.id')
+            ->Where('doctors.id', 'LIKE', "%$id%")
+            ->select('duty_days.day', 'duty_days.start', 'duty_days.end', 'time_slots.slot')
+            ->get();
+        return View::make('community_site.publicsearch.fetchDoctorDetails', compact('doctors_list', 'doctors_comments', 'doctors_duty_days'));
     }
 
     public function commentOnDoctors() {
