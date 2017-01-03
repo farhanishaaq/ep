@@ -6,7 +6,7 @@
         @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
             {{ Form::open(array('action' => 'PrescriptionsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm', 'novalidate')) }}
         @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-            {{Form::model($prescription, ['route' => ['prescriptions.update', $prescription->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
+            {{Form::model($prescription, ['route' => ['prescriptions.update', $prescription->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm', 'novalidate'])}}
 
         @endif
         <h3 class="mT10 mB0 c3">Create Prescription Form</h3>
@@ -97,7 +97,7 @@
                             <div class="form-group col-xs-12">
                                 <label class="col-xs-5 control-label asterisk">Check Up Note:</label>
                                 <div class="col-xs-6">
-                                    <textarea type="text" id="check_up_note" name="check_up_note" rows="2" cols="20" class="form-control" placeholder="Check Up Note">{{{ Form::getValueAttribute('extra_note', null) }}}</textarea>
+                                    <textarea type="text" id="check_up_note" name="check_up_note" rows="2" cols="20" class="form-control" placeholder="Check Up Note">{{{ Form::getValueAttribute('check_up_note', null) }}}</textarea>
                                     <span id="errorName" class="field-validation-msg"></span>
                                 </div>
                             </div>
@@ -133,8 +133,10 @@
                             <div class="form-group col-xs-12">
                                 <div class="form-group profile-photo file-input prescriptionPhotoAppend">
                                     <label>Check Up Photo:</label>
-                                    <input id="photo" name="photo" type="hidden" value="{{{ Form::getValueAttribute('photo', null) }}}">
-                                    <input id="checkUpPhoto" name="checkUpPhoto" type="file" class="file-loading" accept="image/*">
+                                    <div class="imgPath">
+                                        <input id="photo" name="photo" type="hidden" value="{{{ Form::getValueAttribute('check_up_photo', null) }}}">
+                                        <input id="checkUpPhoto" name="checkUpPhoto" type="file" class="file-loading" accept="image/*">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -184,17 +186,26 @@
             <script src="{{asset('plugins/file-input/js/fileinput.min.js')}}"></script>
             <script src="{{asset('js/view-pages/prescriptions/PrescriptionForm.js')}}"></script>
             <script type="text/javascript">
-                $(document).ready(function () {
 
+                var baseImgUrl = "{{asset(App\Globals\Ep::userProfilePhotoDirectory())}}";
+                var prescriptionHiddenImageName = $('#photo').val();
+                var initialImg;
+                if(prescriptionHiddenImageName != ''){
+                    initialImg = baseImgUrl + '/' + prescriptionHiddenImageName; //image URL
+                }else{
+                    initialImg = "{{asset('images/prescription-dumy.png')}}";
+                }
+
+                $(document).ready(function () {
                     var options = {
                         saveCloseUrl: "{{route('prescriptions.index')}}",
                         photoUploadUrl: "{{route('uploadCheckUpPic')}}",
                         photoDeleteUrl: "{{route('deleteCheckUpPic')}}",
                         parentPrescriptionUrl: "{{route('followUpPrescriptions')}}",
-                        photoInitialPreview :[
-                            "{{asset('images/prescription-dumy.png')}}"
-                        ],
-                        formMode: '{{$formMode}}'
+                        photoInitialPreview :[initialImg],
+                        formMode: '{{$formMode}}',
+                        formCreate: '{{App\Globals\GlobalsConst::FORM_CREATE}}',
+                        formEdit: '{{App\Globals\GlobalsConst::FORM_EDIT}}'
                     };
 
                     var prescriptionForm = new PrescriptionForm(window,document,options);

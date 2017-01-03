@@ -22,25 +22,32 @@ Edit Prescriptions
 @stop
 
 
-@section('content2')
+{{--@section('content2')--}}
 
-        @foreach($errors->all("<p class='error'>:message</p>") as $message)
-	    {{ $message }}
-		@endforeach
+        {{--@foreach($errors->all("<p class='error'>:message</p>") as $message)--}}
+	    {{--{{ $message }}--}}
+		{{--@endforeach--}}
 
-		<br/>
-	   <center>
-            <div style="border: 4px solid #129894; width: 800px; border-radius: 10px; background-color: #EBEBEB">
+		{{--<br/>--}}
+	   {{--<center>--}}
+            {{--<div style="border: 4px solid #129894; width: 800px; border-radius: 10px; background-color: #EBEBEB">--}}
 
-            {{ Form::model($prescription, ['route' => ['prescriptions.update', $prescription->id], 'method' => 'put' ,'style' => 'padding: 40px', 'id' => 'regForm'])}}
-                @include('partials._form')
-            {{ Form::close() }}
+            {{--{{ Form::model($prescription, ['route' => ['prescriptions.update', $prescription->id], 'method' => 'put' ,'style' => 'padding: 40px', 'id' => 'regForm'])}}--}}
+                {{--@include('partials._form')--}}
+                {{--{{$_form}}--}}
+            {{--{{ Form::close() }}--}}
+            {{--</div>--}}
+        {{--</center>--}}
+
+		{{--<br><br>--}}
+
+{{--@stop--}}
+
+        @section('content')
+            <div class="container">
+                {{$_form}}
             </div>
-        </center>
-
-		<br><br>
-
-@stop
+        @stop
 
 @section('scripts')
     <script>

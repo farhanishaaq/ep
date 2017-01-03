@@ -396,12 +396,17 @@ function medicine_drop_down($i=0)
  * @param int $i
  * @return mixed
  */
-function frequency_drop_down($i=0){
+function frequency_drop_down($i=0 , $selectedData=null){
     $dataset = GlobalsConst::$USAGE_FREQUENCIES;
 //    $dataset[""] = "Select Frequencies";
     ksort($dataset);
-    $selectedData = Form::getValueAttribute('medical_specialty_id', null);
-    return Form::select('frequencies_dd['.$i.']',$dataset, $selectedData,['id'=>"frequencies_dd", 'multiple'=>true,]);
+    //$selectedData = Form::getValueAttribute('frequencies', null);
+    $selectedDataArray = explode(",",$selectedData);
+//    $frequencies = array('Morning','Noon','Evening');
+//    foreach($selectedDataArray as $sd){
+//        $frequency[$sd] = $frequencies[$sd];
+//    }
+    return Form::select('frequencies_dd['.$i.']',$dataset, $selectedDataArray,['id'=>"frequencies_dd", 'multiple'=>true,]);
 
 
 }
@@ -424,8 +429,10 @@ function test_procedure_drop_down(){
     $dataset = GlobalsConst::$TEST_PROCEDURE_FREQUENCIES;
     //$dataset[""] = "Select Frequencies";
     ksort($dataset);
-    $selectedData = Form::getValueAttribute('medical_specialty_id', null);
-    return Form::select('test_procedure_dd',$dataset, $selectedData,['id'=>"test_procedure_dd", 'multiple'=>true,]);
+    $selectedData = Form::getValueAttribute('test_procedures', null);
+    $selectedDataArray = explode(",",$selectedData);
+    //dd($selectedDataArray);
+    return Form::select('test_procedure_dd',$dataset, $selectedDataArray,['id'=>"test_procedure_dd", 'multiple'=>true,]);
 
 }
 

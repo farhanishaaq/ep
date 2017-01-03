@@ -42,9 +42,9 @@
                 </div>
             </div>
             <div class="form-group col-xs-4 pR2 mB3">
-                <div class="col-xs-12 frequencies-multi-slct">
+                <div class="col-xs-12 frequencies-multi-slct multi-select">
                     <input type="hidden" id="frequencies" name="frequencies[{{$i}}]" class="form-control col-xs-3" value="">
-                    {{frequency_drop_down($i)}}
+                    {{frequency_drop_down($i, $frequencies)}}
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>
             </div>

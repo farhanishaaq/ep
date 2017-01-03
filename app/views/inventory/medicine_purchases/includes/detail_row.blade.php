@@ -43,7 +43,7 @@ $TEMPLATE_INDEX = \App\Globals\GlobalsConst::TEMPLATE_INDEX;
 
 
 {{--Detail Row As Template--}}
-<div id="detailRowTemplate" class="form-group list-group h250 dN">
+<div id="detailRowTemplate" class="form-group list-group h170 dN">
     <div class="col-xs-12 prnt3">
         <a href="javascript:void(0)" class="col-xs-12 list-group-item list-group-item-action active  h55">
             <h4 class="col-xs-4">Row <span class="row-count-display">1</span></h4>
