@@ -71,7 +71,7 @@
     <div role="tabpanel" class="tab-pane" id="medicinePurchaseDetailTab">
         <section class="form-Section col-md-12 h500 fL">
             {{-- Medicine Purchase Detail --}}
-            <div class="container w100p ofA h761">
+            <div class="container w100p ofA">
                 <h3 class="mT15 mB0 c3">Medicine Purchase Detail</h3>
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
