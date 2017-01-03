@@ -17,6 +17,44 @@
  * Public Routes
  * ===========================================================================
  */
+Route::group(['namespace' => 'App\Controllers\CommunitySite'],function () {
+
+    Route::group(['Public'],function (){
+        /**
+         * HomeController Routes
+         */
+        Route::group(['Home'],function (){
+            Route::get('/', 'HomeController@index');
+
+            Route::group(['domain' => '{companyDomain}.ep.loc'], function ($companyDomain) {
+                Route::get('companyHome', array('as'=>'showCompanyHomePage','uses'=>'HomeController@showCompanyHomePage'));
+            });
+
+            Route::get('fetchDoctorDutyAndFeeInfo', array('as'=>'fetchDoctorDutyAndFeeInfo','uses'=>'HomeController@fetchDoctorDutyAndFeeInfo'));
+            Route::get('home', array('as'=>'home','uses'=>'HomeController@index'));
+            Route::get('about', array('as'=>'about','uses'=>'HomeController@showAbout'));
+            Route::get('services', array('as'=>'services','uses'=>'HomeController@showServices'));
+            Route::get('contacts', array('as'=>'contacts','uses'=>'HomeController@showContacts'));
+            Route::post('sendContactUsMail', array('as'=>'sendContactUsMail','uses'=>'HomeController@sendContactUsMail'));
+            Route::get('create', ['as'=>'create','uses'=>'AppointmentsController@create']);
+        });
+
+        Route::group(['PublicSearch'],function () {
+            Route::resource('publicsearch', 'PublicSearchController');
+            Route::get('fetchDoctorsSpecialties', array('as'=>'fetchDoctorsSpecialties','uses'=>'PublicSearchController@fetchDoctorsSpecialties'));
+            Route::get('fetchDoctorDetails/{id}', array('as'=>'fetchDoctorDetails','uses'=>'PublicSearchController@fetchDoctorDetails'));
+            Route::get('fetchDoctors/{name}', array('as'=>'fetchDoctors','uses'=>'PublicSearchController@fetchDoctors'));
+            Route::post('searchAllDoctors', array('as'=>'searchAllDoctors','uses'=>'PublicSearchController@searchAllDoctors'));
+            Route::post('commentOnDoctors', array('as'=>'commentOnDoctors','uses'=>'PublicSearchController@commentOnDoctors'));
+            Route::post('searchDoctors', array('as'=>'searchDoctors','uses'=>'PublicSearchController@searchDoctors'));
+            Route::get('fetchTopDoctors', ['as'=>'fetchTopDoctors','uses'=>'PublicSearchController@fetchTopDoctors']);
+            Route::get('giveRating', array('as' => 'giveRating', 'uses' => 'PublicSearchController@giveRating'));
+            Route::get('index', array('as'=>'index','uses'=>'PublicSearchController@index'));
+
+        });
+    });
+});
+
 Route::group(['Public'],function (){
     /**
      * AuthController Routes
@@ -25,21 +63,6 @@ Route::group(['Public'],function (){
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
     Route::get('unauthorized', array('as'=>'unauthorized','uses'=>'AuthController@unauthorized'));
 
-    /**
-     * HomeController Routes
-     */
-    Route::group(['Home'],function (){
-        Route::get('/', 'HomeController@index');
-        Route::group(['domain' => '{companyDomain}.ep.loc'], function ($companyDomain) {
-            Route::get('companyHome', array('as'=>'showCompanyHomePage','uses'=>'HomeController@showCompanyHomePage'));
-        });
-        Route::get('fetchDoctorDutyAndFeeInfo', array('as'=>'fetchDoctorDutyAndFeeInfo','uses'=>'HomeController@fetchDoctorDutyAndFeeInfo'));
-        Route::get('home', array('as'=>'home','uses'=>'HomeController@index'));
-        Route::get('about', array('as'=>'about','uses'=>'HomeController@showAbout'));
-        Route::get('services', array('as'=>'services','uses'=>'HomeController@showServices'));
-        Route::get('contacts', array('as'=>'contacts','uses'=>'HomeController@showContacts'));
-        Route::post('sendContactUsMail', array('as'=>'sendContactUsMail','uses'=>'HomeController@sendContactUsMail'));
-    });
 
     /**
      * RemindersController Routes
@@ -150,7 +173,7 @@ Route::group(['Private', 'before' => 'auth'],function (){
     /**
      * VitalSignsController Routes
      */
-    Route::resource('vitalSigns', 'VitalSignsController');
+    Route::resource('vital_signs', 'VitalSignsController');
 
 
     /**
@@ -173,6 +196,7 @@ Route::group(['Private', 'before' => 'auth'],function (){
         Route::get('checkupFeeInvoice', ['as'=>'checkupFeeInvoice','uses'=>'AppointmentsController@checkupFeeInvoice']);
         Route::get('testFeeInvoice', ['as'=>'testFeeInvoice','uses'=>'AppointmentsController@testFeeInvoice']);
         Route::get('fetchTimeSlotsAndBookedAppointments',['as'=>'fetchTimeSlotsAndBookedAppointments','uses' => 'AppointmentsController@fetchTimeSlotsAndBookedAppointments']);
+        Route::get('fetchAppointmentsByPatientId', array('as'=>'fetchAppointmentsByPatientId', 'uses' => 'AppointmentsController@fetchAppointmentsByPatientId'));
     });
 
 
@@ -188,6 +212,25 @@ Route::group(['Private', 'before' => 'auth'],function (){
         Route::get('followUpPrescriptions', array('as' => 'followUpPrescriptions', 'uses' => 'PrescriptionsController@followUpPrescriptions'));
 
     });
+
+
+    /**
+     * PrescriptionsController Routes
+     */
+    Route::group(['VitalSigns'],function () {
+        Route::resource('vital_signs', 'VitalSignsController');
+        Route::resource('vitalSigns', 'VitalSignsController');
+        Route::get('create', array('as' => 'create', 'uses' => 'VitalSignsController@create'));
+        Route::get('vitalSignFetchHistory', array('as' => 'vitalSignFetchHistory', 'uses' => 'VitalSignsController@vitalSignFetchHistory'));
+        Route::get('show/{patientId}', array('before' => 'auth', 'as' => 'show', 'uses' => 'VitalSignsController@show'));
+        Route::get('fetchVitalSignsByPatientId', array('as' => 'fetchVitalSignsByPatientId', 'uses' => 'VitalSignsController@fetchVitalSignsByPatientId'));
+
+
+
+//        Route::get('create', array('before' => 'auth', 'as' => 'create', 'uses' => 'VitalSingsController@create'));
+
+    });
+
 });
 
 
@@ -265,3 +308,38 @@ Route::group(['namespace' => 'App\Controllers\Inventory'],function () {
 
 });
 
+Route::get('test', function () {
+    $ParentId = 1;
+    $controllers = \App\Globals\Ep::getAllEpControllers();
+    echo '<pre>';
+    print_r($controllers);
+    $class = new ReflectionClass(trim('App\Controllers\CommunitySite\HomeController'));
+    var_dump($class);
+//    die;
+    foreach ($controllers as $controller) {
+
+        //*******Add controllers
+        $resources[] = [
+            'parent_id' => $ParentId,
+            'name' => $controller,
+            'type' => 'Controller',
+        ];
+
+        //*******Add Actions of controllers
+        echo $controller .'<br/>';
+
+        $class = new ReflectionClass(($controller));
+//        if(class_exists($class) ) continue;
+        $cMethods = $class->getMethods(ReflectionMethod::IS_PUBLIC);
+        $cUniqueMethods = array_unique($cMethods);
+        foreach ($cUniqueMethods as $m) {
+            if ($m->class == $controller)
+                $resources[] = [
+                    'parent_id' => $ParentId,
+                    'name' => $m->name,
+                    'type' => 'Action',
+                ];
+        }
+        $ParentId++;
+    }
+});

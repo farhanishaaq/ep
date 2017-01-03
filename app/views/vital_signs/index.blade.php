@@ -54,7 +54,7 @@ Manage Vital Signs
                     {{ link_to_route('vital_signs', '', ['id'=>$appointment->id], ['class' => 'btn-add_vsign-icon fL','title'=> 'Add Vital Sign'])}}
                     @elseif( Auth::user()->role == 'Doctor')
                     <span class="fL">&nbsp;|&nbsp;</span>
-                    {{ link_to_route('vitalSigns.show', '', ['id' => $appointment->id], ['class' => 'btn-view-icon fL','title'=> 'View Record'])}}
+                    {{ link_to_route('vital_signs', '', ['id' => $appointment->id], ['class' => 'btn-view-icon fL','title'=> 'View Record'])}}
                     @endif
                     </td>
                 </tr>

@@ -78,13 +78,24 @@ function country_drop_down(){
  */
 function city_drop_down($params=['name'=>'city_id']){
     $name = $params['name'];
-    $dataset = DB::table('cities')->select('cities.id',DB::raw("CONCAT(cities.name,', ', states.name,', ', countries.name) AS full_city_name"))->join('states','states.id','=','cities.state_id')
+    $dataset = DB::table('cities')
+        ->select('cities.id',DB::raw("CONCAT(cities.name,', ', states.name,', ', countries.name) AS full_city_name"))
+        ->join('states','states.id','=','cities.state_id')
         ->join('countries','countries.id','=','states.country_id')
         ->lists('full_city_name','id');
 
     $dataset[""] = "Select City";
     ksort($dataset);
     return Form::select($name,$dataset,Form::getValueAttribute('city_id', null),['id'=>$name]);
+}
+
+function vitalsigns_drop_down($params=['created_at'=>'id'], $patient_id=""){
+    $created_at = $params['created_at'];
+    $dataset = DB::table('vital_signs')->select('vital_signs.id',DB::raw("CONCAT(vital_signs.created_at) AS patient_vital_signs_date"))->where('patient_id','=',$patient_id)->lists('patient_vital_signs_date','id');
+
+    $dataset[""] = "select created_at";
+    ksort($dataset);
+    return Form::select($created_at,$dataset,Form::getValueAttribute('id', null),['id'=>$created_at]);
 }
 
 

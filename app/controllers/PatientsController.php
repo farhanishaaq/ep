@@ -12,8 +12,16 @@ class PatientsController extends \BaseController {
 	public function index()
 	{
 		$patients = Patient::where('company_id', Auth::user()->company_id)->get();
-		return View::make('patients.index', compact('patients'));
+
+		//***Start Of VitalSigns
+		$formMode = GlobalsConst::FORM_CREATE;
+		$vitalSign = null;
+//		$_form = View::make('vital_signs.partials._form', compact('formMode','vitalSign'));
+		//***End Of VitalSigns
+		$_form = null;
+		return View::make('patients.index', compact('patients','_form','formMode'));
 	}
+
 
 	/**
 	 * Show the form for creating a new patient

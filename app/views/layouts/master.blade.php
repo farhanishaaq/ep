@@ -82,6 +82,9 @@
        {{ HTML::style('/css/owl.carousel.css') }}
        {{ HTML::style('/css/select2.min.css') }}
        {{ HTML::style('plugins/clock-picker/css/bootstrap-clockpicker.min.css') }}
+       {{ HTML::style('plugins/rating/css/star-rating.min.css') }}
+       {{ HTML::style('plugins/range-filter/css/ion.rangeSlider.css') }}
+       {{ HTML::style('plugins/range-filter/css/ion.rangeSlider.skinFlat.css') }}
        {{ HTML::style('/css/style.css') }}
 
 
@@ -121,6 +124,8 @@
        {{ HTML::script('js/jquery-plugins/jquery.validate.js') }}
        {{ HTML::script('js/jquery-plugins/jquery.validate.extension.js') }}
        {{ HTML::script('plugins/clock-picker/js/bootstrap-clockpicker.min.js') }}
+       {{ HTML::script('plugins/rating/js/star-rating.min.js') }}
+       {{ HTML::script('plugins/range-filter/js/ion.rangeSlider.js') }}
        {{ HTML::script('js/view-pages/view-page-message-dictionary.js') }}
        {{ HTML::script('js/all.js') }}
 
@@ -171,6 +176,7 @@
                     <div id="camera" class="camera-wrap">
 
                         <div data-src="{{asset('images/index_slide01.jpg')}}">
+                            @include('includes.frontend.findDoctorOrClinic')
                             <div class="fadeIn camera_caption">
                                 <h2 class="text_9 color_3">Optimize resources with technologies</h2>
                             </div>

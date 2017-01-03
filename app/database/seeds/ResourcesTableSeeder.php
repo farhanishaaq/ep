@@ -270,6 +270,7 @@ class ResourcesTableSeeder extends Seeder
             ];
 
             //*******Add Actions of controllers
+            echo $controller;
             $class = new ReflectionClass(trim($controller));
             $cMethods = $class->getMethods(ReflectionMethod::IS_PUBLIC);
             $cUniqueMethods = array_unique($cMethods);

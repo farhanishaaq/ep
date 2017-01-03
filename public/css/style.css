@@ -2333,6 +2333,9 @@ span.field-validation-msg {
 .w775 {
     width: 775px;
 }
+.w800 {
+  width: 800px;
+}
 
 /* Start: % Width */
 .w46p {
@@ -2358,8 +2361,14 @@ span.field-validation-msg {
 }
 
 
-
-
+.dr-search-wd{
+  width: 40% !important;
+}
+@media (max-width: 768px) {
+  .dr-search-wd{
+    width: 100% !important;
+  }
+}
 
 
 

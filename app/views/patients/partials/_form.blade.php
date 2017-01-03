@@ -24,12 +24,22 @@
         </ul>
         @endif
         {{-- End Errors Code Container Block --}}
+
+        {{-- making tabs --}}
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#patientInfoTab" area-controls="patientInfoTab" role="tab" data-toggle="tab">Patient Info</a></li>
+        </ul>
+
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="patientInfoTab">
         <section class="form-Section col-md-6 h1315 fL">
             {{--Contact Info--}}
             <div class="container w100p">
                 <h3 class="mT15 mB0 c3">Basic Info</h3>
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
+
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">*Username</label>
                     <div class="col-xs-6">
@@ -188,6 +198,9 @@
 
             </div>
         </section>
+        </div>
+     </div>
+
         <div class="col-xs-12 taR pR0 mT20">
             <input type="reset" id="reset" value="Reset" class="submit" />
             <input type="submit" id="saveClose" name="saveClose" value="Save and Close" class="submit" />
