@@ -8,25 +8,26 @@ class DutydaysController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
-        $dutyDays = Dutyday::where('clinic_id', Auth::user()->clinic_id)->groupBy('employee_id')->paginate(10);
+    public function index()
+    {
+        $dutyDays = Dutyday::where('business_unit_id', Auth::user()->business_unit_id)->groupBy('doctor_id')->paginate(10);
 
-		return View::make('dutydays.index', compact('dutyDays'));
-	}
+        return View::make('duty_days.index', compact('dutyDays'));
+    }
 
-	/**
-	 * Show the form for creating a new dutyday
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
+    /**
+     * Show the form for creating a new dutyday
+     *
+     * @return Response
+     */
+    public function create()
+    {
+//	    dd('create function');
         $formMode = GlobalsConst::FORM_CREATE;
-		$doctors = Employee::has('dutydays', '=', 0)->where('role', GlobalsConst::DOCTOR)
-                ->where('status', 'Active')->where('clinic_id', Auth::user()->clinic_id)->get();
-        return View::make('dutydays.create')->nest('_form','dutydays.partials._form', compact('doctors','formMode'));
-	}
+        $doctors = Employee::has('dutydays', '=', 0)
+            ->where('business_unit_id', Auth::user()->business_unit_id)->get();
+        return View::make('duty_days.create')->nest('_form','duty_days.partials._form', compact('doctors','formMode'));
+    }
 
 	/**
 	 * Store a newly created dutyday in storage.

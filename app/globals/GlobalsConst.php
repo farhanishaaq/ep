@@ -38,9 +38,11 @@ class GlobalsConst {
     
     const SUPER_ADMIN_ID = 1;
     const COMPANY_ADMIN_ID = 2;
+    const DOCTOR_ID = 4;
 
 
     const UPLOAD_DIR = 'uploaded-data';
+    const UPLOADED_DATA_DIR = 'uploaded-data';
     const PROFILE_PHOTO_DIR = 'uploaded-data/profile-photos';
     const DUMMY_EMAIL_DOMAIN = '@test.com';
     const CHECK_UP_PHOTO_DIR = 'check-up-photos';

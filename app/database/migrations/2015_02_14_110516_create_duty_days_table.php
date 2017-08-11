@@ -16,6 +16,7 @@ class CreateDutyDaysTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('doctor_id')->nullable();
+            $table->integer('business_unit_id')->nullable();
 			$table->string('day')->nullable();
 			$table->time('start')->nullable();
 			$table->time('end')->nullable();
