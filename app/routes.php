@@ -66,7 +66,7 @@ Route::group(['Private', 'before' => 'auth'],function (){
     Route::get('show-dashboard', array('as'=>'showDashboard', 'uses' =>'DashboardsController@showDashboard'));
 
     /**
-     * HomeController Routes
+     * HomeController Routes@todo need to be implemented.
      */
     Route::group(['Home'],function (){
 
@@ -189,6 +189,9 @@ Route::group(['Private', 'before' => 'auth'],function (){
 
     });
 });
+
+
+
 
 
 /**

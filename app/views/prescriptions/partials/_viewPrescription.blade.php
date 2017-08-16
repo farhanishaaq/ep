@@ -15,7 +15,7 @@
         <div class="form-group">
             <label class="col-xs-5 control-label asterisk">Doctor Name*</label>
             <div class="col-xs-6">
-                <label class="form-control">{{{ $prescription->appointment->doctor->user->full_name }}}</label>
+                <label class="form-control">{{ $prescription->appointment->doctor->user->full_name }}</label>
                 <span id="errorName" class="field-validation-msg"></span>
             </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="form-group">
             <label class="col-xs-5 control-label asterisk">Prescription Code:</label>
             <div class="col-xs-6">
-                <label class="form-control">{{{ $prescription->code }}}</label>
+                <label class="form-control">{{ $prescription->code }}</label>
                 <span id="errorName" class="field-validation-msg"></span>
             </div>
         </div>
@@ -41,10 +41,10 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($medicines as $m)
+                            @foreach($prescription->prescriptionDetails  as $m)
                             <tr>
-                                <td>{{$m->name}}</td>
-                                <td>{{$m->pivot->quantity}}</td>
+                                <td>{{$m->medicine->name}}</td>
+                                <td>{{$m->usage_quantity}}</td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -59,7 +59,7 @@
         <div class="form-group">
             <label class="col-xs-5 control-label asterisk">Other Medicines:</label>
             <div class="col-xs-6">
-                <label class="form-control">{{{ $prescription->other_medicines == '' ? 'none' : $prescription->other_medicines}}}</label>
+                <label class="form-control">{{ $prescription->other_medicines == '' ? 'none' : $prescription->other_medicines}}</label>
                 <span id="errorName" class="field-validation-msg"></span>
             </div>
         </div>
@@ -67,14 +67,14 @@
         <div class="form-group">
             <label class="col-xs-5 control-label asterisk">Note:</label>
             <div class="col-xs-6 hAi">
-                <label class="form-control">{{{ $prescription->note }}}</label>
+                <label class="form-control">{{ $prescription->check_up_note }}</label>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-xs-5 control-label asterisk">Procedure:</label>
             <div class="col-xs-6 hAi">
-                <label class="form-control">{{{ $prescription->procedure }}}</label>
+                <label class="form-control">{{ $prescription->test_procedures }}</label>
                 <span id="errorName" class="field-validation-msg"></span>
             </div>
         </div>

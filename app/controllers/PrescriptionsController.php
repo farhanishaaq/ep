@@ -93,7 +93,8 @@ class PrescriptionsController extends \BaseController
     {
 //        $prescription = Prescription::with('medicines')->where('appointment_id', $id)->first();
         $prescription = Prescription::find($id);
-        $medicines = $prescription->medicines()->get();
+
+        $medicines = PrescriptionDetail::where('prescription_id','=',$id)->get();
 //        dd($medicines);
         return View::make('prescriptions.show')
                             ->nest('_viewPrescription','prescriptions.partials._viewPrescription', compact('prescription', 'medicines'));

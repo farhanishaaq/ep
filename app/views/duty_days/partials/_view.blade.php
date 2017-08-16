@@ -1,7 +1,7 @@
 {{--<h3 class="mT10 mB0 c3">Duty Days View</h3>
 <hr class="w95p fL mT0" />
 <p class="col-xs-12 fL taR"></p>--}}
-<section class="form-Section col-md-12 hA fL">
+<section class="form-Section col-md-12 h695 fL">
     <div class="container w100p">
         <div class="form-group">
             <label class="col-xs-5 control-label asterisk">Doctor Name</label>
@@ -12,64 +12,52 @@
         </div>
         <table class="table tblSchedule ">
             <thead>
-                <tr>
-                    <th colspan="4" class="taL">Duty Schedule For Dr. {{ $doctor->employee->user->full_name }}</th>
-                </tr>
-                <tr>
-                    <th>Days</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Actions</th>
-                </tr>
+            <tr>
+                <th colspan="4" class="taL">Duty Schedule For Dr. {{ $doctor->employee->user->full_name }}</th>
+            </tr>
+            <tr>
+                <th>Days</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Actions</th>
+            </tr>
             </thead>
             <tbody>
-            @if(($dutyDays) != null)
-                @if(($dutyDays->count()))
-                    @foreach($dutyDays as $dutyDay)
-                        <tr>
-                            <th>{{$dutyDay->day}}</th>
-                            <td>{{$dutyDay->start}}</td>
-                            <td>{{$dutyDay->end}}</td>
-                            <td><a href="javascript:void(0)" class="timeSlotLink">View TimeSlots<span class="glyphicon glyphicon-chevron-right"></span></a></td>
-                        </tr>
-                        @if($dutyDay->timeSlots->count())
-                        <tr class="timeSlotTbl dN">
-                           <td colspan="4" class="pL40i">
-                               <table class="table">
-                                   <thead>
-                                   <tr>
-                                       <th colspan="3" class="taL">Time Slots</th>
-                                   </tr>
-                                   <tr>
-                                       <th>ID</th>
-                                       <th>Time Slot</th>
-                                       <th>How Many Appointments</th>
-                                   </tr>
-                                   </thead>
-                                   <tbody>
-                                   @foreach($dutyDay->timeSlots as $t)
-                                       <tr>
-                                           <td>{{$t->id}}</td>
-                                           <td>{{$t->slot}}</td>
-                                           <td>{{$t->appointments->count()}}</td>
-                                       </tr>
-                                   @endforeach
-                                   </tbody>
-                               </table>
-                           </td>
-                        </tr>
-                        @endif
-                    @endforeach
-                @else
-                    <tr>
-                        <td colspan="7"> There is no record found</td>
+            @foreach($dutyDays as $dutyDay)
+                <tr>
+                    <th>{{$dutyDay->day}}</th>
+                    <td>{{$dutyDay->start}}</td>
+                    <td>{{$dutyDay->end}}</td>
+                    <td><a href="javascript:void(0)" class="timeSlotLink">View TimeSlots<span class="glyphicon glyphicon-chevron-right"></span></a></td>
+                </tr>
+                @if($dutyDay->timeSlots->count())
+                    <tr class="timeSlotTbl dN">
+                        <td colspan="4" class="pL40i">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th colspan="3" class="taL">Time Slots</th>
+                                </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Time Slot</th>
+                                    <th>How Many Appointments</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($dutyDay->timeSlots as $t)
+                                    <tr>
+                                        <td>{{$t->id}}</td>
+                                        <td>{{$t->slot}}</td>
+                                        <td>{{$t->appointments->count()}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </td>
                     </tr>
                 @endif
-            @else
-                <tr>
-                    <td colspan="7"> There is no record found</td>
-                </tr>
-            @endif
+            @endforeach
             </tbody>
         </table>
     </div>

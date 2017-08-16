@@ -27,9 +27,9 @@ class PrescriptionDetail extends \Eloquent {
         return $this->belongsTo('Employee');
     }
 
-    public function medicines()
+    public function medicine()
     {
-        return $this->belongsToMany('Medicine','medicine_prescription','prescription_id','medicine_id')->withPivot('quantity');
+        return $this->belongsTo('Medicine');
     }
 
     public static function savePrescriptionDetail($data,$dataProcessType=GlobalsConst::DATA_SAVE){
