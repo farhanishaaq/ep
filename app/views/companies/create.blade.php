@@ -3,7 +3,7 @@
                           TITLE
 =========================================================-->
 @section('title')
-    Doctor Registration
+    Company Registration
 @stop
 
 @section('redBar')

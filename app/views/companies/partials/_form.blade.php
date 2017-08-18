@@ -3,7 +3,7 @@
 @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
     {{Form::model($company, ['route' => ['companies.update', $company->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
 @endif
-<h3 class="mT10 mB15 c3 bdrB1">Doctor Form<p class="col-xs-3 fR taR p0 required-hint pT10">Required Fields <kbd>*</kbd></p></h3>
+<h3 class="mT10 mB15 c3 bdrB1">Company Regastration Form<p class="col-xs-3 fR taR p0 required-hint pT10">Required Fields <kbd>*</kbd></p></h3>
 {{-- Start Errors Code Container Block --}}
 @if(count($errors))
     <ul class="error-container">
@@ -104,7 +104,7 @@
 <section class="form-Section col-md-6 h1000 fL">
     {{-- User Basic Info --}}
     <div class="container w100p">
-        <h3 class="mT15 mB0 c3">User Log In Info</h3>
+        <h3 class="mT15 mB0 c3">Company Admin LogIn Info</h3>
         <hr class="w95p fL mT0" />
         <hr class="w95p fL mT0" />
         <div class="form-group">
@@ -126,7 +126,7 @@
         <div class="form-group">
             <label class="col-xs-4 control-label asterisk">Password</label>
             <div class="col-xs-6">
-                <input type="text" id="password" name="password" required="true" value="{{{ Form::getValueAttribute('password', null ) }}}" class="form-control" placeholder="Password">
+                <input type="password" id="password" name="password" required="true" value="{{{ Form::getValueAttribute('password', null ) }}}" class="form-control" placeholder="Password">
                 <span id="error_password" class="field-validation-msg"></span>
             </div>
         </div>
@@ -134,7 +134,7 @@
         <div class="form-group">
             <label class="col-xs-4 control-label asterisk">Confirm Pass</label>
             <div class="col-xs-6">
-                <input type="text" id="confirm_password" name="confirm_password" required="true" value="{{{ Form::getValueAttribute('confirm_password', null ) }}}" class="form-control" placeholder="Confirm Password">
+                <input type="password" id="confirm_password" name="confirm_password" required="true" value="{{{ Form::getValueAttribute('confirm_password', null ) }}}" class="form-control" placeholder="Confirm Password">
                 <span id="error_confirm_password" class="field-validation-msg"></span>
             </div>
         </div>
