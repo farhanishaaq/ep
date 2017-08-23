@@ -1,27 +1,26 @@
-@extends('companies.layouts.master')
+@extends('layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
 @section('title')
-Company Details
+    Manage Companies
 @stop
 
+@section('redBar')
+    <div class = "user_logo">
+        <div class="header_1 wrap_3 color_3 login-bar">Easy Physician
+            {{--<div class="col-md-12 mL25 taL">Easy Physician</div>--}}
+        </div>
+    </div>
+@stop
+
+@section('sliderContent')
+@stop
 
 <!--========================================================
                           CONTENT
 =========================================================-->
-@section('content1')
-    <section id="content">
-
-		<div class = "user_logo">
-			<div class="header_1 wrap_3 color_3" style="color: #fff; padding-top: 20px">
-                        Company Details
-            </div>
-		</div>
-		<br><br><br>
-@stop
-
-@section('content2')
+@section('content')
 
 	   <center>
             <div id="regForm" style="border: 4px solid #129894; width: 800px; height: 100%; background-color: #EBEBEB">
@@ -36,7 +35,7 @@ Company Details
               </tr>
               <tr>
                 <td width="272" height="55"><label>Admin Name:</label> </td>
-                <td width="333"><label>{{ $admin->name }}</label></td>
+                <td width="333"><label>{{ $admin->full_name }}</label></td>
                 </tr>
               <tr>
                 <td width="272" height="55"><label>     Email:</label></td>

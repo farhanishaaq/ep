@@ -51,7 +51,7 @@ class CompaniesController extends \BaseController {
 	public function show($id)
 	{
         $company = Company::find($id);
-        $admin = Employee::where('role', 'Administrator')->where('company_id', $company->id)->first();
+        $admin = User::where('user_type', 'Admin')->where('company_id', $company->id)->first();
         return View::make('companies.show', compact('company', 'admin'));
 	}
 
@@ -64,9 +64,10 @@ class CompaniesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+        $formMode = GlobalsConst::FORM_EDIT;
 		$company = Company::find($id);
-        $admin = Employee::where('role', 'Administrator')->where('company_id', $company->id)->first();
-        return View::make('companies.edit', compact('company', 'admin'));
+        $admin = User::where('user_type', 'Admin')->where('company_id', $company->id)->first();
+        return View::make('companies.edit')->nest('_form','companies.partials._form',compact('formMode','company','admin'));
 	}
 
 	/**

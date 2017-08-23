@@ -47,7 +47,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'status',];
 
 	public static $rules = [
-//		'user_type' => 'required', todo user itself sets user_type on the time of registration?
+//		'user_type' => 'required', todo user itself sets user_type on the time of regestration?
 		'username' => 'required|unique:users',
 		'password' => 'required|min:6',
 		'email' => 'required|unique:users',
