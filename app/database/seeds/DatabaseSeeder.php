@@ -33,11 +33,13 @@ class DatabaseSeeder extends Seeder {
 		$this->call('QualificationsTableSeeder');
 		$this->command->info('Qualifications Tables seeded!');
 
+        $this->call('RolesTableSeeder');
+        $this->command->info('Roles Table seeded!');
+
 		$this->call('UsersTableSeeder');
         $this->command->info('Users, Employees and Patients Tables seeded!');
 
-		$this->call('RolesTableSeeder');
-        $this->command->info('Roles Table seeded!');
+
 
 		$this->call('ResourcesTableSeeder');
         $this->command->info('Resources Table seeded!');

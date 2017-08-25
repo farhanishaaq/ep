@@ -61,104 +61,9 @@ class UsersTableSeeder extends Seeder {
 		$this->addFakerData();
 	}
 
-	private function addFakerData(){
-		$faker = Faker::create();
-		$businessUnits = BusinessUnit::all()->lists('id');
-		$cities = City::all()->lists('id');
-		$i = 0;
-		$j = 0;
-		foreach(range(1, 10) as $index)
-		{
-			//*** for $businessUnits
-			if(isset($businessUnits[$i])){
-				$id = $businessUnits[$i];
-			}else{
-				$i = 0;
-				$id = $businessUnits[$i];
-			}
-			$BusinessUnitObj = BusinessUnit::find($id);
-			$businessUnitId = $BusinessUnitObj->id;
-			$companyId = $BusinessUnitObj->company->id;
-
-
-			//*** for $cities
-			if(isset($cities[$j])){
-				$cid = $cities[$j];
-			}else{
-				$j = 0;
-				$cid = $cities[$j];
-			}
-			$CityObj = City::find($cid);
-			$cityId = $CityObj->id;
-
-
-
-			if($index < 9) {
-				$user = User::create([
-					'company_id' => $companyId,
-					'business_unit_id'=> $businessUnitId,
-					'city_id'=> $cityId,
-					'email'=> $faker->unique()->email,
-					'username'=> $faker->username,
-					'password'=> Hash::make('ep123456'),
-					'fname'=> $faker->firstName,
-					'lname'=> $faker->lastName,
-					'full_name'=> $faker->firstName.' '.$faker->lastName,
-					'user_type'=> $faker->randomElement(['Doctor']),
-					'dob'=> $faker->dateTimeThisCentury->format('Y-m-d'),
-					'cnic'=> '35200-'.$faker->numberBetween(1469067,3000000).'-' .$faker->numberBetween(0,9),
-					'gender'=> $faker->randomElement(['Male','Female']),
-					'address'=> $faker->address,
-					'cell'=> $faker->phoneNumber,
-					'status'=> $faker->randomElement(['Active']),
-				]);
-				$employee = Employee::create([
-					'company_id' => $companyId,
-					'business_unit_id'=> $businessUnitId,
-					'user_id'=> $user->id,
-					'joining_date'=> $faker->dateTimeThisDecade,
-					'joining_salary'=> $faker->numberBetween($min = 5000, $max = 15000),
-					'current_salary'=> $faker->numberBetween($min = 10000, $max = 25000),
-				]);
-				Doctor::create([
-					'user_id' => $user->id,
-					'employee_id' => $employee->id,
-					'min_fee'=> $faker->numberBetween($min = 200, $max = 800),
-					'max_fee'=> $faker->numberBetween($min = 800, $max = 3000),
-				]);
-			}else{
-				$user = User::create([
-					'company_id' => $companyId,
-					'business_unit_id'=> $businessUnitId,
-					'city_id'=> $cityId,
-					'email'=> $faker->unique()->email,
-					'username'=> $faker->username,
-					'password'=> Hash::make('ep123456'),
-					'fname'=> $faker->firstName,
-					'lname'=> $faker->lastName,
-					'full_name'=> $faker->firstName.' '.$faker->lastName,
-					'user_type'=> $faker->randomElement(['Patient']),
-					'dob'=> $faker->dateTimeThisCentury->format('Y-m-d'),
-					'cnic'=> '35200-'.$faker->numberBetween(1469067,3000000).'-' .$faker->numberBetween(0,9),
-					'gender'=> $faker->randomElement(['Male','Female']),
-					'address'=> $faker->address,
-					'cell'=> $faker->phoneNumber,
-					'status'=> $faker->randomElement(['Active','Inactive']),
-				]);
-				Patient::create([
-					'company_id' => $companyId,
-					'business_unit_id'=> $businessUnitId,
-					'user_id'=> $user->id,
-				]);
-			}
-
-			$i++;
-			$j++;
-		}
-	}
 
 	private function addSuperAdmin(){
-		User::create([
+		$user = User::create([
 			'city_id'=> GlobalsConst::LAHORE_OF_PAK,
 			'username'=> 'superAdmin',
 			'email'=> 'superAdmin@easyphysicians.com',
@@ -172,6 +77,8 @@ class UsersTableSeeder extends Seeder {
 			'gender'=> 'Male',
 			'status'=> 'Active',
 		]);
+//        $Role = Role::find(GlobalsConst::SUPER_ADMIN_ID);
+//        $Role->users()->attach($user->id);
 	}
 
 	private function addAdmin(){
@@ -191,6 +98,8 @@ class UsersTableSeeder extends Seeder {
 			'gender'=> 'Male',
 			'status'=> 'Active',
 		]);
+        $Role = Role::find(GlobalsConst::COMPANY_ADMIN_ID);
+        $Role->users()->attach($user->id);
 		Employee::create([
 			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
@@ -218,8 +127,10 @@ class UsersTableSeeder extends Seeder {
 			'gender'=> 'Male',
 			'status'=> 'Active',
 		]);
-		$doctorRole = 1;
-		$user->roles()->attach($doctorRole);
+        $Role = Role::find(GlobalsConst::DOCTOR_ID);
+        $Role->users()->attach($user->id);
+//		$doctorRole = 1;
+//		$user->roles()->attach($doctorRole);
 		$employee = Employee::create([
 			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
@@ -258,38 +169,9 @@ class UsersTableSeeder extends Seeder {
 			'gender'=> 'Female',
 			'status'=> 'Active',
 		]);
-		$receptionistRole = 6;
+		$receptionistRole = 5;
 		$user->roles()->attach($receptionistRole);
 
-		Employee::create([
-			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
-			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
-			'user_id'=> $user->id,
-			'joining_date'=> '2013-04-15',
-			'joining_salary'=> 25000,
-			'current_salary'=> 35000,
-		]);
-	}
-
-	private function addNurse(){
-		$user = User::create([
-			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
-			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
-			'city_id'=> GlobalsConst::LAHORE_OF_PAK,
-			'username'=> 'nurse',
-			'email'=> 'nurse@easyphysicians.com',
-			'password'=> Hash::make('ep123456'),
-			'fname'=> 'Shaziya',
-			'lname'=> 'Tariq',
-			'full_name'=> 'Shaziya Tariq',
-			'user_type'=> 'Employee',
-			'dob'=> '1988-12-01',
-			'cnic'=> '35200-1478048-1',
-			'gender'=> 'Female',
-			'status'=> 'Active',
-		]);
-		$nurseRole = 7;
-		$user->roles()->attach($nurseRole);
 		Employee::create([
 			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
@@ -317,7 +199,7 @@ class UsersTableSeeder extends Seeder {
 			'gender'=> 'Female',
 			'status'=> 'Active',
 		]);
-		$accountantRole = 8;
+		$accountantRole = 6;
 		$user->roles()->attach($accountantRole);
 		Employee::create([
 			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
@@ -328,4 +210,133 @@ class UsersTableSeeder extends Seeder {
 			'current_salary'=> 35000,
 		]);
 	}
+
+
+    private function addNurse(){
+        $user = User::create([
+            'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+            'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+            'city_id'=> GlobalsConst::LAHORE_OF_PAK,
+            'username'=> 'nurse',
+            'email'=> 'nurse@easyphysicians.com',
+            'password'=> Hash::make('ep123456'),
+            'fname'=> 'Shaziya',
+            'lname'=> 'Tariq',
+            'full_name'=> 'Shaziya Tariq',
+            'user_type'=> 'Employee',
+            'dob'=> '1988-12-01',
+            'cnic'=> '35200-1478048-1',
+            'gender'=> 'Female',
+            'status'=> 'Active',
+        ]);
+        $nurseRole = 7;
+        $user->roles()->attach($nurseRole);
+        Employee::create([
+            'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+            'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+            'user_id'=> $user->id,
+            'joining_date'=> '2013-04-15',
+            'joining_salary'=> 25000,
+            'current_salary'=> 35000,
+        ]);
+    }
+
+
+
+    private function addFakerData(){
+        $faker = Faker::create();
+        $businessUnits = BusinessUnit::all()->lists('id');
+        $cities = City::all()->lists('id');
+        $i = 0;
+        $j = 0;
+        foreach(range(1, 10) as $index)
+        {
+            //*** for $businessUnits
+            if(isset($businessUnits[$i])){
+                $id = $businessUnits[$i];
+            }else{
+                $i = 0;
+                $id = $businessUnits[$i];
+            }
+            $BusinessUnitObj = BusinessUnit::find($id);
+            $businessUnitId = $BusinessUnitObj->id;
+            $companyId = $BusinessUnitObj->company->id;
+
+
+            //*** for $cities
+            if(isset($cities[$j])){
+                $cid = $cities[$j];
+            }else{
+                $j = 0;
+                $cid = $cities[$j];
+            }
+            $CityObj = City::find($cid);
+            $cityId = $CityObj->id;
+
+
+
+            if($index < 9) {
+                $user = User::create([
+                    'company_id' => $companyId,
+                    'business_unit_id'=> $businessUnitId,
+                    'city_id'=> $cityId,
+                    'email'=> $faker->unique()->email,
+                    'username'=> $faker->username,
+                    'password'=> Hash::make('ep123456'),
+                    'fname'=> $faker->firstName,
+                    'lname'=> $faker->lastName,
+                    'full_name'=> $faker->firstName.' '.$faker->lastName,
+                    'user_type'=> $faker->randomElement(['Doctor']),
+                    'dob'=> $faker->dateTimeThisCentury->format('Y-m-d'),
+                    'cnic'=> '35200-'.$faker->numberBetween(1469067,3000000).'-' .$faker->numberBetween(0,9),
+                    'gender'=> $faker->randomElement(['Male','Female']),
+                    'address'=> $faker->address,
+                    'cell'=> $faker->phoneNumber,
+                    'status'=> $faker->randomElement(['Active']),
+                ]);
+                $employee = Employee::create([
+                    'company_id' => $companyId,
+                    'business_unit_id'=> $businessUnitId,
+                    'user_id'=> $user->id,
+                    'joining_date'=> $faker->dateTimeThisDecade,
+                    'joining_salary'=> $faker->numberBetween($min = 5000, $max = 15000),
+                    'current_salary'=> $faker->numberBetween($min = 10000, $max = 25000),
+                ]);
+                Doctor::create([
+                    'user_id' => $user->id,
+                    'employee_id' => $employee->id,
+                    'min_fee'=> $faker->numberBetween($min = 200, $max = 800),
+                    'max_fee'=> $faker->numberBetween($min = 800, $max = 3000),
+                ]);
+            }else{
+                $user = User::create([
+                    'company_id' => $companyId,
+                    'business_unit_id'=> $businessUnitId,
+                    'city_id'=> $cityId,
+                    'email'=> $faker->unique()->email,
+                    'username'=> $faker->username,
+                    'password'=> Hash::make('ep123456'),
+                    'fname'=> $faker->firstName,
+                    'lname'=> $faker->lastName,
+                    'full_name'=> $faker->firstName.' '.$faker->lastName,
+                    'user_type'=> $faker->randomElement(['Patient']),
+                    'dob'=> $faker->dateTimeThisCentury->format('Y-m-d'),
+                    'cnic'=> '35200-'.$faker->numberBetween(1469067,3000000).'-' .$faker->numberBetween(0,9),
+                    'gender'=> $faker->randomElement(['Male','Female']),
+                    'address'=> $faker->address,
+                    'cell'=> $faker->phoneNumber,
+                    'status'=> $faker->randomElement(['Active','Inactive']),
+                ]);
+                Patient::create([
+                    'company_id' => $companyId,
+                    'business_unit_id'=> $businessUnitId,
+                    'user_id'=> $user->id,
+                ]);
+            }
+
+            $i++;
+            $j++;
+        }
+    }
+
 }

@@ -8,11 +8,15 @@ class ResourcesRolesTableSeeder extends Seeder {
 	public function run()
 	{
 		DB::table('resource_role')->truncate();
-		$resourceIds = Resource::all()->lists('id');
-		$Role = Role::find(\App\Globals\GlobalsConst::COMPANY_ADMIN_ROLE);
+        $xm = Role::all()->count();
+		for ($x = 2; $x <= 6; $x++){
+            $resourceIds = Resource::all()->lists('id');
+            $Role = Role::find($x);
 
-		foreach ($resourceIds as $resourceId){
-			$Role->resources()->attach($resourceId, ['status'=>'Allow']);
-		}
+            foreach ($resourceIds as $resourceId){
+                $Role->resources()->attach($resourceId, ['status'=>'Allow']);
+            }
+        }
+
 	}
 }

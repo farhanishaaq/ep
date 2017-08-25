@@ -38,7 +38,8 @@ class GlobalsConst {
     
     const SUPER_ADMIN_ID = 1;
     const COMPANY_ADMIN_ID = 2;
-    const DOCTOR_ID = 4;
+    const DOCTOR_ID = 3;
+    const RECEPTIONIST_ID = 4;
 
 
     const UPLOAD_DIR = 'uploaded-data';

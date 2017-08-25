@@ -23,48 +23,58 @@ class RolesTableSeeder extends Seeder {
 			'name' => 'Company Admin',
 			'description' => 'It is a Admin for the registered company, who manages his company on EP',
 		]);
-		$User = User::find(GlobalsConst::COMPANY_ADMIN_ID);
-		$User->roles()->attach($Role->id);
+//		$User = User::find(GlobalsConst::COMPANY_ADMIN_ID);
+//		$User->roles()->attach($Role->id);
 
 		//3
-		Role::create([
-			'name' => 'Portal User',
-			'description' => 'It is a Registered User into public EP portal',
-		]);
-
-		//4
-		Role::create([
-			'name' => 'Portal Doctor',
-			'description' => 'It is a Registered User who is actually a doctor but not the EP company doctor',
-		]);
-
-		//5
 		Role::create([
 			'company_id'=>GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'name' => 'Company Doctor',
 			'description' => 'It is a Employee of the registered company who perform his job as a Doctor',
 		]);
+//        $User = User::find(GlobalsConst::DOCTOR_ID);
+//        $User->roles()->attach($Role->id);
 
-		//6
+        //4
+        Role::create([
+            'name' => 'Portal Doctor',
+            'description' => 'It is a Registered User who is actually a doctor but not the EP company doctor',
+        ]);
+//        $User = User::find(GlobalsConst::DOCTOR_ID);
+//        $User->roles()->attach($Role->id);
+
+		//5
 		Role::create([
 			'company_id'=>GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'name' => 'Receptionist',
 			'description' => 'It is an Employee of the registered company who perform his job as a Receptionist',
 		]);
+//        $User = User::find(GlobalsConst::RECEPTIONIST_ID);
+//        $User->roles()->attach($Role->id);
 
-		//7
+        //6
+        Role::create([
+            'company_id'=>GlobalsConst::EP_DEMO_COMPANY_ONE,
+            'name' => 'Accountant',
+            'description' => 'It is an Employee of the registered company who perform his job as a Accountant',
+        ]);
+//        $User = User::find(GlobalsConst::COMPANY_ADMIN_ID);
+//        $User->roles()->attach($Role->id);
+
+        //7
 		Role::create([
 			'company_id'=>GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'name' => 'Nurse',
 			'description' => 'It is an Employee of the registered company who perform his job as a Nurse',
 		]);
 
-		//8
-		Role::create([
-			'company_id'=>GlobalsConst::EP_DEMO_COMPANY_ONE,
-			'name' => 'Accountant',
-			'description' => 'It is an Employee of the registered company who perform his job as a Nurse',
-		]);
+        //8
+        Role::create([
+            'name' => 'Portal User',
+            'description' => 'It is a Registered User into public EP portal',
+        ]);
+
+
 
 	}
 
