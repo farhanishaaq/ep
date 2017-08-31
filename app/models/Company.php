@@ -101,6 +101,36 @@ class Company extends \Eloquent {
         $userData['lname'] = $data['lname'];
         $userData['status'] = GlobalsConst::STATUS_ON;
         $User = User::saveUser($userData,$dataProcessType);
+
+        Role::create([
+            'company_id'=> $company->id,
+            'name' => 'Company Doctor',
+            'description' => 'It is a Employee of the registered company who perform his job as a Doctor',
+        ]);
+
+        Role::create([
+            'company_id'=> $company->id,
+            'name' => 'Receptionist',
+            'description' => 'It is an Employee of the registered company who perform his job as a Receptionist',
+        ]);
+
+        Role::create([
+            'company_id'=> $company->id,
+            'name' => 'Accountant',
+            'description' => 'It is an Employee of the registered company who perform his job as a Accountant',
+        ]);
+
+
+        $roles = Role::where('company_id', $company->id)->lists('id');
+        foreach ($roles as $roleId){
+            $resourceIds = Resource::all()->lists('id');
+            $Role = Role::find($roleId);
+
+            foreach ($resourceIds as $resourceId){
+                $Role->resources()->attach($resourceId, ['status'=>'Allow']);
+            }
+        }
+
         $response = ['success'=>true, 'error'=> false, 'message'=>'Company has been saved successfully!'];
         return $response;
     }

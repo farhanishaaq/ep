@@ -157,7 +157,8 @@ class PrescriptionsController extends \BaseController
     public function printPrescription($id)
     {
         $prescription = Prescription::find($id);
-        $medicines = $prescription->medicines()->get();
+        $medicines = PrescriptionDetail::where('prescription_id','=',$id)->get();
+//        dd($medicines);
         $_viewPrescription = View::make('prescriptions.partials._viewPrescription', compact('prescription', 'medicines'))->render();
         return PDF::html('prescriptions.printPrescription',compact('_viewPrescription'));
     }
