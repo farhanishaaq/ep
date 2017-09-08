@@ -131,6 +131,8 @@ class Company extends \Eloquent {
             }
         }
 
+        $Role = Role::find(GlobalsConst::COMPANY_ADMIN_ID);
+        $Role->users()->attach($User['user']->id);
         $response = ['success'=>true, 'error'=> false, 'message'=>'Company has been saved successfully!'];
         return $response;
     }

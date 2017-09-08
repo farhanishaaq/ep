@@ -329,7 +329,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					return $patientResponse;
 				break;
 			}
-			$response = ['success'=>true, 'error'=> false, 'message'=>$comeFrom .' has been saved successfully!'];
+			$response = ['user'=>$user, 'success'=>true, 'error'=> false, 'message'=>$comeFrom .' has been saved successfully!'];
 		}
 		return $response;
 	}
