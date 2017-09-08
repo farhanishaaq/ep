@@ -91,6 +91,9 @@ class Doctor extends \Eloquent {
 			}
 		}
 
+        $Role = Role::where('company_id', Auth::user()->company_id)->where('name', "Company Doctor")->first();
+        $Role->users()->attach($doctor->user_id);
+
 		$response = ['success'=>true, 'error'=> false, 'message'=>'Doctor has been saved successfully!','Doctor'=>$doctor];
 		return $response;
 	}
