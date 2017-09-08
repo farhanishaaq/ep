@@ -14,26 +14,19 @@
                                         </button>
                                         <a class="navbar-brand p0" href="#"><img src="{{asset('images/logo_new.png')}}" class="h52"></a>
                                     </div>
-                            <?php $crntUser=Auth::user(); ?>
-                            @if($crntUser)
-                                <?php $roles = $crntUser->roles; ?>
-                                @if($roles->count())
-                                    @foreach ($roles as $r)
-                                        @if($r->id == GlobalsConst::SUPER_ADMIN_ID)
-                                            @include('includes.superUserNav')
-                                            <?php break; ?>
-                                        @elseif($r->id == GlobalsConst::COMPANY_ADMIN_ID)
-                                            @include('includes.companyAdminNav')
-                                            <?php break; ?>
-                                            @elseif($r->id == GlobalsConst::DOCTOR_ID)
-                                                @include('includes.doctorNav')
-                                                <?php break; ?>
-                                        @endif
-                                    @endforeach
-                                @endif
+                            <?php $crntUser=Auth::user()->user_type; ?>
+
+                            @if ($crntUser == GlobalsConst::SUPER_ADMIN)
+                                 @include('includes.superUserNav')
+                            @elseif ($crntUser == GlobalsConst::ADMIN)
+                                 @include('includes.companyAdminNav')
+                            @elseif ($crntUser == GlobalsConst::DOCTOR)
+                                 @include('includes.doctorNav')
                             @else
-                                @include('includes.webNav')
+                                 @include('includes.webNav')
+
                             @endif
+
                             <?php
                             /*
                                 @if(Auth::user()->roles == 'Administrator')
