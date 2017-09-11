@@ -14,8 +14,10 @@
                                         </button>
                                         <a class="navbar-brand p0" href="#"><img src="{{asset('images/logo_new.png')}}" class="h52"></a>
                                     </div>
-                            <?php $crntUser=Auth::user()->user_type; ?>
+                            <?php $crntUserA=Auth::user(); ?>
 
+                        @if (isset($crntUserA))
+                                <?php $crntUser=$crntUserA->user_type; ?>
                             @if ($crntUser == GlobalsConst::SUPER_ADMIN)
                                  @include('includes.superUserNav')
                             @elseif ($crntUser == GlobalsConst::ADMIN)
@@ -23,9 +25,12 @@
                             @elseif ($crntUser == GlobalsConst::DOCTOR)
                                  @include('includes.doctorNav')
                             @else
-                                 @include('includes.webNav')
-
+                                        @include('includes.webNav')
                             @endif
+
+                        @else
+                                 @include('includes.webNav')
+                        @endif
 
                             <?php
                             /*
