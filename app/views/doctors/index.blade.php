@@ -19,7 +19,7 @@
 <!--========================================================
                           CONTENT
 =========================================================-->
-<?php $cols = 5; ?>
+
 @section('content')
     <div class="container mT20">
         <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'">Manage Doctors</h1>
