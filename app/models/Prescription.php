@@ -72,7 +72,7 @@ class Prescription extends \Eloquent {
         $data['PrescriptionDetailId']= $prescription->id;
         $pdResult = PrescriptionDetail::savePrescriptionDetail($data,GlobalsConst::DATA_SAVE);
         if($pdResult['success'] == true){
-            $response = ['success'=>true, 'error'=> false, 'message'=>'Prescription has been saved successfully!'];
+          return  $response = ['success'=>true, 'error'=> false, 'message'=>'Prescription has been saved successfully!'];
         }
     }
 

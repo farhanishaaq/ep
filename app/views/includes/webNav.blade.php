@@ -17,5 +17,6 @@
                 {{--<li><a href="#">One more separated link</a></li>--}}
             {{--</ul>--}}
         {{--</li>--}}
+        @include('includes.profileNavDropdown')
     </ul>
 </div><!--/.nav-collapse -->

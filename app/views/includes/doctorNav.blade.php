@@ -6,6 +6,7 @@
         <li @yield('current_about')><a href="{{URL::route('vitalSign')}}">Vital Signs</a></li>
         <li @yield('current_contacts')><a href="{{URL::route('appointments.index')}}">Appointments</a></li>
         <li @yield('current_contacts')><a href="{{URL::route('dutyDays.index')}}">Duty Days</a></li>
-        <li><a href="{{route('logout')}}">Logout</a></li>
+        {{--<li><a href="{{route('logout')}}">Logout</a></li>--}}
+        @include('includes.profileNavDropdown')
     </ul>
 </div><!--/.nav-collapse -->
