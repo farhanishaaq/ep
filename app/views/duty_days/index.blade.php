@@ -7,16 +7,13 @@
 @stop
 
 @section('redBar')
-    <div class = "user_logo">
-        <div class="header_1 wrap_3 color_3 login-bar">Easy Physician
+    <div class = "user_logo">        <div class="header_1 wrap_3 color_3 login-bar">{{Auth::user()->company->name}}
         </div>
     </div>
 @stop
 
 @section('sliderContent')
 @stop
-
-
 <!--========================================================
                           CONTENT
 =========================================================-->
@@ -38,28 +35,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if(($dutyDays) != null)
-                    @if(($dutyDays->count()))
-                        @foreach($dutyDays as $dutyDay)
-                            <tr class="row-data">
-                                <td>{{{ $dutyDay->doctor->employee->user->full_name }}}</td>
-                                <td>
-                                    <span class="fL">&nbsp;&nbsp;</span><a href="#myModal" class="btn-view-duty-day-icon fL openScheduleView" title="Dr. {{$dutyDay->doctor->employee->user->full_name}} Schedule View"  data-toggle="modal" data-target="#myModal" dr-schedule-view-url="{{route('dutyDays.show',[$dutyDay->doctor->employee->user->id])}}"></a>
-                                    {{--                            {{ link_to_route('dutyDays.show', '', [$dutyDay->doctor->id], ['class' => 'btn-view-icon fL','title'=> 'View Record'])}}--}}
-                                    {{--<span class="fL">&nbsp;|&nbsp;</span>{{ link_to_route('dutyDays.edit', '', [$dutyDay->employee->id], ['class' => 'btn-edit-icon fL','title'=> 'Edit Record'])}}--}}
-                                </td>
-                            </tr>
-                        @endforeach
-                    @else
-                        <tr>
-                            <td colspan="7"> There is no record found</td>
-                        </tr>
-                    @endif
-                @else
-                    <tr>
-                        <td colspan="7"> There is no record found</td>
+                @foreach($dutyDays as $dutyDay)
+                    <tr class="row-data">
+                        <td>{{{ $dutyDay->doctor->employee->user->full_name }}}</td>
+                        <td>
+                             @if(is_dr_duty_days_exists($dutyDay->doctor->employee->user->id))
+                                <span class="fL">&nbsp;|&nbsp;</span><a href="#myModal" class="btn-view-duty-day-icon fL openScheduleView" title="Dr. {{$dutyDay->doctor->employee->user->full_name}} Schedule View"  data-toggle="modal" data-target="#myModal" dr-schedule-view-url="{{route('dutyDays2.show',[$dutyDay->doctor->employee->user->id])}}"></a>
+                            @else
+                                <span class="fL">&nbsp;|&nbsp;</span><a href="javascript:void(0);" class="btn-add-duty-day-icon fL openScheduleFrom" title="Dr. {{$dutyDay->doctor->employee->user->full_name}} Schedule Form"  dr-schedule-form-url="{{route('dutyDays.create',['doctor_id'=> $dutyDay->doctor->employee->user->id])}}"></a>
+                            @endif
+
+                        </td>
                     </tr>
-                @endif
+                @endforeach
                 </tbody>
             </table>
         </section>
@@ -85,32 +73,8 @@
 
         </div>
     </div>
-
 @stop
-
 @section('scripts')
     <script src="{{asset('js/view-pages/doctors/DoctorsList.js')}}"></script>
-    <script type="text/javascript">
-        window.patientPrescriptionUrl = 0;
-        $(document).ready(function() {
-            var options = {
-                listCols: '{{$cols}}'
-            };
-            var doctorsList = new DoctorsList(window,document,options);
-            doctorsList.initializeAll();
-        } );
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            if($('#tblRecordsList tr.row-data').length){
-                $('#tblRecordsList').DataTable({
-                    "columnDefs": [ {
-                        "targets": 1,
-                        "orderable": false
-                    } ]
-                });
-            }
-        } );
-    </script>
-@stop
 
+@stop
