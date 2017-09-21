@@ -71,7 +71,7 @@ Route::group(['Private', 'before' => 'auth'],function (){
     Route::group(['Home'],function (){
 
         Route::get('adminHome', array('as'=>'adminHome','uses'=>'HomeController@showAdminHome'));
-        Route::any('doctorHome', array('before' => 'Doctor', 'as'=>'doctorHome', 'uses' => 'HomeController@showDoctorHome'));
+        Route::any('doctorHome', array('before' => 'Doctor', 'as'=>'doctorHome', 'uses' => 'DashboardsController@showDashboard'));
         Route::get('receptionistHome', array('before' => 'Receptionist', 'as'=>'receptionistHome', 'uses' => 'HomeController@showReceptionistHome'));
         Route::get('labManagerHome', array('before' => 'Lab', 'as'=>'labManagerHome', 'uses' => 'HomeController@showLabManagerHome'));
         Route::get('accountantHome', array('before' => 'Accountant','as' => 'accountantHome', 'uses' => 'HomeController@showAccountantHome'));
