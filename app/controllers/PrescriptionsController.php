@@ -96,8 +96,19 @@ class PrescriptionsController extends \BaseController
 
         $medicines = PrescriptionDetail::where('prescription_id','=',$id)->get();
 //        dd($medicines);
+
+        $formMode = GlobalsConst::FORM_EDIT;
+        $prescription = Prescription::find($id);
+        $prescriptionsDetails = PrescriptionDetail::where('prescription_id','=',$id)->get();
+        $appointment = Appointment::find($prescription->appointment_id);
+
+        $prescriptionNextCount = "";
+        $chkupPrescriptionImgDir = Ep::checkUpPrescriptionDirectory();
+        $prescriptionCheckUpImgPath = asset($chkupPrescriptionImgDir.'/'.$prescription->check_up_photo);
+
+        $_detail_row = View::make('prescriptions.partials._detail_row_prescription', compact('medicines', 'appointment', 'patient_id', 'doctors', 'formMode', 'prescriptionNextCount', 'prescriptionsDetails', 'prescriptionCheckUpImgPath'));
         return View::make('prescriptions.show')
-                            ->nest('_viewPrescription','prescriptions.partials._viewPrescription', compact('prescription', 'medicines'));
+                            ->nest('_viewPrescription','prescriptions.partials._viewPrescription', compact('_detail_row', 'prescription', 'medicines'));
     }
 
     /**

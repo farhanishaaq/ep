@@ -27,35 +27,12 @@
                 <span id="errorName" class="field-validation-msg"></span>
             </div>
         </div>
-        @if($medicines)
-            @if(count($medicines))
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Medicines:</label>
-
-                    <div class="col-xs-6 hAi">
-                        <table class="table tblSchedule">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Quantity</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($prescription->prescriptionDetails  as $m)
-                            <tr>
-                                <td>{{$m->medicine->name}}</td>
-                                <td>{{$m->usage_quantity}}</td>
-                            </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            @endif
-        @endif
-
-
+        <div id="detailRowContainer">
+            {{$_detail_row}}
+        </div>
+        <div col-xs-12>
+             .
+        </div>
         <div class="form-group">
             <label class="col-xs-5 control-label asterisk">Other Medicines:</label>
             <div class="col-xs-6">
