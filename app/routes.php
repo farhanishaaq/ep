@@ -104,6 +104,8 @@ Route::group(['Private', 'before' => 'auth'],function (){
      */
     Route::resource('companies', 'CompaniesController');
 
+    Route::resource('businessUnits', 'BusinessUnitsController');
+
 
     /**
      * CompaniesController Routes

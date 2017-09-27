@@ -37,6 +37,11 @@ class Prescription extends \Eloquent {
         return $this->hasMany('PrescriptionDetail');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo('Prescription');
+    }
+
     public static function savePrescription($data,$dataProcessType=GlobalsConst::DATA_SAVE){
         $vRules = Prescription::$rules;
         if($dataProcessType==GlobalsConst::DATA_SAVE){

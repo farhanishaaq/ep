@@ -173,7 +173,7 @@
 
 
         <div class="col-xs-12 taR pR0 mT20">
-            <input type="reset" id="reset" value="Reset" class="submit" />
+            {{--<input type="reset" id="reset" value="Reset" class="submit" />--}}
             <input type="submit" id="saveClose" name="saveClose" value="Save and Close" class="submit" />
             <input type="submit" id="saveContinue" name="saveContinue" value="Save and Continue" class="submit" />
             <input type="button" id="cancel" value="Cancel" class="submit" onclick="goTo('{{route("prescriptions.index")}}')" />
