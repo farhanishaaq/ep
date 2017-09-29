@@ -1,9 +1,9 @@
 @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-    {{ Form::open(array('action' => 'CompaniesController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm','enctype' => 'multipart/form-data', 'novalidate')) }}
+    {{ Form::open(array('action' => 'BusinessUnitsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm','enctype' => 'multipart/form-data', 'novalidate')) }}
 @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-    {{Form::model($company, ['route' => ['companies.update', $company->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
+    {{Form::model($company, ['route' => ['businessUnits.update', $company->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm'])}}
 @endif
-<h3 class="mT10 mB15 c3 bdrB1">Company Regastration Form<p class="col-xs-3 fR taR p0 required-hint pT10">Required Fields <kbd>*</kbd></p></h3>
+<h3 class="mT10 mB15 c3 bdrB1">Regastration Form<p class="col-xs-3 fR taR p0 required-hint pT10">Required Fields <kbd>*</kbd></p></h3>
 {{-- Start Errors Code Container Block --}}
 @if(count($errors))
     <ul class="error-container">
@@ -20,24 +20,78 @@
 {{-- End Errors Code Container Block --}}
 <section class="form-Section col-md-6 h1000 fL">
     {{-- Comapny Basic Info --}}
+    {{--<div class="container w100p">--}}
+        {{--<h3 class="mT15 mB0 c3">Company Basic Info</h3>--}}
+        {{--<hr class="w95p fL mT0" />--}}
+        {{--<hr class="w95p fL mT0" />--}}
+        {{--<div class="form-group">--}}
+            {{--<label class="col-xs-5 control-label asterisk">Name</label>--}}
+            {{--<div class="col-xs-6">--}}
+                {{--<input type="text" id="name" name="name" required="true" value="{{{ Form::getValueAttribute('name', null ) }}}" class="form-control" placeholder="name">--}}
+                {{--<span id="errorName" class="field-validation-msg"></span>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="form-group">--}}
+            {{--<label class="col-xs-5 control-label asterisk">Select Type</label>--}}
+            {{--<div class="col-xs-6">--}}
+                {{--{{ make_company_type_drop_down() }}--}}
+                {{--<span id="error_company_type" class="field-validation-msg"></span>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="form-group">--}}
+            {{--<label class="col-xs-5 control-label asterisk">Address</label>--}}
+            {{--<div class="col-xs-6">--}}
+                {{--<input type="text" id="address" name="address" value="{{{ Form::getValueAttribute('address', null ) }}}" class="form-control" placeholder="Address">--}}
+                {{--<span id="errorName" class="field-validation-msg"></span>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+
+        {{--<div class="form-group">--}}
+            {{--<label class="col-xs-5 control-label asterisk">City</label>--}}
+            {{--<div class="col-xs-6">--}}
+                {{--{{city_drop_down()}}--}}
+                {{--<span id="errorName" class="field-validation-msg"></span>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+
+        {{--<div class="form-group">--}}
+            {{--<label class="col-xs-5 control-label asterisk">Phone</label>--}}
+            {{--<div class="col-xs-6">--}}
+                {{--<input type="text" id="phone" name="phone" required="true" value="{{{ Form::getValueAttribute('phone', null ) }}}" class="form-control" placeholder="Phone">--}}
+                {{--<span id="error_lname" class="field-validation-msg"></span>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+
+        {{--<div class="form-group">--}}
+            {{--<label class="col-xs-5 control-label asterisk">Fax</label>--}}
+            {{--<div class="col-xs-6">--}}
+                {{--<input type="text" id="fax" name="fax" required="true" value="{{{ Form::getValueAttribute('fax', null ) }}}" class="form-control" placeholder="Fax">--}}
+                {{--<span id="error_lname" class="field-validation-msg"></span>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+
+        {{--<div class="form-group">--}}
+            {{--<label class="col-xs-5 control-label asterisk">Description</label>--}}
+            {{--<div class="col-xs-6 hAi">--}}
+                {{--<textarea id="description" name="description" class="form-control" rows="7" cols="20" placeholder="description">{{{ Form::getValueAttribute('description', null) }}}</textarea>--}}
+                {{--<span id="errorName" class="field-validation-msg"></span>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+
+    {{-- Business Unit Basic Info --}}
     <div class="container w100p">
-        <h3 class="mT15 mB0 c3">Company Basic Info</h3>
+        <h3 class="mT15 mB0 c3">Business Unit Basic Info</h3>
         <hr class="w95p fL mT0" />
         <hr class="w95p fL mT0" />
         <div class="form-group">
-            <label class="col-xs-5 control-label asterisk">Name</label>
+            <label class="col-xs-5 control-label asterisk">BU Name</label>
             <div class="col-xs-6">
-                <input type="text" id="name" name="name" required="true" value="{{{ Form::getValueAttribute('name', null ) }}}" class="form-control" placeholder="name">
+                <input type="text" id="bu_name" name="bu_name" required="true" value="{{{ Form::getValueAttribute('bu_name', null ) }}}" class="form-control" placeholder="name">
                 <span id="errorName" class="field-validation-msg"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-xs-5 control-label asterisk">Select Type</label>
-            <div class="col-xs-6">
-                {{ make_company_type_drop_down() }}
-                <span id="error_company_type" class="field-validation-msg"></span>
-            </div>
-        </div>
+
         <div class="form-group">
             <label class="col-xs-5 control-label asterisk">Address</label>
             <div class="col-xs-6">
@@ -73,28 +127,6 @@
         <div class="form-group">
             <label class="col-xs-5 control-label asterisk">Description</label>
             <div class="col-xs-6 hAi">
-                <textarea id="description" name="description" class="form-control" rows="7" cols="20" placeholder="description">{{{ Form::getValueAttribute('description', null) }}}</textarea>
-                <span id="errorName" class="field-validation-msg"></span>
-            </div>
-        </div>
-    </div>
-
-    {{-- Business Unit Basic Info --}}
-    <div class="container w100p">
-        <h3 class="mT15 mB0 c3">Business Unit Basic Info</h3>
-        <hr class="w95p fL mT0" />
-        <hr class="w95p fL mT0" />
-        <div class="form-group">
-            <label class="col-xs-5 control-label asterisk">BU Name</label>
-            <div class="col-xs-6">
-                <input type="text" id="bu_name" name="bu_name" required="true" value="{{{ Form::getValueAttribute('bu_name', null ) }}}" class="form-control" placeholder="name">
-                <span id="errorName" class="field-validation-msg"></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-xs-5 control-label asterisk">Description</label>
-            <div class="col-xs-6 hAi">
                 <textarea id="bu_description" name="bu_description" class="form-control" rows="7" cols="20" placeholder="description">{{{ Form::getValueAttribute('bu_description', null) }}}</textarea>
                 <span id="errorName" class="field-validation-msg"></span>
             </div>
@@ -104,7 +136,7 @@
 <section class="form-Section col-md-6 h1000 fL">
     {{-- User Basic Info --}}
     <div class="container w100p">
-        <h3 class="mT15 mB0 c3">Company Admin LogIn Info</h3>
+        <h3 class="mT15 mB0 c3">Business Unit Admin LogIn Info</h3>
         <hr class="w95p fL mT0" />
         <hr class="w95p fL mT0" />
         <div class="form-group">
@@ -158,10 +190,10 @@
 
 </section>
 <div class="col-xs-12 taR pR0 mT20">
-    <input type="reset" id="reset" value="Reset" class="submit" />
+    {{--<input type="reset" id="reset" value="Reset" class="submit" />--}}
     <input type="submit" id="saveClose" value="Save && Close" class="submit" />
     <input type="submit" id="saveContinue" value="Save && Continue" class="submit" />
-    <input type="button" id="cancel" name="cancel" value="Cancel" class="submit" onclick="goTo('{{route("companies.index")}}')" />
+    <input type="button" id="cancel" name="cancel" value="Cancel" class="submit" onclick="goTo('{{route("businessUnits.index")}}')" />
 </div>
 {{ Form::close() }}
 @section('scripts')
@@ -171,7 +203,7 @@
     <script>
         $(document).ready(function(){
             var options = {
-                saveCloseUrl: "{{route('companies.index')}}",
+                saveCloseUrl: "{{route('businessUnits.index')}}",
             };
             var companyForm = new CompanyForm(window,document,options);
             companyForm.initializeAll();

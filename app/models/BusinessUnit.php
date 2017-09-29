@@ -89,4 +89,46 @@ class BusinessUnit extends \Eloquent {
 		$response = ['success'=>true, 'error'=> false, 'message'=>'BusinessUnit has been saved successfully!','BusinessUnit'=>$businessUnit];
 		return $response;
 	}
+
+    public static function createBusinessUnit($data,$dataProcessType=GlobalsConst::DATA_SAVE){
+        $response = null;
+        $comeFrom = isset($data['comeFrom']) ? $data['comeFrom'] : 'Company';
+        $validator = Validator::make($data, User::$rules);
+
+        if ($validator->fails())
+        {
+            $response = ['success'=>false, 'error'=> true, 'validatorErrors'=>$validator];
+        }
+
+
+        //*******Save Business
+        $businessUnitData['name'] = $data['bu_name'];
+        $businessUnitData['company_id'] = 2;                       //todo dynamic with the flow
+        $businessUnitData['city_id'] = $data['city_id'];
+        $businessUnitData['address'] = $data['address'];
+        $businessUnitData['phone'] = $data['phone'];
+        $businessUnitData['fax'] = $data['fax'];
+        $businessUnitData['is_main'] = GlobalsConst::YES;
+        $businessUnitData['description'] = $data['bu_description'];
+        $BusinessUnitResult = BusinessUnit::saveBusinessUnit($businessUnitData, $dataProcessType);
+        $BusinessUnit = $BusinessUnitResult['BusinessUnit'];
+
+        //*******Save Admin User
+        $userData['company_id'] = 2;                              //todo dynamic with the flow
+        $userData['business_unit_id'] = $BusinessUnit->id;
+        $userData['user_type'] = GlobalsConst::ADMIN;
+        $userData['username'] = $data['username'];
+        $userData['password'] = $data['password'];
+        $userData['email'] = $data['email'];
+        $userData['fname'] = $data['fname'];
+        $userData['lname'] = $data['lname'];
+        $userData['status'] = GlobalsConst::STATUS_ON;
+        $User = User::saveUser($userData,$dataProcessType);
+
+        $Role = Role::find(GlobalsConst::COMPANY_ADMIN_ID);
+        $Role->users()->attach($User['user']->id);
+        $response = ['success'=>true, 'error'=> false, 'message'=>'Company has been saved successfully!'];
+        return $response;
+    }
+
 }

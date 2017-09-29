@@ -11,8 +11,8 @@ class BusinessUnitsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$companies = Company::skip(0)->take(GlobalsConst::LIST_DATA_LIMIT)->orderBy('id','DESC')->get();
-        return View::make('companies.index', compact('companies'));
+		$companies = BusinessUnit::skip(0)->take(GlobalsConst::LIST_DATA_LIMIT)->orderBy('id','DESC')->get();
+        return View::make('business_units.index', compact('companies'));
 	}
 
 	/**
@@ -24,7 +24,7 @@ class BusinessUnitsController extends \BaseController {
 	public function create()
 	{
         $formMode = GlobalsConst::FORM_CREATE;
-        return View::make('companies.create')->nest('_form','companies.partials._form',compact('formMode'));
+        return View::make('business_units.create')->nest('_form','business_units.partials._form',compact('formMode'));
 	}
 
 	/**
@@ -37,7 +37,7 @@ class BusinessUnitsController extends \BaseController {
 	{
         $data = Input::all();
         $data['comeFrom'] = 'Company';
-        $response = Company::saveCompany($data);
+        $response = BusinessUnit::createBusinessUnit($data);
         return $response;
 	}
 
@@ -50,9 +50,9 @@ class BusinessUnitsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-        $company = Company::find($id);
-        $admin = User::where('user_type', 'Admin')->where('company_id', $company->id)->first();
-        return View::make('companies.show', compact('company', 'admin'));
+        $company = BusinessUnit::find($id);
+        $admin = User::where('user_type', 'Admin')->where('business_unit_id', $company->id)->first();
+        return View::make('business_units.show', compact('company', 'admin'));
 	}
 
 	/**
@@ -65,9 +65,9 @@ class BusinessUnitsController extends \BaseController {
 	public function edit($id)
 	{
         $formMode = GlobalsConst::FORM_EDIT;
-		$company = Company::find($id);
-        $admin = User::where('user_type', 'Admin')->where('company_id', $company->id)->first();
-        return View::make('companies.edit')->nest('_form','companies.partials._form',compact('formMode','company','admin'));
+		$company = BusinessUnit::find($id);
+        $admin = User::where('user_type', 'Admin')->where('business_unit_id', $company->id)->first();
+        return View::make('business_units.edit')->nest('_form','business_units.partials._form',compact('formMode','company','admin'));
 	}
 
 	/**
@@ -80,7 +80,7 @@ class BusinessUnitsController extends \BaseController {
 	public function update($id)
 	{
         $data = Input::all();
-        $company = Company::findOrFail($id);
+        $company = BusinessUnit::findOrFail($id);
         $admin = Employee::where('role', 'Administrator')->where('company_id', $company->id)->first();
 
         if ($data['email'] !== $admin->email) {
@@ -130,7 +130,7 @@ class BusinessUnitsController extends \BaseController {
         $admin->status = Input::get('status');
         $admin->update();
 
-        return Redirect::route('companies.index');
+        return Redirect::route('business_units.index');
 	}
 
 	/**
@@ -142,9 +142,9 @@ class BusinessUnitsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-        Company::destroy($id);
+        BusinessUnit::destroy($id);
 
-        return Redirect::route('companies.index');
+        return Redirect::route('business_units.index');
 	}
 
 }
