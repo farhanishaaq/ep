@@ -24,8 +24,20 @@
         </ul>
         @endif
         {{-- End Errors Code Container Block --}}
-        <section class="form-Section col-md-6 h1315 fL">
+
             {{--Contact Info--}}
+
+
+            {{--Contact Info--}}
+
+
+        <div class="tab">
+            <button type="button" class="tablinks" id="selectedButton" onclick="openCity(event, 'London')">London</button>
+            <button type="button" class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+            <button type="button" class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+        </div>
+
+        <div id="London" class="tabcontent">
             <div class="container w100p">
                 <h3 class="mT15 mB0 c3">Basic Info</h3>
                 <hr class="w95p fL mT0" />
@@ -119,14 +131,11 @@
                 </div>
 
             </div>
+        </div>
 
-            {{--Contact Info--}}
+        <div id="Paris" class="tabcontent">
             <div class="container w100p">
                 <h3 class="mT15 mB0 c3">Contact Info</h3>
-                <hr class="w95p fL mT0" />
-                <hr class="w95p fL mT0" />
-
-
 
                 <div class="form-group">
                     <label class="col-xs-5 control-label">Address</label>
@@ -160,8 +169,6 @@
                     </div>
                 </div>
 
-
-
                 <div class="form-group">
                     <label class="col-xs-5 control-label asterisk">Additional Info</label>
                     <div class="col-xs-6">
@@ -171,29 +178,38 @@
                 </div>
 
             </div>
-        </section>
-        <section class="form-Section col-md-6 h1315 fL">
-            <div class="container w100p">
-                <h3 class="mT15 mB0 c3">Patient Photo</h3>
-                <hr class="w95p fL mT0" />
-                <hr class="w95p fL mT0" />
+        </div>
 
-                <div class="form-group profile-photo file-input">
-                    <label class="control-label">Profile Photo</label>
-                    <input id="photo" name="photo" type="hidden" value="{{{ Form::getValueAttribute('photo', null) }}}">
-                    <input id="userPhoto" name="userPhoto" type="file" class="file-loading" accept="image/*">
+
+
+        <div id="Tokyo" class="tabcontent">
+
+                <div class="container w100p">
+                    <h3 class="mT15 mB0 c3">Patient Photo</h3>
+                    <hr class="w95p fL mT0" />
+                    <hr class="w95p fL mT0" />
+
+                    <div class="form-group profile-photo file-input">
+                        <label class="control-label">Profile Photo</label>
+                        <input id="photo" name="photo" type="hidden" value="{{{ Form::getValueAttribute('photo', null) }}}">
+                        <input id="userPhoto" name="userPhoto" type="file" class="file-loading" accept="image/*">
+                    </div>
+
+
+
                 </div>
+        </div>
 
 
 
-            </div>
-        </section>
         <div class="col-xs-12 taR pR0 mT20">
             <input type="reset" id="reset" value="Reset" class="submit" />
             <input type="submit" id="saveClose" name="saveClose" value="Save and Close" class="submit" />
             <input type="submit" id="saveContinue" name="saveContinue" value="Save and Continue" class="submit" />
             <input type="button" id="cancel" value="Cancel" class="submit" onclick="goTo('{{route("patients.index")}}')" />
         </div>
+
+
         {{ Form::close() }}
         @section('scripts')
             <link media="all" type="text/css" rel="stylesheet" href="{{asset('plugins/file-input/css/fileinput.min.css')}}">
@@ -223,6 +239,32 @@
                     };
                     var patientsForm = new PatientsForm(window,document,options);
                     patientsForm.initializeAll();
+                    $(function() {
+                        $('#selectedButton').click();
+                    });
+
                 });
+                function openCity(evt, cityName) {
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+                    document.getElementById(cityName).style.display = "block";
+                    evt.currentTarget.className += " active";
+                }
+
+
+
             </script>
+
+            <style>
+
+
+            </style>
+
         @stop

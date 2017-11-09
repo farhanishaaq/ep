@@ -26,6 +26,13 @@ Route::group(['Public'],function (){
     Route::get('unauthorized', array('as'=>'unauthorized','uses'=>'AuthController@unauthorized'));
 
     /**
+     * For ep social doctor profile
+     */
+    Route::get('drProfile', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
+
+
+
+    /**
      * HomeController Routes
      */
     Route::group(['Home'],function (){
@@ -264,4 +271,12 @@ Route::group(['namespace' => 'App\Controllers\Inventory'],function () {
 
 
 });
+Route::get('testing12', function(){
 
+    /*//    echo Route::getCurrentRoute()->getActionName();die;
+        echo Route::getCurrentRoute()->getActionName();die;
+        print_r(get_class_methods(Route::getCurrentRoute()));die;*/
+
+    return  View::make('doctors/edit');
+    //App\Globals\Ep::checkUpPrescrptionDirectory();die;
+});

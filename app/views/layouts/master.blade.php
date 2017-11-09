@@ -83,8 +83,17 @@
        {{ HTML::style('/css/select2.min.css') }}
        {{ HTML::style('plugins/clock-picker/css/bootstrap-clockpicker.min.css') }}
        {{ HTML::style('/css/style.css') }}
+        <link href="{{ asset('css/theme_style.css') }}" rel="stylesheet" id="rt_style_components" type="text/css" />
+        <!--    <link href="css/style.css" rel="stylesheet" type="text/css" />-->
+        <!--    <link href="css/plugins.min.css" rel="stylesheet" type="text/css" />-->
+        <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/comment.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/starRating.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- google font -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css" />
 
-
+        <!-- icons -->
 
    <!--========================================================
                              JS
