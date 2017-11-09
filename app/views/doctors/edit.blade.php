@@ -3,7 +3,7 @@
                           TITLE
 =========================================================-->
 @section('title')
-Edit Doctor
+    Edit Doctor
 @stop
 
 @section('redBar')

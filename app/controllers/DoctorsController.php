@@ -121,4 +121,10 @@ class DoctorsController extends \BaseController {
 			$message->to(Input::get('email'), Input::get('name'))->subject('Welcome to EP!');
 		});
 	}
+
+	public function showDoctorProfile(){
+	    return View::make ("doctors.drProfile");
+
+    }
+
 }
