@@ -21,6 +21,8 @@ Route::group(['Public'],function (){
     /**
      * AuthController Routes
      */
+
+
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
     Route::get('unauthorized', array('as'=>'unauthorized','uses'=>'AuthController@unauthorized'));
@@ -258,10 +260,17 @@ Route::group(['namespace' => 'App\Controllers\Inventory'],function () {
      * Public Routes
      * ===========================================================================
      */
-    Route::group(['Public'],function () {
+    Route::group(['public'],function () {
+
+
 
     });
 
 
 });
+
+
+
+//    Route::get('search', 'SearchController@index');
+Route::get('/search', 'SearchController@index');
 
