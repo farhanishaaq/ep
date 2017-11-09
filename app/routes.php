@@ -22,6 +22,9 @@ Route::group(['Public'],function (){
      * AuthController Routes
      */
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
+
+
+
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
     Route::get('unauthorized', array('as'=>'unauthorized','uses'=>'AuthController@unauthorized'));
 
@@ -265,3 +268,19 @@ Route::group(['namespace' => 'App\Controllers\Inventory'],function () {
 
 });
 
+/*
+ * Ep Work
+ */
+Route::get('doctorss', 'DoctorContrller@index');
+Route::get('appointmentss', function (){
+            return View::make('appointment');
+
+});
+Route::get('appointment2', function (){
+            return View::make('appointment2');
+
+});
+//Route::get('doctorsss', function (){
+//            return View::make('doctor_list');
+//
+//});

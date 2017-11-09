@@ -14,6 +14,11 @@ class DoctorsController extends \BaseController {
 		$users = Doctor::fetchDoctors();
 		return View::make('doctors.index', compact('users'));
 	}
+	public function show_doctors()
+	{
+		$users = Doctor::fetchDoctors();
+		return View::make('doctors.doctorget', compact('users'));
+	}
 
 	/**
 	 * Show the form for creating a new patient
