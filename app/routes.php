@@ -21,6 +21,8 @@ Route::group(['Public'],function (){
     /**
      * AuthController Routes
      */
+
+
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
 
 
@@ -284,3 +286,8 @@ Route::get('appointment2', function (){
 //            return View::make('doctor_list');
 //
 //});
+
+
+//    Route::get('search', 'SearchController@index');
+Route::get('/search', 'SearchController@index');
+
