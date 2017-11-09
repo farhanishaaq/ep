@@ -21,7 +21,12 @@ Route::group(['Public'],function (){
     /**
      * AuthController Routes
      */
+
+
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
+
+
+
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
     Route::get('unauthorized', array('as'=>'unauthorized','uses'=>'AuthController@unauthorized'));
 
@@ -273,9 +278,38 @@ Route::group(['namespace' => 'App\Controllers\Inventory'],function () {
 });
 Route::get('testing12', function(){
 
-    /*//    echo Route::getCurrentRoute()->getActionName();die;
-        echo Route::getCurrentRoute()->getActionName();die;
-        print_r(get_class_methods(Route::getCurrentRoute()));die;*/
+/*
+ * Ep Work
+ */
+Route::get('doctorss', 'DoctorContrller@index');
+Route::get('appointmentss', function (){
+    return View::make('appointment');
+
+});
+Route::get('appointment2', function (){
+    return View::make('appointment2');
+
+});
+//Route::get('doctorsss', function (){
+//            return View::make('doctor_list');
+//
+//});
+
+
+//    Route::get('search', 'SearchController@index');
+Route::get('/search', 'SearchController@index');
+
+
+
+
+
+
+
+
+
+/*//    echo Route::getCurrentRoute()->getActionName();die;
+    echo Route::getCurrentRoute()->getActionName();die;
+    print_r(get_class_methods(Route::getCurrentRoute()));die;*/
 
     return  View::make('doctors/edit');
     //App\Globals\Ep::checkUpPrescrptionDirectory();die;
