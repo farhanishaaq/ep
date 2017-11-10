@@ -140,7 +140,7 @@ class Doctor extends \Eloquent {
 
 	}
 
-	/**
+    /**
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
 	 */
 	public static function fetchDoctorsForDropDown(){
@@ -232,4 +232,18 @@ class Doctor extends \Eloquent {
                             ->where('doctors.id','=',$doctorId);
         return $qryBuilder->get();
     }
+
+
+//    public function getDoctorsId($city="Lahore",$speciality="Cardiology"){
+//
+////       $specialityId= MedicalSpecialty::select('id')->where('name', 'like',  $speciality)->get();
+////
+////       // $doctorsId = DB::table('doctor_medical_specialty')->where('medical_specialty_id','=',$specialityId[0]['id'])->get();
+////        $doctors = $this->find(1)->doctor;
+////       dd($doctors);
+////
+////       return $doctors;
+//
+
+
 }

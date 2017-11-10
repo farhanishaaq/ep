@@ -9,15 +9,17 @@ class DoctorsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	private $_ms;
+	public function __construct(MedicalSpecialty $ms )
+    {
+    $this->_ms=$ms;
+    }
+
+
+    public function index()
 	{
 		$users = Doctor::fetchDoctors();
 		return View::make('doctors.index', compact('users'));
-	}
-	public function show_doctors()
-	{
-		$users = Doctor::fetchDoctors();
-		return View::make('doctors.doctorget', compact('users'));
 	}
 
 	/**
@@ -122,9 +124,23 @@ class DoctorsController extends \BaseController {
 		});
 	}
 
+    public function show_doctors()
+    {
+        $doctors=$this->_ms->getDoctorBySpeciality();
+        $userData = [];
+        $dutyData = [];
+         foreach ($doctors as $doctor) {
+             array_push($userData, $doctor->user);
+             array_push($dutyData, $doctor->dutyDays);
+         }
+        return View::make('doctors_get_list',compact('doctors','userData','dutyData'));
+    }
 	public function showDoctorProfile(){
-	    return View::make ("doctors.drProfile");
+//        Doctor::getAlldoctors();
+//
+//	    return View::make ("doctors.drProfile");
 
     }
+
 
 }
