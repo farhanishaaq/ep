@@ -232,4 +232,17 @@ class Doctor extends \Eloquent {
                             ->where('doctors.id','=',$doctorId);
         return $qryBuilder->get();
     }
+       public static function fetechDoctorRecord(){
+
+
+
+           $data=DB::table('doctors')
+               ->join('doctor_qualification', 'doctors.id', '=', 'doctor_qualification.doctor_id')
+               ->join('users', 'doctors.user_id', '=', 'users.id')
+               ->select('doctors.id','max_fee', 'institute','fname','lname','full_name','dob','gender','additional_info','cell','address','email')
+               ->where('doctors.id','=','1')
+               ->get();
+
+           return  $data;
+       }
 }
