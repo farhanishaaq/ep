@@ -34,6 +34,7 @@ Route::group(['Public'],function (){
      * For ep social doctor profile
      */
     Route::get('drProfile', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
+    Route::get('patientProfile', array('as'=>'patientProfile','uses'=>'patientsController@getUserProfile'));
 
 
 

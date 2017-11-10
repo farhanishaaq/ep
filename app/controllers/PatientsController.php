@@ -9,7 +9,19 @@ class PatientsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	//protected $_user;
+
+//	public function __construct(User $user)
+//    {
+//        $this->_user=$user;
+//    }
+    private $_patient;
+    public function __construct(Patient $patient)
+    {
+        $this->_patient=$patient;
+    }
+
+    public function index()
 	{
 		$patients = Patient::where('company_id', Auth::user()->company_id)->get();
 		return View::make('patients.index', compact('patients'));
@@ -120,4 +132,33 @@ class PatientsController extends \BaseController {
 			$message->to(Input::get('email'), Input::get('name'))->subject('Welcome to EP!');
 		});
 	}
+
+    /**
+     * @return array|static[]
+     */
+    public function getUserProfile(){
+//        $user =$this->_user->find(16);
+//        $patient =$this->_user->find(16)->patient;
+//        $city=$this->_user->find(16)->city;
+//        $appointments = $this->_user;
+//        $vitals;
+//        $allergies;
+//        $prescription:
+//
+//        $data=DB::table('doctors')
+//        ->join('doctor_qualification', 'doctors.id', '=', 'doctor_qualification.doctor_id')
+//        ->join('users', 'doctors.user_id', '=', 'users.id')
+//        ->select('doctors.id','max_fee', 'institute','fname','lname','full_name','dob','gender','additional_info','cell','address','email')
+//        ->where('doctors.id','=','1')->get();
+//        return  $data;
+        $user=$this->_patient -> getPatientProfile(16);
+
+        return View::make("patients.patientProfile", compact('user','patient','city'));
+
+        dd($data);
+
+        //return View::make("patients.patientProfile", compact('user','patient','city'));
+        //dd($user);
+    }
+
 }
