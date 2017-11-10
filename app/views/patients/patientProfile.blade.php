@@ -3,9 +3,12 @@
                           TITLE
 =========================================================-->
 @section('title')
-    Edit Doctor
+    Profile
 @stop
+@section('headScript')
 
+
+    @stop
 @section('redBar')
     <div >
 
@@ -18,12 +21,21 @@
     {{--<div class="container">--}}
 
 
-    @foreach($drRecord as $profile)
 
     {{--</div>--}}
+
+    {{$user}}
+    {{$city}}
+    <?php
+    $from = new DateTime($user->dob);
+    $to   = new DateTime('today');
+    $user->dob= $from->diff($to)->y;
+    ?>
+
+
+
+
     <div class=" container-fluid" style="max-width: 1200px;">
-        {{--{{$drRecord->fname}}--}}
-        {{--{{ $i=0 }}--}}
 
 
         <div class="row">
@@ -37,97 +49,84 @@
                                     <img src="{{ asset('images/dp.svg') }}" class="img-responsive" alt=""> </div>
                             </div>
                             <div class="profile-usertitle">
-                                <div class="profile-usertitle-name"> {{ $profile->full_name }} </div>
-                                <div class="profile-usertitle-job"> Gynaecologist </div>
+                                <div class="profile-usertitle-name" name="name">{{$user->full_name}} </div>
+
                             </div>
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">
-                                    <b>Fee:</b> <div class="profile-desc-item pull-right">{{$profile->max_fee}}</div>
+                                    <b>Age:</b> <div class="profile-desc-item pull-right">{{ $user->dob  }}</div>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Exprience</b> <div class="profile-desc-item pull-right">10Year</div>
+                                    <b>Phone Number</b> <div class="profile-desc-item pull-right">{{ $user->cell }}</div>
+                                </li>                                <li class="list-group-item">
+                                    <b>gender</b> <div class="profile-desc-item pull-right">{{ $user->gender }}</div>
                                 </li>
-                                <li class="list-group-item">
-                                    <b>Rating</b> <div class="profile-desc-item pull-right">11,172</div>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Degree </b>s
-                                    <div class="profile-desc-item pull-right">MBBS,MD</div>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Designation</b>
-                                    <div class="profile-desc-item pull-right">Gynaecologist</div>
-                                </li>
+
+
                             </ul>
                             <!-- END SIDEBAR USER TITLE -->
                             <!-- SIDEBAR BUTTONS -->
-                            <div class="profile-userbuttons">
-                                <button type="button" class="btn btn-circle green-bgcolor btn-sm">Get Appointment</button>
-                                <button type="button" class="btn btn-circle red btn-sm">Ask a question</button>
-                            </div>
+
                             <!-- END SIDEBAR BUTTONS -->
                         </div>
                     </div>
+                    {{--<div class="card">--}}
+                        {{--<div class="card-head card-topline-aqua">--}}
+                            {{--<header>About Me</header>--}}
+                        {{--</div>--}}
+                        {{--<div class="card-body no-padding height-9">--}}
+                            {{--<div class="profile-desc">--}}
 
-                    <div class="card">
-                        <div class="card-head card-topline-aqua">
-                            <header>About Me</header>
-                        </div>
-                        <div class="card-body no-padding height-9">
-                            <div class="profile-desc">
-                                {{$profile->additional_info}}
-
-                            </div>
-
+                                {{--Hello I am Kiran Patel a Gynaecologist in Sanjivni Hospital Surat. I love to work with all my hospital staff and seniour doctors.--}}
+                            {{--</div>--}}
 
 
-                            <ul class="list-group list-group-unbordered">
-                                <li class="list-group-item">
-                                    <b>Gender </b>
-                                    <div class="profile-desc-item pull-right">{{ $profile->gender }}</div>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Operation Done </b>
-                                    <div class="profile-desc-item pull-right">30+</div>
-                                </li>
 
-                            </ul>
+                            {{--<ul class="list-group list-group-unbordered">--}}
+                                {{--<li class="list-group-item">--}}
+                                    {{--<b>Gender </b>--}}
+                                    {{--<div class="profile-desc-item pull-right">Female</div>--}}
+                                {{--</li>--}}
+                                {{--<li class="list-group-item">--}}
+                                    {{--<b>Operation Done </b>--}}
+                                    {{--<div class="profile-desc-item pull-right">30+</div>--}}
+                                {{--</li>--}}
+
+                            {{--</ul>--}}
                             {{--star rating/--}}
 
 
 
+                            {{--<section class='rating-widget'>--}}
 
-                            <section class='rating-widget'>
+                                {{--<!-- Rating Stars Box -->--}}
+                                {{--<div class='rating-stars text-center'>--}}
+                                    {{--<ul id='stars'>--}}
+                                        {{--<li class='star' title='Poor' data-value='1'>--}}
+                                            {{--<i class='fa fa-star fa-fw'></i>--}}
+                                        {{--</li>--}}
+                                        {{--<li class='star' title='Fair' data-value='2'>--}}
+                                            {{--<i class='fa fa-star fa-fw'></i>--}}
+                                        {{--</li>--}}
+                                        {{--<li class='star' title='Good' data-value='3'>--}}
+                                            {{--<i class='fa fa-star fa-fw'></i>--}}
+                                        {{--</li>--}}
+                                        {{--<li class='star' title='Excellent' data-value='4'>--}}
+                                            {{--<i class='fa fa-star fa-fw'></i>--}}
+                                        {{--</li>--}}
+                                        {{--<li class='star' title='WOW!!!' data-value='5'>--}}
+                                            {{--<i class='fa fa-star fa-fw'></i>--}}
+                                        {{--</li>--}}
+                                    {{--</ul>--}}
+                                {{--</div>--}}
 
-                                <!-- Rating Stars Box -->
-                                <div class='rating-stars text-center'>
-                                    <ul id='stars'>
-                                        <li class='star' title='Poor' data-value='1'>
-                                            <i class='fa fa-star fa-fw'></i>
-                                        </li>
-                                        <li class='star' title='Fair' data-value='2'>
-                                            <i class='fa fa-star fa-fw'></i>
-                                        </li>
-                                        <li class='star' title='Good' data-value='3'>
-                                            <i class='fa fa-star fa-fw'></i>
-                                        </li>
-                                        <li class='star' title='Excellent' data-value='4'>
-                                            <i class='fa fa-star fa-fw'></i>
-                                        </li>
-                                        <li class='star' title='WOW!!!' data-value='5'>
-                                            <i class='fa fa-star fa-fw'></i>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                            </section>
+                            {{--</section>--}}
 
                             {{--star rating/--}}
-                        </div>
-                    </div>
+                        {{--</div>--}}
+                    {{--</div>--}}
 
                 </div>
-
                 <!-- END BEGIN PROFILE SIDEBAR -->
                 <!-- BEGIN PROFILE CONTENT -->
                 <div class="profile-content">
@@ -150,51 +149,96 @@
                                                         <div class="row">
                                                             <div id="biography" >
                                                                 <div class="row">
-                                                                    <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
+
+                                                                    <div class="col-md-3 col-xs-6 b-r"> <strong>Email:</strong>
                                                                         <br>
-                                                                        <p class="text-muted">{{ $profile->full_name }}</p>
-                                                                    </div>
-                                                                    <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
-                                                                        <br>
-                                                                        <p class="text-muted">{{$profile->cell}}</p>
-                                                                    </div>
-                                                                    <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
-                                                                        <br>
-                                                                        <p class="text-muted">{{$profile->email}}</p>
+                                                                        <p class="text-muted">{{$user->email}}</p>
                                                                     </div>
                                                                     <div class="col-md-3 col-xs-6"> <strong>Location</strong>
                                                                         <br>
-                                                                        <p class="text-muted">{{$profile->address}}</p>
+                                                                        <p class="text-muted">{{$city->name}}</p>
                                                                     </div>
                                                                 </div>
-                                                                <hr>
-                                                                <p class="m-t-30">Completed my graduation in Gynaecologist Medicine from the well known and renowned institution of India – SARDAR PATEL MEDICAL COLLEGE, BARODA in 2000-01, which was affiliated to M.S. University. I ranker in University exams from the same university from 1996-01.</p>
-                                                                <p>Worked as  Professor and Head of the department ; Community medicine Department  at Sterline Hospital, Rajkot, Gujarat from 2003-2015 </p>
+
 
                                                                 <br>
-                                                                <h4 class="font-bold">Education</h4>
+                                                                <h4 class="font-bold">Appointment History</h4>
                                                                 <hr>
-                                                                <ul>
-                                                                    <li>M.B.B.S.,Gujarat University, Ahmedabad,India.</li>
-                                                                    <li>M.S.,Gujarat University, Ahmedabad, India.</li>
-                                                                    <li>SPINAL FELLOWSHIP Dr. John Adam, Allegimeines Krakenhaus, Schwerin, Germany.</li>
-                                                                    <li>Fellowship in Endoscopic Spine Surgery Phoenix, USA.</li>
-                                                                    <li>D.N.B from AIIMS</li>
-                                                                </ul>
+
+
+                                                                        <table id="" class="table-striped" style="width: 100%" >
+                                                                            <thead>
+                                                                            <tr>
+
+                                                                                <th>Doctor Name</th>
+                                                                                <th>Time</th>
+                                                                                <th>date</th>
+                                                                                <th>Status</th>
+                                                                                <th>Paid Fee</th>
+                                                                            </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            <tr>
+                                                                                <td>Tiger Nixon</td>
+                                                                                <td>System Architect</td>
+                                                                                <td>Edinburgh</td>
+                                                                                <td>61</td>
+                                                                                <td>2011/04/25</td>
+                                                                                <td>$320,800</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Garrett Winters</td>
+                                                                                <td>Accountant</td>
+                                                                                <td>Tokyo</td>
+                                                                                <td>63</td>
+                                                                                <td>2011/07/25</td>
+                                                                                <td>$170,750</td>
+                                                                            </tr>
+
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
                                                                 <br>
-                                                                <h4 class="font-bold">Experience</h4>
+                                                                <h4 class="font-bold">Vitals History </h4>
                                                                 <hr>
-                                                                <ul>
-                                                                    <li>One year rotatory internship from April-2009 to march-2010 at B. J. Medical College, Ahmedabad.</li>
-                                                                    <li>Three year residency at V.S. General Hospital as a resident in orthopedics from April - 2008 to April - 2011.</li>
-                                                                    <li>I have worked as a part time physiotherapist in Apang manav mandal from 1st june 2004 to 31st jan 2005.</li>
-                                                                    <li>Clinical and Research fellowship in Scoliosis at Shaurashtra University and Medical Centre (KUMC) , Krishna Hospital  , Rajkot from April 2013 to June 2013.</li>
-                                                                    <li>2.5 Years Worked at Mahatma Gandhi General Hospital, Surendranagar.</li>
-                                                                    <li>Consultant Orthopedics Surgeon Jalna 2 years.</li>
-                                                                </ul>
+                                                        <table id="" class="table-striped" style="width: 100%" >
+                                                            <thead>
+                                                            <tr>
+                                                                <th>sr</th>
+                                                                <th>Weight</th>
+                                                                <th>Height</th>
+                                                                <th>Blood pressure</th>
+                                                                <th>Temperature</th>
+                                                                <th>Date</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>Tiger Nixon</td>
+                                                                <td>System Architect</td>
+                                                                <td>Edinburgh</td>
+                                                                <td>61</td>
+                                                                <td>2011/04/25</td>
+                                                                <td>$320,800</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Garrett Winters</td>
+                                                                <td>Accountant</td>
+                                                                <td>Tokyo</td>
+                                                                <td>63</td>
+                                                                <td>2011/07/25</td>
+                                                                <td>$170,750</td>
+                                                            </tr>
+
+
+                                                            </tbody>
+                                                        </table>
+
 
                                                                 <br>
-                                                                <h4 class="font-bold">Professional Affiliations </h4>
+                                                                <h4 class="font-bold">Allergies </h4>
                                                                 <hr>
                                                                 <ul>
                                                                     <li>Life member: Association of Spine Surgeons’ of India.</li>
@@ -202,6 +246,123 @@
                                                                     <li>Life Member: The Indian Society for Bone and Mineral Research (ISBMR).</li>
                                                                     <li>Life member: Ahmedabad Orthopaedic Society</li>
                                                                 </ul>
+
+
+                                                        <br>
+                                                        <h4 class="font-bold">Prescriptions </h4>
+                                                        <table id="" class="table-striped" style="width: 100%" >
+                                                            <thead>
+                                                            <tr>
+                                                                <th>sr</th>
+                                                                <th>Medcine name</th>
+                                                                <th>Usage</th>
+                                                                <th>Strenght</th>
+                                                                <th>Quantity</th>
+                                                                <th>Time</th>
+                                                                <th>Date</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>
+                                                                    <ul>
+                                                                        <li>Tiger Nixon</li>
+                                                                        <li>Tiger Nixon</li>
+                                                                        <li>Tiger Nixon</li>
+                                                                        <li>Tiger Nixon</li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td>
+                                                                    <ul>
+                                                                        <li>Oral</li>
+                                                                        <li>Oral</li>
+                                                                        <li>Oral</li>
+                                                                        <li>Oral</li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td>
+                                                                    <ul>
+                                                                        <li>65mg</li>
+                                                                        <li>65mg</li>
+                                                                        <li>65mg</li>
+                                                                        <li>65mg</li>
+                                                                    </ul>
+
+                                                                </td>
+                                                                <td>
+                                                                    <ul>
+                                                                        <li>1tab</li>
+                                                                        <li>1tab</li>
+                                                                        <li>1tab</li>
+                                                                        <li>1tab</li>
+                                                                    </ul>
+
+                                                                </td>
+                                                                <td>
+                                                                    <ul>
+                                                                        <li>Morning</li>
+                                                                        <li>Morning</li>
+                                                                        <li>Morning</li>
+                                                                        <li>Morning</li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td>25/6/2016</td>
+
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>2</td>
+                                                                <td>
+                                                                    <ul>
+                                                                        <li>Tiger Nixon</li>
+                                                                        <li>Tiger Nixon</li>
+                                                                        <li>Tiger Nixon</li>
+                                                                        <li>Tiger Nixon</li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td>
+                                                                    <ul>
+                                                                        <li>Oral</li>
+                                                                        <li>Oral</li>
+                                                                        <li>Oral</li>
+                                                                        <li>Oral</li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td>
+                                                                    <ul>
+                                                                        <li>65mg</li>
+                                                                        <li>65mg</li>
+                                                                        <li>65mg</li>
+                                                                        <li>65mg</li>
+                                                                    </ul>
+
+                                                                </td>
+                                                                <td>
+                                                                    <ul>
+                                                                        <li>1tab</li>
+                                                                        <li>1tab</li>
+                                                                        <li>1tab</li>
+                                                                        <li>1tab</li>
+                                                                    </ul>
+
+                                                                </td>
+                                                                <td>
+                                                                    <ul>
+                                                                        <li>Morning</li>
+                                                                        <li>Morning</li>
+                                                                        <li>Morning</li>
+                                                                        <li>Morning</li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td>23/6/2016</td>
+
+
+                                                            </tr>
+
+
+                                                            </tbody>
+                                                        </table>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -214,65 +375,12 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
                     <!-- END PROFILE CONTENT -->
-                    {{--start comment-module--}}
-                    <div class="detailBox">
-                        <div class="titleBox">
-                            <label>Comment Box</label>
-                            <button type="button" class="close" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="commentBox">
 
-                            <p class="taskDescription">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        </div>
-                        <div class="actionBox">
-                            <ul class="commentList">
-                                <li>
-                                    <div class="commenterImage">
-                                        <img src="http://placekitten.com/50/50" />
-                                    </div>
-                                    <div class="commentText">
-                                        <p class="">Hello this is a test comment.</p> <span class="date sub-text">on March 5th, 2014</span>
-
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="commenterImage">
-                                        <img src="http://placekitten.com/45/45" />
-                                    </div>
-                                    <div class="commentText">
-                                        <p class="">Hello this is a test comment and this comment is particularly very long and it goes on and on and on.</p> <span class="date sub-text">on March 5th, 2014</span>
-
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="commenterImage">
-                                        <img src="http://placekitten.com/40/40" />
-                                    </div>
-                                    <div class="commentText">
-                                        <p class="">Hello this is a test comment.</p> <span class="date sub-text">on March 5th, 2014</span>
-
-                                    </div>
-                                </li>
-                            </ul>
-                            <form class="form-inline" role="form">
-                                <div class="form-group">
-                                    <input class="form-control" type="text" placeholder="Your comments" />
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-default">Add</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <hr>
-                    {{--end comment-module --}}
                 </div>
             </div>
         </div>
     </div>
-
     <!-- end page content -->
     <!-- start chat sidebar -->
     <div class="chat-sidebar-container" data-close-on-body-click="false">
@@ -534,81 +642,20 @@
         </div>
     </div>
     <!-- end chat sidebar -->
-    </div>
 
-    <!-- end page container -->
-    <!-- start footer -->
-    <!-- end footer -->
-    </div></div>
-    <!-- start js include path -->
-    <!-- start js include path -->
-    {{--<script src="{{ asset('js/jquery.min.js') }}" type="text/javascript"></script>--}}
     <script src="{{ asset('js/jquery.blockui.min.js') }}" type="text/javascript"></script>
-    {{--<script src="{{ asset('js/jquery.blockui.min.js') }}" type="text/javascript"></script>--}}
+
     <script src="{{ asset('js/jquery.sparkline.min.js') }}" type="text/javascript"></script>
-    <!-- bootstrap -->
-    {{--<script src="{{ asset('js/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>--}}
+
     <script src="{{ asset('js/bootstrap-switch/js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
 
-    <!--
-            <script src="js/jquery.slimscroll.js"></script>
-            <script src="js/app.js" type="text/javascript"></script>
-    -->
     <script src=" {{ asset('js/profile.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/layout.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/starRating.js') }}" type="text/javascript"></script>
+
+
 
 
 @stop
 
 
 
-
-{{--<!DOCTYPE html>--}}
-{{--<html lang="en">--}}
-{{--<!-- BEGIN HEAD -->--}}
-
-{{--<!-- Mirrored from www.radixtouch.in/hospital/source/doctor_profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 27 Oct 2017 13:48:33 GMT -->--}}
-{{--<head>--}}
-    {{--<meta charset="utf-8" />--}}
-    {{--<meta http-equiv="X-UA-Compatible" content="IE=edge">--}}
-    {{--<meta content="width=device-width, initial-scale=1" name="viewport" />--}}
-    {{--<meta name="description" content="Responsive Admin Template" />--}}
-    {{--<meta name="author" content="RedstarHospital" />--}}
-    {{--<title>Redstar Hospital | Bootstrap Responsive Hospital Admin Template</title>--}}
-
-    {{--<!-- google font -->--}}
-    {{--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css" />--}}
-
-    {{--<!-- icons -->--}}
-
-
-    {{--<!--bootstrap -->--}}
-    {{--<link href="{{asset('css/bootstrap.min.css')}} " rel="stylesheet" type="text/css" />--}}
-    {{--<!--    <link href="js/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />-->--}}
-
-    {{--<!-- theme style -->--}}
-    {{--<link href="{{ asset('css/theme_style.css') }}" rel="stylesheet" id="rt_style_components" type="text/css" />--}}
-    {{--<!--    <link href="css/style.css" rel="stylesheet" type="text/css" />-->--}}
-    {{--<!--    <link href="css/plugins.min.css" rel="stylesheet" type="text/css" />-->--}}
-    {{--<link href="{{ asset('css/responsive.css') }}" rel="stylesheet" type="text/css" />--}}
-    {{--<link href="{{ asset('css/comment.css') }}" rel="stylesheet" type="text/css" />--}}
-    {{--<link href="{{ asset('css/starRating.css') }}" rel="stylesheet" type="text/css" />--}}
-    {{--<link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />--}}
-
-
-
-    {{--<!-- favicon -->--}}
-    {{--<link rel="shortcut icon" href="images/favicon.ico" />--}}
-{{--</head>--}}
-{{--<!-- END HEAD -->--}}
-{{--<body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md page-container-bg-solid page-content-white">--}}
-
-
-{{--<!--google map-->--}}
-
-{{--<!-- end js include path -->--}}
-
-{{--</body>--}}
-
-{{--</html>--}}

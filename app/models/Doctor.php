@@ -140,7 +140,7 @@ class Doctor extends \Eloquent {
 
 	}
 
-    /**
+	/**
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
 	 */
 	public static function fetchDoctorsForDropDown(){
@@ -234,7 +234,7 @@ class Doctor extends \Eloquent {
     }
 
 
-//    public function getDoctorsId($city="Lahore",$speciality="Cardiology"){
+    //    public function getDoctorsId($city="Lahore",$speciality="Cardiology"){
 //
 ////       $specialityId= MedicalSpecialty::select('id')->where('name', 'like',  $speciality)->get();
 ////
@@ -245,5 +245,20 @@ class Doctor extends \Eloquent {
 ////       return $doctors;
 //
 
+
+
+    public static function fetechDoctorRecord(){
+
+
+
+           $data=DB::table('doctors')
+               ->join('doctor_qualification', 'doctors.id', '=', 'doctor_qualification.doctor_id')
+               ->join('users', 'doctors.user_id', '=', 'users.id')
+               ->select('doctors.id','max_fee', 'institute','fname','lname','full_name','dob','gender','additional_info','cell','address','email')
+               ->where('doctors.id','=','1')
+               ->get();
+
+           return  $data;
+       }
 
 }
