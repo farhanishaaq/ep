@@ -36,6 +36,7 @@ Route::group(['Public'],function (){
     Route::get('drProfile', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
     Route::get('patientProfile', array('as'=>'patientProfile','uses'=>'patientsController@getUserProfile'));
 
+    Route::get('drProfile', 'DoctorsController@GetProfile');
 
 
     /**

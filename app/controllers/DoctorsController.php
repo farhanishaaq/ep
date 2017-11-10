@@ -126,5 +126,14 @@ class DoctorsController extends \BaseController {
 	    return View::make ("doctors.drProfile");
 
     }
+    public function GetProfile()
+    {
+        $drRecord=Doctor::fetechDoctorRecord();
+
+
+       return View::make('doctors.drProfile', compact('drRecord'));
+
+
+    }
 
 }

@@ -18,9 +18,12 @@
     {{--<div class="container">--}}
 
 
+    @foreach($drRecord as $profile)
 
     {{--</div>--}}
     <div class=" container-fluid" style="max-width: 1200px;">
+        {{--{{$drRecord->fname}}--}}
+        {{--{{ $i=0 }}--}}
 
 
         <div class="row">
@@ -34,15 +37,15 @@
                                     <img src="{{ asset('images/dp.svg') }}" class="img-responsive" alt=""> </div>
                             </div>
                             <div class="profile-usertitle">
-                                <div class="profile-usertitle-name"> Dr.Kiran Patel </div>
+                                <div class="profile-usertitle-name"> {{ $profile->full_name }} </div>
                                 <div class="profile-usertitle-job"> Gynaecologist </div>
                             </div>
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">
-                                    <b>Fee:</b> <div class="profile-desc-item pull-right">1,200</div>
+                                    <b>Fee:</b> <div class="profile-desc-item pull-right">{{$profile->max_fee}}</div>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Exprience</b> <div class="profile-desc-item pull-right">750</div>
+                                    <b>Exprience</b> <div class="profile-desc-item pull-right">10Year</div>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Rating</b> <div class="profile-desc-item pull-right">11,172</div>
@@ -65,14 +68,15 @@
                             <!-- END SIDEBAR BUTTONS -->
                         </div>
                     </div>
+
                     <div class="card">
                         <div class="card-head card-topline-aqua">
                             <header>About Me</header>
                         </div>
                         <div class="card-body no-padding height-9">
                             <div class="profile-desc">
+                                {{$profile->additional_info}}
 
-                                Hello I am Kiran Patel a Gynaecologist in Sanjivni Hospital Surat. I love to work with all my hospital staff and seniour doctors.
                             </div>
 
 
@@ -80,7 +84,7 @@
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">
                                     <b>Gender </b>
-                                    <div class="profile-desc-item pull-right">Female</div>
+                                    <div class="profile-desc-item pull-right">{{ $profile->gender }}</div>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Operation Done </b>
@@ -89,6 +93,7 @@
 
                             </ul>
                             {{--star rating/--}}
+
 
 
 
@@ -122,6 +127,7 @@
                     </div>
 
                 </div>
+
                 <!-- END BEGIN PROFILE SIDEBAR -->
                 <!-- BEGIN PROFILE CONTENT -->
                 <div class="profile-content">
@@ -146,19 +152,19 @@
                                                                 <div class="row">
                                                                     <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
                                                                         <br>
-                                                                        <p class="text-muted">Dr.Kiran Patel</p>
+                                                                        <p class="text-muted">{{ $profile->full_name }}</p>
                                                                     </div>
                                                                     <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
                                                                         <br>
-                                                                        <p class="text-muted">(123) 456 7890</p>
+                                                                        <p class="text-muted">{{$profile->cell}}</p>
                                                                     </div>
                                                                     <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
                                                                         <br>
-                                                                        <p class="text-muted">kiranpatel@sanjivnee.com</p>
+                                                                        <p class="text-muted">{{$profile->email}}</p>
                                                                     </div>
                                                                     <div class="col-md-3 col-xs-6"> <strong>Location</strong>
                                                                         <br>
-                                                                        <p class="text-muted">India</p>
+                                                                        <p class="text-muted">{{$profile->address}}</p>
                                                                     </div>
                                                                 </div>
                                                                 <hr>
@@ -208,6 +214,7 @@
                             </div>
                         </div>
                     </div>
+                @endforeach
                     <!-- END PROFILE CONTENT -->
                     {{--start comment-module--}}
                     <div class="detailBox">
@@ -265,6 +272,7 @@
             </div>
         </div>
     </div>
+
     <!-- end page content -->
     <!-- start chat sidebar -->
     <div class="chat-sidebar-container" data-close-on-body-click="false">
