@@ -51,12 +51,12 @@
                                     <b>Rating</b> <div class="profile-desc-item pull-right">11,172</div>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Degree </b>s
-                                    <div class="profile-desc-item pull-right">MBBS,MD</div>
+                                    <b>Degree</b>
+                                    <div class="profile-desc-item pull-right">{{$profile->code}}</div>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Designation</b>
-                                    <div class="profile-desc-item pull-right">Gynaecologist</div>
+                                    <div class="profile-desc-item pull-right"></div>
                                 </li>
                             </ul>
                             <!-- END SIDEBAR USER TITLE -->
@@ -175,11 +175,11 @@
                                                                 <h4 class="font-bold">Education</h4>
                                                                 <hr>
                                                                 <ul>
-                                                                    <li>M.B.B.S.,Gujarat University, Ahmedabad,India.</li>
-                                                                    <li>M.S.,Gujarat University, Ahmedabad, India.</li>
-                                                                    <li>SPINAL FELLOWSHIP Dr. John Adam, Allegimeines Krakenhaus, Schwerin, Germany.</li>
-                                                                    <li>Fellowship in Endoscopic Spine Surgery Phoenix, USA.</li>
-                                                                    <li>D.N.B from AIIMS</li>
+                                                                    <li>{{$profile->code}}</li>
+                                                                    <li>{{$profile->title}}</li>
+                                                                    <li>{{$profile->description}}</li>
+                                                                    <li>{{$profile->institute}}</li>
+
                                                                 </ul>
                                                                 <br>
                                                                 <h4 class="font-bold">Experience</h4>
