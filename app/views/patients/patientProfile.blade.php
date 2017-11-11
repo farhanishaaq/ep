@@ -23,9 +23,7 @@
 
 
     {{--</div>--}}
-
-    {{$user}}
-    {{$city}}
+{{dd($user)}}
     <?php
     $from = new DateTime($user->dob);
     $to   = new DateTime('today');

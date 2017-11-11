@@ -16,9 +16,12 @@ class PatientsController extends \BaseController {
 //        $this->_user=$user;
 //    }
     private $_patient;
+
+
     public function __construct(Patient $patient)
     {
         $this->_patient=$patient;
+
     }
 
     public function index()
@@ -134,7 +137,7 @@ class PatientsController extends \BaseController {
 	}
 
     /**
-     * @return array|static[]
+     * @return \Illuminate\Contracts\View\View
      */
     public function getUserProfile(){
 //        $user =$this->_user->find(16);
@@ -145,20 +148,28 @@ class PatientsController extends \BaseController {
 //        $allergies;
 //        $prescription:
 //
-//        $data=DB::table('doctors')
-//        ->join('doctor_qualification', 'doctors.id', '=', 'doctor_qualification.doctor_id')
-//        ->join('users', 'doctors.user_id', '=', 'users.id')
-//        ->select('doctors.id','max_fee', 'institute','fname','lname','full_name','dob','gender','additional_info','cell','address','email')
-//        ->where('doctors.id','=','1')->get();
-//        return  $data;
-        $user=$this->_patient -> getPatientProfile(16);
+        //$this->_patient->getPatientAppointments(1);
 
-        return View::make("patients.patientProfile", compact('user','patient','city'));
 
-        dd($data);
+        $users=$this->_patient -> getPatientProfile(16);
 
-        //return View::make("patients.patientProfile", compact('user','patient','city'));
-        //dd($user);
+        var_dump($users);
+
+
+        //dd($users);
+        $zombie=2;
+        $appointments= $this->_patient->getPatientAppointments(function ($zombie){
+              return $zombie;
+//            foreach ($zombie as $user ){
+//
+//            }
+
+        });
+
+//        return View::make("patients.patientProfile", compact('user','patient','city'));
+        return View::make("patients.patientProfile", compact('user','appointments'));
+
+
     }
 
 }
