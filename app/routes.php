@@ -18,6 +18,12 @@
  * ===========================================================================
  */
 Route::group(['Public'],function (){
+
+    Route::get('signUp', function (){
+        return View::make('signUp');
+
+    });
+
     /**
      * AuthController Routes
      */
@@ -284,10 +290,8 @@ Route::get('testing12', function(){
  * Ep Work
  */
 Route::get('doctorss', 'DoctorContrller@index');
-Route::get('appointmentss', function (){
-            return View::make('appointment');
 
-});
+
 Route::get('appointment2', function (){
             return View::make('appointment2');
 

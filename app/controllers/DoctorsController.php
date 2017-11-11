@@ -22,11 +22,11 @@ class DoctorsController extends \BaseController {
 		return View::make('doctors.index', compact('users'));
 	}
 
-	public function show_doctors()
-	{
-		$users = Doctor::fetchDoctors();
-		return View::make('doctors.doctorget', compact('users'));
-	}
+//	public function show_doctors()
+//	{
+//		$users = Doctor::fetchDoctors();
+//		return View::make('doctors.doctorget', compact('users'));
+//	}
 
 	/**
 	 * Show the form for creating a new patient
@@ -144,24 +144,30 @@ class DoctorsController extends \BaseController {
 
     }
 
-//    public function show_doctors()
-//    {
-//        $doctors=$this->_ms->getDoctorBySpeciality();
-//        $userData = [];
-//        $dutyData = [];
-//        foreach ($doctors as $doctor) {
-//            array_push($userData, $doctor->user);
-//            array_push($dutyData, $doctor->dutyDays);
-//        }
-//        return View::make('doctors_get_list',compact('doctors','userData','dutyData'));
-//    }
+    public function show_doctors()
+    {
+        $speciality = "Cardiology";
+        $doctors = $this->_ms->getDoctorBySpeciality('Lahore',$speciality);
+
+        $userData = [];
+        $dutyData = [];
+        $specialityData = [];
+        foreach ($doctors as $doctor) {
+            array_push($userData, $doctor->user);
+            array_push($dutyData, $doctor->dutyDays);
+            array_push($specialityData, $doctor->medicalSpecialties);
+
+        }
+        return View::make('doctors_get_list', compact('doctors', 'userData', 'dutyData', 'specialityData','speciality'));
+
+    }
 //    public function showDoctorProfile(){
 ////        Doctor::getAlldoctors();
 ////
 ////	    return View::make ("doctors.drProfile");
 //
 //    }
-//
+
 
 
 }

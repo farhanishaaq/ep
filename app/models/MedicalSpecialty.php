@@ -13,11 +13,11 @@ class MedicalSpecialty extends \Eloquent {
 	}
 
 
-	public function getDoctorBySpeciality($city="Lahore",$speciality="Cardiology"){
+	public function getDoctorBySpeciality($city,$speciality){
 
         $specialityId= self::select('id')->where('name', 'like',  $speciality)->get();
-        $doctors = $this->find($specialityId[0]['id'])->doctors;
-        return $doctors;
+            $doctors = $this->find($specialityId[0]['id'])->doctors;
+            return $doctors;
     }
 
 

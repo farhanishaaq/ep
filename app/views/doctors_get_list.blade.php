@@ -12,7 +12,11 @@
 @section('redBar')
     <div class = "user_logo">
         <div class="header_1 wrap_3 color_3 login-bar">
-            Searched "Dermatologist / Skin Specialist" in Lahore
+            Searched "
+
+                {{$speciality}}
+
+            " in Lahore
         </div>
     </div>
 @stop
@@ -50,7 +54,7 @@
                             <i class="zmdi zmdi-info" title="verified user"></i>
                         </div>
                         <div>
-                            <h4 class="m-b-5">Dr. Sheraz</h4>
+                            <h4 class="m-b-5">Dr. Shahid</h4>
                             <p class="text-muted">Dentist<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
                         </div>
                         <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
@@ -85,8 +89,10 @@
                         <div class="col-md-3 col-sm-3  col-lg-3" >
                             <div class="col-xs-12 col-md-12 col-sm-12" style="text-align: center">
                                 <h4 align="center"><strong>{{$userData[$i]->full_name}}</strong></h4>
-                                <p align="center" >Skin Specialist <span> <a href="#" style="color: red">websitename.com</a> </span></p>
-                                <a style="" href="profile.html"  class="btn btn-raised btn-sm">View Profile</a>
+                                <p align="center" >@foreach($specialityData[$i] as $specialitydata)
+                                        {{$specialitydata->name}}
+                                    @endforeach <span> <a href="#" style="color: red">websitename.com</a> </span></p>
+                                <a style="" href="{{asset('drProfile/'.$doctors[$i]->id)}}"  class="btn btn-raised btn-sm">View Profile</a>
                                 <ul class="social-links list-inline m-t-10">
                                     <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
                                     <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
@@ -96,12 +102,18 @@
                         </div>
                         <div class="col-md-3 col-sm-3  col-lg-3" style="text-align: center">
                             <div style="">
-                                <h5 align="center" ><strong>Signature Skin Care</strong></h5>
-                                <p align="center" >(@foreach($dutyData[$i] as $dutydata)
+                                <h5 align="center" ><strong>Signature
+                                        @foreach($specialityData[$i] as $specialitydata)
+                                            {{$specialitydata->name}}
+                                        @endforeach</strong></h5>
+
+                                <p align="center" >(
+                                    @foreach($dutyData[$i] as $dutydata)
                                         {{$dutydata->start}}
-                                    @endforeach AM - @foreach($dutyData[$i] as $dutydata)
+                                    @endforeach <strong>AM</strong>)<br><strong>To</strong><br> (@foreach($dutyData[$i] as $dutydata)
                                         {{$dutydata->end}}
-                                    @endforeach PM)</p>
+                                    @endforeach
+                                    <strong>PM</strong>)</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-3  col-lg-3">
