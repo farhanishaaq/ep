@@ -18,11 +18,17 @@
  * ===========================================================================
  */
 Route::group(['Public'],function (){
+
+    Route::get('signUp', function (){
+        return View::make('signUp');
+
+    });
+
     /**
      * AuthController Routes
      */
 
-
+    Route::get('doctorget', 'DoctorsController@show_doctors');
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
 
 
@@ -34,6 +40,7 @@ Route::group(['Public'],function (){
      * For ep social doctor profile
      */
     Route::get('drProfile', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
+    Route::get('patientProfile', array('as'=>'patientProfile','uses'=>'patientsController@getUserProfile'));
 
     Route::get('drProfile', 'DoctorsController@GetProfile');
 
@@ -283,12 +290,10 @@ Route::get('testing12', function(){
  * Ep Work
  */
 Route::get('doctorss', 'DoctorContrller@index');
-Route::get('appointmentss', function (){
-    return View::make('appointment');
 
-});
+
 Route::get('appointment2', function (){
-    return View::make('appointment2');
+            return View::make('appointment2');
 
 });
 //Route::get('doctorsss', function (){
@@ -301,17 +306,19 @@ Route::get('appointment2', function (){
 Route::get('/search', 'SearchController@index');
 
 
-
-
-
-
-
+    return  View::make('doctors/edit');
+    //App\Globals\Ep::checkUpPrescrptionDirectory();die;
+});
+Route::get('doctors_get_list', 'DoctorsController@show_doctors');
 
 
 /*//    echo Route::getCurrentRoute()->getActionName();die;
     echo Route::getCurrentRoute()->getActionName();die;
     print_r(get_class_methods(Route::getCurrentRoute()));die;*/
 
-    return  View::make('doctors/edit');
-    //App\Globals\Ep::checkUpPrescrptionDirectory();die;
-});
+//return  View::make('doctors/edit');
+//App\Globals\Ep::checkUpPrescrptionDirectory();die;
+//});
+
+
+

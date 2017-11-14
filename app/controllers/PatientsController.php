@@ -9,7 +9,22 @@ class PatientsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	//protected $_user;
+
+//	public function __construct(User $user)
+//    {
+//        $this->_user=$user;
+//    }
+    private $_patient;
+
+
+    public function __construct(Patient $patient)
+    {
+        $this->_patient=$patient;
+
+    }
+
+    public function index()
 	{
 		$patients = Patient::where('company_id', Auth::user()->company_id)->get();
 		return View::make('patients.index', compact('patients'));
@@ -120,4 +135,41 @@ class PatientsController extends \BaseController {
 			$message->to(Input::get('email'), Input::get('name'))->subject('Welcome to EP!');
 		});
 	}
+
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function getUserProfile(){
+//        $user =$this->_user->find(16);
+//        $patient =$this->_user->find(16)->patient;
+//        $city=$this->_user->find(16)->city;
+//        $appointments = $this->_user;
+//        $vitals;
+//        $allergies;
+//        $prescription:
+//
+        //$this->_patient->getPatientAppointments(1);
+
+
+        $users=$this->_patient -> getPatientProfile(16);
+
+        var_dump($users);
+
+
+        //dd($users);
+        $zombie=2;
+        $appointments= $this->_patient->getPatientAppointments(function ($zombie){
+              return $zombie;
+//            foreach ($zombie as $user ){
+//
+//            }
+
+        });
+
+//        return View::make("patients.patientProfile", compact('user','patient','city'));
+        return View::make("patients.patientProfile", compact('user','appointments'));
+
+
+    }
+
 }

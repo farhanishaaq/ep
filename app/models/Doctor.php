@@ -232,7 +232,22 @@ class Doctor extends \Eloquent {
                             ->where('doctors.id','=',$doctorId);
         return $qryBuilder->get();
     }
-       public static function fetechDoctorRecord(){
+
+
+    //    public function getDoctorsId($city="Lahore",$speciality="Cardiology"){
+//
+////       $specialityId= MedicalSpecialty::select('id')->where('name', 'like',  $speciality)->get();
+////
+////       // $doctorsId = DB::table('doctor_medical_specialty')->where('medical_specialty_id','=',$specialityId[0]['id'])->get();
+////        $doctors = $this->find(1)->doctor;
+////       dd($doctors);
+////
+////       return $doctors;
+//
+
+
+
+    public static function fetechDoctorRecord(){
 
 
 
@@ -246,4 +261,5 @@ class Doctor extends \Eloquent {
 //qualifications
            return  $data;
        }
+
 }
