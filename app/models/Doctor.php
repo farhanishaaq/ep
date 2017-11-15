@@ -255,6 +255,7 @@ class Doctor extends \Eloquent {
                ->join('doctor_qualification', 'doctors.id', '=', 'doctor_qualification.doctor_id')
                ->join('users', 'doctors.user_id', '=', 'users.id')
                ->join('qualifications', 'doctor_qualification.qualification_id', '=', 'qualifications.id')
+//               ->join('comments','comments.doctor_id','=','doctors.id')
                ->select('doctors.id','max_fee','code','title','description','institute','fname','lname','full_name','dob','gender','additional_info','cell','address','email')
                ->where('doctors.id','=',$id)
                ->get();

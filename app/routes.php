@@ -55,7 +55,7 @@ Route::group(['Public'],function (){
 
     Route::get('drProfile/{id}', 'DoctorsController@GetProfile');
 
-    Route::post('comment',array('as'=>'comment','uses'=>'CommentsController@store'));
+
 
 //
 
@@ -335,8 +335,10 @@ Route::get('doctors_get_list', 'DoctorsController@show_doctors');
 //return  View::make('doctors/edit');
 //App\Globals\Ep::checkUpPrescrptionDirectory();die;
 //});
-Route::post('comment',array('as'=>'comment','uses'=>'CommentsController@store'));
-//});
+
+Route::post('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
+
+
 
 
 

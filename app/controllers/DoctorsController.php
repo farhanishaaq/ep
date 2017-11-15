@@ -137,9 +137,10 @@ class DoctorsController extends \BaseController {
     public function GetProfile($id)
     {
         $drRecord=Doctor::fetechDoctorRecord($id);
+        $drComments=Comment::fetechDoctorComments($id);
 
 
-       return View::make('doctors.drProfile', compact('drRecord'));
+       return View::make('doctors.drProfile', compact('drRecord','drComments'));
 
 
     }
