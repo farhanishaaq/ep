@@ -35,5 +35,8 @@ class City extends \Eloquent {
 		return $this->hasMany('User');
 	}
 
-
+    public function citiesForSelect(){
+	    $cities = self::select('name','id')->get();
+	    return $cities;
+    }
 }

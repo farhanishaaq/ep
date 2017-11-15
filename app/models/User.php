@@ -333,4 +333,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		}
 		return $response;
 	}
+
+	public function getDoctorByNameForSelector($name){
+	    $doctors = self::select('id','full_name')
+                    ->where("user_type",'=','Doctor')
+                    ->where('full_name','like','%'.$name.'%')->get();
+
+	    return json_encode($doctors);
+    }
 }

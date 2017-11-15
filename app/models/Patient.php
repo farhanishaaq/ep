@@ -152,8 +152,8 @@ class Patient extends \Eloquent {
 
 
     public function getPatientAppointments($patientId){
-        dd($patientId);
 
+        dd($patientId);
         $appointments = $this->findorfail($patientId)->appointments;
         $appointments =$appointments->toarray();
         return $appointments;
