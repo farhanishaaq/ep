@@ -7,11 +7,31 @@ class SearchController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+    private $_city;
+    private $_user;
+	public function __construct(City $city,User $user)
+    {
+        $this->_city=$city;
+        $this->_user=$user;
+    }
+
+    public function index()
 	{
 		//
-        return View::make('doctor_search/search');
+        $cities = $this->_city->citiesForSelect();
+
+        return View::make('doctor_search.search',compact('cities'));
 	}
+	public function getDoctorNamesForSelector(){
+
+	    if (Request::ajax()){
+
+            $users = $this ->_user->getDoctorByNameForSelector('o');
+        //    dd($users);
+            return $users;
+        }
+
+    }
 
 
 	/**
@@ -83,5 +103,9 @@ class SearchController extends BaseController {
 		//
 	}
 
+	public function getSelectData(){
+
+
+    }
 
 }

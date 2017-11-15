@@ -43,6 +43,10 @@ Route::group(['Public'],function (){
     Route::get('patientProfile', array('as'=>'patientProfile','uses'=>'patientsController@getUserProfile'));
 
     Route::get('drProfile', 'DoctorsController@GetProfile');
+    Route::get('search', 'SearchController@index');
+    Route::get('searchdata', 'SearchController@getSelectData');
+    Route::get('searchDoc', array('as'=>'searchDoc','user'=>'SearchController@getDoctorNamesForSelector'));
+    Route::get('searchDoc','SearchController@getDoctorNamesForSelector');
 
 
     /**
@@ -303,12 +307,12 @@ Route::get('appointment2', function (){
 
 
 //    Route::get('search', 'SearchController@index');
-Route::get('/search', 'SearchController@index');
+//Route::get('/search', 'SearchController@index');
 
 
-    return  View::make('doctors/edit');
-    //App\Globals\Ep::checkUpPrescrptionDirectory();die;
-});
+//    return  View::make('doctors/edit');
+//    //App\Globals\Ep::checkUpPrescrptionDirectory();die;
+//});
 Route::get('doctors_get_list', 'DoctorsController@show_doctors');
 
 
@@ -318,7 +322,7 @@ Route::get('doctors_get_list', 'DoctorsController@show_doctors');
 
 //return  View::make('doctors/edit');
 //App\Globals\Ep::checkUpPrescrptionDirectory();die;
-//});
+});
 
 
 
