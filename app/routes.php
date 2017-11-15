@@ -39,10 +39,15 @@ Route::group(['Public'],function (){
     /**
      * For ep social doctor profile
      */
-    Route::get('drProfile', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
+//    Route::get('drProfile', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
     Route::get('patientProfile', array('as'=>'patientProfile','uses'=>'patientsController@getUserProfile'));
 
-    Route::get('drProfile', 'DoctorsController@GetProfile');
+    Route::get('drProfile/{id}', 'DoctorsController@GetProfile');
+
+    Route::post('comment',array('as'=>'comment','uses'=>'CommentsController@store'));
+
+//
+
 
 
     /**
@@ -67,6 +72,7 @@ Route::group(['Public'],function (){
     Route::get('remind', array('as'=>'remind','uses'=>'RemindersController@getRemind'));
     Route::controller('password', 'RemindersController');
 });
+
 
 
 /**
@@ -319,6 +325,7 @@ Route::get('doctors_get_list', 'DoctorsController@show_doctors');
 //return  View::make('doctors/edit');
 //App\Globals\Ep::checkUpPrescrptionDirectory();die;
 //});
+Route::post('comment',array('as'=>'comment','uses'=>'CommentsController@store'));
 
 
 

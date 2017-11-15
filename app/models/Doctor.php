@@ -247,7 +247,7 @@ class Doctor extends \Eloquent {
 
 
 
-    public static function fetechDoctorRecord(){
+    public static function fetechDoctorRecord($id){
 
 
 
@@ -256,7 +256,7 @@ class Doctor extends \Eloquent {
                ->join('users', 'doctors.user_id', '=', 'users.id')
                ->join('qualifications', 'doctor_qualification.qualification_id', '=', 'qualifications.id')
                ->select('doctors.id','max_fee','code','title','description','institute','fname','lname','full_name','dob','gender','additional_info','cell','address','email')
-               ->where('doctors.id','=','1')
+               ->where('doctors.id','=',$id)
                ->get();
 //qualifications
            return  $data;
