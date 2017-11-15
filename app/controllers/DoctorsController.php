@@ -9,10 +9,12 @@ class DoctorsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	private $_ms;
-	public function __construct(MedicalSpecialty $ms )
+	private $_medicalSpeciality;
+	private $_doctor;
+	public function __construct(MedicalSpecialty $medicalSpecialty,Doctor $doctor )
     {
-    $this->_ms=$ms;
+    $this->_medicalSpeciality = $medicalSpecialty;
+    $this->_doctor = $doctor;
     }
 
 
@@ -143,29 +145,18 @@ class DoctorsController extends \BaseController {
 
 
     }
-
-    public function show_doctors()
+    public function showDoctors()
     {
-        $speciality = "Cardiology";
-        $doctors = $this->_ms->getDoctorBySpeciality('Lahore',$speciality);
-
-        $userData = [];
-        $dutyData = [];
-        $specialityData = [];
-        foreach ($doctors as $doctor) {
-            array_push($userData, $doctor->user);
-            array_push($dutyData, $doctor->dutyDays);
-            array_push($specialityData, $doctor->medicalSpecialties);
-
-        }
-        return View::make('doctors_get_list', compact('doctors', 'userData', 'dutyData', 'specialityData','speciality'));
+        $try = array ('specialityId'=>'2','cityId'=>'2');
+        $doctors = $this->_doctor->fetchPublicDoctors($try);
+        return View::make('doctors_get_list', compact('doctors'));
 
     }
+
 //    public function showDoctorProfile(){
-////        Doctor::getAlldoctors();
-////
-////	    return View::make ("doctors.drProfile");
+//        Doctor::getAlldoctors();
 //
+//	    return View::make ("doctors.drProfile");
 //    }
 
 

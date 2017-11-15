@@ -8,6 +8,10 @@ class AuthController extends \BaseController {
 	{
 		return View::make('auth.login');
 	}
+	public function showSignUp()
+	{
+		return View::make('auth.signUp');
+	}
 
 	public function doLogin()
 	{
