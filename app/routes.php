@@ -337,6 +337,7 @@ Route::get('doctors_get_list', 'DoctorsController@show_doctors');
 //});
 
 Route::post('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
+Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'));
 
 
 

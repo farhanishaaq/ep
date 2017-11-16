@@ -219,12 +219,13 @@
             </div>
         </div>
     </div>
-                @endforeach
+
 
                     <!-- END PROFILE CONTENT -->
                     {{--start comment-module--}}
-               <div class="detailBox">
-                 <h2>Comments on Doctor's Checkup</h2>
+               <div class="detailBox" style="padding-right: 100px; padding-left: 100px">
+                   @endforeach
+                 <h3 class="detailBox">Comments on Doctor's Checkup</h3>
                     @foreach($drComments as $comment)
                            <div class="actionBox">
                             <ul class="commentList">
