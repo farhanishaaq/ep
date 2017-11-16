@@ -17,18 +17,13 @@
  * ===========================================================================
  */
 Route::group(['Public'],function (){
-
-    Route::get('signUp', function (){
-        return View::make('signUp');
-
-    });
-
     /**
      * AuthController Routes
      */
 
-    Route::get('doctorget', 'DoctorsController@show_doctors');
+    Route::get('getDoctors', 'DoctorsController@showDoctors');
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
+    Route::get('signUp', array('as'=>'signUp','uses'=>'AuthController@showSignUp'));
 
 
 
@@ -38,7 +33,7 @@ Route::group(['Public'],function (){
     /**
      * For ep social doctor profile
      */
-    Route::get('drProfile', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
+    Route::get('drProfile/{id}', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
     Route::get('patientProfile', array('as'=>'patientProfile','uses'=>'patientsController@getUserProfile'));
 
 
@@ -55,10 +50,9 @@ Route::group(['Public'],function (){
 
     Route::get('drProfile/{id}', 'DoctorsController@GetProfile');
 
-    Route::post('comment',array('as'=>'comment','uses'=>'CommentsController@store'));
+
 
 //
-
 
 
     /**
@@ -335,8 +329,10 @@ Route::get('doctors_get_list', 'DoctorsController@show_doctors');
 //return  View::make('doctors/edit');
 //App\Globals\Ep::checkUpPrescrptionDirectory();die;
 //});
-Route::post('comment',array('as'=>'comment','uses'=>'CommentsController@store'));
-//});
+
+Route::post('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
+
+
 
 
 

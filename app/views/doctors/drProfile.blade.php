@@ -17,9 +17,10 @@
 @section('content')
     {{--<div class="container">--}}
 
+<?php $id=0; ?>
 
     @foreach($drRecord as $profile)
-
+        <?php $id = $profile->id ?>
     {{--</div>--}}
     <div class=" container-fluid" style="max-width: 1200px;">
         {{--{{$drRecord->fname}}--}}
@@ -214,71 +215,56 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
                 @endforeach
+
                     <!-- END PROFILE CONTENT -->
                     {{--start comment-module--}}
-                    <div class="detailBox">
-                        <div class="titleBox">
-                            <label>Comment Box</label>
-                            <button type="button" class="close" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="commentBox">
-
-                            <p class="taskDescription">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        </div>
-                        <div class="actionBox">
+               <div class="detailBox">
+                 <h2>Comments on Doctor's Checkup</h2>
+                    @foreach($drComments as $comment)
+                           <div class="actionBox">
                             <ul class="commentList">
                                 <li>
                                     <div class="commenterImage">
                                         <img src="http://placekitten.com/50/50" />
                                     </div>
                                     <div class="commentText">
-                                        <p class="">Hello this is a test comment.</p> <span class="date sub-text">on March 5th, 2014</span>
+                                        <p class="">{{$comment->comments}}</p> <span class="date sub-text">{{$comment->created_at}}</span>
 
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="commenterImage">
-                                        <img src="http://placekitten.com/45/45" />
-                                    </div>
-                                    <div class="commentText">
-                                        <p class="">Hello this is a test comment and this comment is particularly very long and it goes on and on and on.</p> <span class="date sub-text">on March 5th, 2014</span>
 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="commenterImage">
-                                        <img src="http://placekitten.com/40/40" />
-                                    </div>
-                                    <div class="commentText">
-                                        <p class="">Hello this is a test comment.</p> <span class="date sub-text">on March 5th, 2014</span>
-
-                                    </div>
-                                </li>
                             </ul>
-                            <form class="form-inline" role="form" action="{{ route('comment')}}" method="get" >
+                        </div>
+                        @endforeach
+                    </div>
+
+                            <form class="form-inline" role="form" action="{{route('comment')}}" method="post" >
 
 
-                                <div class="form-group">
-                                    <input class="form-control" type="text" placeholder="Your comments" name="addComment" />
+                                <div class="form-group" style="padding-left: 200px">
+                                    <input class="form-control" type="text" placeholder="Your comments" name="addComment" style="min-width: 800px " />
+                                    <input class="form-control" type="hidden" value="{{$id}}" name="Doctro_id" >
 
+                                    <meta name="csrf-token" content="{{ csrf_token() }}" />
+                                    {{--<input  type="hidden"  name="commenttoken" value=" {{csrf_token()}}" />--}}
 
-
-                                    <input  type="hidden"  name="addComment" value=" {{csrf_token()}}" />
-
-                                    <button class="btn btn-default" type="submit">Add</button>
+                                    <button class="btn btn-default" name="submit" type="submit" style="min-width: 800px">Comment</button>
                                 </div>
                             </form>
-                        </div>
-                    </div>
-                    <hr>
+
+
+
                     {{--end comment-module --}}
-                </div>
-            </div>
-        </div>
-    </div>
 
 
+
+                     <br><br>
+                    <br><br>
 
     <!-- start js include path -->
     <!-- start js include path -->
@@ -294,6 +280,7 @@
             <script src="js/jquery.slimscroll.js"></script>
             <script src="js/app.js" type="text/javascript"></script>
     -->
+    <script type="text/javascript"> $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});</script>
     <script src=" {{ asset('js/profile.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/layout.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/starRating.js') }}" type="text/javascript"></script>
