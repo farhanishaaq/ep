@@ -28,6 +28,7 @@ class="current"
                           CONTENT
 =========================================================-->
 @section('content')
+<br>
     <section id="content">
 		<div class="login">
 			<div class="login-card login-page">
@@ -70,6 +71,7 @@ class="current"
 
 			</div>
 		</div>
+		<br><br><br>
 		<br><br><br>
 		<br><br><br><br>
 		<br><br><br><br><br><br>

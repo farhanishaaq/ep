@@ -28,6 +28,7 @@ Route::group(['Public'],function (){
 
 
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
+    Route::post('doSignUp', array('as'=>'doSignUp','uses'=>'AuthController@doSignUp'));
     Route::get('unauthorized', array('as'=>'unauthorized','uses'=>'AuthController@unauthorized'));
 
     /**

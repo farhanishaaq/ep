@@ -33,55 +33,71 @@
         <div class="block-header">
             <h4 style="margin-left: 50px;">EP-Sociale</h4>
         </div>
-        <div class="col-md-12 col-sm-12  col-lg-12">
-            <div class="col-md-3 col-sm-3  col-lg-3 ">
-                <div class="card ">
-                    <div class="body">
-                        <div class="member-card verified">
-                            <ul class="header-dropdown">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="zmdi zmdi-more-vert"></i></a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Edit</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Delete</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Block</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="thumb-xl member-thumb">
-                            <img src="{{asset('images/random-avatar3.jpg')}}" class="img-circle" alt="profile-image">
-                            <i class="zmdi zmdi-info" title="verified user"></i>
-                        </div>
-                        <div>
-                            <h4 class="m-b-5">Dr. Shahid</h4>
-                            <p class="text-muted">Dentist<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
-                        </div>
-                        <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-                        <a href="profile.html"  class="btn btn-raised btn-sm">View Profile</a>
-                        <ul class="social-links list-inline m-t-10">
-                            <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                            <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                            <li><a title="instagram" href="3.html" ><i class="zmdi zmdi-instagram"></i></a></li>
-                        </ul>
-                    </div>
+
+                                                                                                    {{--//Total Screen--}}
+        <div class="col-md-12 col-sm-12  col-lg-12" style="background-color: whitesmoke">
+                                                                                                       {{--//Left Panel--}}
+            <div class="col-md-3 col-sm-3  col-lg-3">
+                <div class="col-md-12 col-sm-12  col-lg-12 card listBox" style="border-radius: 25px; padding-top: 10px; ">
+
+                    <h2>City</h2>
+                    {{ Form::open(array('url' => 'getDoctors')) }}
+                    <label for="city">Karachi</label>
+                    <input type="radio" name="gender" id="city" value="male"><br>
+                    <label for="female">Lahore</label>
+                    <input type="radio" name="gender" id="female" value="female"><br>
+                    <label for="other">Gujranwala</label>
+                    <input type="radio" name="gender" id="other" value="other"><br><br>
+                    <input type="submit" value="Submit">
+                  {{ Form::close() }}
+                        {{--<div class="member-card verified">--}}
+                            {{--<ul class="header-dropdown">--}}
+                                {{--<li class="dropdown">--}}
+                                    {{--<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="zmdi zmdi-more-vert"></i></a>--}}
+                                    {{--<ul class="dropdown-menu pull-right">--}}
+                                        {{--<li><a href="javascript:void(0);" class=" waves-effect waves-block">Edit</a></li>--}}
+                                        {{--<li><a href="javascript:void(0);" class=" waves-effect waves-block">Delete</a></li>--}}
+                                        {{--<li><a href="javascript:void(0);" class=" waves-effect waves-block">Block</a></li>--}}
+                                    {{--</ul>--}}
+                                {{--</li>--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
+                        {{--<div class="thumb-xl member-thumb">--}}
+                            {{--<img src="{{asset('images/random-avatar3.jpg')}}" class="img-circle" alt="profile-image">--}}
+                            {{--<i class="zmdi zmdi-info" title="verified user"></i>--}}
+                        {{--</div>--}}
+                        {{--<div>--}}
+                            {{--<h4 class="m-b-5">Dr. Shahid</h4>--}}
+                            {{--<p class="text-muted">Dentist<span> <a href="#" class="text-pink">websitename.com</a> </span></p>--}}
+                        {{--</div>--}}
+                        {{--<p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>--}}
+                        {{--<a href="profile.html"  class="btn btn-raised btn-sm">View Profile</a>--}}
+                        {{--<ul class="social-links list-inline m-t-10">--}}
+                            {{--<li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>--}}
+                            {{--<li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>--}}
+                            {{--<li><a title="instagram" href="3.html" ><i class="zmdi zmdi-instagram"></i></a></li>--}}
+                        {{--</ul>--}}
+
                 </div>
             </div>
 
 
             {{--Right Panel--}}
-            <div class="col-md-9 col-sm-9  col-lg-9" style="background-color: whitesmoke">
+            <div class="col-md-9 col-sm-9  col-lg-9">
 
                 {{--@foreach ($doctors as $doctors)--}}
                     @for($i=0; $i<sizeof($doctors);$i++)
 
                     <div class="col-md-12 col-sm-12  col-lg-12 card listBox" style="border-radius: 25px; padding-top: 10px; ">
-                        <div class="col-md-3 col-sm-3  col-lg-3 align-center">
+                        <div class="col-md-3 col-sm-3 col-lg-3">
+
+                        <div class="col-md-11 col-sm-11  col-lg-11   col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
                             <div class="thumb-xl member-thumb " style="align-items: center">
                                 <img src="{{asset('images/random-avatar3.jpg')}}" class="img-circle" alt="profile-image" >
                                 <i class="zmdi zmdi-info" title="verified user"></i>
-                                <div class="col-md-12" style=" border-radius:25px; margin-top:10px;border: 2px solid wheat; background-color: #00adef; color: white ">Exp. 15 year</div>
                             </div>
+                         </div>
+                         <div class="col-md-10 col-sm-10  col-lg-10   col-lg-offset-1 col-md-offset-1 col-sm-offset-1" style=" border-radius:25px; margin-top:10px;border: 2px solid wheat; background-color: #00adef; color: white ">Exp. 15 year</div>
                         </div>
                         <div class="col-md-3 col-sm-3  col-lg-3" >
                             <div class="col-xs-12 col-md-12 col-sm-12" style="text-align: center">
@@ -92,9 +108,9 @@
                                 <p align="center" >
 
                                <strong>{{$doctors[$i]->code}}</strong><br>
-{{$doctors[$i]->id}}
+
                                      <span> <a href="#" style="color: red">websitename.com</a> </span></p>
-                                <a style="" href="{{route('drProfile')}}/"  class="btn btn-raised btn-sm">View Profile</a>
+                                <a style="" href="{{route('drProfile')}}"  class="btn btn-raised btn-sm">View Profile</a>
                                 <ul class="social-links list-inline m-t-10">
                                     <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
                                     <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
