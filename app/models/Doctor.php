@@ -275,43 +275,21 @@ class Doctor extends \Eloquent
 
             $doctors = DB::table('doctors')
                 ->join('users', 'doctors.user_id', '=', 'users.id')
-                ->join('doctor_qualification', 'doctors.id', '=', 'doctor_qualification.doctor_id')
-                ->join('qualifications', 'doctor_qualification.id', '=', 'qualifications.id')
                 ->join('duty_days', 'doctors.id', '=', 'duty_days.doctor_id')
+                ->join('cities', 'users.city_id', '=', 'cities.id')
+                ->join('doctor_qualification', 'duty_days.doctor_id', '=', 'doctor_qualification.doctor_id')
+                ->join('qualifications', 'doctor_qualification.id', '=', 'qualifications.id')
                 ->join('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
                 ->join('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
-                ->join('cities', 'users.city_id', '=', 'cities.id')
-                ->select('max_fee','min_fee','medical_specialties.name','full_name','doctors.id','start','end','code')
-                ->where('users.id', '=', $filterParams['name'])
-                ->where('cities.id', '=', $filterParams['city'])
-                ->get();
+                ->select('max_fee', 'min_fee', 'full_name', 'start','end','code','medical_specialties.name')
+                ->where('doctors.user_id',  $filterParams['name'])
+                ->where('users.city_id',  $filterParams['city'])
+                ->groupBy('users.id')->get();
+
+      return $doctors;
 
 
-//            $doctors = DB::table('doctors')
-//                ->join('users', 'doctors.user_id', '=', 'users.id')
-//                ->join('doctor_qualification', 'doctors.id', '=', 'doctor_qualification.doctor_id')
-//                ->join('qualifications', 'doctor_qualification.id', '=', 'qualifications.id')
-//                ->join('duty_days', 'doctors.id', '=', 'duty_days.doctor_id');
-//
-//            if (isset($filterParams['cityId']) && !empty($filterParams["cityId"])) {
-//                $doctors->join('cities', 'users.city_id', '=', 'cities.id')
-//                    ->where('cities.id', '=', $filterParams['cityId']);
-//            }
-//
-//            if (isset($filterParams['specialityId']) && !empty($filterParams["specialityId"])) {
-//                $doctors->join('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
-//                    ->join('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
-//                    ->where('medical_specialties.id', '=', $filterParams['specialityId']);
-//            }
-//            if(isset($filterParams['full_name'])) {
-//                $doctors->where('full_name', 'like', $filterParams['specialityId']);
-//            }
-//
-//            $doctors->select('max_fee', 'min_fee', 'medical_specialties.name', 'full_name', 'doctors.id', 'start', 'end', 'code')
-//                ->where('medical_specialties.id', '=', $filterParams['specialityId'])
-//                ->get();
-
-            return $doctors;
+            
 
         } catch (Throwable $t) {
             // Executed only in PHP 7, will not match in PHP 5.x
@@ -325,6 +303,26 @@ class Doctor extends \Eloquent
 
 
 
+//
+//            $doctors = self::select('full_name')
+//                ->join('users', 'doctors.user_id', '=', 'users.id')
+////                ->join('doctor_qualification', 'doctors.id', '=', 'doctor_qualification.doctor_id')
+////                ->join('qualifications', 'doctor_qualification.id', '=', 'qualifications.id')
+//                ->join('duty_days', 'doctors.id', '=', 'duty_days.doctor_id')
+//                ->join('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
+//                ->join('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
+//                ->join('cities', 'users.city_id', '=', 'cities.id')
+////                ->select('max_fee','min_fee','full_name','doctors.id','start','end')
+////                ->select('full_name','max_fee','min_fee')
+////
+//                ->where('users.id', '=', $filterParams['name'])
+//                ->where('users.city_id', '=', $filterParams['city'])
+//                ->get();
+//            dd($filterParams);
+//            $specialityId = self::join('users', 'users.id', '=', 'doctors.user_id', 'inner')
+//               ->where('doctors.user_id','=',$filterParams['name']);
+//
+//    dd($specialityId);
 
 
 

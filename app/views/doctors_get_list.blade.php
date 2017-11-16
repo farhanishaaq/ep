@@ -41,15 +41,15 @@
                 <div class="col-md-12 col-sm-12  col-lg-12 card listBox" style="border-radius: 25px; padding-top: 10px; ">
 
                     <h2>City</h2>
-                    {{ Form::open(array('url' => 'getDoctors')) }}
-                    <label for="city">Karachi</label>
-                    <input type="radio" name="gender" id="city" value="male"><br>
+                    {{ Form::open(array('url' => 'getDoctors/2/9')) }}
+                    <label for="male">Karachi</label>
+                    <input type="radio" name="gender" id="male" value="male"><br>
                     <label for="female">Lahore</label>
                     <input type="radio" name="gender" id="female" value="female"><br>
                     <label for="other">Gujranwala</label>
                     <input type="radio" name="gender" id="other" value="other"><br><br>
                     <input type="submit" value="Submit">
-                  {{ Form::close() }}
+                  {{ Form::close()}}
                         {{--<div class="member-card verified">--}}
                             {{--<ul class="header-dropdown">--}}
                                 {{--<li class="dropdown">--}}
