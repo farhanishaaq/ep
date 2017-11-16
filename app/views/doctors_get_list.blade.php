@@ -14,7 +14,6 @@
         <div class="header_1 wrap_3 color_3 login-bar">
             Searched "
 
-                {{$doctors[0]->name}}
 
             " in Lahore
         </div>
