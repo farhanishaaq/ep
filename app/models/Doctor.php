@@ -289,10 +289,7 @@ class Doctor extends \Eloquent
       return $doctors;
 
 
-//            if (is_object($doctors)){
-//                $x['0']=$doctors;
-//                return $x;
-//            }
+            
 
         } catch (Throwable $t) {
             // Executed only in PHP 7, will not match in PHP 5.x
