@@ -52,7 +52,7 @@
 
                 </div>
                 <div class="col-lg-2 col-md-2 pd0">
-                    <button type="submit" class="btn">Search <span class="glyphicon glyphicon-search"></span></button>
+                    <button type="submit" class="btn" style="width: ">Search <span class="glyphicon glyphicon-search"></span></button>
                 </div>
             </form>
 
