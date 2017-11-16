@@ -1,37 +1,19 @@
 <?php
+use App\Globals\GlobalsConst;
+use Illuminate\Http\Request;
 
-class SearchController extends BaseController {
+
+class CommentsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-    private $_city;
-    private $_user;
-	public function __construct(City $city,User $user)
-    {
-        $this->_city=$city;
-        $this->_user=$user;
-    }
-
-    public function index()
+	public function index()
 	{
 		//
-        $cities = $this->_city->citiesForSelect();
-
-        return View::make('doctor_search.search',compact('cities'));
 	}
-	public function getDoctorNamesForSelector(){
-
-	    if (Request::ajax()){
-
-            $users = $this ->_user->getDoctorByNameForSelector('o');
-        //    dd($users);
-            return $users;
-        }
-
-    }
 
 
 	/**
@@ -53,6 +35,17 @@ class SearchController extends BaseController {
 	public function store()
 	{
 		//
+
+        $data = Input::all();
+
+        $comment = new Comment;
+        $comment->doctor_id = Input::get('Doctro_id');
+        $comment->comments = Input::get('addComment');
+
+        $comment->save();
+
+        return Redirect::back();
+       
 	}
 
 
@@ -65,6 +58,15 @@ class SearchController extends BaseController {
 	public function show($id)
 	{
 		//
+        $drcomment=Comment::fetechDoctorComments($id);
+
+
+//        return View::make('doctors.drProfile')->with('drcomment', $drcomment);
+
+
+
+
+
 	}
 
 
@@ -103,9 +105,5 @@ class SearchController extends BaseController {
 		//
 	}
 
-	public function getSelectData(){
-
-
-    }
 
 }

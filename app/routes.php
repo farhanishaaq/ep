@@ -37,7 +37,23 @@ Route::group(['Public'],function (){
     Route::get('drProfile/{id}', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
     Route::get('patientProfile', array('as'=>'patientProfile','uses'=>'patientsController@getUserProfile'));
 
-    Route::get('drProfile', 'DoctorsController@GetProfile');
+
+    Route::get('search', 'SearchController@index');
+    Route::get('searchdata', 'SearchController@getSelectData');
+    Route::get('searchDoc', array('as'=>'searchDoc','user'=>'SearchController@getDoctorNamesForSelector'));
+    Route::get('searchDoc','SearchController@getDoctorNamesForSelector');
+
+
+
+
+
+
+    Route::get('drProfile/{id}', 'DoctorsController@GetProfile');
+
+
+
+//
+
 
     /**
      * HomeController Routes
@@ -313,6 +329,10 @@ Route::get('doctors_get_list', 'DoctorsController@show_doctors');
 //return  View::make('doctors/edit');
 //App\Globals\Ep::checkUpPrescrptionDirectory();die;
 //});
+
+Route::post('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
+
+
 
 
 
