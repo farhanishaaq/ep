@@ -34,6 +34,8 @@ class SearchController extends BaseController {
         $data = Input::all();
      //   dd($data['q']);
             return User::where('full_name','LIKE','%'.$data['q'].'%')
+                ->where('city_id','=',$data['city'])
+                ->where('user_type','=','Doctor')
                 ->paginate(10);
         }
 

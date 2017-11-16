@@ -4,7 +4,7 @@
                                   TITLE
         =========================================================-->
 @section('title')
-    Login
+    Home
 @stop
 
 <!--========================================================
@@ -18,9 +18,9 @@
 
 @stop
 @section('redBar')
-    <div class = "user_logo">
-        <div class="header_1 wrap_3 color_3 login-bar">Search Doctor</div>
-    </div>
+    {{--<div class = "user_logo">--}}
+        {{--<div class="header_1 wrap_3 color_3 login-bar">Search Doctor</div>--}}
+    {{--</div>--}}
 @stop
 
 
@@ -33,33 +33,47 @@
         =========================================================-->
 
 @section('content')
-    <div class="container-fluid" style="background-image: url('{{asset('images/index_slide02.jpg')}}') ; height: 500px">
+    <div class="banner" style="background-image: url({{asset('images/index_slide02-1.jpeg')}});background-size: 100% auto">
+    <div class="container-fluid" >
+        <div class="row" >
+            {{--<img src="}" style="z-index: -1">--}}
 
-        <div class="col-lg-8 col-lg-offset-2 ">
-            <form class="col-lg-12 form-inline" method="" id="search" action="" style="margin-top: 300px">
-                <div class="col-lg-3 col-md-3 pd0">
 
-                    <select class="js-example-basic-single" id="city">
-                        @foreach($cities as $city)
-                            <option value="{{$city['id']}}">{{$city['name']}}</option>
-                        @endforeach
-                    </select>
+    <div class="col-lg-8 col-lg-offset-2 ">
+        <form class="col-lg-12 form-inline" method="" id="search" action="{{route('getDoctors')}}" style="margin-top: 150px">
+            <div class="col-lg-3 col-md-3 pd0">
 
-                </div>
-                <div class="col-lg-7 col-md-7 pd0">
+                <select class="js-example-basic-single" id="city">
+                    @foreach($cities as $city)
+                        <option value="{{$city['id']}}">{{$city['name']}}</option>
+                    @endforeach
+                </select>
 
-                    <select name="user_id" id="users" class="form-control" style="width:100%"> </select>
+            </div>
+            <div class="col-lg-7 col-md-7 pd0">
 
-                </div>
-                <div class="col-lg-2 col-md-2 pd0">
-                    <button type="submit" class="btn" style="width: ">Search <span class="glyphicon glyphicon-search"></span></button>
-                </div>
-            </form>
+                <select name="user_id" id="users" class="form-control" style="width:100%"> </select>
+
+            </div>
+
+
+            <div class="col-lg-2 col-md-2 pd0">
+                <button type="submit" class="btn btn-style" style="">Search <span class="glyphicon glyphicon-search"></span></button>
+            </div>
+        </form>
+
+
+        <div style="margin-top: 550px"></div>
+
+    </div>
+
+
 
 
         </div>
-        <div id="msg"></div>
 
+
+</div>
     </div>
 
 
@@ -70,7 +84,7 @@
                 placeholder: 'Select an option'
 
             });
-
+            var userId=0
             $('#users').select2({
 
                 ajax : {
@@ -97,6 +111,7 @@
                 minimumInputLength : 1,
                 templateResult : function (repo){
                     if(repo.loading)
+
                         return repo.full_name;
 
                     var markup =  repo.full_name;
@@ -104,21 +119,39 @@
                 },
                 templateSelection : function(repo)
                 {
+                    userId=repo.id
                     return repo.full_name;
                 },
                 escapeMarkup : function(markup){ return markup; }
             });
 
 
+            var action= $('#search').attr('action');
+
+
+            console.log(action)
+                $('#users').change(function () {
+                    upAction =( action.replace('/%7Bcity%7D/%7Bname%7D','/'+$('#city').val()+'/'+userId))
+                    $('#search').attr('action',upAction)
+                });
+
+            
 
         });
 
 
     </script>
+
+
     <style>
         .select2.select2-container{
             border-radius: 5px;
 
+        }
+        .btn-style{
+
+            width:100%;
+            height:45px
         }
 
         .pd0{
