@@ -52,7 +52,10 @@
             </div>
             <div class="col-lg-7 col-md-7 pd0">
 
-                <select name="user_id" id="users" class="form-control" style="width:100%"> </select>
+                <select name="user_id" id="users"  class="form-control " style="width:100%">
+
+
+                </select>
 
             </div>
 
@@ -62,6 +65,18 @@
             </div>
         </form>
 
+        {{--<div class="col-lg-7 col-md-7 pd0">--}}
+
+            {{--<select class="js-example-basic-single" id="speciality" name="speciality">--}}
+                {{--<optgroup label="Speciality">--}}
+                    {{--@foreach($medspeciality as $ms)--}}
+                        {{--<option value="{{$ms['id']}}">{{$ms['name']}}</option>--}}
+                    {{--@endforeach--}}
+                {{--</optgroup>--}}
+
+            {{--</select>--}}
+
+        {{--</div>--}}
 
         <div style="margin-top: 550px"></div>
 
@@ -82,6 +97,11 @@
         $(document).ready(function() {
             $('#city').select2({
                 placeholder: 'Select an option'
+
+            });
+            $('#speciality').select2({
+                placeholder: 'Select an option'
+
 
             });
             var userId=0

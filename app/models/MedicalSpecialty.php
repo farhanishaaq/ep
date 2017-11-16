@@ -20,5 +20,11 @@ class MedicalSpecialty extends \Eloquent {
             return $doctors;
     }
 
+    public function medSpecialityForSelect(){
+        $medSpeciality = self::select('name','id')
+            ->get();
+        return $medSpeciality;
+    }
+
 
 }
