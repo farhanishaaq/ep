@@ -42,20 +42,14 @@
 
                                             {{--@endif--}}
 
-                                            {{ Form::open(array('url' => 'doLogin')) }}
+                                            {{ Form::open(array('url' => 'doSignUp')) }}
 
-                                            <input type="text" id = "first_name" name="first_name" placeholder="First Name" required="true">
-                                            <input type="text" id = "last_name" name="last_name" placeholder="Last Name" required="true">
+                                            <input type="text" id = "fname" name="first_name" placeholder="First Name" required="true">
+                                            <input type="text" id = "lname" name="last_name" placeholder="Last Name" required="true">
                                             <input type="email" id = "email" name="email" placeholder="Email" required="true">
                                             <input type="password" required="true" name="password" id="password" placeholder="Password">
-                                            <input type="number" required="true" name="number" id="number" placeholder="Phone Number" style="width: 100%;">
-                                            <input type="text" required="true" name="city" id="city" placeholder="City" >
-                                             <select required="true" class="form-control">
-                                                 <option value="gender">Gender</option>
-                                                 <option value="male">Male</option>
-                                                 <option value="female">Female</option>
-                                             </select><br>
-
+                                              <input type="text" required="true" name="city" id="city" placeholder="City" >
+                                            <input type="number" required="true" name="phone" id="number" placeholder="Phone Number" style="width: 100%;">
                                             <input style="width:100%" type="submit" name="signUp" class="login login-submit" value="Register">
                                             {{ Form::close() }}
                                             {{--</form>--}}
@@ -63,7 +57,7 @@
              </div>
     <div class="col-md-3" ></div>
 </div>
-    <br><br><br>
+    <br>
     <br><br><br><br>
     <br><br><br><br>
                             </div>

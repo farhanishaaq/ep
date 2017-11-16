@@ -10,7 +10,13 @@ use \App\Globals\Ep;
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
-
+    private $_medicalSpeciality;
+    private $_doctor;
+    public function __construct(MedicalSpecialty $medicalSpecialty,Doctor $doctor )
+    {
+        $this->_medicalSpeciality = $medicalSpecialty;
+        $this->_doctor = $doctor;
+    }
 	/**
 	 * The database table used by the model.
 	 *

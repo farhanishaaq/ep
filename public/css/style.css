@@ -1272,7 +1272,7 @@ ul.error-container li{
     position: relative;
 }
 
-div.login-card.login-page input[type=text], input[type=email], input[type=password] {
+div.login-card.login-page input[type=text], input[type=email], input[type=password],input[type=number] {
 /*height: 44px;*/
 /*font-size: 1.3em;*/
 width: 100%;

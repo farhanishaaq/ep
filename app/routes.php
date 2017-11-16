@@ -21,13 +21,14 @@ Route::group(['Public'],function (){
      * AuthController Routes
      */
 
-    Route::get('getDoctors', 'DoctorsController@showDoctors');
+    Route::get('getDoctors/{city}/{name}', array('as'=>'getDoctors','uses'=>'DoctorsController@showDoctors'));
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
     Route::get('signUp', array('as'=>'signUp','uses'=>'AuthController@showSignUp'));
 
 
 
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
+    Route::post('doSignUp', array('as'=>'doSignUp','uses'=>'AuthController@doSignUp'));
     Route::get('unauthorized', array('as'=>'unauthorized','uses'=>'AuthController@unauthorized'));
 
     /**
