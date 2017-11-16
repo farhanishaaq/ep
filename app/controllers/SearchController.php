@@ -22,16 +22,20 @@ class SearchController extends BaseController {
 
         return View::make('doctor_search.search',compact('cities'));
 	}
+
 	public function getDoctorNamesForSelector(){
-
-	    if (Request::ajax()){
-
+            
             $users = $this ->_user->getDoctorByNameForSelector('o');
         //    dd($users);
             return $users;
-        }
-
     }
+
+    public function test(){
+        $data = Input::all();
+     //   dd($data['q']);
+            return User::where('full_name','LIKE','%'.$data['q'].'%')
+                ->paginate(10);
+        }
 
 
 	/**

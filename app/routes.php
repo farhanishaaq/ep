@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -45,10 +44,11 @@ Route::group(['Public'],function (){
 
     Route::get('search', 'SearchController@index');
     Route::get('searchdata', 'SearchController@getSelectData');
-    Route::get('searchDoc', array('as'=>'searchDoc','user'=>'SearchController@getDoctorNamesForSelector'));
-    Route::get('searchDoc','SearchController@getDoctorNamesForSelector');
+    //Route::get('searchDoc', array('as'=>'searchDoc','user'=>'SearchController@getDoctorNamesForSelector'));
+    //Route::get('searchDoc/{query}','SearchController@getDoctorNamesForSelector');
+    Route::get('searchDoc/{query}','SearchController@getDoctorNamesForSelector');
 
-
+    Route::get('testData',array('as'=> 'testData','uses'=>'SearchController@test'));
 
 
 
