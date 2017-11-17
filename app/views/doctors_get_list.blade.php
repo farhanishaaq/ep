@@ -305,7 +305,7 @@ alert(city);
                                <strong>{{$doctors[$i]->code}}</strong><br>
 
                                      <span> <a href="#" style="color: red">websitk.ename.com</a> </span></p>
-                                <a style="" href="{{route('drProfile',['id',$doctors[$i]->doctor_id])}}"  class="btn btn-raised btn-sm">View Profile</a>
+                                <a style="" href="{{route('drProfile',$doctors[$i]->id)}}"  class="btn btn-raised btn-sm">View Profile</a>
                                 <ul class="social-links list-inline m-t-10">
                                     <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
                                     <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>

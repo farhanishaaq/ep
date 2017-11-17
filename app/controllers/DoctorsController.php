@@ -137,12 +137,13 @@ class DoctorsController extends \BaseController {
 	    return View::make ("doctors.drProfile");
 
     }
-    public function GetProfile($id)
+    public function GetProfile()
     {
+        $id = Route::input('id');
         $drRecord=Doctor::fetechDoctorRecord($id);
         $drComments=Comment::fetechDoctorComments($id);
 
-
+       // dd($drRecord);
        return View::make('doctors.drProfile', compact('drRecord','drComments'));
 //        return View::make('doctors.drProfile', compact('drRecord'));
 
