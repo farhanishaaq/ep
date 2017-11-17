@@ -226,7 +226,9 @@
                <div class="detailBox" style="padding-right: 100px; padding-left: 100px">
                    @endforeach
                  <h3 class="detailBox">Comments on Doctor's Checkup</h3>
+
                     @foreach($drComments as $comment)
+
                            <div class="actionBox">
                             <ul class="commentList">
                                 <li>
@@ -244,18 +246,27 @@
                         @endforeach
                     </div>
 
-                            <form class="form-inline" role="form" action="{{route('comment')}}" method="post" >
+                            <form class="form-inline" action="{{route('comment')}}" method="post" >
 
 
-                                <div class="form-group" style="padding-left: 200px">
-                                    <input class="form-control" type="text" placeholder="Your comments" name="addComment" style="min-width: 800px " />
-                                    <input class="form-control" type="hidden" value="{{$id}}" name="Doctro_id" >
 
-                                    <meta name="csrf-token" content="{{ csrf_token() }}" />
-                                    {{--<input  type="hidden"  name="commenttoken" value=" {{csrf_token()}}" />--}}
 
-                                    <button class="btn btn-default" name="submit" type="submit" style="min-width: 800px">Comment</button>
-                                </div>
+
+                                @if(Auth::user())
+                                    <div class="form-group" style="padding-left: 200px">
+                                        <input class="form-control" type="text" placeholder="Your comments" name="addComment" id="comment" style="min-width: 800px " />
+                                        <input class="form-control" type="hidden" value="{{$id}}"  name="Doctro_id" >
+
+                                        <meta name="csrf-token" content="{{ csrf_token() }}" />
+                                        {{--<input  type="hidden"  name="commenttoken" value=" {{csrf_token()}}" />--}}
+
+                                        <button class="btn btn-default"  id="add" type="submit" style="min-width: 800px">Comment</button>
+                                    </div>
+                                @else
+                                    {{--@include('includes.webSocialLinks')--}}
+
+                                @endif
+
                             </form>
 
 
@@ -285,6 +296,74 @@
     <script src=" {{ asset('js/profile.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/layout.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/starRating.js') }}" type="text/javascript"></script>
+    {{--<script>--}}
+        {{--//$( document ).ready(function() {--}}
+
+            {{--$("#add").click(function() {--}}
+
+                {{--$.ajax({--}}
+                    {{--type: 'get',--}}
+                    {{--url: '{{route('comment')}}',--}}
+                    {{--dataType: 'json',--}}
+                    {{--data: {--}}
+                        {{--//'_token': $('input[name=_token]').val(),--}}
+                        {{--'id': $('#Doctro_id').val(),--}}
+
+                    {{--},--}}
+                    {{--success: function (data) {--}}
+
+                    {{--if ((data.errors)) {--}}
+                        {{--console.log(JSON.stringify(data));--}}
+                    {{--} else {--}}
+                        {{--$.each( data, function( key, val ) {--}}
+                            {{--var txt2 = $("<ul class='commentList'> <li>  <div  class='commentText'> </div>.text(\"Text.\") </li></ul>");  // Create text with jQuery--}}
+
+                            {{--$(".actionBox").append( txt2);     // Append new elements--}}
+                            {{--//alert(val.comments);--}}
+                        {{--});--}}
+
+
+                    {{--}--}}
+                    {{--},--}}
+                {{--});--}}
+
+
+          {{--//  });--}}
+
+
+
+
+        {{--});--}}
+
+{{--//        $("#add").click(function() {--}}
+{{--//--}}
+{{--//--}}
+{{--//--}}
+{{--//--}}
+{{--//--}}
+{{--//            $.ajax({--}}
+{{--//                type: 'post',--}}
+{{--//                url: '/addItem',--}}
+{{--//                data: {--}}
+{{--//                    '_token': $('input[name=_token]').val(),--}}
+{{--//                    'name': $('input[name=addComment]').val(),--}}
+{{--//                    'name1': $('input[name=Doctro_id]').val()--}}
+{{--//                },--}}
+{{--//                success: function(data) {--}}
+{{--//                    if ((data.errors)) {--}}
+{{--//                        $('.error').removeClass('hidden');--}}
+{{--//                        $('.error').text(data.errors.name);--}}
+{{--//                    } else {--}}
+{{--//                        $('.error').remove();--}}
+{{--////                        $('#table').append("<tr class='item" + data.id + "'><td>" + data.id + "</td><td>" + data.name + "</td></tr>");--}}
+{{--//                        $('#table').append("<tr class='item" + data.id + "'><td>" + data.id + "</td><td>" + data.name + "</td><td><button class='edit-modal btn btn-info' data-id='" + data.id + "' data-name='" + data.name + "'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-name='" + data.name + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");--}}
+{{--//--}}
+{{--//                    }--}}
+{{--//                },--}}
+{{--//            });--}}
+{{--//            $('#name').val('');--}}
+{{--//        });--}}
+    {{--</script>--}}
 @stop
 
 

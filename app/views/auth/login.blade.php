@@ -28,6 +28,7 @@ class="current"
                           CONTENT
 =========================================================-->
 @section('content')
+<br>
     <section id="content">
 		<div class="login">
 			<div class="login-card login-page">
@@ -62,10 +63,17 @@ class="current"
 				<div class="login-help">
 				<a href="{{URL::route('remind')}}">Forgot Password</a>
 				</div>
+                    {{--For Sign Up Work--}}
+                                <h4 style="color: #3baae3">OR</h4>
+                                <div>
+                                    <a href="{{URL::route('signUp')}}">Create An Account</a>
+                                </div>
+
 			</div>
 		</div>
 		<br><br><br>
+		<br><br><br>
 		<br><br><br><br>
-		<br><br><br><br>
+		<br><br><br><br><br><br>
     </section>
 @stop

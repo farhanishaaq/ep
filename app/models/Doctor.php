@@ -255,11 +255,42 @@ class Doctor extends \Eloquent {
                ->join('doctor_qualification', 'doctors.id', '=', 'doctor_qualification.doctor_id')
                ->join('users', 'doctors.user_id', '=', 'users.id')
                ->join('qualifications', 'doctor_qualification.qualification_id', '=', 'qualifications.id')
+
                ->select('doctors.id','max_fee','code','title','description','institute','fname','lname','full_name','dob','gender','additional_info','cell','address','email')
                ->where('doctors.id','=',$id)
                ->get();
 
            return  $data;
        }
+
+    public static function fetchPublicDoctors(array $filterParams = null, $offset = 0, $limit = GlobalsConst::LIST_DATA_LIMIT)
+    {
+        try {
+
+            $doctors = DB::table('doctors')
+                ->join('users', 'doctors.user_id', '=', 'users.id')
+                ->join('duty_days', 'doctors.id', '=', 'duty_days.doctor_id')
+                ->join('cities', 'users.city_id', '=', 'cities.id')
+                ->join('doctor_qualification', 'duty_days.doctor_id', '=', 'doctor_qualification.doctor_id')
+                ->join('qualifications', 'doctor_qualification.id', '=', 'qualifications.id')
+                ->join('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
+                ->join('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
+                ->select('max_fee', 'min_fee', 'full_name', 'start','end','code','medical_specialties.name')
+                ->where('doctors.user_id',  $filterParams['name'])
+                ->where('users.city_id',  $filterParams['city'])
+                ->groupBy('users.id')->get();
+
+      return $doctors;
+
+
+
+
+        } catch (Throwable $t) {
+            // Executed only in PHP 7, will not match in PHP 5.x
+            dd($t->getMessage());
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
 
 }

@@ -13,17 +13,18 @@ class MedicalSpecialty extends \Eloquent {
 	}
 
 
-	public function getDoctorBySpeciality($city,$speciality){
+	public function getDoctorBySpeciality($city, $speciality){
 
-        $specialityId= self::select('id')->where('name', 'like',  $speciality)->get();
-            $doctors = $this->find($specialityId[0]['id'])->doctors;
+         $qry = self::select('id')->where('name', 'like',  $speciality)->get();
+            $doctors = $this->find($qry[0]['id'])->doctors;
             return $doctors;
     }
 
-
-
-
-
+    public function medSpecialityForSelect(){
+        $medSpeciality = self::select('name','id')
+            ->get();
+        return $medSpeciality;
+    }
 
 
 }

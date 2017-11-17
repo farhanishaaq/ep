@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -18,37 +17,34 @@
  * ===========================================================================
  */
 Route::group(['Public'],function (){
-
-    Route::get('signUp', function (){
-        return View::make('signUp');
-
-    });
-
     /**
      * AuthController Routes
      */
 
-    Route::get('doctorget', 'DoctorsController@show_doctors');
+    Route::get('getDoctors/{city}/{name}', array('as'=>'getDoctors','uses'=>'DoctorsController@showDoctors'));
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
+    Route::get('signUp', array('as'=>'signUp','uses'=>'AuthController@showSignUp'));
 
 
 
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
+    Route::post('doSignUp', array('as'=>'doSignUp','uses'=>'AuthController@doSignUp'));
     Route::get('unauthorized', array('as'=>'unauthorized','uses'=>'AuthController@unauthorized'));
 
     /**
      * For ep social doctor profile
      */
-    Route::get('drProfile', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
+    Route::get('drProfile/{id}', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
     Route::get('patientProfile', array('as'=>'patientProfile','uses'=>'patientsController@getUserProfile'));
 
 
     Route::get('search', 'SearchController@index');
     Route::get('searchdata', 'SearchController@getSelectData');
-    Route::get('searchDoc', array('as'=>'searchDoc','user'=>'SearchController@getDoctorNamesForSelector'));
-    Route::get('searchDoc','SearchController@getDoctorNamesForSelector');
+    //Route::get('searchDoc', array('as'=>'searchDoc','user'=>'SearchController@getDoctorNamesForSelector'));
+    //Route::get('searchDoc/{query}','SearchController@getDoctorNamesForSelector');
+    Route::get('searchDoc/{query}','SearchController@getDoctorNamesForSelector');
 
-
+    Route::get('testData',array('as'=> 'testData','uses'=>'SearchController@test'));
 
 
 
@@ -58,7 +54,6 @@ Route::group(['Public'],function (){
 
 
 //
-
 
 
     /**
@@ -336,6 +331,7 @@ Route::get('doctors_get_list', 'DoctorsController@show_doctors');
 //App\Globals\Ep::checkUpPrescrptionDirectory();die;
 //});
 
+//Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@show'));
 Route::post('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
 Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'));
 

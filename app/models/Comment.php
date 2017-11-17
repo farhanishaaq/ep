@@ -10,6 +10,7 @@ class Comment extends \Eloquent
 //             $users = Comment::all();
         $users = Comment::where('doctor_id', '=', $id)->get();
 
-        return  $users;
+//        return  json_encode($users)  ;
+        return $users;
 }
 }

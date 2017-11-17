@@ -9,10 +9,12 @@ class DoctorsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	private $_ms;
-	public function __construct(MedicalSpecialty $ms )
+	private $_medicalSpeciality;
+	private $_doctor;
+	public function __construct(MedicalSpecialty $medicalSpecialty,Doctor $doctor )
     {
-    $this->_ms=$ms;
+    $this->_medicalSpeciality = $medicalSpecialty;
+    $this->_doctor = $doctor;
     }
 
 
@@ -141,32 +143,28 @@ class DoctorsController extends \BaseController {
 
 
        return View::make('doctors.drProfile', compact('drRecord','drComments'));
-
+//        return View::make('doctors.drProfile', compact('drRecord'));
 
     }
+    public function showDoctors()
 
-    public function show_doctors()
     {
-        $speciality = "Cardiology";
-        $doctors = $this->_ms->getDoctorBySpeciality('Lahore',$speciality);
+        $data['name'] =Route::input('name');
+        $data['city'] =Route::input('city');
 
-        $userData = [];
-        $dutyData = [];
-        $specialityData = [];
-        foreach ($doctors as $doctor) {
-            array_push($userData, $doctor->user);
-            array_push($dutyData, $doctor->dutyDays);
-            array_push($specialityData, $doctor->medicalSpecialties);
+        $data['speciality']=Route::input('speciality');
 
-        }
-        return View::make('doctors_get_list', compact('doctors', 'userData', 'dutyData', 'specialityData','speciality'));
+//        $try = array (,'cityId'=>'2','specialityId'=>'','name'=>''');
+        $doctors = $this->_doctor->fetchPublicDoctors($data);
+
+        return View::make('doctors_get_list', compact('doctors'));
 
     }
+
 //    public function showDoctorProfile(){
-////        Doctor::getAlldoctors();
-////
-////	    return View::make ("doctors.drProfile");
+//        Doctor::getAlldoctors();
 //
+//	    return View::make ("doctors.drProfile");
 //    }
 
 

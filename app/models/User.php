@@ -335,7 +335,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function getDoctorByNameForSelector($name){
-	    $doctors = self::select('id','full_name')
+	    $doctors = self::select('full_name')
                     ->where("user_type",'=','Doctor')
                     ->where('full_name','like','%'.$name.'%')->get();
 

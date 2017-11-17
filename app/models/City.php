@@ -36,7 +36,8 @@ class City extends \Eloquent {
 	}
 
     public function citiesForSelect(){
-	    $cities = self::select('name','id')->get();
+	    $cities = self::select('name','id')
+            ->get();
 	    return $cities;
     }
 }

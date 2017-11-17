@@ -9,29 +9,39 @@ class SearchController extends BaseController {
 	 */
     private $_city;
     private $_user;
-	public function __construct(City $city,User $user)
+    private $_medicalSpecialty;
+	public function __construct(City $city,User $user,MedicalSpecialty $medicalSpecialty)
     {
         $this->_city=$city;
         $this->_user=$user;
+        $this->_medicalSpecialty=$medicalSpecialty;
     }
 
     public function index()
 	{
 		//
         $cities = $this->_city->citiesForSelect();
+        $medspeciality =$this->_medicalSpecialty->medSpecialityForSelect();
 
-        return View::make('doctor_search.search',compact('cities'));
+
+        return View::make('doctor_search.search',compact('cities','medspeciality'));
 	}
+
 	public function getDoctorNamesForSelector(){
-
-	    if (Request::ajax()){
-
+            
             $users = $this ->_user->getDoctorByNameForSelector('o');
         //    dd($users);
             return $users;
-        }
-
     }
+
+    public function test(){
+        $data = Input::all();
+     //   dd($data['q']);
+            return User::where('full_name','LIKE','%'.$data['q'].'%')
+                ->where('city_id','=',$data['city'])
+                ->where('user_type','=','Doctor')
+                ->paginate(10);
+        }
 
 
 	/**
