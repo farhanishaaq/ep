@@ -283,7 +283,8 @@
                         return {
                             q : params.term,
                             page : params.page,
-                            city : $( "#city" ).val()
+                            city : $( "#city" ).val(),
+
                         };
                     },
                     processResults : function(data, params){
@@ -315,13 +316,22 @@
 
 
             var action= $('#search').attr('action');
-
-
             console.log(action)
-                $('#users').change(function () {
-                    upAction =( action.replace('/%7Bcity%7D/%7Bname%7D','/'+$('#city').val()+'/'+userId))
-                    $('#search').attr('action',upAction)
+             $('#speciality').change(function () {
+
+                        var upAction = action.replace('/%7Bcity%7D/%7Bname%7D/%7Bspeciality%7D','/'+$('#city').val()+'/'+'0/'+$('#speciality').val());
+                         $('#search').attr('action',upAction);
+
+
                 });
+                $('#users').change(function () {
+
+                                    upAction =( action.replace('/%7Bcity%7D/%7Bname%7D/%7Bspeciality%7D','/'+$('#city').val()+'/'+userId+'/0'));
+                                    $('#search').attr('action',upAction);
+
+                });
+
+
 
             $('ul.tabs li').click(function(){
                 var tab_id = $(this).attr('data-tab');

@@ -21,7 +21,7 @@ Route::group(['Public'],function (){
      * AuthController Routes
      */
 
-    Route::get('getDoctors/{city}/{name}', array('as'=>'getDoctors','uses'=>'DoctorsController@showDoctors'));
+    Route::get('getDoctors/{city}/{name}/{speciality}', array('as'=>'getDoctors','uses'=>'DoctorsController@showDoctors'));
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
     Route::get('signUp', array('as'=>'signUp','uses'=>'AuthController@showSignUp'));
 

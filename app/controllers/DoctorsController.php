@@ -153,12 +153,8 @@ class DoctorsController extends \BaseController {
     {
         $data['name'] =Route::input('name');
         $data['city'] =Route::input('city');
-
         $data['speciality']=Route::input('speciality');
-
-//        $try = array (,'cityId'=>'2','specialityId'=>'','name'=>''');
         $doctors = $this->_doctor->fetchPublicDoctors($data);
-
         return View::make('doctors_get_list', compact('doctors'));
 
     }

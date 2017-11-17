@@ -274,27 +274,49 @@ class Doctor extends \Eloquent
     {
         try {
 //dd($filterParams);
-            $doctors = DB::table('doctors')
-                ->join('users', 'doctors.user_id', '=', 'users.id')
+            if($filterParams['speciality'] != 0){
+            $doctorsSpeciality = DB::table('doctors')
+                ->leftjoin('users', 'doctors.user_id', '=', 'users.id')
                 ->leftjoin('duty_days', 'doctors.id', '=', 'duty_days.doctor_id')
                 ->leftjoin('cities', 'users.city_id', '=', 'cities.id')
                 ->leftjoin('doctor_qualification', 'duty_days.doctor_id', '=', 'doctor_qualification.doctor_id')
                 ->leftjoin('qualifications', 'doctor_qualification.id', '=', 'qualifications.id')
                 ->leftjoin('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
                 ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
-                ->select('max_fee', 'min_fee', 'full_name', 'start','end','code','medical_specialties.name','doctors.id')
-                ->where('doctors.user_id',  $filterParams['name'])
-                ->where('users.city_id',  $filterParams['city'])
+                ->select('max_fee', 'min_fee', 'full_name', 'start', 'end', 'code', 'medical_specialties.name', 'doctors.id')
+                ->where('doctor_medical_specialty.medical_specialty_id', $filterParams['speciality'])
+                ->where('users.city_id', $filterParams['city'])
                 ->groupBy('users.id')->get();
-            if (is_object($doctors)){
-                $x['0']=$doctors;
+            if (is_object($doctorsSpeciality)) {
+                $x['0'] = $doctorsSpeciality;
                 return $x;
-            }
-            else
-             //  dd($doctors);
+            } else
+                //  dd($doctors);
 
-                    return $doctors;
+                return $doctorsSpeciality;
+        }
+            else {
+                    $doctorsName = DB::table('doctors')
+                        ->leftjoin('users', 'doctors.user_id', '=', 'users.id')
+                        ->leftjoin('duty_days', 'doctors.id', '=', 'duty_days.doctor_id')
+                        ->leftjoin('cities', 'users.city_id', '=', 'cities.id')
+                        ->leftjoin('doctor_qualification', 'duty_days.doctor_id', '=', 'doctor_qualification.doctor_id')
+                        ->leftjoin('qualifications', 'doctor_qualification.id', '=', 'qualifications.id')
+                        ->leftjoin('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
+                        ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
+                        ->select('max_fee', 'min_fee', 'full_name', 'start', 'end', 'code', 'medical_specialties.name', 'doctors.id')
+                        ->where('users.id', $filterParams['name'])
+                        ->where('users.city_id', $filterParams['city'])
+                        ->groupBy('users.id')->get();
 
+                    if (is_object($doctorsName)) {
+                        $x['0'] = $doctorsName;
+                        return $x;
+                    } else
+                        //  dd($doctors);
+
+                        return $doctorsName;
+                }
 
 
 
