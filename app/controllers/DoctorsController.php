@@ -132,7 +132,8 @@ class DoctorsController extends \BaseController {
 		});
 	}
 
-	public function showDoctorProfile(){
+	public function showDoctorProfile($id){
+        dd($id);
 	    return View::make ("doctors.drProfile");
 
     }

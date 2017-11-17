@@ -281,7 +281,7 @@ class Doctor extends \Eloquent
                 ->join('qualifications', 'doctor_qualification.id', '=', 'qualifications.id')
                 ->join('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
                 ->join('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
-                ->select('max_fee', 'min_fee', 'full_name', 'start','end','code','medical_specialties.name')
+                ->select('max_fee', 'min_fee', 'full_name', 'start','end','code','medical_specialties.name','duty_days.doctor_id')
                 ->where('doctors.user_id',  $filterParams['name'])
                 ->where('users.city_id',  $filterParams['city'])
                 ->groupBy('users.id')->get();
@@ -289,7 +289,7 @@ class Doctor extends \Eloquent
       return $doctors;
 
 
-            
+
 
         } catch (Throwable $t) {
             // Executed only in PHP 7, will not match in PHP 5.x
