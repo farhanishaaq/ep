@@ -143,7 +143,7 @@ class DoctorsController extends \BaseController {
 
 
        return View::make('doctors.drProfile', compact('drRecord','drComments'));
-
+//        return View::make('doctors.drProfile', compact('drRecord'));
 
     }
     public function showDoctors()

@@ -1,9 +1,6 @@
 <?php
-use App\Globals\GlobalsConst;
-use Illuminate\Http\Request;
 
-
-class CommentsController extends \BaseController {
+class ArticlesController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -12,6 +9,7 @@ class CommentsController extends \BaseController {
 	 */
 	public function index()
 	{
+        return View::make('doctors.articlesEditer');
 		//
 	}
 
@@ -35,17 +33,6 @@ class CommentsController extends \BaseController {
 	public function store()
 	{
 		//
-
-        $data = Input::all();
-
-        $comment = new Comment;
-        $comment->doctor_id = Input::get('Doctro_id');
-        $comment->comments = Input::get('addComment');
-
-        $comment->save();
-
-        return Redirect::back();
-       
 	}
 
 
@@ -55,13 +42,9 @@ class CommentsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show()
+	public function show($id)
 	{
-        $data = Input::all();
-
-           return Comment::fetechDoctorComments($data['id']);
-
-
+		//
 	}
 
 

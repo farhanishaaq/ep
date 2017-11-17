@@ -331,7 +331,9 @@ Route::get('doctors_get_list', 'DoctorsController@show_doctors');
 //App\Globals\Ep::checkUpPrescrptionDirectory();die;
 //});
 
+//Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@show'));
 Route::post('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
+Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'));
 
 
 
