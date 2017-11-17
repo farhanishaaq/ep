@@ -44,7 +44,7 @@ Route::group(['Public'],function (){
     //Route::get('searchDoc/{query}','SearchController@getDoctorNamesForSelector');
     Route::get('searchDoc/{query}','SearchController@getDoctorNamesForSelector');
 
-    Route::get('testData',array('as'=> 'testData','uses'=>'SearchController@test'));
+    Route::get('getDoctorData',array('as'=> 'testData','uses'=>'SearchController@selectorDoctors'));
 
 
 
