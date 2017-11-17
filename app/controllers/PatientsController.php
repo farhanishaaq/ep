@@ -151,20 +151,20 @@ class PatientsController extends \BaseController {
         //$this->_patient->getPatientAppointments(1);
 
 
-        $users=$this->_patient -> getPatientProfile(16);
-
-       // var_dump($users);
-
-
-     //   dd($users);
-        $appointments= $this->_patient->getPatientAppointments(function () use ($users){
-            $id='dsad';
-//            foreach ($users as $user){
-//                $id=$user->id;
-//            }
-
-            return $id;
-        });
+//        $users=$this->_patient -> getPatientProfile(16);
+//
+//       // var_dump($users);
+//
+//
+//     //   dd($users);
+//        $appointments= $this->_patient->getPatientAppointments(function () use ($users){
+//            $id='dsad';
+////            foreach ($users as $user){
+////                $id=$user->id;
+////            }
+//
+//            return $id;
+//        });
 
 //        return View::make("patients.patientProfile", compact('user','patient','city'));
         return View::make("patients.patientProfile", compact('user','appointments'));

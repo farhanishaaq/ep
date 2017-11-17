@@ -178,6 +178,7 @@
             ========================================================= -->
             @section('sliderContent')
                 <div class="camera-wrapper">
+
                     <div id="camera" class="camera-wrap">
 
                         <div data-src="{{asset('images/index_slide01.jpg')}}">
