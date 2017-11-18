@@ -24,6 +24,7 @@ Route::group(['Public'],function (){
     Route::get('getDoctors/{city}/{name}/{speciality}', array('as'=>'getDoctors','uses'=>'DoctorsController@showDoctors'));
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
     Route::get('signUp', array('as'=>'signUp','uses'=>'AuthController@showSignUp'));
+    Route::get('cities', array('as'=>'cities','uses'=>'CityController@showCities'));
 
 
 

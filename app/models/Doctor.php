@@ -283,7 +283,7 @@ class Doctor extends \Eloquent
                 ->leftjoin('qualifications', 'doctor_qualification.id', '=', 'qualifications.id')
                 ->leftjoin('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
                 ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
-                ->select('max_fee', 'min_fee', 'full_name', 'start', 'end', 'code', 'medical_specialties.name', 'doctors.id')
+                ->select('max_fee', 'min_fee', 'full_name', 'start', 'end', 'code', 'medical_specialties.name AS specialityName', 'doctors.id AS doctorsId','cities.name AS cityName','cities.id AS cityId' )
                 ->where('doctor_medical_specialty.medical_specialty_id', $filterParams['speciality'])
                 ->where('users.city_id', $filterParams['city'])
                 ->groupBy('users.id')->get();
@@ -304,7 +304,7 @@ class Doctor extends \Eloquent
                         ->leftjoin('qualifications', 'doctor_qualification.id', '=', 'qualifications.id')
                         ->leftjoin('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
                         ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
-                        ->select('max_fee', 'min_fee', 'full_name', 'start', 'end', 'code', 'medical_specialties.name', 'doctors.id')
+                        ->select('max_fee', 'min_fee', 'full_name', 'start', 'end', 'code', 'medical_specialties.name', 'doctors.id','cities.name','cities.id')
                         ->where('users.id', $filterParams['name'])
                         ->where('users.city_id', $filterParams['city'])
                         ->groupBy('users.id')->get();
