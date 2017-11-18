@@ -4,20 +4,35 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+
+
+
+function submitForm() {
 var city = document.getElementsByName('city');
-var user = document.getElementsByName('doctorName');
-
-for (var i = 0, length = radios.length; i < length; i++)
+var speciality = document.getElementsByName('speciality');
+var cityLength = city.length;
+var specialityLength = speciality.length;
+                                                //For City Select
+for (var i = 0; i< cityLength; i++)
 {
- if (radios[i].checked)
- {
-var city = radios[i].value;
-var user = radios[i].value;
-alert(city);
+if (city[i].checked)
+{
+ cityId = city[i].value;
   break;
- }
 }
-
+}
+                                                //For Speciality Select
+for (var j = 0; j< specialityLength; j++)
+{
+if (speciality[j].checked)
+{
+specialityId = speciality[j].value;
+  break;
+}
+}
+   getDoctors += "route('getDoctors/'" + cityId + "/0/" + specialityId + ")";
+   alert(getDoctors);
+   }
 </script>
 </head>
 
@@ -32,7 +47,7 @@ alert(city);
     <div class = "user_logo">
         <div class="header_1 wrap_3 color_3 login-bar">
             Searched "
-{{$doctors[0]->name}}
+{{$doctors[0]->specialityName}}
 
             " in Lahore
         </div>
@@ -60,7 +75,9 @@ alert(city);
 
 
                                 {{--Cities List at Left Panel Of Doctor List--}}
-                        {{ Form::open(array('method'=>'GET','url' => 'getDoctors/'.'1/'.'3')) }}
+                        {{--{{ Form::open(array('method'=>'GET','url' => 'getDoctors'))}}--}}
+<form method="GET" action="{{'+getDoctors+'}}">
+
 
 
  <div class="panel-heading" role="tab" id="headingOne">
@@ -71,141 +88,19 @@ alert(city);
  <div id="cities" class="collapse">
     <div class="panel-body">
        <div class="chbxs listm">
-          <div class="chbx">
-             <input id="fc_1185"  id="1" value="1" type="radio" name="city"  >
-             <label for="fc_1185">
-                <div style="padding-top: 10px"> Lahore </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_1181" class="jobFacets" data-fkey="fc"  data-fid="1181" type="radio" name="city"  >
-             <label for="fc_1181">
-                <div style="padding-top: 10px"> Faisalabad </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_1183"  type="radio" name="city"  >
-             <label for="fc_1183">
-                <div style="padding-top: 10px"> Hyderabad </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_1184" class="jobFacets" data-fkey="fc"  data-fid="1184" type="radio" name="city"  >
-             <label for="fc_1184">
-                <div style="padding-top: 10px"> Karachi </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_1187" class="jobFacets" data-fkey="fc"  data-fid="1187" type="radio" name="city"  >
-             <label for="fc_1187">
-                <div style="padding-top: 10px"> Multan </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_1189" class="jobFacets" data-fkey="fc"  data-fid="1189" type="radio" name="city"  >
-             <label for="fc_1189">
-                <div style="padding-top: 10px"> Quetta </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_2187" class="jobFacets" data-fkey="fc"  data-fid="2187" type="radio" name="city"  >
-             <label for="fc_2187">
-                <div style="padding-top: 10px"> Kohat </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_2232" class="jobFacets" data-fkey="fc"  data-fid="2232" type="radio" name="city"  >
-             <label for="fc_2232">
-                <div style="padding-top: 10px"> Matiari </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_2353" class="jobFacets" data-fkey="fc"  data-fid="2353" type="radio" name="city"  >
-             <label for="fc_2353">
-                <span></span>
-                <div style="padding-top: 10px"> Tando Adam </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_2528" class="jobFacets" data-fkey="fc"  data-fid="2528" type="radio" name="city"  >
-             <label for="fc_2528">
-                <span></span>
-                <div style="padding-top: 10px"> Hub Chowki </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_2662" class="jobFacets" data-fkey="fc"  data-fid="2662" type="radio" name="city"  >
-             <label for="fc_2662">
-                <span></span>
-                <div style="padding-top: 10px"> Timergara </div>
-             </label>
-          </div>
+       @foreach($cities as $city)
+        <div class="chbx">
+                    <input value="{{$city->id}}" type="radio" name="city"  >
+                    <label for="fc_1185">
+                       <div style="padding-top: 10px"> {{$city->name}} </div>
+                    </label>
+                 </div>
+       @endforeach
           <div class="clearfix"></div>
        </div>
     </div>
  </div>
- {{--Doctos--}}
- <div class="panel-heading" role="tab" id="headingOne">
-    <h4 class="panel-title s-18">
-       <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#doctorName"  aria-controls="collapseOne" style="width: 100%" ><strong>Doctors Name</strong></button>
-    </h4>
- </div>
- <div id="doctorName" class="collapse">
-    <div class="panel-body">
-       <div class="chbxs listm">
-          <div class="chbx">
-             <input id="fc_1185"  id="3" value="3" type="radio" name="doctorName"  >
-             <label for="fc_1185">
-                <div style="padding-top: 10px"> Ehsaan Ali </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_1185"   type="radio" name="doctorName"  >
-             <label for="fc_1185">
-                <div style="padding-top: 10px"> Karachi </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_1185"   type="radio" name="doctorName"  >
-             <label for="fc_1185">
-                <div style="padding-top: 10px"> Lahore </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_1185"   type="radio" name="doctorName"  >
-             <label for="fc_1185">
-                <div style="padding-top: 10px"> Lahore </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_1185"   type="radio" name="doctorName"  >
-             <label for="fc_1185">
-                <div style="padding-top: 10px"> Lahore </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_1185"   type="radio" name="doctorName"  >
-             <label for="fc_1185">
-                <div style="padding-top: 10px"> Lahore </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_1185"   type="radio" name="doctorName"  >
-             <label for="fc_1185">
-                <div style="padding-top: 10px"> Lahore </div>
-             </label>
-          </div>
-          <div class="chbx">
-             <input id="fc_1185"   type="radio" name="doctorName"  >
-             <label for="fc_1185">
-                <div style="padding-top: 10px"> Lahore </div>
-             </label>
-          </div>
-          <div class="clearfix"></div>
-       </div>
-    </div>
- </div>
-
+ {{--Speciality--}}
   <div class="panel-heading" role="tab" id="headingOne">
      <h4 class="panel-title s-18">
         <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#speciality"  aria-controls="collapseOne" style="width: 100%" ><strong>Specility</strong></button>
@@ -214,54 +109,14 @@ alert(city);
   <div id="speciality" class="collapse">
      <div class="panel-body">
         <div class="chbxs listm">
+               @foreach($specialities as $speciality)
            <div class="chbx">
-              <input id="fc_1185"  id="2" value="3" type="radio" name="Speciality"  >
+              <input value="{{$speciality->id}}" type="radio" name="speciality"  >
               <label for="fc_1185">
-                 <div style="padding-top: 10px"> Lahore </div>
+                 <div style="padding-top: 10px"> {{$speciality->name}} </div>
               </label>
            </div>
-           <div class="chbx">
-              <input id="fc_1185"   type="radio" name="Speciality"  >
-              <label for="fc_1185">
-                 <div style="padding-top: 10px"> Karachi </div>
-              </label>
-           </div>
-           <div class="chbx">
-              <input id="fc_1185"   type="radio" name="Speciality"  >
-              <label for="fc_1185">
-                 <div style="padding-top: 10px"> Lahore </div>
-              </label>
-           </div>
-           <div class="chbx">
-              <input id="fc_1185"   type="radio" name="Speciality"  >
-              <label for="fc_1185">
-                 <div style="padding-top: 10px"> Lahore </div>
-              </label>
-           </div>
-           <div class="chbx">
-              <input id="fc_1185"   type="radio" name="Speciality"  >
-              <label for="fc_1185">
-                 <div style="padding-top: 10px"> Lahore </div>
-              </label>
-           </div>
-           <div class="chbx">
-              <input id="fc_1185"   type="radio" name="Speciality"  >
-              <label for="fc_1185">
-                 <div style="padding-top: 10px"> Lahore </div>
-              </label>
-           </div>
-           <div class="chbx">
-              <input id="fc_1185"   type="radio" name="Speciality"  >
-              <label for="fc_1185">
-                 <div style="padding-top: 10px"> Lahore </div>
-              </label>
-           </div>
-           <div class="chbx">
-              <input id="fc_1185"   type="radio" name="Speciality"  >
-              <label for="fc_1185">
-                 <div style="padding-top: 10px"> Lahore </div>
-              </label>
-           </div>
+         @endforeach
            <div class="clearfix"></div>
         </div>
      </div>
@@ -269,10 +124,11 @@ alert(city);
 
  <div class="doctorSearchOption">
     <div class="col-lg-2 col-md-2 pd2">
-       <button type="submit" class="btn btn-raised btn-sm btn-1">Search &nbsp; <span class="glyphicon glyphicon-search"></span></button>
+       <button type="submit" onclick="submitForm()" class="btn btn-raised btn-sm btn-1">Search &nbsp; <span class="glyphicon glyphicon-search"></span></button>
     </div>
  </div>
-                        {{ Form::close() }}
+                        {{--{{ Form::close() }}--}}
+                        </form>
     </div>
  </div>
 
@@ -305,7 +161,7 @@ alert(city);
                                <strong>{{$doctors[$i]->code}}</strong><br>
 
                                      <span> <a href="#" style="color: red">websitk.ename.com</a> </span></p>
-                                <a style="" href="{{route('drProfile',$doctors[$i]->id)}}"  class="btn btn-raised btn-sm">View Profile</a>
+                                <a style="" href="{{route('drProfile',$doctors[$i]->doctorsId)}}"  class="btn btn-raised btn-sm">View Profile</a>
                                 <ul class="social-links list-inline m-t-10">
                                     <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
                                     <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
@@ -315,9 +171,9 @@ alert(city);
                         </div>
                         <div class="col-md-3 col-sm-3  col-lg-3" style="text-align: center">
                             <div style="">
-                                <h5 align="center" ><strong>Signature
+                                <h5 align="center" ><strong>Speciality:
 
-                                            {{$doctors[$i]->name}}
+                                            {{$doctors[$i]->specialityName}}
                                         </strong></h5>
 
                                 <p align="center" >(

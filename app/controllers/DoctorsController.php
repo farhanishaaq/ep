@@ -155,7 +155,9 @@ class DoctorsController extends \BaseController {
         $data['city'] =Route::input('city');
         $data['speciality']=Route::input('speciality');
         $doctors = $this->_doctor->fetchPublicDoctors($data);
-        return View::make('doctors_get_list', compact('doctors'));
+        $cities = City::all();
+        $specialities = MedicalSpecialty::all();
+        return View::make('doctors.doctors_get_list', compact('doctors','cities','specialities'));
 
     }
 
