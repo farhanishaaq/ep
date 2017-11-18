@@ -23,7 +23,10 @@
 
 
     {{--</div>--}}
-{{dd($user)}}
+
+
+ @foreach($users as $user)
+
     <?php
     $from = new DateTime($user->dob);
     $to   = new DateTime('today');
@@ -154,7 +157,7 @@
                                                                     </div>
                                                                     <div class="col-md-3 col-xs-6"> <strong>Location</strong>
                                                                         <br>
-                                                                        <p class="text-muted">{{$city->name}}</p>
+                                                                        <p class="text-muted">{{$user->cityname}}</p>
                                                                     </div>
                                                                 </div>
 
@@ -374,6 +377,7 @@
                         </div>
                     </div>
                     <!-- END PROFILE CONTENT -->
+@endforeach
 
                 </div>
             </div>
