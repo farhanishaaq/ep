@@ -142,8 +142,8 @@ class DoctorsController extends \BaseController {
         $drComments=Comment::fetechDoctorComments($id);
 
 
-       return View::make('doctors.drProfile', compact('drRecord','drComments'));
-//        return View::make('doctors.drProfile', compact('drRecord'));
+//       return View::make('doctors.drProfile', compact('drRecord','drComments'));
+        return View::make('doctors.drProfile', compact('drRecord'));
 
     }
     public function showDoctors()

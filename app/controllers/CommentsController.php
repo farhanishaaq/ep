@@ -3,6 +3,7 @@ use App\Globals\GlobalsConst;
 use Illuminate\Http\Request;
 
 
+
 class CommentsController extends \BaseController {
 
 	/**
@@ -37,16 +38,21 @@ class CommentsController extends \BaseController {
 		//
 
         $data = Input::all();
+            $dr_id=$data['id'];
+
+            $addArticle = $data['comment'];
+
 
         $comment = new Comment;
-        $comment->doctor_id = Input::get('Doctro_id');
-        $comment->comments = Input::get('addComment');
+        $comment->doctor_id =$dr_id;
+        $comment->comments = $addArticle;
 
         $comment->save();
+        return 'sucess';
 
-        return Redirect::back();
-       
+
 	}
+
 
 
 	/**

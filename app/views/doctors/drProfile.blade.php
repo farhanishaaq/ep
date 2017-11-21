@@ -63,8 +63,10 @@
                             <!-- END SIDEBAR USER TITLE -->
                             <!-- SIDEBAR BUTTONS -->
                             <div class="profile-userbuttons">
-                                <button type="button" class="btn btn-circle green-bgcolor btn-sm">Get Appointment</button>
+                                {{--<button type="submit" class="btn btn-circle green-bgcolor btn-sm" href="{{URL::route('getappointment')}}" >Get Appointment</button>--}}
+                                <a href="{{ URL::route('getappointment') }}" type="submit" class="btn btn-circle green-bgcolor btn-sm"> Get Appointment </a>
                                 <button type="button" class="btn btn-circle red btn-sm">Ask a question</button>
+
                             </div>
                             <!-- END SIDEBAR BUTTONS -->
                         </div>
@@ -220,54 +222,48 @@
         </div>
     </div>
 
-
+    @endforeach
                     <!-- END PROFILE CONTENT -->
                     {{--start comment-module--}}
-               <div class="detailBox" style="padding-right: 100px; padding-left: 100px">
-                   @endforeach
-                 <h3 class="detailBox">Comments on Doctor's Checkup</h3>
+               <div class="tab-content" >
 
-                    @foreach($drComments as $comment)
+                 <h3 class="tab-content">Comments on Doctor's Checkup</h3>
+
+                    {{--@foreach($drComments as $comment)--}}
 
                            <div class="actionBox">
-                            <ul class="commentList">
-                                <li>
-                                    <div class="commenterImage">
-                                        <img src="http://placekitten.com/50/50" />
-                                    </div>
-                                    <div class="commentText">
-                                        <p class="">{{$comment->comments}}</p> <span class="date sub-text">{{$comment->created_at}}</span>
+                            <ul class="commentList" id="commentList">
 
-                                    </div>
-                                </li>
 
                             </ul>
                         </div>
-                        @endforeach
+                        {{--@endforeach--}}
                     </div>
 
-                            <form class="form-inline" action="{{route('comment')}}" method="post" >
+                            {{--<form class="form-inline" action="{{route('comment')}}" method="post" >--}}
 
 
 
 
 
                                 @if(Auth::user())
-                                    <div class="form-group" style="padding-left: 200px">
-                                        <input class="form-control" type="text" placeholder="Your comments" name="addComment" id="comment" style="min-width: 800px " />
-                                        <input class="form-control" type="hidden" value="{{$id}}"  name="Doctro_id" >
+                                    <form class="form-inline">
 
-                                        <meta name="csrf-token" content="{{ csrf_token() }}" />
+                                        <input class="col-lg-12" type="text" placeholder="Your comments" name="addComment" id="comment" /><br>
+                                        <input class="form-control" type="hidden" value="{{$id}}"  name="Doctro_id" id="Doctro_id" >
+
+                                        <meta name="csrf-token" content="{{ csrf_token() }}" /><br>
                                         {{--<input  type="hidden"  name="commenttoken" value=" {{csrf_token()}}" />--}}
 
-                                        <button class="btn btn-default"  id="add" type="submit" style="min-width: 800px">Comment</button>
-                                    </div>
+                                        <button class="col-lg-12"  id="ajax" type="submit" ><h4>Comment</h4></button>
+
+                                    </form>
                                 @else
                                     {{--@include('includes.webSocialLinks')--}}
 
                                 @endif
 
-                            </form>
+                            {{--</form>--}}
 
 
 
@@ -296,74 +292,133 @@
     <script src=" {{ asset('js/profile.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/layout.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/starRating.js') }}" type="text/javascript"></script>
-    {{--<script>--}}
-        {{--//$( document ).ready(function() {--}}
+    <script>
 
-            {{--$("#add").click(function() {--}}
+//            getComments();
+            function getComments() {
 
-                {{--$.ajax({--}}
-                    {{--type: 'get',--}}
-                    {{--url: '{{route('comment')}}',--}}
-                    {{--dataType: 'json',--}}
-                    {{--data: {--}}
-                        {{--//'_token': $('input[name=_token]').val(),--}}
-                        {{--'id': $('#Doctro_id').val(),--}}
+                $.ajax({
+                    type: 'get',
+                    url: '{{route('showComment')}}',
+                    dataType: 'json',
+                    data: {
 
-                    {{--},--}}
-                    {{--success: function (data) {--}}
+                        'id': $('#Doctro_id').val()
 
-                    {{--if ((data.errors)) {--}}
-                        {{--console.log(JSON.stringify(data));--}}
-                    {{--} else {--}}
-                        {{--$.each( data, function( key, val ) {--}}
-                            {{--var txt2 = $("<ul class='commentList'> <li>  <div  class='commentText'> </div>.text(\"Text.\") </li></ul>");  // Create text with jQuery--}}
+                    },
+                    success: function (data) {
 
-                            {{--$(".actionBox").append( txt2);     // Append new elements--}}
-                            {{--//alert(val.comments);--}}
-                        {{--});--}}
+                    if ((data.errors)) {
+                        console.log(JSON.stringify(data));
+                    } else {
+                        console.log(JSON.stringify(data));
+                        $.each( data, function( key, val ) {
+                            var txt2 = $(" <li>  " +
+                                "<div  class='commentText'><p> " + val.comments+"</p>"+"<span>"+ val.created_at+"</span>" +
+                                "</div>" +
+                                "</li>");  // Create text with jQuery
 
+                            $("#commentList").append(txt2);     // Append new elements
 
-                    {{--}--}}
-                    {{--},--}}
-                {{--});--}}
-
-
-          {{--//  });--}}
+//                            $("#commentList").appendChild(txt2);
+                            //alert(val.comments);
+                        });
 
 
+                    }
+                    }
+                });
 
 
-        {{--});--}}
+            }
 
-{{--//        $("#add").click(function() {--}}
-{{--//--}}
-{{--//--}}
-{{--//--}}
-{{--//--}}
-{{--//--}}
-{{--//            $.ajax({--}}
-{{--//                type: 'post',--}}
-{{--//                url: '/addItem',--}}
-{{--//                data: {--}}
-{{--//                    '_token': $('input[name=_token]').val(),--}}
-{{--//                    'name': $('input[name=addComment]').val(),--}}
-{{--//                    'name1': $('input[name=Doctro_id]').val()--}}
-{{--//                },--}}
-{{--//                success: function(data) {--}}
-{{--//                    if ((data.errors)) {--}}
-{{--//                        $('.error').removeClass('hidden');--}}
-{{--//                        $('.error').text(data.errors.name);--}}
-{{--//                    } else {--}}
-{{--//                        $('.error').remove();--}}
-{{--////                        $('#table').append("<tr class='item" + data.id + "'><td>" + data.id + "</td><td>" + data.name + "</td></tr>");--}}
-{{--//                        $('#table').append("<tr class='item" + data.id + "'><td>" + data.id + "</td><td>" + data.name + "</td><td><button class='edit-modal btn btn-info' data-id='" + data.id + "' data-name='" + data.name + "'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-name='" + data.name + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");--}}
-{{--//--}}
-{{--//                    }--}}
-{{--//                },--}}
-{{--//            });--}}
-{{--//            $('#name').val('');--}}
-{{--//        });--}}
-    {{--</script>--}}
+            getComments();
+    </script>
+        <script>
+//        getComments();
+
+        $("#ajax").click(function(event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: "get",
+                url: "{{ url('comment') }}",
+                dataType: "json",
+                data: {
+                    //'_token': $('input[name=_token]').val(),
+                    'id': $('#Doctro_id').val(),
+                    'comment': $('#comment').val()
+
+                },
+
+//                data: $('#ajax').serialize(),
+                success: function(data){
+                alert(sucess);
+
+
+                },
+
+                error: function(data){
+
+
+                    commentsreload();
+                    getComments();
+                    $('#comment').val('')
+
+
+                }
+            });
+
+        });
+
+
+    </script>
+    <script>
+
+        function commentsreload() {
+
+            $.ajax({
+                type: 'get',
+                url: '{{route('showComment')}}',
+                dataType: 'json',
+                data: {
+
+                    'id': $('#Doctro_id').val()
+
+                },
+                success: function (data) {
+
+                    if ((data.errors)) {
+                        console.log(JSON.stringify(data));
+                    } else {
+                        console.log(JSON.stringify(data));
+                        $.each( data, function( key, val ) {
+                            var txt2 = $(" <li>  " +
+                                "<div  class='commentText'><p> " + val.comments+"</p>"+"<span>"+ val.created_at+"</span>" +
+                                "</div>" +
+                                "</li>");  // Create text with jQuery
+
+                                // Append new elements
+                            $("#commentList").empty();
+//                            $("#commentList").append( txt2)
+
+//                            $("#commentList").appendChild(txt2);
+                            //alert(val.comments);
+                        });
+
+
+                    }
+                }
+            });
+
+
+        }
+
+
+
+
+    </script>
+
 @stop
 
 
