@@ -1,5 +1,6 @@
         @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
             {{ Form::open(array('action' => 'AppointmentsController@store', 'class' => 'form-horizontal w100p', 'id' => 'regForm')) }}
+
         @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
             {{ Form::model($appointment, ['route' => ['appointments.update', $appointment->id], 'method' => 'put' ,'class' => 'form-horizontal w100p ', 'id' => 'regForm'])}}
         @endif

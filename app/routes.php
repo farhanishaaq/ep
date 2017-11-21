@@ -205,6 +205,7 @@ Route::group(['Private', 'before' => 'auth'],function (){
         Route::get('checkupFeeInvoice', ['as'=>'checkupFeeInvoice','uses'=>'AppointmentsController@checkupFeeInvoice']);
         Route::get('testFeeInvoice', ['as'=>'testFeeInvoice','uses'=>'AppointmentsController@testFeeInvoice']);
         Route::get('fetchTimeSlotsAndBookedAppointments',['as'=>'fetchTimeSlotsAndBookedAppointments','uses' => 'AppointmentsController@fetchTimeSlotsAndBookedAppointments']);
+
     });
 
 
@@ -332,10 +333,10 @@ Route::get('doctors_get_list', 'DoctorsController@show_doctors');
 //App\Globals\Ep::checkUpPrescrptionDirectory();die;
 //});
 
-//Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@show'));
-Route::post('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
+Route::get('showComment', array('as'=>'showComment','uses'=>'CommentsController@show'));
+Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
 Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'));
-
+Route::get('getappointment/{id}', array('as'=>'getappointment', 'uses' => 'AppointmentsController@crtappointment'));
 
 
 

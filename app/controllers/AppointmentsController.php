@@ -184,4 +184,12 @@ class AppointmentsController extends \BaseController {
         }
         return Response::json($response);
     }
+
+    public function crtappointment($id){
+
+
+        return View::make('appointments.getappointment');
+
+
+    }
 }

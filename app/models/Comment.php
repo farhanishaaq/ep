@@ -8,9 +8,13 @@ class Comment extends \Eloquent
     public static function fetechDoctorComments($id){
 
 //             $users = Comment::all();
-        $users = Comment::where('doctor_id', '=', $id)->get();
+//
+            $users = Comment::where('doctor_id', '=', $id)->get();
 
-//        return  json_encode($users)  ;
-        return $users;
+        return  json_encode($users)  ;
+            //return $users;
+
+
+
 }
 }
