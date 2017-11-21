@@ -5,8 +5,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 
-
-
 function submitForm() {
 var city = document.getElementsByName('city');
 var speciality = document.getElementsByName('speciality');
@@ -17,7 +15,7 @@ for (var i = 0; i< cityLength; i++)
 {
 if (city[i].checked)
 {
- cityId = city[i].value;
+cityId = city[i].value;
   break;
 }
 }
@@ -46,10 +44,10 @@ specialityId = speciality[j].value;
 @section('redBar')
     <div class = "user_logo">
         <div class="header_1 wrap_3 color_3 login-bar">
-            Searched "
-{{$doctors[0]->specialityName}}
-
-            " in Lahore
+            Searched In
+            @if(!empty($doctors))
+            "{{$doctors[0]->cityName}}"
+            @endif
         </div>
     </div>
 @stop
@@ -66,8 +64,7 @@ specialityId = speciality[j].value;
         <div class="block-header">
             <h3 style="margin-left: 50px;"><strong>EP-Sociale</strong></h3>
         </div>
-
-                                                                                                    {{--//Total Screen--}}
+                                                                                                   {{--//Total Screen--}}
         <div class="col-md-12 col-sm-12  col-lg-12" style="background-color: whitesmoke">
                                                                                                        {{--//Left Panel--}}
             <div class="col-md-3 col-sm-3  col-lg-3">
@@ -75,26 +72,25 @@ specialityId = speciality[j].value;
 
 
                                 {{--Cities List at Left Panel Of Doctor List--}}
-                        {{--{{ Form::open(array('method'=>'GET','url' => 'getDoctors'))}}--}}
-<form method="GET" action="{{'+getDoctors+'}}">
 
+            <form method="GET" action="{{route('getDoctors')}}">
 
+             <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title s-18">
+                   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#cities"  aria-controls="collapseOne" style="width: 100%" ><strong>City</strong></button>
+                </h4>
+             </div>
+         <div id="cities" class="collapse">
+            <div class="panel-body" style="padding-top: 0;border-bottom: 1px solid #01ADD5">
+               <div class="chbxs listm">
 
- <div class="panel-heading" role="tab" id="headingOne">
-    <h4 class="panel-title s-18">
-       <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#cities"  aria-controls="collapseOne" style="width: 100%" ><strong>City</strong></button>
-    </h4>
- </div>
- <div id="cities" class="collapse">
-    <div class="panel-body">
-       <div class="chbxs listm">
        @foreach($cities as $city)
-        <div class="chbx">
-                    <input value="{{$city->id}}" type="radio" name="city"  >
-                    <label for="fc_1185">
-                       <div style="padding-top: 10px"> {{$city->name}} </div>
+                    <div class="radio">
+                    <label>
+                    <input class="radio" value="{{$city->id}}" type="radio" name="city">
+                    <span style="position: absolute; margin-top: 11px;">{{$city->name}}</span>
                     </label>
-                 </div>
+                    </div>
        @endforeach
           <div class="clearfix"></div>
        </div>
@@ -107,19 +103,22 @@ specialityId = speciality[j].value;
      </h4>
   </div>
   <div id="speciality" class="collapse">
-     <div class="panel-body">
+     <div class="panel-body" style="padding-top: 0; border-bottom: 1px solid #01ADD5">
         <div class="chbxs listm">
                @foreach($specialities as $speciality)
            <div class="chbx">
-              <input value="{{$speciality->id}}" type="radio" name="speciality"  >
-              <label for="fc_1185">
-                 <div style="padding-top: 10px"> {{$speciality->name}} </div>
+            <div class="radio">
+              <label>
+               <input value="{{$speciality->id}}" type="radio" name="speciality">
+                  <span style="position: absolute; margin-top: 11px;">{{$speciality->name}}</span>
               </label>
+              </div>
            </div>
          @endforeach
            <div class="clearfix"></div>
         </div>
      </div>
+     <br>
   </div>
 
  <div class="doctorSearchOption">
@@ -131,12 +130,15 @@ specialityId = speciality[j].value;
                         </form>
     </div>
  </div>
-
-
             {{--Right Panel--}}
             <div class="col-md-9 col-sm-9  col-lg-9">
 
-                {{--@foreach ($doctors as $doctors)--}}
+                @if(empty($doctors))
+                                            {{--No Record Found Error--}}
+                                <div class="col-lg-offset-4 col-md-offset-4">
+                                <span><img src="{{asset('images/not_found.png')}}"></span><br>
+                </div>
+                @else
                     @for($i=0; $i<sizeof($doctors);$i++)
 
                     <div class="col-md-12 col-sm-12  col-lg-12 card listBox" style="border-radius: 5px; padding-top: 10px; ">
@@ -171,7 +173,7 @@ specialityId = speciality[j].value;
                         </div>
                         <div class="col-md-3 col-sm-3  col-lg-3" style="text-align: center">
                             <div style="">
-                                <h5 align="center" ><strong>Speciality:
+                                <h5 align="center" ><strong style="color:  #01ADD5; font-size: 15px">Speciality:</strong><strong>
 
                                             {{$doctors[$i]->specialityName}}
                                         </strong></h5>
@@ -196,7 +198,8 @@ specialityId = speciality[j].value;
                         </div>
                     </div>
                 @endfor
-                 <!-- Modal -->
+@endif
+<!-- Modal -->
                  <div class="modal fade" id="myModal" role="dialog">
                      <div class="modal-dialog modal-sm">
                        <div class="modal-content">
@@ -222,43 +225,3 @@ specialityId = speciality[j].value;
                 </div>
             </div>
 @stop
-
-    {{--<h2>City</h2>--}}
-                    {{--{{ Form::open(array('url' => 'getDoctors/2/9')) }}--}}
-                    {{--<label for="male">Karachi</label>--}}
-                    {{--<input type="radio" name="gender" id="male" value="male"><br>--}}
-                    {{--<label for="female">Lahore</label>--}}
-                    {{--<input type="radio" name="gender" id="female" value="female"><br>--}}
-                    {{--<label for="other">Gujranwala</label>--}}
-                    {{--<input type="radio" name="gender" id="other" value="other"><br><br>--}}
-                    {{--<input type="submit" value="Submit">--}}
-                  {{--{{ Form::close()}}--}}
-
-
-                        {{--<div class="member-card verified">--}}
-                            {{--<ul class="header-dropdown">--}}
-                                {{--<li class="dropdown">--}}
-                                    {{--<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="zmdi zmdi-more-vert"></i></a>--}}
-                                    {{--<ul class="dropdown-menu pull-right">--}}
-                                        {{--<li><a href="javascript:void(0);" class=" waves-effect waves-block">Edit</a></li>--}}
-                                        {{--<li><a href="javascript:void(0);" class=" waves-effect waves-block">Delete</a></li>--}}
-                                        {{--<li><a href="javascript:void(0);" class=" waves-effect waves-block">Block</a></li>--}}
-                                    {{--</ul>--}}
-                                {{--</li>--}}
-                            {{--</ul>--}}
-                        {{--</div>--}}
-                        {{--<div class="thumb-xl member-thumb">--}}
-                            {{--<img src="{{asset('images/random-avatar3.jpg')}}" class="img-circle" alt="profile-image">--}}
-                            {{--<i class="zmdi zmdi-info" title="verified user"></i>--}}
-                        {{--</div>--}}
-                        {{--<div>--}}
-                            {{--<h4 class="m-b-5">Dr. Shahid</h4>--}}
-                            {{--<p class="text-muted">Dentist<span> <a href="#" class="text-pink">websitename.com</a> </span></p>--}}
-                        {{--</div>--}}
-                        {{--<p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>--}}
-                        {{--<a href="profile.html"  class="btn btn-raised btn-sm">View Profile</a>--}}
-                        {{--<ul class="social-links list-inline m-t-10">--}}
-                            {{--<li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>--}}
-                            {{--<li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>--}}
-                            {{--<li><a title="instagram" href="3.html" ><i class="zmdi zmdi-instagram"></i></a></li>--}}
-                        {{--</ul>--}}

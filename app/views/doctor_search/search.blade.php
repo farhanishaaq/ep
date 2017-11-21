@@ -59,7 +59,7 @@
 
             <div class="col-lg-3 col-md-3 pd0">
 
-                <select class="js-example-basic-single" id="city">
+                <select class="js-example-basic-single" id="city" name="city">
                     <option class="vhid"></option>
                     @foreach($cities as $city)
                         <option value="{{$city['id']}}">{{$city['name']}}</option>
@@ -283,7 +283,7 @@
                         return {
                             q : params.term,
                             page : params.page,
-                            city : $( "#city" ).val(),
+                            city : $( "#city" ).val()
 
                         };
                     },
@@ -317,19 +317,19 @@
 
             var action= $('#search').attr('action');
             console.log(action)
-             $('#speciality').change(function () {
-
-                        var upAction = action.replace('/%7Bcity%7D/%7Bname%7D/%7Bspeciality%7D','/'+$('#city').val()+'/'+'0/'+$('#speciality').val());
-                         $('#search').attr('action',upAction);
-
-
-                });
-                $('#users').change(function () {
-
-                                    upAction =( action.replace('/%7Bcity%7D/%7Bname%7D/%7Bspeciality%7D','/'+$('#city').val()+'/'+userId+'/0'));
-                                    $('#search').attr('action',upAction);
-
-                });
+//             $('#speciality').change(function () {
+//
+//                        var upAction = action.replace('/%7Bcity%7D/%7Bname%7D/%7Bspeciality%7D','/'+$('#city').val()+'/'+'0/'+$('#speciality').val());
+//                         $('#search').attr('action',upAction);
+//
+//
+//                });
+//                $('#users').change(function () {
+//
+//                                    upAction =( action.replace('/%7Bcity%7D/%7Bname%7D/%7Bspeciality%7D','/'+$('#city').val()+'/'+userId+'/0'));
+//                                    $('#search').attr('action',upAction);
+//
+//                });
 
 
 
