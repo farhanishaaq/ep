@@ -28,19 +28,16 @@ class SearchController extends BaseController {
 	}
 
 	public function getDoctorNamesForSelector(){
-            
+
             $users = $this ->_user->getDoctorByNameForSelector('o');
         //    dd($users);
             return $users;
     }
 
-    public function test(){
+    public function selectorDoctors(){
         $data = Input::all();
-     //   dd($data['q']);
-            return User::where('full_name','LIKE','%'.$data['q'].'%')
-                ->where('city_id','=',$data['city'])
-                ->where('user_type','=','Doctor')
-                ->paginate(10);
+        $doctors = Doctor::getDoctorsForSelector($data);
+        return $doctors;
         }
 
 

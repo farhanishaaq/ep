@@ -142,23 +142,15 @@ class Patient extends \Eloquent {
 
     public function getPatientProfile($userId){
         $data=DB::table('users')
-            ->join('patients','patients.user_id','=','users.id')
-            ->join('cities','cities.id','=','users.city_id')
-            ->select('username','email','fname','lname','full_name','dob','gender','address','cell','name','patients.id')
+            ->leftJoin('patients','patients.user_id','=','users.id')
+            ->leftjoin('cities','cities.id','=','users.city_id')
+            ->select('username','email','fname','lname','full_name','dob','gender','address','cell','name AS cityname','patients.id as pid')
             ->where('users.id','=',$userId)->get();
 
         return $data;
     }
 
 
-    public function getPatientAppointments($patientId){
-
-        dd($patientId);
-        $appointments = $this->findorfail($patientId)->appointments;
-        $appointments =$appointments->toarray();
-        return $appointments;
-
-    }
 
 
 

@@ -21,9 +21,10 @@ Route::group(['Public'],function (){
      * AuthController Routes
      */
 
-    Route::get('getDoctors/{city}/{name}', array('as'=>'getDoctors','uses'=>'DoctorsController@showDoctors'));
+    Route::get('getDoctors/{city}/{name}/{speciality}', array('as'=>'getDoctors','uses'=>'DoctorsController@showDoctors'));
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
     Route::get('signUp', array('as'=>'signUp','uses'=>'AuthController@showSignUp'));
+    Route::get('cities', array('as'=>'cities','uses'=>'CityController@showCities'));
 
 
 
@@ -44,7 +45,7 @@ Route::group(['Public'],function (){
     //Route::get('searchDoc/{query}','SearchController@getDoctorNamesForSelector');
     Route::get('searchDoc/{query}','SearchController@getDoctorNamesForSelector');
 
-    Route::get('testData',array('as'=> 'testData','uses'=>'SearchController@test'));
+    Route::get('getDoctorData',array('as'=> 'testData','uses'=>'SearchController@selectorDoctors'));
 
 
 

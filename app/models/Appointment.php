@@ -199,4 +199,18 @@ GROUP BY
         return $result;
     }
 
+    /**
+     * @param $patientId
+     */
+    public static function getAppointmintByPatientId($patientId){
+        $appointment = DB::table('appointments')
+            ->join('doctors','doctors.id','=','appointments.doctor_id')
+            ->join('users','users.id','=','doctors.user_id')
+            ->where('appointments.patient_id','=',$patientId)
+            ->select('full_name','date','time','payment_status','paid_fee')
+            ->get();
+        return $appointment;
+
+    }
+
 }

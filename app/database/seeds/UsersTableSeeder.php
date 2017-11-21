@@ -218,6 +218,7 @@ class UsersTableSeeder extends Seeder {
 			'gender'=> 'Male',
 			'status'=> 'Active',
 		]);
+
 		$doctorRole = 1;
 		$user->roles()->attach($doctorRole);
 		$employee = Employee::create([

@@ -152,22 +152,24 @@ class PatientsController extends \BaseController {
 
 
         $users=$this->_patient -> getPatientProfile(16);
+//
+//       // var_dump($users);
+//
+//
+//     //   dd($users);
 
-       // var_dump($users);
 
-
-     //   dd($users);
-        $appointments= $this->_patient->getPatientAppointments(function () use ($users){
-            $id='dsad';
-//            foreach ($users as $user){
-//                $id=$user->id;
-//            }
-
+        function getPatientid($users){
+            foreach ($users as $user){
+                $id=$user->pid;
+            }
             return $id;
-        });
+        };
 
+        $appointments= Appointment::getAppointmintByPatientId(getPatientid($users));
+        dd($appointments);
 //        return View::make("patients.patientProfile", compact('user','patient','city'));
-        return View::make("patients.patientProfile", compact('user','appointments'));
+        return View::make("patients.patientProfile", compact('users','appointments'));
 
 
     }
