@@ -1,46 +1,7 @@
 ﻿<head>
     <link href="{{asset('css/doctorList.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-
-function submitForm() {
-var city = document.getElementsByName('city');
-var speciality = document.getElementsByName('speciality');
-var cityLength = city.length;
-var specialityLength = speciality.length;
-                                                //For City Select
-for (var i = 0; i< cityLength; i++)
-{
-if (city[i].checked)
-{
-cityId = city[i].value;
-  break;
-}
-}
-                                                //For Speciality Select
-for (var j = 0; j< specialityLength; j++)
-{
-if (speciality[j].checked)
-{
-specialityId = speciality[j].value;
-  break;
-}
-}
-   getDoctors += "route('getDoctors/'" + cityId + "/0/" + specialityId + ")";
-   alert(getDoctors);
-   }
-</script>
-<style>.btn span.glyphicon {
-       	opacity: 0;
-
-       }
-       .btn.active span.glyphicon {
-       	opacity: 1;
-       }</style>
 </head>
-
+{{--This fill CSS Save in CSS Folder As doctorList--}}
 @extends('layouts.master')
 <!--========================================================
    TITLE
@@ -75,71 +36,55 @@ specialityId = speciality[j].value;
         <div class="col-md-12 col-sm-12  col-lg-12" style="background-color: whitesmoke">
                                                                                                        {{--//Left Panel--}}
             <div class="col-md-3 col-sm-3  col-lg-3">
-                <div class="col-md-12 col-sm-12  col-lg-12 card " style="border-radius: 5px; padding-top: 10px; ">
+                <div class="col-md-12 col-sm-12  col-lg-12 card pT10" style="border-radius: 5px;">
 
 
                                 {{--Cities List at Left Panel Of Doctor List--}}
 
             <form method="GET" action="{{route('getDoctors')}}">
+                                                                            {{--Form--}}
+             <div role="tab" id="headingOne">
 
-             <div class="left_panel" role="tab" id="headingOne">
-                <h4 class="panel-title s-18">
-                   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#cities"  aria-controls="collapseOne" style="width: 100%" ><strong>City</strong><span class="caret" style="float: right;"></span></button>
-                </h4>
-             </div>
-         <div id="cities" class="collapse">
-            <div class="panel-body" style="padding-top: 0;border-bottom: 1px solid #01ADD5">
-               <div class="chbxs listm">
-
-       @foreach($cities as $city)
-                    {{--<div class="radio">--}}
-                    {{--<label>--}}
-                    {{--<input class="radio" value="{{$city->id}}" type="radio" name="city">--}}
-                    {{--<span style="position: absolute; margin-top: 11px;">{{$city->name}}</span>--}}
-                    {{--</label>--}}
-                    {{--</div>--}}
-
-                      <div>
-                        <div class="btn-group" data-toggle="buttons">
-                          <label class="btn btn-info">
-                            <input type="checkbox" value="{{$city->id}}" autocomplete="off">
-                            <span class="glyphicon glyphicon-ok p0"></span>
-                          </label>{{$city->name}}
-                        </div>
-                      </div>
-
-       @endforeach
-          <div class="clearfix"></div>
-       </div>
-    </div>
- </div>
- {{--Speciality--}}
-  <div class="left_panel" role="tab" id="headingOne">
+ <div class="col-lg-12 col-md-12" role="tab" id="headingOne">
      <h4 class="panel-title s-18">
-        <button type="button" class="btn-sm btn-info w90p" data-toggle="collapse" data-target="#speciality"  aria-controls="collapseOne" ><strong>Specility</strong><span class="caret" style="float: right;"></span></button>
+        <button type="button" class="col-lg-12 col-md-12 btn btn-info caretForCity" data-toggle="collapse" data-target="#cities"  aria-controls="collapseOne" ><strong>City</strong><span id="cityCaret" class="caret" style="float: right;"></span></button>
      </h4>
   </div>
-  <div id="speciality" class="collapse">
+  <div id="cities" class="collapse pL10">
+     <div class="panel-body" style="padding-top: 0; border-bottom: 1px solid #01ADD5">
+        {{--<div class="chbxs listm">--}}
+            @foreach($cities as $city)
+
+            <div class="btn-group">
+            <label class="container">&nbsp;&nbsp;&nbsp;{{$city->name}}
+              <input name="cities[]" type="checkbox" value="{{$city->id}}">
+              <span class="checkmark"></span>
+            </label></div>
+
+                @endforeach
+           <div class="clearfix"></div>
+        {{--</div>--}}
+     </div>
+     <br>
+  </div>
+
+
+                                                                            {{--Speciality--}}
+
+  <div class="col-lg-12 col-md-12 left_panel" role="tab" id="headingOne">
+     <h4 class="panel-title s-18">
+        <button type="button" class="col-lg-12 col-md-12 btn btn-info caretForSpeciality" data-toggle="collapse" data-target="#speciality"  aria-controls="collapseOne" ><strong>Specility</strong><span id="specialityCaret" class="caret" style="float: right;"></span></button>
+     </h4>
+  </div>
+  <div id="speciality" class="collapse pL10">
      <div class="panel-body" style="padding-top: 0; border-bottom: 1px solid #01ADD5">
         <div class="chbxs listm">
                @foreach($specialities as $speciality)
-           {{--<div class="chbx">--}}
-            {{--<div class="radio">--}}
-              {{--<label>--}}
-               {{--<input value="{{$speciality->id}}" type="radio" name="speciality">--}}
-                  {{--<span style="position: absolute; margin-top: 11px;">{{$speciality->name}}</span>--}}
-              {{--</label>--}}
-              {{--</div>--}}
-           {{--</div>--}}
-
-           <div>
-                                   <div class="btn-group" data-toggle="buttons">
-                                     <label class="btn btn-info">
-                                       <input type="checkbox" value="{{$speciality->id}}" autocomplete="off">
-                                       <span class="glyphicon glyphicon-ok p0"></span>
-                                     </label>{{$speciality->name}}
-                                   </div>
-                                 </div>
+               <div class="btn-group">
+                           <label class="container">&nbsp;&nbsp;&nbsp;{{$speciality->name}}
+                             <input name="specialities[]" type="checkbox" value="{{$speciality->id}}">
+                             <span class="checkmark"></span>
+                           </label></div>
          @endforeach
            <div class="clearfix"></div>
         </div>
@@ -149,8 +94,9 @@ specialityId = speciality[j].value;
 
  <div class="doctorSearchOption">
     <div class="col-lg-12 col-md-12">
-       <button type="submit" onclick="submitForm()" class="btn-sm btn-1 w100p">Search &nbsp; <span class="glyphicon glyphicon-search"></span></button><br><br>
+       <button type="submit" onclick="submitForm()" class="btn btn-raised btn-sm btn- w100p">Search &nbsp; <span class="glyphicon glyphicon-search"></span></button><br><br>
     </div>
+ </div>
  </div>
                         {{--{{ Form::close() }}--}}
                         </form>
