@@ -32,6 +32,13 @@ specialityId = speciality[j].value;
    alert(getDoctors);
    }
 </script>
+<style>.btn span.glyphicon {
+       	opacity: 0;
+
+       }
+       .btn.active span.glyphicon {
+       	opacity: 1;
+       }</style>
 </head>
 
 @extends('layouts.master')
@@ -75,9 +82,9 @@ specialityId = speciality[j].value;
 
             <form method="GET" action="{{route('getDoctors')}}">
 
-             <div class="panel-heading" role="tab" id="headingOne">
+             <div class="left_panel" role="tab" id="headingOne">
                 <h4 class="panel-title s-18">
-                   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#cities"  aria-controls="collapseOne" style="width: 100%" ><strong>City</strong></button>
+                   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#cities"  aria-controls="collapseOne" style="width: 100%" ><strong>City</strong><span class="caret" style="float: right;"></span></button>
                 </h4>
              </div>
          <div id="cities" class="collapse">
@@ -85,35 +92,54 @@ specialityId = speciality[j].value;
                <div class="chbxs listm">
 
        @foreach($cities as $city)
-                    <div class="radio">
-                    <label>
-                    <input class="radio" value="{{$city->id}}" type="radio" name="city">
-                    <span style="position: absolute; margin-top: 11px;">{{$city->name}}</span>
-                    </label>
-                    </div>
+                    {{--<div class="radio">--}}
+                    {{--<label>--}}
+                    {{--<input class="radio" value="{{$city->id}}" type="radio" name="city">--}}
+                    {{--<span style="position: absolute; margin-top: 11px;">{{$city->name}}</span>--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
+
+                      <div>
+                        <div class="btn-group" data-toggle="buttons">
+                          <label class="btn btn-info">
+                            <input type="checkbox" value="{{$city->id}}" autocomplete="off">
+                            <span class="glyphicon glyphicon-ok p0"></span>
+                          </label>{{$city->name}}
+                        </div>
+                      </div>
+
        @endforeach
           <div class="clearfix"></div>
        </div>
     </div>
  </div>
  {{--Speciality--}}
-  <div class="panel-heading" role="tab" id="headingOne">
+  <div class="left_panel" role="tab" id="headingOne">
      <h4 class="panel-title s-18">
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#speciality"  aria-controls="collapseOne" style="width: 100%" ><strong>Specility</strong></button>
+        <button type="button" class="btn-sm btn-info w90p" data-toggle="collapse" data-target="#speciality"  aria-controls="collapseOne" ><strong>Specility</strong><span class="caret" style="float: right;"></span></button>
      </h4>
   </div>
   <div id="speciality" class="collapse">
      <div class="panel-body" style="padding-top: 0; border-bottom: 1px solid #01ADD5">
         <div class="chbxs listm">
                @foreach($specialities as $speciality)
-           <div class="chbx">
-            <div class="radio">
-              <label>
-               <input value="{{$speciality->id}}" type="radio" name="speciality">
-                  <span style="position: absolute; margin-top: 11px;">{{$speciality->name}}</span>
-              </label>
-              </div>
-           </div>
+           {{--<div class="chbx">--}}
+            {{--<div class="radio">--}}
+              {{--<label>--}}
+               {{--<input value="{{$speciality->id}}" type="radio" name="speciality">--}}
+                  {{--<span style="position: absolute; margin-top: 11px;">{{$speciality->name}}</span>--}}
+              {{--</label>--}}
+              {{--</div>--}}
+           {{--</div>--}}
+
+           <div>
+                                   <div class="btn-group" data-toggle="buttons">
+                                     <label class="btn btn-info">
+                                       <input type="checkbox" value="{{$speciality->id}}" autocomplete="off">
+                                       <span class="glyphicon glyphicon-ok p0"></span>
+                                     </label>{{$speciality->name}}
+                                   </div>
+                                 </div>
          @endforeach
            <div class="clearfix"></div>
         </div>
@@ -122,8 +148,8 @@ specialityId = speciality[j].value;
   </div>
 
  <div class="doctorSearchOption">
-    <div class="col-lg-2 col-md-2 pd2">
-       <button type="submit" onclick="submitForm()" class="btn btn-raised btn-sm btn-1">Search &nbsp; <span class="glyphicon glyphicon-search"></span></button>
+    <div class="col-lg-12 col-md-12">
+       <button type="submit" onclick="submitForm()" class="btn-sm btn-1 w100p">Search &nbsp; <span class="glyphicon glyphicon-search"></span></button><br><br>
     </div>
  </div>
                         {{--{{ Form::close() }}--}}
