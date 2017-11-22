@@ -1,115 +1,79 @@
-
 @extends('layouts.master')
 <!--========================================================
-                                  TITLE
-        =========================================================-->
+   TITLE
+   =========================================================-->
 @section('title')
     Home
 @stop
-
 <!--========================================================
-                                  CURRENT MENU
-        =========================================================-->
+   CURRENT MENU
+   =========================================================-->
 @section("current_login")
     class="current"
 @stop
 @section('headScript')
-
-
 @stop
 @section('redBar')
-    {{--<div class = "user_logo">--}}
-        {{--<div class="header_1 wrap_3 color_3 login-bar">Search Doctor</div>--}}
-    {{--</div>--}}
+    {{--
+    <div class = "user_logo">
+       --}}
+    {{--
+    <div class="header_1 wrap_3 color_3 login-bar">Search Doctor</div>
+    --}}
+    {{--
+ </div>
+ --}}
 @stop
-
-
 @section('sliderContent')
 @stop
-
-
 <!--========================================================
-                                  CONTENT
-        =========================================================-->
-
+   CONTENT
+   =========================================================-->
 @section('content')
     <div class="banner bgt" >
-    <div class="container-fluid" >
-        <div class="row" >
-            {{--<img src="}" style="z-index: -1">--}}
-
-
-    <div class="col-lg-8 col-lg-offset-2 ">
-        <form class="col-lg-12 form-inline" method="" id="search" action="{{route('getDoctors')}}" style="margin-top: 150px">
-
-
-
-
-
-<div class="col-md-9 col-md-offset-3 pd0">
-
-
-    <ul class="tabs">
-        <li class="tab-link current" data-tab="tab-1">Search by Name</li>
-        <li class="tab-link" data-tab="tab-2">Search by Speciality</li>
-
-    </ul>
-</div>
-
-
-            <div class="col-lg-3 col-md-3 pd0">
-
-                <select class="js-example-basic-single" id="city">
-                    <option class="vhid"></option>
-                    @foreach($cities as $city)
-                        <option value="{{$city['id']}}">{{$city['name']}}</option>
-                    @endforeach
-                </select>
-
-            </div>
-                <div class="col-lg-7 col-md-7 pd0">
-                <div id="tab-1" class="tab-content current pd0">
-                    <select name="user_id" id="users"  class="form-control " style="width:100%">
-
-
-                    </select>
-
-
+        <div class="container-fluid" >
+            <div class="row" >
+                {{--<img src="}" style="z-index: -1">--}}
+                <div class="col-lg-8 col-lg-offset-2 ">
+                    <form class="col-lg-12 form-inline" method="" id="search" action="{{route('getDoctors')}}" style="margin-top: 150px">
+                        <div class="col-md-9 col-md-offset-3 pd0">
+                            <ul class="tabs">
+                                <li class="tab-link current" data-tab="tab-1">Search by Name</li>
+                                <li class="tab-link" data-tab="tab-2">Search by Speciality</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-3 pd0">
+                            <select class="js-example-basic-single" id="city" name="city">
+                                <option class="vhid"></option>
+                                @foreach($cities as $city)
+                                    <option value="{{$city['id']}}">{{$city['name']}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-lg-7 col-md-7 pd0">
+                            <div id="tab-1" class="tab-content current pd0">
+                                <select name="user_id" id="users"  class="form-control " style="width:100%">
+                                </select>
+                            </div>
+                            <div id="tab-2" class="tab-content pd0">
+                                <select class="js-example-basic-single" id="speciality" name="speciality" style="width: 100%">
+                                    <option class="vhid"></option>
+                                    @foreach($medspeciality as $ms)
+                                        <option value="{{$ms['id']}}">{{$ms['name']}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <!-- container -->
+                        <div class="col-lg-2 col-md-2 pd0">
+                            <button type="submit" class="btn btn-style" style="">Search <span class="glyphicon glyphicon-search"></span></button>
+                        </div>
+                    </form>
+                    <div style="margin-top: 422px"></div>
                 </div>
-                <div id="tab-2" class="tab-content pd0">
-                    <select class="js-example-basic-single" id="speciality" name="speciality" style="width: 100%">
-
-                        <option class="vhid"></option>
-                        @foreach($medspeciality as $ms)
-                            <option value="{{$ms['id']}}">{{$ms['name']}}</option>
-                        @endforeach
-
-
-                    </select>
-                </div>
-
-            </div><!-- container -->
-
-            <div class="col-lg-2 col-md-2 pd0">
-                <button type="submit" class="btn btn-style" style="">Search <span class="glyphicon glyphicon-search"></span></button>
             </div>
-        </form>
-
-
-
-        <div style="margin-top: 422px"></div>
-
-    </div>
-
-
-
-
         </div>
-
-
-</div>
     </div>
-
     <section id="content">
         <div class="container">
             <div class="row mT30">
@@ -119,7 +83,6 @@
                         <h3 class="text_2 color_7 maxheight1"><a href="#">Fee Management</a></h3>
                         <p class="text_3 color_2 maxheight">
                             Online creation and generation of patient's Bills anywhere, anytime.
-
                         </p>
                     </div>
                 </div>
@@ -173,7 +136,6 @@
                                 As all users of the System can access information within Medical
                                 Records of Patients more accurately, conveniently and in <br/> timely manner i.e. Anywhere, Anytime.
                                 <br/>
-
                             </p>
                         </div>
                     </div>
@@ -217,7 +179,6 @@
                             <div class="clearfix"></div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -240,7 +201,6 @@
                                     that should be linked through Internet, so that application could share data
                                     across all branches.
                                     <br/>
-
                                 </p>
                             </div>
                             <div class="item">
@@ -256,8 +216,6 @@
             </div>
         </div>
     </section>
-
-
     <script>
         $(document).ready(function() {
             $('#city').select2({
@@ -276,14 +234,14 @@
                 allowClear: true,
                 placeholder: 'Select Doctor\'s Name',
                 ajax : {
-                    url : '{{route('testData')}}',
+                    url : '{{route('getDoctorData')}}',
                     dataType : 'json',
                     delay : 200,
                     data : function(params){
                         return {
                             q : params.term,
                             page : params.page,
-                            city : $( "#city" ).val(),
+                            city : $( "#city" ).val()
 
                         };
                     },
@@ -298,13 +256,31 @@
                     }
                 },
                 minimumInputLength : 1,
+
                 templateResult : function (repo){
                     if(repo.loading)
 
                         return repo.full_name;
 
-                    var markup =  repo.full_name;
+                  //  var markup =  repo.full_name;
+                    var asset = "{{asset('')}}";
+
+                    var markup = '<div class="col-sm-1 p0">' +
+                        '<img src="'+asset+repo.photo+'" style="width: 100% ;max-height: 37px" />' +
+                        '</div>'+"|"+repo.full_name;
+
                     return markup;
+
+
+                    if (repo.description) {
+                        markup += '<div>' + repo.description + '</div>';
+                    }
+
+                    markup += '</div></div>';
+
+                    return markup;
+
+
                 },
                 templateSelection : function(repo)
                 {
@@ -316,20 +292,6 @@
 
 
             var action= $('#search').attr('action');
-            console.log(action)
-             $('#speciality').change(function () {
-
-                        var upAction = action.replace('/%7Bcity%7D/%7Bname%7D/%7Bspeciality%7D','/'+$('#city').val()+'/'+'0/'+$('#speciality').val());
-                         $('#search').attr('action',upAction);
-
-
-                });
-                $('#users').change(function () {
-
-                                    upAction =( action.replace('/%7Bcity%7D/%7Bname%7D/%7Bspeciality%7D','/'+$('#city').val()+'/'+userId+'/0'));
-                                    $('#search').attr('action',upAction);
-
-                });
 
 
 
@@ -347,19 +309,14 @@
 
 
     </script>
-
-
     <style>
         .select2.select2-container{
             border-radius: 5px;
-
         }
         .btn-style{
-
             width:100%;
             height:45px
         }
-
         .pd0{
             padding:0px;
         }
@@ -370,24 +327,18 @@
         }
         .select2-search input {
             font-size: 16px;
-
         }
         .select2-selection__placeholder{
-
             font-size: 16px;
         }
         .vhid{
             visibility: hidden;
-
         }
         .bgt{
             background-image: url({{asset('images/index_slide02.jpg')}});
             background-size: 100% auto;
             background-repeat: no-repeat;
         }
-
-
-
         ul.tabs{
             margin: 0px;
             padding: 0px;
@@ -401,26 +352,29 @@
             padding: 10px 15px;
             cursor: pointer;
         }
-
         ul.tabs li.current{
             background: #a3abb5;
             color: #222;
         }
-
         .tab-content{
             display: none;
-
             padding: 0px;
         }
-
         .tab-content.current{
             display: inherit;
         }
 
-    </style>
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #5897fb;
+            color: white;
+            padding-top: 0;
+            padding-bottom: 12px;
+        }
 
+    </style>
     <div class="container">
-        {{--<div class="row wrap_9 wrap_4 wrap_10">--}}
+        {{--
+        <div class="row wrap_9 wrap_4 wrap_10">--}}
         @if(Auth::user())
         @else
             @include('includes.webSocialLinks')

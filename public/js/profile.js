@@ -42,3 +42,39 @@ jQuery(document).ready(function() {
     'use strict';
     Profile.init()
 });
+function textCounter(field,field2,maxlimit)
+{
+    var countfield = document.getElementById(field2);
+    if ( field.value.length > maxlimit ) {
+        field.value = field.value.substring( 0, maxlimit );
+        return false;
+    } else {
+        countfield.value = maxlimit - field.value.length;
+    }
+}
+// window.onload = function(){
+$( document ).ready(function() {
+
+
+
+});
+                                            //ModaL Question Script
+$("#new_question").validate({
+    // ignore: ":hidden:not(.chosen-select)",
+    rules: {
+        "question[question_details]":{
+            required:true
+        },
+        "question[speciality_id]": {
+            required:true
+        }
+    },
+    messages:{
+        "question[question_details]":{
+            required: "Please type your question"
+        },
+        "question[speciality_id]":{
+            required: "Please select speciality"
+        }
+    }
+});

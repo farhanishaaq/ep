@@ -24,11 +24,6 @@ class DoctorsController extends \BaseController {
 		return View::make('doctors.index', compact('users'));
 	}
 
-//	public function show_doctors()
-//	{
-//		$users = Doctor::fetchDoctors();
-//		return View::make('doctors.doctorget', compact('users'));
-//	}
 
 	/**
 	 * Show the form for creating a new patient
@@ -145,28 +140,20 @@ class DoctorsController extends \BaseController {
 //       return View::make('doctors.drProfile', compact('drRecord','drComments'));
         return View::make('doctors.drProfile', compact('drRecord'));
 
-    }
+
+   }
     public function showDoctors()
 
     {
-        $data['name'] =Route::input('name');
-        $data['city'] =Route::input('city');
-
-        $data['speciality']=Route::input('speciality');
-
-//        $try = array (,'cityId'=>'2','specialityId'=>'','name'=>''');
+        $data['user_id'] = Input::get('user_id');
+        $data['city'] = Input::get('city');
+        $data['speciality'] = Input::get('speciality');
         $doctors = $this->_doctor->fetchPublicDoctors($data);
-
-        return View::make('doctors_get_list', compact('doctors'));
-
+//        dd($doctors);
+        $cities = City::all();
+        $specialities = MedicalSpecialty::all();
+        return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
     }
-
-//    public function showDoctorProfile(){
-//        Doctor::getAlldoctors();
-//
-//	    return View::make ("doctors.drProfile");
-//    }
-
 
 
 }

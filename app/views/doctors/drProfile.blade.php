@@ -64,9 +64,9 @@
                             <!-- SIDEBAR BUTTONS -->
                             <div class="profile-userbuttons">
                                 {{--<button type="submit" class="btn btn-circle green-bgcolor btn-sm" href="{{URL::route('getappointment')}}" >Get Appointment</button>--}}
-                                <a href="{{ URL::route('getappointment') }}" type="submit" class="btn btn-circle green-bgcolor btn-sm"> Get Appointment </a>
-                                <button type="button" class="btn btn-circle red btn-sm">Ask a question</button>
-
+                                <button  class="btn btn-raised btn-sm btn-1"> <a href="{{ URL::route('getappointment') }}" type="submit" style="color: white"> Get Appointment </a></button>
+                                <button type="button" class="btn btn-raised btn-sm btn-1" data-toggle="modal" data-target="#myModal">Ask A Question</button>
+                                @include('doctors.includes.questionModal')
                             </div>
                             <!-- END SIDEBAR BUTTONS -->
                         </div>
@@ -105,7 +105,7 @@
                                 <!-- Rating Stars Box -->
                                 <div class='rating-stars text-center'>
                                     <ul id='stars'>
-                                        <li class='star' title='Poor' data-value='1'>
+                                        <li class='star' title='Poor' data-value='1' >
                                             <i class='fa fa-star fa-fw'></i>
                                         </li>
                                         <li class='star' title='Fair' data-value='2'>
@@ -205,6 +205,44 @@
                                                                     <li>Life Member: The Indian Society for Bone and Mineral Research (ISBMR).</li>
                                                                     <li>Life member: Ahmedabad Orthopaedic Society</li>
                                                                 </ul>
+                                                                <br>
+                                                                    <div class="tab-content" >
+
+                                                                                 <h3 class="tab-content">Comments on Doctor's Checkup</h3>
+
+                                                                                    {{--@foreach($drComments as $comment)--}}
+
+                                                                                           <div class="actionBox"  style="background-color: whitesmoke">
+                                                                                            <ul class="commentList" id="commentList">
+
+
+                                                                                            </ul>
+                                                                                        </div><br>
+                                                                                        {{--@endforeach--}}
+                                                                                    </div>
+
+                                                                                            {{--<form class="form-inline" action="{{route('comment')}}" method="post" >--}}
+
+
+
+
+
+                                                                                                @if(Auth::user())
+                                                                                                    <form class="form-inline">
+
+                                                                                                        <input class="col-lg-12" type="text" placeholder="Your comments" name="addComment" id="comment"/><br>
+                                                                                                        <input class="form-control" type="hidden" value="{{$id}}"  name="Doctro_id" id="Doctro_id" >
+
+                                                                                                        <meta name="csrf-token" content="{{ csrf_token() }}" /><br>
+                                                                                                        {{--<input  type="hidden"  name="commenttoken" value=" {{csrf_token()}}" />--}}
+
+                                                                                                        <button class="col-lg-12"  id="ajax" type="submit" ><h4>Comment</h4></button>
+
+                                                                                                    </form>
+                                                                                                @else
+                                                                                                    {{--@include('includes.webSocialLinks')--}}
+
+                                                                                                @endif
                                                             </div>
                                                         </div>
                                                     </div>
@@ -223,51 +261,6 @@
     </div>
 
     @endforeach
-                    <!-- END PROFILE CONTENT -->
-                    {{--start comment-module--}}
-               <div class="tab-content" >
-
-                 <h3 class="tab-content">Comments on Doctor's Checkup</h3>
-
-                    {{--@foreach($drComments as $comment)--}}
-
-                           <div class="actionBox">
-                            <ul class="commentList" id="commentList">
-
-
-                            </ul>
-                        </div>
-                        {{--@endforeach--}}
-                    </div>
-
-                            {{--<form class="form-inline" action="{{route('comment')}}" method="post" >--}}
-
-
-
-
-
-                                @if(Auth::user())
-                                    <form class="form-inline">
-
-                                        <input class="col-lg-12" type="text" placeholder="Your comments" name="addComment" id="comment" /><br>
-                                        <input class="form-control" type="hidden" value="{{$id}}"  name="Doctro_id" id="Doctro_id" >
-
-                                        <meta name="csrf-token" content="{{ csrf_token() }}" /><br>
-                                        {{--<input  type="hidden"  name="commenttoken" value=" {{csrf_token()}}" />--}}
-
-                                        <button class="col-lg-12"  id="ajax" type="submit" ><h4>Comment</h4></button>
-
-                                    </form>
-                                @else
-                                    {{--@include('includes.webSocialLinks')--}}
-
-                                @endif
-
-                            {{--</form>--}}
-
-
-
-                    {{--end comment-module --}}
 
 
 
@@ -415,6 +408,70 @@
         }
 
 
+
+
+    </script>
+
+    <script>
+
+
+        $(document).ready(function(){
+
+            /* 1. Visualizing things on Hover - See next part for action on click */
+            $('#stars li').on('mouseover', function(){
+                var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+                // Now highlight all the stars that's not after the current hovered star
+                $(this).parent().children('li.star').each(function(e){
+                    if (e < onStar) {
+                        $(this).addClass('hover');
+                    }
+                    else {
+                        $(this).removeClass('hover');
+                    }
+                });
+
+            }).on('mouseout', function(){
+                $(this).parent().children('li.star').each(function(e){
+                    $(this).removeClass('hover');
+                });
+            });
+
+
+            /* 2. Action to perform on click */
+            $('#stars li').on('click', function(){
+                var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+                var stars = $(this).parent().children('li.star');
+
+                for (i = 0; i < stars.length; i++) {
+                    $(stars[i]).removeClass('selected');
+                }
+
+                for (i = 0; i < onStar; i++) {
+                    $(stars[i]).addClass('selected');
+                }
+
+                // JUST RESPONSE (Not needed)
+                var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+                var msg = "";
+                if (ratingValue > 1) {
+                    msg = "Thanks! You rated this " + ratingValue + " stars.";
+                }
+                else {
+                    msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+                }
+                responseMessage(msg);
+
+            });
+
+
+        });
+
+
+        function responseMessage(msg) {
+            $('.success-box').fadeIn(200);
+            $('.success-box div.text-message').html("<span>" + msg + "</span>");
+        }
 
 
     </script>
