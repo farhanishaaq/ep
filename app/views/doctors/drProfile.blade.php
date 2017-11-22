@@ -64,9 +64,9 @@
                             <!-- SIDEBAR BUTTONS -->
                             <div class="profile-userbuttons">
                                 {{--<button type="submit" class="btn btn-circle green-bgcolor btn-sm" href="{{URL::route('getappointment')}}" >Get Appointment</button>--}}
-                                <a href="{{ URL::route('getappointment') }}" type="submit" class="btn btn-circle green-bgcolor btn-sm"> Get Appointment </a>
-                                <button type="button" class="btn btn-circle red btn-sm">Ask a question</button>
-
+                                <button  class="btn btn-raised btn-sm btn-1"> <a href="{{ URL::route('getappointment') }}" type="submit" style="color: white"> Get Appointment </a></button>
+                                <button type="button" class="btn btn-raised btn-sm btn-1" data-toggle="modal" data-target="#myModal">Ask A Question</button>
+                                @include('doctors.includes.questionModal')
                             </div>
                             <!-- END SIDEBAR BUTTONS -->
                         </div>
@@ -205,6 +205,44 @@
                                                                     <li>Life Member: The Indian Society for Bone and Mineral Research (ISBMR).</li>
                                                                     <li>Life member: Ahmedabad Orthopaedic Society</li>
                                                                 </ul>
+                                                                <br>
+                                                                    <div class="tab-content" >
+
+                                                                                 <h3 class="tab-content">Comments on Doctor's Checkup</h3>
+
+                                                                                    {{--@foreach($drComments as $comment)--}}
+
+                                                                                           <div class="actionBox"  style="background-color: whitesmoke">
+                                                                                            <ul class="commentList" id="commentList">
+
+
+                                                                                            </ul>
+                                                                                        </div><br>
+                                                                                        {{--@endforeach--}}
+                                                                                    </div>
+
+                                                                                            {{--<form class="form-inline" action="{{route('comment')}}" method="post" >--}}
+
+
+
+
+
+                                                                                                @if(Auth::user())
+                                                                                                    <form class="form-inline">
+
+                                                                                                        <input class="col-lg-12" type="text" placeholder="Your comments" name="addComment" id="comment"/><br>
+                                                                                                        <input class="form-control" type="hidden" value="{{$id}}"  name="Doctro_id" id="Doctro_id" >
+
+                                                                                                        <meta name="csrf-token" content="{{ csrf_token() }}" /><br>
+                                                                                                        {{--<input  type="hidden"  name="commenttoken" value=" {{csrf_token()}}" />--}}
+
+                                                                                                        <button class="col-lg-12"  id="ajax" type="submit" ><h4>Comment</h4></button>
+
+                                                                                                    </form>
+                                                                                                @else
+                                                                                                    {{--@include('includes.webSocialLinks')--}}
+
+                                                                                                @endif
                                                             </div>
                                                         </div>
                                                     </div>
@@ -225,20 +263,20 @@
     @endforeach
                     <!-- END PROFILE CONTENT -->
                     {{--start comment-module--}}
-               <div class="tab-content" >
+               {{--<div class="tab-content" >--}}
 
-                 <h3 class="tab-content">Comments on Doctor's Checkup</h3>
+                 {{--<h3 class="tab-content">Comments on Doctor's Checkup</h3>--}}
 
                     {{--@foreach($drComments as $comment)--}}
 
-                           <div class="actionBox">
-                            <ul class="commentList" id="commentList">
+                           {{--<div class="actionBox">--}}
+                            {{--<ul class="commentList" id="commentList">--}}
 
 
-                            </ul>
-                        </div>
+                            {{--</ul>--}}
+                        {{--</div>--}}
                         {{--@endforeach--}}
-                    </div>
+                    {{--</div>--}}
 
                             {{--<form class="form-inline" action="{{route('comment')}}" method="post" >--}}
 
@@ -246,22 +284,22 @@
 
 
 
-                                @if(Auth::user())
-                                    <form class="form-inline">
+                                {{--@if(Auth::user())--}}
+                                    {{--<form class="form-inline">--}}
 
-                                        <input class="col-lg-12" type="text" placeholder="Your comments" name="addComment" id="comment" /><br>
-                                        <input class="form-control" type="hidden" value="{{$id}}"  name="Doctro_id" id="Doctro_id" >
+                                        {{--<input class="col-lg-12" type="text" placeholder="Your comments" name="addComment" id="comment"/><br>--}}
+                                        {{--<input class="form-control" type="hidden" value="{{$id}}"  name="Doctro_id" id="Doctro_id" >--}}
 
-                                        <meta name="csrf-token" content="{{ csrf_token() }}" /><br>
+                                        {{--<meta name="csrf-token" content="{{ csrf_token() }}" /><br>--}}
                                         {{--<input  type="hidden"  name="commenttoken" value=" {{csrf_token()}}" />--}}
 
-                                        <button class="col-lg-12"  id="ajax" type="submit" ><h4>Comment</h4></button>
+                                        {{--<button class="col-lg-12"  id="ajax" type="submit" ><h4>Comment</h4></button>--}}
 
-                                    </form>
-                                @else
+                                    {{--</form>--}}
+                                {{--@else--}}
                                     {{--@include('includes.webSocialLinks')--}}
 
-                                @endif
+                                {{--@endif--}}
 
                             {{--</form>--}}
 
