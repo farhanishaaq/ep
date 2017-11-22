@@ -39,6 +39,32 @@
                     {{--<input type="password" required="true" name="password" id="password" placeholder="Password">--}}
                     {{--<input type="text" required="true" name="city" id="city" placeholder="City" >--}}
                     <input type="number" required="true" name="phone" id="number" placeholder="Phone Number" style="width: 100%;">
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>Doctor's duty days</b>
+                           <div class="profile-desc-item fa-pull-right">Monday To Friday</div>
+                        </li>
+                    </ul>
+                      <div class='input-group date' id='datetimepicker5'>
+                       <input type='text' class="login-card login-page" placeholder="Set Appointment Date" />
+                        <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                         </span>
+                      </div>
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>Doctor's time slot</b>
+                            <div class="profile-desc-item pull-right">4:30 To 9:00</div>
+                        </li>
+                    </ul>
+                    <div class='input-group date' id='timepicker3'>
+                        <input type='text' class="login-card login-page" placeholder="Set Appointment Time" />
+                        <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+
+
                     <input style="width:100%" type="submit" name="signUp" class="login login-submit" value="SUBMIT">
                     {{--{{ Form::close() }}--}}
                     {{--</form>--}}
@@ -46,10 +72,33 @@
             </div>
             <div class="col-md-3" ></div>
         </div>
+
+
         <br>
         <br><br><br><br>
         <br><br><br><br>
     </div>
+
+
+    <script src="{{asset('js/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}" ></script>
+    <script type="text/javascript" src="{{asset('js/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#datetimepicker5').datepicker();
+        });
+    </script>
+    <script src="{{asset('js/bootstrap-timepicker/css/bootstrap-timepicker.min.css')}}" ></script>
+    <script type="text/javascript" src="{{asset('js/bootstrap-timepicker/js/bootstrap-timepicker.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/bootstrap-timepicker/js/bootstrap-timepicker-init.js')}}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#timepicker3').clockpicker({
+                format: 'LT'
+            });
+        });
+    </script>
+
+
 
 
 
