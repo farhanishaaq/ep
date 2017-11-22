@@ -309,6 +309,8 @@ class Doctor extends \Eloquent
 
     public static function getDoctorsForSelector($data){
         $doctors=User::where('full_name','LIKE','%'.$data['q'].'%')
+           // ->leftJoin('m','','')
+            ->select('full_name','photo','id')
             ->where('city_id','=',$data['city'])
             ->where('user_type','=','Doctor')
             ->paginate(10);

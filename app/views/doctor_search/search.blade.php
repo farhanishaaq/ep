@@ -234,7 +234,7 @@
                 allowClear: true,
                 placeholder: 'Select Doctor\'s Name',
                 ajax : {
-                    url : '{{route('testData')}}',
+                    url : '{{route('getDoctorData')}}',
                     dataType : 'json',
                     delay : 200,
                     data : function(params){
@@ -262,13 +262,15 @@
 
                         return repo.full_name;
 
-                    var markup =  repo.full_name;
+                  //  var markup =  repo.full_name;
+                    var asset = "{{asset('')}}";
+
+                    var markup = '<div class="col-sm-1 p0">' +
+                        '<img src="'+asset+repo.photo+'" style="width: 100% ;max-height: 37px" />' +
+                        '</div>'+"|"+repo.full_name;
+
                     return markup;
 
-//                    var markup = '<div class="col-sm-1">' +
-//                    '<img src="' + repo.owner.avatar_url + '" style="max-width: 100%" />' +
-//                    '</div>'+repo.full_name
-;
 
                     if (repo.description) {
                         markup += '<div>' + repo.description + '</div>';
@@ -361,6 +363,14 @@
         .tab-content.current{
             display: inherit;
         }
+
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #5897fb;
+            color: white;
+            padding-top: 0;
+            padding-bottom: 12px;
+        }
+
     </style>
     <div class="container">
         {{--
