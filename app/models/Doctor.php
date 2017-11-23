@@ -297,6 +297,7 @@ class Doctor extends \Eloquent
                 $queryBuilder->where('cities.id', '=', $filterParams['city']);
             }
             elseif($filterParams['selectCities']!= ''){
+//                dd($filterParams['selectCities']);
                 $queryBuilder->whereIn('cities.id',[$filterParams['selectCities']]);
             }
             if($filterParams['user_id']!=''){
@@ -321,6 +322,8 @@ class Doctor extends \Eloquent
 
     public static function getDoctorsForSelector($data){
         $doctors=User::where('full_name','LIKE','%'.$data['q'].'%')
+           // ->leftJoin('m','','')
+            ->select('full_name','photo','id')
             ->where('city_id','=',$data['city'])
             ->where('user_type','=','Doctor')
             ->paginate(10);

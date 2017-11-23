@@ -153,7 +153,10 @@ class DoctorsController extends \BaseController {
         $data['selectSpecialities'] = '';
 
         if(Input::get('cities')!=''){
-            $data['selectCities'] = implode(",", Input::get('cities'));
+            $data['selectCities'] = implode(',', Input::get('cities'));
+//            For Integer
+//            $data['selectCities'] = array_map('intval',explode(',', $string));
+//            dd($data['selectCities']);
         }
         if(Input::get('specialities')!=''){
             $data['selectSpecialities'] = implode(",", Input::get('specialities'));
