@@ -155,7 +155,7 @@
                                     <option> Select Time slot </option>
                                 </select>
                             @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-                                {{ Form::select('time_slot_id', $timeSlotsByAppointmentDate, Form::getValueAttribute('date', $timeSlot), ['required' => 'true', 'id' => 'time_slot_id'] ); }}
+                                {{ Form::select('time_slot_id', $timeSlotsByAppointmentDate, Form::getValueAttribute('date', $timeSlot), ['required' => 'true', 'id' => 'time_slot_id'] )}}
                             @endif
                             <span id="errorTimeslotId" class="field-validation-msg"></span>
                         </div>
