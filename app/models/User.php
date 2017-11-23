@@ -129,7 +129,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->hasManyThrough('DutyDay', 'Employee', 'user_id', 'employee_id');
 	}
-
+    public function ratings()
+    {
+        return $this->hasMany('Rating');
+    }
 	/**
 	 * hasRole | This Function used to check that user has the role which is passed and collection
 	 * @param \Illuminate\Database\Eloquent\Collection $userRoles

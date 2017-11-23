@@ -6,7 +6,15 @@ use Illuminate\Http\Request;
 
 class CommentsController extends \BaseController {
 
-	/**
+    private $_comment;
+
+    public function __construct(Comment $comment)
+     {
+         $this->_comment= $comment;
+     }
+
+
+    /**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
@@ -35,21 +43,8 @@ class CommentsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
-
         $data = Input::all();
-            $dr_id=$data['id'];
-
-            $addArticle = $data['comment'];
-
-
-        $comment = new Comment;
-        $comment->doctor_id =$dr_id;
-        $comment->comments = $addArticle;
-
-        $comment->save();
-        return 'sucess';
-
+        return $this->_comment->saveComment($data);
 
 	}
 
@@ -65,7 +60,7 @@ class CommentsController extends \BaseController {
 	{
         $data = Input::all();
 
-           return Comment::fetechDoctorComments($data['id']);
+        return Comment::fetechDoctorComments($data['id']);
 
 
 	}
