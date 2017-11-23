@@ -21,10 +21,13 @@
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
-.left_panel{
-    padding: 0px 15px;
-    border-bottom: 1px solid transparent;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
 
-}
+
+
+/*.left_panel{*/
+    /*padding: 0px 15px;*/
+    /*border-bottom: 1px solid transparent;*/
+    /*border-top-left-radius: 3px;*/
+    /*border-top-right-radius: 3px;*/
+
+/*}*/

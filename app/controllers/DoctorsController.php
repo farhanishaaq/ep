@@ -145,11 +145,25 @@ class DoctorsController extends \BaseController {
     public function showDoctors()
 
     {
-        $data['user_id'] = Input::get('user_id');
-        $data['city'] = Input::get('city');
-        $data['speciality'] = Input::get('speciality');
+//                                                           From Selected Left Panel,For  handle Errors
+        $data['city'] = '';
+        $data['user_id'] = '';
+        $data['speciality'] = '';
+        $data['selectCities'] ='';
+        $data['selectSpecialities'] = '';
+
+        if(Input::get('cities')!=''){
+            $data['selectCities'] = implode("','", Input::get('cities'));
+        }
+        if(Input::get('specialities')!=''){
+            $data['selectSpecialities'] = implode(",", Input::get('specialities'));
+        }
+        if($data['selectCities']=='' && $data['selectSpecialities']==''){
+            $data['user_id'] = Input::get('user_id');
+            $data['city'] = Input::get('city');
+            $data['speciality'] = Input::get('speciality');
+        }
         $doctors = $this->_doctor->fetchPublicDoctors($data);
-//        dd($doctors);
         $cities = City::all();
         $specialities = MedicalSpecialty::all();
         return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
@@ -157,3 +171,12 @@ class DoctorsController extends \BaseController {
 
 
 }
+
+
+//Some Practice
+//            $data['selectCities'] = Input::get('cities');
+//            $string = implode("','", Input::get('cities'));
+////            dd("'".$string."'");
+////            For Integer
+//            $data['selectCities'] = array_map('intval',explode(',', $string));
+//            dd($data['selectCities']);

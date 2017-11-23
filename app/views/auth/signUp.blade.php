@@ -44,13 +44,14 @@
 
                                             {{ Form::open(array('url' => 'doSignUp')) }}
 
-                                            <input type="text" id = "fname" name="first_name" placeholder="First Name" required="true">
-                                            <input type="text" id = "lname" name="last_name" placeholder="Last Name" required="true">
+                                            <input type="text" id = "fname" name="fname" placeholder="First Name" required="true">
+                                            <input type="text" id = "lname" name="lname" placeholder="Last Name" required="true">
                                             <input type="email" id = "email" name="email" placeholder="Email" required="true">
+                                            <input type="text" id = "username" name="username" placeholder="User Name" required="true">
                                             <input type="password" required="true" name="password" id="password" placeholder="Password">
                                               <input type="text" required="true" name="city" id="city" placeholder="City" >
                                             <input type="number" required="true" name="phone" id="number" placeholder="Phone Number" style="width: 100%;">
-                                            <input style="width:100%" type="submit" name="signUp" class="login login-submit" value="Register">
+                                            <input type="submit" name="signUp" class="btn btn-raised btn-sm btn-1" value="Register">
                                             {{ Form::close() }}
                                             {{--</form>--}}
                  </div>

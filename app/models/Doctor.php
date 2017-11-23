@@ -282,18 +282,30 @@ class Doctor extends \Eloquent
                 ->leftjoin('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
                 ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id');
 
-            if ($filterParams['speciality']!='') {
-                $queryBuilder
+//                                              For Selected Speciality from Left Panel of Doctors list Show
+            if ($filterParams['speciality']!='' ) {
+                $queryBuilder->where('medical_specialties.id', '=', $filterParams['speciality']);
+            }
 
-                        ->where('medical_specialties.id', '=', $filterParams['speciality']);
+            elseif ($filterParams['selectSpecialities']!= ''){
+                $queryBuilder->whereIn('medical_specialties.id',[$filterParams['selectSpecialities']]);
+            }
+
+//                                       For Selected Cities Form Left Panel of Doctor List Show
+            if($filterParams['city']!=''){
+                $queryBuilder->where('cities.id', '=', $filterParams['city']);
+            }
+            elseif($filterParams['selectCities']!= ''){
+
+                    $queryBuilder->whereIn('cities.id',[$filterParams['selectCities']]);
             }
             if($filterParams['user_id']!=''){
                 $queryBuilder->where('users.id', $filterParams['user_id']);
-
             }
+
             $doctors = $queryBuilder->select('max_fee', 'min_fee', 'full_name','medical_specialties.name AS specialityName', 'start', 'end', 'code', 'doctors.id AS doctorsId','cities.name AS cityName','cities.id AS cityId' )
-                ->where('cities.id', '=', $filterParams['city'])
-                ->groupBy()->get();
+
+                ->groupBy('user_id')->get();
             return $doctors;
 
         } catch (Throwable $t) {

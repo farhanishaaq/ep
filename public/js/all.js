@@ -209,3 +209,12 @@ function getDateIntoRequiredFormat(params) {
         return y+'-'+m+'-'+d;
     }
 }
+$(document).ready(function(){
+    $(".caretForSpeciality").click(function(){
+        $("#specialityCaret").toggleClass("caret-up caret");
+    });
+
+    $(".caretForCity").click(function(){
+        $("#cityCaret").toggleClass("caret-up caret");
+    });
+});
