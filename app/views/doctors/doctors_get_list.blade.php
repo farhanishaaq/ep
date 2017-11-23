@@ -1,48 +1,5 @@
 ﻿<head>
     <link href="{{asset('css/doctorList.css')}}" rel="stylesheet">
-<<<<<<< HEAD
-=======
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-
-function submitForm() {
-var city = document.getElementsByName('city');
-var speciality = document.getElementsByName('speciality');
-var cityLength = city.length;
-var specialityLength = speciality.length;
-                                                //For City Select
-for (var i = 0; i< cityLength; i++)
-{
-if (city[i].checked)
-{
-cityId = city[i].value;
-  break;
-}
-}
-                                                //For Speciality Select
-for (var j = 0; j< specialityLength; j++)
-{
-if (speciality[j].checked)
-{
-specialityId = speciality[j].value;
-  break;
-}
-}
-   getDoctors += "route('getDoctors/'" + cityId + "/0/" + specialityId + ")";
-   alert(getDoctors);
-   }
-</script>
-<style>.btn span.glyphicon {
-       	opacity: 0;
-
-       }
-       .btn.active span.glyphicon {
-       	opacity: 1;
-       }</style>
->>>>>>> 96bb01dc71e52c72ffebdce2412eaf902a65c863
 </head>
 {{--This fill CSS Save in CSS Folder As doctorList--}}
 @extends('layouts.master')
@@ -68,7 +25,6 @@ specialityId = speciality[j].value;
    CONTENT
    =========================================================-->
 @section('content')
-
     <!-- Page Loader -->
     <div class="container-fluid">
         <div class="row"></div>
@@ -123,6 +79,7 @@ specialityId = speciality[j].value;
      <div class="panel-body" style="padding-top: 0; border-bottom: 1px solid #01ADD5">
         <div class="chbxs listm">
                @foreach($specialities as $speciality)
+               {{--For Space in list Use Class i.e mB4--}}
                <div class="btn-group">
                            <label class="container">&nbsp;&nbsp;&nbsp;{{$speciality->name}}
                              <input name="specialities[]" type="checkbox" value="{{$speciality->id}}">
@@ -137,7 +94,7 @@ specialityId = speciality[j].value;
 
  <div class="doctorSearchOption">
     <div class="col-lg-12 col-md-12">
-       <button type="submit" onclick="submitForm()" class="btn btn-raised btn-sm btn- w100p">Search &nbsp; <span class="glyphicon glyphicon-search"></span></button><br><br>
+       <button type="submit" class="btn btn-raised btn-sm btn-1 w100p">Search &nbsp; <span class="glyphicon glyphicon-search"></span></button><br><br>
     </div>
  </div>
  </div>
