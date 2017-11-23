@@ -337,7 +337,8 @@ Route::get('showComment', array('as'=>'showComment','uses'=>'CommentsController@
 Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
 Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'));
 Route::get('getappointment/{id}', array('as'=>'getappointment', 'uses' => 'AppointmentsController@crtappointment'));
-
+Route::get('articles', array('as'=>'articles','uses'=>'ArticlesController@home'));
+Route::get('articles/food', array('as'=>'articlesfood','uses'=>'ArticlesController@healthatricle'));
 
 
 

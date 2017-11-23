@@ -18,7 +18,7 @@
                                                                                 {{--Form Start Here--}}
         <form  id="new_question" action=""  method="post">
           <div class="form-group">
-            <textarea onkeyup="textCounter(this,&#39;counter&#39;,280);" class="form-control" placeholder="Ask question here" maxlength="280" name="question[question_details]" id="question_question_details" rows="6">
+            <textarea onkeyup="textCounter(this,&#39;counter&#39;280)" class="form-control" placeholder="Ask question here" maxlength="280" name="question[question_details]" id="question_question_details" rows="6">
         </textarea>
             <div style="float: right;">
             Character Left:<input disabled  maxlength="3" size="3" value="280" id="counter" style="border: none;font-size: 15px;">

@@ -235,6 +235,7 @@ specialityId = speciality[j].value;
                        </div>
                      </div>
                    </div>
+
                  </div>
 
                 </div>

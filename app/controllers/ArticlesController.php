@@ -82,6 +82,16 @@ class ArticlesController extends \BaseController {
 	{
 		//
 	}
+	public function home(){
+
+        return View::make('articles.index');
+
+    }
+    public function healthatricle(){
+
+        return View::make('articles.article01');
+
+    }
 
 
 }
