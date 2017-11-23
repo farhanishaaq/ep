@@ -16,7 +16,7 @@ class CreateRatingsTable extends Migration {
 		{
 			$table->increments('id');
             $table->integer('doctor_id');
-            $table->integer('patient_id');
+            $table->integer('rating');
             $table->timestamps();
 		});
 	}

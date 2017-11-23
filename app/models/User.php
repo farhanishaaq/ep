@@ -129,7 +129,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->hasManyThrough('DutyDay', 'Employee', 'user_id', 'employee_id');
 	}
-
+    public function ratings()
+    {
+        return $this->hasMany('Rating');
+    }
 	/**
 	 * hasRole | This Function used to check that user has the role which is passed and collection
 	 * @param \Illuminate\Database\Eloquent\Collection $userRoles
@@ -334,6 +337,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $response;
 	}
 
+
 	public function getDoctorByNameForSelector($name){
 	    $doctors = self::select('full_name')
                     ->where("user_type",'=','Doctor')
@@ -341,4 +345,23 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	    return json_encode($doctors);
     }
+    public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
+
+
+
+        $this->fname = $filterparams['fname'];
+        $this->lname = $filterparams['lname'];
+        $this->full_name = $filterparams['fname'] . " " . $filterparams['lname'];
+        $this->email = $filterparams['email'];
+        $this->username = $filterparams['username'];
+        $this->city_id = $filterparams['city'];
+        $this->password = Hash::make($filterparams['password']);
+        $this->phone = $filterparams['phone'];
+        $this->save();
+        return "Success";
+
+
+
+    }
+
 }

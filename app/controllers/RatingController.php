@@ -1,18 +1,16 @@
 <?php
-use App\Globals\GlobalsConst;
-use Illuminate\Http\Request;
+
+class RatingController extends \BaseController {
 
 
+    private $_ratingLog;
+    private $_rating;
 
-class CommentsController extends \BaseController {
-
-    private $_comment;
-
-    public function __construct(Comment $comment)
+     public function __construct(RatingLog $ratingLog,Rating $rating)
      {
-         $this->_comment= $comment;
+         $this->_ratingLog= $ratingLog;
+         $this->_rating= $rating;
      }
-
 
     /**
 	 * Display a listing of the resource.
@@ -21,7 +19,7 @@ class CommentsController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+       return $this->_rating->getDoctorRating(Input::get('doctorId'));
 	}
 
 
@@ -43,11 +41,10 @@ class CommentsController extends \BaseController {
 	 */
 	public function store()
 	{
-        $data = Input::all();
-        return $this->_comment->saveComment($data);
+		$data = Input::all();
+		return $this->_ratingLog->setRatingOfDoctor($data);
 
 	}
-
 
 
 	/**
@@ -56,13 +53,9 @@ class CommentsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show()
+	public function show($id)
 	{
-        $data = Input::all();
-
-        return Comment::fetechDoctorComments($data['id']);
-
-
+		//
 	}
 
 

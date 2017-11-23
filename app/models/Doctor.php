@@ -272,7 +272,6 @@ class Doctor extends \Eloquent
 
     public static function fetchPublicDoctors(array $filterParams = null, $offset = 0, $limit = GlobalsConst::LIST_DATA_LIMIT)
     {
-//        dd($filterParams);
         try {
             $queryBuilder = DB::table('doctors')
                 ->leftjoin('users', 'doctors.user_id', '=', 'users.id')
@@ -297,8 +296,8 @@ class Doctor extends \Eloquent
                 $queryBuilder->where('cities.id', '=', $filterParams['city']);
             }
             elseif($filterParams['selectCities']!= ''){
-//                dd($filterParams['selectCities']);
-                $queryBuilder->whereIn('cities.id',[$filterParams['selectCities']]);
+
+                    $queryBuilder->whereIn('cities.id',[$filterParams['selectCities']]);
             }
             if($filterParams['user_id']!=''){
                 $queryBuilder->where('users.id', $filterParams['user_id']);

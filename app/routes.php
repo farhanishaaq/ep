@@ -51,7 +51,7 @@ Route::group(['Public'],function (){
 
 
     Route::get('drProfile/{id}', 'DoctorsController@GetProfile');
-
+    Route::resource('starRating','RatingController');
 
 
 //
