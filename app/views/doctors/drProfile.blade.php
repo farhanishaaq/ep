@@ -108,7 +108,7 @@
                         <div class="card-body no-padding height-9">
                             <div class="row">
                                 <div class="profile-userpic">
-                                    <img src="{{ asset('images/dp.svg') }}" class="img-responsive" alt=""> </div>
+                                    <img src="{{ asset('uploads/'.$profile->photo) }}" class="img-responsive" alt=""> </div>
                             </div>
                             <div class="profile-usertitle">
                                 <div class="profile-usertitle-name"> {{ $profile->full_name }} </div>
