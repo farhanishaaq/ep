@@ -90,6 +90,7 @@
         <link href="{{ asset('css/comment.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/starRating.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+        {{--<link href="{{ asset('css/font-articlescomments.css') }}" rel="stylesheet" type="text/css" />--}}
         <!-- google font -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css" />
 
