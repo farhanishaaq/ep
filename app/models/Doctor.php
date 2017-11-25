@@ -262,7 +262,7 @@ class Doctor extends \Eloquent
             ->leftjoin('users', 'doctors.user_id', '=', 'users.id')
             ->leftjoin('qualifications', 'doctor_qualification.qualification_id', '=', 'qualifications.id')
 //               ->join('comments','comments.doctor_id','=','doctors.id')
-            ->select('doctors.id', 'max_fee', 'code', 'title', 'description', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'cell', 'address', 'email')
+            ->select('doctors.id', 'max_fee', 'code', 'title', 'description', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'cell', 'address', 'email','photo')
             ->where('doctors.id', '=', $id)
             ->groupBy('doctors.id')
             ->get();
@@ -303,7 +303,7 @@ class Doctor extends \Eloquent
                 $queryBuilder->where('users.id', $filterParams['user_id']);
             }
 
-            $doctors = $queryBuilder->select('max_fee', 'min_fee', 'full_name','medical_specialties.name AS specialityName', 'start', 'end', 'code', 'doctors.id AS doctorsId','cities.name AS cityName','cities.id AS cityId' )
+            $doctors = $queryBuilder->select('max_fee', 'min_fee', 'full_name','medical_specialties.name AS specialityName', 'start', 'end', 'code', 'doctors.id AS doctorsId','cities.name AS cityName','cities.id AS cityId','photo' )
 
                 ->groupBy('user_id')->get();
             return $doctors;
