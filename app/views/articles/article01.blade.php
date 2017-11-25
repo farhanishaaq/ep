@@ -32,8 +32,8 @@
 <main class="site-main">
 
     <!-- Page Content -->
-    <div class="container-fluid no-left-padding no-right-padding no-top-padding page-content blog-single cover-fullwidth">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-12 content-area">
+    <div class="container">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-12 ">
             <img class="col-xl-12 col-lg-12 col-md-12 col-12" style="max-height: 400px" src="{{asset('images/food-for-stones.jpg')}}" alt="Post" />
         </div>
         <!-- Container -->
@@ -64,30 +64,90 @@
                                             <li>Eat little chunks of food throughout the whole day and give proper time to the tiny gallbladder to empty itself completely.</li>
                                         </ul>
                                         <h3>How To Proceed?</h3>
-                                        <p>Doctor’s from several specialties may be involved in your treatment and management if you are diagnosed with gallstones. On presentation with initial symptoms like nausea and abdominal pain, you would most probably visit a general practitioner. To <a href="https://www.marham.pk/doctors/rawalpindi/general-physician">find a general practitioner in Rawalpindi</a> log on to Marham and book an appointment online easily from the comfort of your home.</p>
-                                        <p>After primary analysis, you would be referred to a gastroenterologist who will suggest you undergo an ultrasound to confirm the diagnosis, finally, you will be scheduled for a surgery for gallstone removal called cholecystectomy. This is performed by general surgeons, to <a href="https://www.marham.pk/doctors/rawalpindi/general-surgeon">find a general surgeon in Rawalpindi</a> visit Marham-Find a doctor.</p>
+                                        <p>Doctor’s from several specialties may be involved in your treatment and management if you are diagnosed with gallstones. On presentation with initial symptoms like nausea and abdominal pain, you would most probably visit a general practitioner. To find a general practitioner in Rawalpindi</a> log on to Marham and book an appointment online easily from the comfort of your home.</p>
+                                        <p>After primary analysis, you would be referred to a gastroenterologist who will suggest you undergo an ultrasound to confirm the diagnosis, finally, you will be scheduled for a surgery for gallstone removal called cholecystectomy. This is performed by general surgeons, tofind a general surgeon in Rawalpindi</a> visit Marham-Find a doctor.</p>
                                         <p>After surgery, you may experience some gastric disorders but these usually subside with time. Developing healthy eating habits can be helpful in preventing these and staying healthy post surgery.</p>
-                                        <p>&nbsp;</p>
-                                    </div><div id="ts-fab-below" class="ts-fab-wrapper"><span class="screen-reader-text">The following two tabs change content below.</span><ul class="ts-fab-list"><li class="ts-fab-bio-link active"><a href="#ts-fab-bio-below">Bio</a></li><li class="ts-fab-latest-posts-link"><a href="#ts-fab-latest-posts-below">Latest Posts</a></li></ul><div class="ts-fab-tabs">
-                                            <div class="ts-fab-tab" id="ts-fab-bio-below" style="display: block;">
-                                                <div class="ts-fab-avatar"><img src="https://i1.wp.com/www.marham.pk/healthblog/wp-content/uploads/2017/10/Female-sketch-1.png?fit=80%2C80&amp;ssl=1" width="80" height="80" alt="Tayyaba Waris" class="avatar avatar-80 wp-user-avatar wp-user-avatar-80 alignnone photo"><div class="ts-fab-social-links"></div>
-                                                </div>
+                                </section>
+                            </div>
+                </div>
 
-                                                <div class="ts-fab-text">
-                                                    <div class="ts-fab-header"><h4><a href="https://www.marham.pk/" rel="nofollow">Tayyaba Waris</a></h4></div><!-- /.ts-fab-header -->
-                                                    <div class="ts-fab-content">She is a student of Ph.D. molecular biology at Comsats University, Islamabad. She is working on the causes and treatment of male infertility. She has also worked on liver disease and its herbal treatments and has recently got her paper published in the National journal of Natural Pharmaceuticals. At Marham, she writes about hot medical issues and general health problems.</div>
-                                                </div>
-                                            </div>
 
-                                        </div>
+            </div>
+        </div>
+
+
+    <div class="container-fluid">
+        <div class="chatAnsHead">
+            <h3>Question</h3>
+            <ul>
+                <li class="col-lg-3 col-md-3" style="display: list-item;"> <span class="chat-img pull-left">
+                        <img src="{{asset('/images/ali.png')}}" alt="User Avatar" class="img-circle" style="max-height: 60px; max-width: 60px"> </span>
+
+
+
+                </li>
+            </ul>
+            <div class="col-lg-9 col-md-9">
+                <p>hi,
+                    <br>please tell me about my daily foods</p>
+
+            </div>
+        </div>
+        <div class="chatAnsHead">
+            <h3>Answers</h3>
+        </div>
+        <section  >
+            <ul>
+                <li class="col-lg-1 col-md-1" style="display: list-item;"> <span class="chat-img pull-left">
+                        <img src="https://zindagilivewebphotos.s3-eu-west-1.amazonaws.com/pictures/images/000/002/859/original/Dr_Noreen_Akram_pic_Employee___031.png?1496825288" alt="User Avatar" class="img-circle" style="max-height: 60px; max-width: 60px"> </span>
+
+
+
+                </li>
+                <li class="col-lg-3 col-md-2" style="display: list-item">
+                    {{--<div class="contvrChat-body">--}}
+                                <a href="#">Dr. Noreen  Waseem</a>
+                            <p><a href="#">General Physician</a>  - 10 years experience</p>
+                            <small>09 Mar, 2017</small>
+                    {{--</div>--}}
+                </li>
+
+                    <div>
+                        <div class="col-lg-8 col-md-8">
+                            <p>hi,
+                                    <br>U can take Tablet Synflex 550 mg twice a day after meals and Cap Risek 20 mg twice a day before meals for 2 to 3 days for an acute attack.  Use dark glasses in sun and drink plenty of water....for further queries u can contact me at myzindagi telemedicine clinic.</p>
+
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <h3>Comments</h3>
+
+                                <form class="col-lg-12 col-md-12" id="new_comment" >
+
+                                        <input class="form-control" placeholder="Post a comment" required="required" type="text" name="comment[user_comment]" id="comment_user_comment">
+
+
+                                <div class="profile-userbuttons">
+                                    <button type="submit" class="btn btn-raised btn-sm btn-1" >   Comments   </button>
+                                    <button type="button" class="btn btn-raised btn-sm btn-1" data-toggle="modal" data-target="#myModal">Ask A Question</button>
+                                    @include('articles.include.askquestions')
+                                </div>
+                                </form>
+
+                        </div>
+
                     </div>
 
 
-                </div>
-            </div>
-        </div>
+
+            </ul>
+        </section>
+    </div>
+
+
     </div>
 </main>
+
+
 
 
 
