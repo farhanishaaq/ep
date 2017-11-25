@@ -21,7 +21,9 @@ class CommentsController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+        $commentDoctor = $this->_comment->commentsListDoctor();
+        $commentPatient = $this->_comment->commentsListPatient();
+		return View::make('comments.index',compact('commentDoctor','commentPatient'));
 	}
 
 

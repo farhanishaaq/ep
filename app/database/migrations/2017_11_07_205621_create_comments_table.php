@@ -18,6 +18,7 @@ class CreateCommentsTable extends Migration {
             $table->integer('patient_id');
             $table->integer('doctor_id');
             $table->string('comments');
+            $table->string('status');
 			$table->timestamps();
 		});
 	}

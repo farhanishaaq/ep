@@ -14,6 +14,8 @@
                 <li><a href="{{URL::route('patients.index')}}">Manage Patients</a></li>
                 <li class="divider"></li>
                 <li><a href="{{URL::route('prescriptions.index')}}">Manage Prescriptions</a></li>
+                <li class="divider"></li>
+                <li><a href="{{URL::route('commentsStatus')}}">Manage Comments</a></li>
             </ul>
         </li>
 

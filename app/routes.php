@@ -334,6 +334,7 @@ Route::get('doctors_get_list', 'DoctorsController@show_doctors');
 //});
 
 Route::get('showComment', array('as'=>'showComment','uses'=>'CommentsController@show'));
+Route::get('commentsStatus', array('as'=>'commentsStatus','uses'=>'CommentsController@index'));
 Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
 Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'));
 Route::get('getappointment/{id}', array('as'=>'getappointment', 'uses' => 'AppointmentsController@crtappointment'));
