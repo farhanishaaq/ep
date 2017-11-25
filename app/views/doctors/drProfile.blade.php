@@ -108,10 +108,10 @@
 
                                 {{--</ul>--}}
 
-                                <div id="map3"></div>
-                                <input type="hidden" id="lat3" value="48.85">
-                                <input type="hidden" id="lng3" value="2.35">
-                                <input type="text" id="address3" value="uk, london, abbey roa">
+                                    <input hidden id="address" type="textbox" value="{{$profile->address}}">
+                                    <input  hidden id="submit" type="button" value="Geocode">
+
+                                <div id="map"></div>
                                 {{--star rating/--}} {{--star rating/--}}
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                                                                         </div>
                                                                         <div class="col-md-3 col-xs-6"> <strong>Location</strong>
                                                                             <br>
-                                                                            <p class="text-muted">{{$profile->address}}</p>
+                                                                            <p class="text-muted" id="address">{{$profile->address}}</p>
                                                                         </div>
                                                                     </div>
                                                                     <hr>
@@ -271,7 +271,7 @@
     <script src="{{ asset('js/layout.js') }}" type="text/javascript"></script>
     <link rel="stylesheet" href="{{asset('css/jquery.rateyo.css')}}"/>
     <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script src="{{asset('public/js/jquery.geolocation.edit.js')}}"></script>
+
     <script src="{{ asset('js/jquery.rateyo.min.js') }}" type="text/javascript"></script>
     <script>
 
@@ -385,28 +385,35 @@
 
         $("#ajax").click(function(event) {
             event.preventDefault();
+            if($('#comment').val().length>5){
+                $.ajax({
+                    type: "get",
+                    url: "{{ url('comment') }}",
+                    dataType: "json",
+                    data: {
+                        //'_token': $('input[name=_token]').val(),
 
-            $.ajax({
-                type: "get",
-                url: "{{ url('comment') }}",
-                dataType: "json",
-                data: {
-                    //'_token': $('input[name=_token]').val(),
-                    'id': $('#Doctro_id').val(),
-                    'comment': $('#comment').val()
-                },
+                        'id': $('#Doctro_id').val(),
+                        'user_id': $('#auth_user').val(),
+                        'comment': $('#comment').val()
+                    },
 
 //                data: $('#ajax').serialize(),
-                success: function(data){
-                alert(sucess);
-                },
+                    success: function(data){
+                        alert(sucess);
+                    },
 
-                error: function(data){
-                    commentsreload();
-                    getComments();
-                    $('#comment').val('')
-                }
-            });
+                    error: function(data){
+                        commentsreload();
+                        getComments();
+                        $('#comment').val('')
+                    }
+                });
+
+            }else {
+                return 0
+            }
+
 
         });
 
@@ -448,19 +455,39 @@
         }
 
 
-        $("#map3").geolocate({
-            lat: "#lat3",
-            lng: "#lng3",
-            address: ["#address3"]
-        });
-
-
 
     </script>
 
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: {lat: -34.397, lng: 150.644}
+            });
+            var geocoder = new google.maps.Geocoder();
 
+        //    document.getElementById('submit').addEventListener('click', function() {
+                geocodeAddress(geocoder, map);
+         //   });
+        }
+
+        function geocodeAddress(geocoder, resultsMap) {
+            var address = document.getElementById('address').value;
+            geocoder.geocode({'address': address}, function(results, status) {
+                if (status === 'OK') {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+    </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLyRa2HlZejr4Zl_q-aEwi6NdCSMlKjBs&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLbrfBzesBjJRccs6wpWGFxpG0HZqU6jA&callback=initMap">
     </script>
 @stop
 

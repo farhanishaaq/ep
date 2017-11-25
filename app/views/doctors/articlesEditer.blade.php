@@ -11,7 +11,7 @@
             toolbar : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
         });
     </script>
-    <form action="" method="post"style="padding-left: 60px; padding-right: 60px">
+    <form action="" method="post" style="padding-left: 60px; padding-right: 60px">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group">
             <label style="color: cornflowerblue"><h4>Title of Article</h4></label>
