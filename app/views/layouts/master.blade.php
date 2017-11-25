@@ -133,7 +133,7 @@
        {{ HTML::script('js/view-pages/view-page-message-dictionary.js') }}
        {{ HTML::script('js/all.js') }}
 
-
+    @yield('headScript')
 
     <!--[if lt IE 9]>
     <div style=' clear: both; text-align:center; position: relative;'>
@@ -156,7 +156,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/ie.css">
     <![endif]-->
     <!-- About Page End -->
-    @yield('headScript')
+
 
 </head>
     <body>
