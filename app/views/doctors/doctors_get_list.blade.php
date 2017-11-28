@@ -118,7 +118,18 @@
 
                         <div class="col-md-10 col-sm-10  col-lg-10   col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-2">
                             <div class="thumb-xl member-thumb " style="align-items: center">
-                                <img src="{{asset('uploads/'.$doctors[$i]->photo)}}" class="img-circle" alt="profile-image" >
+                                <img src="
+                           @if(isset($doctors[$i]->photo))
+                            {{asset('uploads/'.$doctors[$i]->photo)}}
+                                @else
+                                        @if($doctors[$i]->gender =="Male")
+                                    {{asset('uploads/maleUnknown.jpg')}}
+                                        @else
+                                    {{asset('uploads/femaleUnknown.jpg')}}
+                                    @endif
+                           @endif
+
+                                        " class="img-circle" alt="profile-image" >
                                 <i class="zmdi zmdi-info" title="verified user"></i>
                             </div>
                          </div>

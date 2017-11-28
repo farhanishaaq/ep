@@ -303,7 +303,7 @@ class Doctor extends \Eloquent
                 $queryBuilder->where('users.id', $filterParams['user_id']);
             }
 
-            $doctors = $queryBuilder->select('max_fee', 'min_fee', 'full_name','medical_specialties.name AS specialityName', 'start', 'end', 'code', 'doctors.id AS doctorsId','cities.name AS cityName','cities.id AS cityId','photo' )
+            $doctors = $queryBuilder->select('max_fee', 'min_fee', 'full_name','medical_specialties.name AS specialityName', 'start', 'end', 'code', 'doctors.id AS doctorsId','cities.name AS cityName','cities.id AS cityId','photo','gender')
 
                 ->groupBy('user_id')->get();
             return $doctors;
