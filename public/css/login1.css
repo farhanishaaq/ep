@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-/*
- *  Document   : login.css
- *  Author     : RedStar Theme
- *  Description: login form related stylesheet
- */
 
 body {
   /* background: #e9e9e9; */
@@ -362,7 +356,7 @@ text-decoration: none;
 .white-color{
 	color:#fff;
 }
-=======
+
 .authentication {
     background-image: url('../images/bg-1.jpg');
     background-size: cover;
@@ -648,4 +642,4 @@ text-decoration: none;
  opacity: 0;
 }
 }
->>>>>>> e0ef09bf551c250568b72c988ca3150fc3be49a0
+

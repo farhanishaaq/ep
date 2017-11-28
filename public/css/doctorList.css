@@ -69,3 +69,30 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+.listBox {
+    position: relative;
+    display: inline-block;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Create the hidden pseudo-element */
+/* include the shadow for the end state */
+.listBox:after {
+    content: '';
+    position: absolute;
+    opacity: 0;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Scale up the box */
+.listBox:hover {
+    transform: scale(1.02, 1.02);
+}
+
+/* Fade in the pseudo-element with the bigger shadow */
+.listBox:hover:after {
+    opacity: 1;
+}
