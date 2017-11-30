@@ -24,12 +24,15 @@ Route::group(['Public'],function (){
     Route::get('getDoctors', array('as'=>'getDoctors','uses'=>'DoctorsController@showDoctors'));
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
     Route::get('signUp', array('as'=>'signUp','uses'=>'AuthController@showSignUp'));
+    Route::get('checkEmail',array('as'=> 'checkEmail','uses'=>'UsersController@checkEmail'));
     Route::get('cities', array('as'=>'cities','uses'=>'CityController@showCities'));
 
 
 
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
     Route::post('doSignUp', array('as'=>'doSignUp','uses'=>'AuthController@doSignUp'));
+    Route::post('checkEmail', array('as'=>'checkEmail','uses'=>'AuthController@checkEmail'));
+    Route::post('checkUserName', array('as'=>'checkUserName','uses'=>'AuthController@checkUserName'));
     Route::get('unauthorized', array('as'=>'unauthorized','uses'=>'AuthController@unauthorized'));
 
     /**
@@ -46,6 +49,7 @@ Route::group(['Public'],function (){
     Route::get('searchDoc/{query}','SearchController@getDoctorNamesForSelector');
 
     Route::get('getDoctorData',array('as'=> 'getDoctorData','uses'=>'SearchController@selectorDoctors'));
+    Route::get('signUpCities',array('as'=> 'signUpCities','uses'=>'SearchController@signUpCities'));
 
 
 

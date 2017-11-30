@@ -2,54 +2,45 @@
 use App\Globals\GlobalsConst;
 use App\Globals\Ep;
 
-class AuthController extends \BaseController {
+class AuthController extends \BaseController
+{
 
     private $_user;
-    public function __construct(User $user)
+    private $_city;
+
+    public function __construct(User $user, City $city)
     {
         $this->_user = $user;
+        $this->_city = $city;
     }
 
-	public function showLogin()
-	{
-		return View::make('auth.login');
-	}
-	public function showSignUp()
-	{
-		return View::make('auth.signUp');
-	}
+    public function showLogin()
+    {
+        return View::make('auth.login');
+    }
 
-
-
-	public function doSignUp()
-	{
-        $data = Input::all();
-        $massage = $this->_user->savePublicUser($data);
-        if($massage == "Success"){
-            return View::make('auth.login');
-        }
-        else
-           echo "Error In Sign Up";
-	}
+    public function showSignUp()
+    {
+        $cities = $this->_city->citiesForSelect();
+        return View::make('auth.signUp', compact('cities'));
+    }
 
     public function doLogin()
-	{
-		$auth = false;
-		$email = Input::get('email');
-		$password = Input::get('password');
-		$rememberMe = Input::get('remember_me');
-		$rememberMe == ($rememberMe == null ? false : true);
+    {
+        $auth = false;
+        $email = Input::get('email');
+        $password = Input::get('password');
+        $rememberMe = Input::get('remember_me');
+        $rememberMe == ($rememberMe == null ? false : true);
 
-		if (Auth::attempt(array('email' => $email, 'password' => $password), $rememberMe))
-		{
-			$auth = true;
-		}elseif (Auth::attempt(array('username' => $email, 'password' => $password), true)){
-			$auth = true;
-		}
+        if (Auth::attempt(array('email' => $email, 'password' => $password), $rememberMe)) {
+            $auth = true;
+        } elseif (Auth::attempt(array('username' => $email, 'password' => $password), true)) {
+            $auth = true;
+        }
 
-		if ($auth == true)
-		{
-			/*if(Auth::user()->status == 'Active' && Auth::user()->role == 'Doctor' && Auth::user()->company->admin->status == 'Active'){
+        if ($auth == true) {
+            /*if(Auth::user()->status == 'Active' && Auth::user()->role == 'Doctor' && Auth::user()->company->admin->status == 'Active'){
                  return Redirect::to('doctorHome');
             }else if(Auth::user()->status == 'Active' && Auth::user()->role == 'Administrator'){
                 return Redirect::to('adminHome');
@@ -69,28 +60,59 @@ class AuthController extends \BaseController {
                 Auth::logout();
                 return Redirect::to('login')->withErrors('You are not Activated!');
             }*/
-			if(Auth::user()->status == 'Active' ){
-				return Redirect::route('showDashboard');
-			}else{
-				return Redirect::to('login')->withErrors('You are not Activated!');
-			}
-		}else{
-			$validator = Validator::make(Input::all(), array('email' => 'exists:users', 'password' => 'exists:users'));
-			if ($validator->fails())
-			{
-				return Redirect::to('login')->withErrors($validator);
-			}
-		}
+            if (Auth::user()->status == 'Active') {
+                return Redirect::route('showDashboard');
+            } else {
+                return Redirect::to('login')->withErrors('You are not Activated!');
+            }
+        } else {
+            $validator = Validator::make(Input::all(), array('email' => 'exists:users', 'password' => 'exists:users'));
+            if ($validator->fails()) {
+                return Redirect::to('login')->withErrors($validator);
+            }
+        }
 
-	}
+    }
 
-	public function logout(){
-		Auth::logout();
-		return Redirect::route('login');
+    public function logout()
+    {
+        Auth::logout();
+        return Redirect::route('login');
 //        \Illuminate\Support\Facades\Session::flush();
-	}
+    }
 
-	public function unauthorized(){
-		return View::make('auth.unauthorized');
-	}
+    public function unauthorized()
+    {
+        return View::make('auth.unauthorized');
+    }
+
+    public function doSignUp()
+    {
+        $data = Input::all();
+        $massage = $this->_user->savePublicUser($data);
+        if ($massage == "Success") {
+            return View::make('auth.login');
+        } else
+            echo "Error In Sign Up";
+    }
+
+    public function checkEmail()
+    {
+        $user = DB::table('users')->where('email', $_POST['user_email']);
+        if ($user->count()) {
+            echo "Email Already Exist";
+        } else {
+            echo "";
+        }
+    }
+
+    public function checkUserName()
+    {
+        $user = DB::table('users')->where('username',$_POST['user_Name']);
+        if ($user->count()) {
+            echo "User Name Already Exist";
+        } else {
+            echo "";
+        }
+    }
 }

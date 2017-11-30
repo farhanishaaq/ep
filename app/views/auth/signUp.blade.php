@@ -3,7 +3,7 @@
    TITLE
    =========================================================-->
 @section('title')
-    EP-Sociale Doctors
+    Sign Up
 @stop
 @section('redBar')
     <div class = "user_logo">
@@ -22,46 +22,35 @@
     <div class="col-md-3" ></div>
              <div class="col-md-6">
                  <div class="login-card login-page">
+                     <form action="{{URL::route('doSignUp') }}" method="post" name="form" onsubmit="return checkError()">
 
-                                {{--<section id="content">--}}
-                                    {{--<div class="login">--}}
-                                        {{--<div class="login-card login-page">--}}
-                                            {{--@if(count($errors))--}}
-                                                {{--<div class="col-md-12">--}}
-                                                    {{--<ul class="error-container m10">--}}
-                                                        {{--<li>Solve Following Errors!</li>--}}
-                                                        {{--<li>--}}
-                                                            {{--<ul>--}}
-                                                                {{--@foreach($errors->all("<li>:message</li>") as $message)--}}
-                                                                    {{--{{ $message }}--}}
-                                                                {{--@endforeach--}}
-                                                            {{--</ul>--}}
-                                                        {{--</li>--}}
-                                                    {{--</ul>--}}
-                                                {{--</div>--}}
+                     <input type="text" id ="fname" name="fname" placeholder="First Name" required="true">
+                    <input type="text" id ="lname" name="lname" placeholder="Last Name" required="true">
 
-                                            {{--@endif--}}
+                         <input type="email" name="email" placeholder="Email Address" id="email" onblur="checkemail()">
+                         <span id="email_status"></span>
+                     <input type="text" placeholder="User Name" name="userName" id="userName" onblur="checkUserName()">
+                         <span id="userName_status"></span>
 
-                                            {{ Form::open(array('url' => 'doSignUp')) }}
-
-                                            <input type="text" id = "fname" name="fname" placeholder="First Name" required="true">
-                                            <input type="text" id = "lname" name="lname" placeholder="Last Name" required="true">
-                                            <input type="email" id = "email" name="email" placeholder="Email" required="true">
-                                            <input type="text" id = "username" name="username" placeholder="User Name" required="true">
-                                            <input type="password" required="true" name="password" id="password" placeholder="Password">
-                                              <input type="text" required="true" name="city" id="city" placeholder="City" >
-                                            <input type="number" required="true" name="phone" id="number" placeholder="Phone Number" style="width: 100%;">
-                                            <input type="submit" name="signUp" class="btn btn-raised btn-sm btn-1" value="Register">
-                                            {{ Form::close() }}
-                                            {{--</form>--}}
+                    <input type="password" required="true" name="password" id="password" placeholder="Password">
+                         <select class="js-example-basic-single" id="city" name="city">
+                             <option class="vhid"></option>
+                             @foreach($cities as $city)
+                                 <option value="{{$city['id']}}">{{$city['name']}}</option>
+                             @endforeach
+                         </select>
+                    <input type="number" required="true" name="phone" id="number" placeholder="Phone Number" style="width: 100%;">
+                         <input  type="submit" class="btn btn-raised btn-sm btn-1"  value="Register" id="submitButton">
+                     </form>
                  </div>
-             </div>
-    <div class="col-md-3" ></div>
+            </div>
+        <div class="col-md-3" ></div>
+    </div>
+<br>
+<br><br><br><br>
+<br><br><br><br>
 </div>
-    <br>
-    <br><br><br><br>
-    <br><br><br><br>
-                            </div>
+<script src="{{asset('js/emailAvailability.js')}}"></script>
 @endsection
 
 
@@ -73,16 +62,32 @@
 
 
 
-{{--<!-- Jquery Core Js -->--}}
-{{--<script src="{{asset('bundles/libscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js -->--}}
-{{--<script src="{{asset('bundles/vendorscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js -->--}}
-{{--<script src="{{asset('plugin/autosize/autosize.js')}}"></script> <!-- Autosize Plugin Js -->--}}
-{{--<script src="{{asset('plugin/momentjs/moment.js')}}"></script> <!-- Moment Plugin Js -->--}}
-{{--<!-- Bootstrap Material Datetime Picker Plugin Js -->--}}
-{{--<script src="{{asset('plugin/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js')}}"></script>--}}
-{{--<script src="{{asset('bundles/mainscripts.bundle.js')}}"></script><!-- Custom Js -->--}}
-{{--<script src="{{asset('js/morphing.js')}}"></script><!-- Custom Js -->--}}
-{{--<script src="{{asset('js/pages/forms/basic-form-elements.js')}}"></script>--}}
 
-{{--<script src="{{asset('js/pages/index.js')}}"></script>--}}
 
+
+
+
+
+
+
+
+
+
+
+
+{{--<input type="text" id ="fname" name="fname" placeholder="First Name" required="true">--}}
+{{--<input type="text" id ="lname" name="lname" placeholder="Last Name" required="true">--}}
+
+{{--<input type="email" placeholder="Email Address" name="email" id="regemail">--}}
+{{--<span class="clearfix"></span><span class="erroremail register-error-block"></span>--}}
+{{--<input type="text" placeholder="User Name" name="userName" id="userName">--}}
+{{--<span class="clearfix"></span><span class="errortag register-error-block"></span>--}}
+{{--<input type="password" required="true" name="password" id="password" placeholder="Password">--}}
+{{--<select class="js-example-basic-single" id="city" name="city">--}}
+    {{--<option class="vhid"></option>--}}
+    {{--@foreach($cities as $city)--}}
+        {{--<option value="{{$city['id']}}">{{$city['name']}}</option>--}}
+    {{--@endforeach--}}
+{{--</select>--}}
+{{--<input type="number" required="true" name="phone" id="number" placeholder="Phone Number" style="width: 100%;">--}}
+{{--<input type="submit" class="btn btn-raised btn-sm btn-1" value="Register">--}}

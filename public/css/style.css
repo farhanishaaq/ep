@@ -1464,7 +1464,7 @@ span.field-validation-msg {
   margin-top: 1px;
 }
 .select2-selection__placeholder{
-  font-size: 11px;
+  font-size: 20px;
 }
 .select2-search__field{
   font-size: 11px;
@@ -3428,4 +3428,8 @@ a.timeSlotLink:hover{
   font-family: 'Roboto','sans-serif';
   line-height: 30px;
   padding-left: 10px;
+}
+.errorMsg{
+  float: right;
+  color: red;
 }
