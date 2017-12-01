@@ -1,3 +1,6 @@
+<head>
+    <link href="{{asset('comment.css')}}" rel="stylesheet">
+</head>
 @extends('layouts.master')
 <!--========================================================
                           TITLE
@@ -16,7 +19,6 @@
 
 @section('sliderContent')
 @stop
-
 
 <!--========================================================
                           CONTENT
@@ -37,23 +39,27 @@
             <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
                 <thead>
                 <tr>
-                    <th>Patient Name</th>
-                    <th>Doctor Name</th>
+                    <th>Doctor ID</th>
+                    <th>Patient ID</th>
                     <th>Comments Details</th>
                     <th>Date</th>
                     <th>Status</th>
                 </tr>
                 </thead>
-                <tbody>
-<tr></tr>
-<tr></tr>
-                @foreach ($commentPatient as $comment)
-                                <tr>
-                                <td>{{$comment->comments}}</td>
-                                </tr>
-
-                                 @endforeach
-
+                 <tbody>
+                @foreach ($data as $dataComment)
+                    <tr>
+                        <td>{{$dataComment->doctor_id}}</td>
+                        <td>{{$dataComment->patient_id}}</td>
+                        <td>{{$dataComment->comments}}</td>
+                        <td>{{$dataComment->created_at}}</td>
+                        <td><label class="switch">
+                                <input type="checkbox" unchecked>
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </section>

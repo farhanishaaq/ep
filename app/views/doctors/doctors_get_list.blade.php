@@ -54,11 +54,10 @@
         {{--<div class="chbxs listm">--}}
             @foreach($cities as $city)
 
-            <div class="btn-group">
-            <label class="container">&nbsp;&nbsp;&nbsp;{{$city->name}}
-              <input name="cities[]" type="checkbox" value="{{$city->id}}">
-              <span class="checkmark"></span>
-            </label></div>
+             <label class="switch">
+                 <input type="checkbox" checked>
+                 <span class="slider round"></span>
+             </label>
 
                 @endforeach
            <div class="clearfix"></div>

@@ -20,14 +20,12 @@ class CommentsController extends \BaseController {
 	 * @return Response
 	 */
 	public function index()
-	{
-        $commentDoctor = $this->_comment->commentsListDoctor();
-        $commentPatient = $this->_comment->commentsListPatient();
-		return View::make('comments.index',compact('commentDoctor','commentPatient'));
-	}
+    {
+        $data = $this->_comment->commentsList();
+        return View::make('comments.index',compact('data'));
+    }
 
-
-	/**
+    /**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
