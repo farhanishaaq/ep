@@ -29,7 +29,8 @@ class Comment extends \Eloquent
      */
     try{
         $queryBuilder = DB::table('comments')
-            ->select('patient_id','doctor_id','comments','status','created_at')
+            ->select('id AS commentId','patient_id','doctor_id','comments','status','created_at')
+            ->where('status','!=','Approved')
             ->get();
         return $queryBuilder;
     }
@@ -43,5 +44,17 @@ class Comment extends \Eloquent
 
     }
 
+    public function commentApproved($params){
+        $comment = DB::table('comments')
+            ->where('id','=',$params['commentId']);
+            if($params['commentAction']=='checked'){
+                $comment->update(array('status'=>'Approved'));
+                return "Approved";
+            }
+            else{
+                $comment->update(array('status'=>'Request'));
+                return "Request";
+            }
+    }
 
 }

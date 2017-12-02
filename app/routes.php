@@ -336,7 +336,7 @@ Route::get('doctors_get_list', 'DoctorsController@show_doctors');
 //return  View::make('doctors/edit');
 //App\Globals\Ep::checkUpPrescrptionDirectory();die;
 //});
-
+Route::post('updateComment', array('as'=>'updateComment','uses'=>'CommentsController@updateCommentStatus'));
 Route::get('showComment', array('as'=>'showComment','uses'=>'CommentsController@show'));
 Route::get('commentsStatus', array('as'=>'commentsStatus','uses'=>'CommentsController@index'));
 Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@store'));

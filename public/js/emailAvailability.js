@@ -84,7 +84,31 @@ function checkUserName()
             return false;
     }
 
-
+// Comment Status Approve Or Decline
+function statusUpdate(patientId)
+{
+    if($('#'+patientId).prop('checked')) {
+        var status = 'checked';
+    }
+    else {
+        status = 'unchecked';
+    }
+    if(patientId)
+    {
+        $.ajax({
+            type: 'post',
+            url: 'updateComment',
+            data: {
+                comment_id:patientId,
+                comment_action:status
+            },
+            success: function (response) {
+                alert(response);
+            }
+        });
+    }
+}
+// end Jquery of Comment
 
 
 

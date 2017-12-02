@@ -84,9 +84,17 @@ class CommentsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function updateCommentStatus()
 	{
-		//
+        $data['commentAction'] = $_POST['comment_action'];
+        $data['commentId'] =$_POST['comment_id'];
+
+        $result = $this->_comment->commentApproved($data);
+        if ($result == "Approved") {
+            echo "Comment Approved";
+        } else {
+            echo "Comment Not Approved";
+        }
 	}
 
 
