@@ -7,6 +7,14 @@ class ArticlesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+
+    private $_articles;
+
+    public function __construct(Article $article)
+    {
+        $this->_articles= $article;
+    }
+
 	public function index()
 	{
         return View::make('doctors.articlesEditer');
@@ -33,6 +41,29 @@ class ArticlesController extends \BaseController {
 	public function store()
 	{
 		//
+        $data = Input::all();
+//        dd($data);
+        $response = null;
+        if (Input::hasFile('image')) {
+            $file            = Input::file('image');
+            $destinationPath = public_path(GlobalsConst::ARTICLE_PHOTO_DIR);
+            $filename        = str_random(16).'_'.$file->getClientOriginalName();
+
+            $uploadSuccess   = $file->move($destinationPath, $filename);
+
+//			$response = ['success'=>true,'error'=>false,'message'=>'Photo has been uploaded successfully!','uploadedFileName'=>$filename,'abc'=>$uploadSuccess];
+            $response = ['success'=>true,'uploaded'=>$filename,'message'=>'Photo has been uploaded successfully!'];
+
+        }else{
+//			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
+            $response = ['success'=>false,'error'=>'No files were processed.'];
+        }
+//        return Response::json($response);
+
+
+        return $this->_articles->saveArticle($data);
+
+
 	}
 
 
