@@ -7,8 +7,17 @@ class ArticlesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+    private $_article;
+
+    public function __construct(Article $article)
+    {
+        $this->_article= $article;
+    }
+
+
 	public function index()
 	{
+
         return View::make('doctors.articlesEditer');
 		//
 	}
@@ -82,16 +91,25 @@ class ArticlesController extends \BaseController {
 	{
 		//
 	}
-	public function home(){
 
+	public function likeManage()
+    {
+//        $data['likeAction'] = $_POST['like_action'];
+        $data['likeId'] =$_POST['like_id'];
+        dd($data);
+        $result = $this->_article->countLikes($data);
         return View::make('articles.index');
-
     }
-    public function healthatricle(){
 
+    public function articleList()
+    {
+        $articles = $this->_article->getArticles();
+        return View::make('articles.index',compact('articles'));
+    }
+
+    public function healthatricle()
+    {
         return View::make('articles.article01');
-
     }
-
 
 }

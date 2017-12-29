@@ -36,6 +36,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-12 ">
             <img class="col-xl-12 col-lg-12 col-md-12 col-12" style="max-height: 400px" src="{{asset('images/food-for-stones.jpg')}}" alt="Post" />
         </div>
+
         <!-- Container -->
         <div class="container">
             <div class="row">
