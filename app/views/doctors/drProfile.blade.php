@@ -1,6 +1,4 @@
-<head>
 
-</head>
 @extends('layouts.master')
 <!--========================================================
                           TITLE
@@ -90,7 +88,7 @@
                         </div>
 
                         <div class="card">
-                            <div class="card-head card-topline-aqua">
+                            <div class="card-head card-topline-aqua" style="border: 0px">
                                 <header>About Me</header>
                             </div>
                             <div class="card-body no-padding height-9">
@@ -132,7 +130,7 @@
                                             <div class="col-md-12">
                                                 <div class="tabbable-line">
                                                     <ul class="nav nav-tabs">
-                                                        <li class="active"><a href="#tab1" data-toggle="tab"> About Me </a></li>
+                                                        <li ><h4>About Me</h4>  </li>
 
                                                     </ul>
                                                     <div class="tab-content">

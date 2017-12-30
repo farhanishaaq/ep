@@ -16,7 +16,10 @@ class Question extends \Eloquent {
 
     public function createQuestion($data){
         $doctor_id=$data['doctor_id'];
-        $user_id=Auth::user()->id;
+        if(Auth::check()){
+            $user_id=Auth::user()->id;
+        }else return false;
+
         $question = $data['question'];
 
 
@@ -29,12 +32,14 @@ class Question extends \Eloquent {
         return true;
     }
 
-    public function getQuestions($id){
+    public function getQuestions(){
 
-        if(Auth::user()->id=$id){
+        if(Auth::check()){
             $questions=$this
-                //->where('status','inProcess')
-                ->where('doctor_id',$id)
+                ->where('status','inProcess')
+                ->orWhere('status','')
+              //  ->where('doctor_id',Auth::user()->id)//must be uncommented on end
+                ->where('doctor_id',1)
                 ->get();
                  return $questions;
 
@@ -43,8 +48,16 @@ class Question extends \Eloquent {
             return false;
         }
 
+    }
+
+    public function updateStatus($id,$status){
+        return $this->where('id', $id)
+                    ->update(['status' => $status]);
 
     }
 
+    public  function getQuestionById($id){
+        return $this->findOrFail($id);
+    }
 }
 
