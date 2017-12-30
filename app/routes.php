@@ -340,12 +340,13 @@ Route::post('updateComment', array('as'=>'updateComment','uses'=>'CommentsContro
 Route::get('showComment', array('as'=>'showComment','uses'=>'CommentsController@show'));
 Route::get('commentsStatus', array('as'=>'commentsStatus','uses'=>'CommentsController@index'));
 Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
-Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'));
+
 Route::post('articleStore', array('as'=>'arStore','uses'=>'ArticlesController@store'));
 Route::get('getappointment/{id}', array('as'=>'getappointment', 'uses' => 'AppointmentsController@crtappointment'));
 Route::get('articles', array('as'=>'articles','uses'=>'ArticlesController@articleList'));
 Route::post('likePerform', array('as'=>'likePerform','uses'=>'ArticlesController@likeManage'));
 Route::get('articles/food', array('as'=>'articlesfood','uses'=>'ArticlesController@healthatricle'));
+Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'));
 
-
-
+//this controller questions asked by patient to deoctor
+Route::resource('question', 'QuestionController');

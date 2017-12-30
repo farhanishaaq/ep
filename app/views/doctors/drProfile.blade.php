@@ -223,7 +223,28 @@
 
                                                                         </form>
                                                                     @else {{--@include('includes.webSocialLinks')--}} @endif
+
+
+
+
                                                                 </div>
+                                                                {{--Form Start Here--}}
+                                                                {{--<form  id="new_question"   method="post" action="{{route('question.store')}}">--}}
+                                                                    {{--{{ Form::token() }}--}}
+
+                                                                    {{--<div class="form-group">--}}
+                                                                        {{--<textarea  class="form-control" placeholder="Ask question here" maxlength="280" name="question" id="question" rows="6"></textarea>--}}
+
+                                                                    {{--</div>--}}
+
+                                                                    {{--<input class="form-control" type="hidden" value="{{$id}}" name="doctor_id" id="Doctro_id">--}}
+
+                                                                    {{--<div class="modal-footer">--}}
+                                                                        {{--<input type="submit" class="btn btn-raised btn-sm btn-1">--}}
+                                                                    {{--</div>--}}
+
+                                                                {{--</form>--}}
+
                                                             </div>
                                                         </div>
 
@@ -254,7 +275,7 @@
     <script src="{{ asset('js/jquery.blockui.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/jquery.sparkline.min.js') }}" type="text/javascript"></script>
     {{--<!-- bootstrap -->--}}
-    <script src="{{ asset('js/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    {{--<script src="{{ asset('js/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>--}}
     <script src="{{ asset('js/bootstrap-switch/js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
 
 
@@ -291,20 +312,20 @@
                             fullStar:true
                             //readOnly: true
                         })
-                        console.log('in no record')
+                       // console.log('in no record')
                     }else {
                         $("#rateYo").rateYo({
                             rating: response[0].rating,
                             fullStar:true,
                             readOnly: true
                         })
-                        console.log(response)
-                        console.log('in found record '+response[0].rating)
+                      //  console.log(response)
+                       // console.log('in found record '+response[0].rating)
                         $('#drRate').html(response[0].rating+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
                     }
                 },
                 error : function(response){
-                    console.log('fail')
+                    //console.log('fail')
                 }
             });
         })
@@ -325,14 +346,14 @@
                         success : function(response){
                             if(response.toString() == "sucess"){
 
-                                console.log('sucess')
+                              //  console.log('sucess')
                             }
                         },
                         error : function(response){
-                            console.log('fail')
+                          //  console.log('fail')
                         }
                     });
-                    alert("The rating is set to " + data.rating + "!");
+//                    alert("The rating is set to " + data.rating + "!");
                 });
 
         });
@@ -356,9 +377,9 @@
                     success: function (data) {
 
                     if ((data.errors)) {
-                        console.log(JSON.stringify(data));
+                       // console.log(JSON.stringify(data));
                     } else {
-                        console.log(JSON.stringify(data));
+                      //  console.log(JSON.stringify(data));
                         $.each( data, function( key, val ) {
                             var txt2 = $(" <li>  " +
                                 "<div  class='commentText'><p> " + val.comments+"</p>"+"<span>"+ val.created_at+"</span>" +
@@ -400,7 +421,7 @@
 
 //                data: $('#ajax').serialize(),
                     success: function(data){
-                        alert(sucess);
+//                        alert(sucess);
                     },
 
                     error: function(data){
@@ -487,7 +508,7 @@
         }
     </script>
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLbrfBzesBjJRccs6wpWGFxpG0HZqU6jA&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0h-b6OIqk8pmDhFmH2BiUHSlU4PmFiDU&callback=initMap">
     </script>
 @stop
 
