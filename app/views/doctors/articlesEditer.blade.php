@@ -11,16 +11,32 @@
             toolbar : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
         });
     </script>
-    <form action="" method="post" style="padding-left: 60px; padding-right: 60px">
+    <form action="{{route('arStore')}}" method="post" enctype="multipart/form-data" style="padding-left: 60px; padding-right: 60px">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <div class="form-group">
+        {{--<div class="form-group">--}}
             <label style="color: cornflowerblue"><h4>Title of Article</h4></label>
+
+            <div class="imageupload panel panel-default">
+                <div class="panel-heading clearfix">
+                    <h3 class="panel-title pull-left">Upload Image</h3>
+                    <div class="btn-group pull-right">
+                        <input type="file" class="btn-group pull-right" name="image"  >
+                    </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
             <input required="required" value="" placeholder="Enter title here" type="text" name = "title"class="form-control" />
-        </div>
+        {{--</div>--}}
         <div class="form-group">
             <textarea name='body'class="form-control" style="min-height: 300px" ></textarea>
         </div>
-        <input type="submit" name='publish' class="btn btn-success" value = "Publish"/>
-        <input type="submit" name='save' class="btn btn-default" value = "Save Draft" />
+
+        <button type="submit"  class="btn btn-raised btn-sm btn-1">Save Draft</button>
     </form>
 @endsection

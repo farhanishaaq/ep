@@ -6,7 +6,9 @@ class Comment extends \Eloquent
     protected $fillable = ['patient_id', 'doctor_id', 'comments'];
 
     public static function fetechDoctorComments($id){
-        $users = Comment::where('doctor_id', '=', $id)->get();
+        $users = Comment::where('doctor_id', '=', $id)
+            ->where('status','Approved')
+            ->get();
         return  json_encode($users)  ;
 }
 
@@ -34,6 +36,7 @@ class Comment extends \Eloquent
             ->get();
         return $queryBuilder;
     }
+
     catch (Throwable $t) {
         // Executed only in PHP 7, will not match in PHP 5.x
         dd($t->getMessage());

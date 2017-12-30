@@ -1,3 +1,22 @@
+<head>
+  <style>
+.slectedClass{
+text-decoration: underline;
+color: deepskyblue;
+cursor:pointer;
+}
+.selectClass:hover
+{
+     /*color:#00A0C6;*/
+     cursor:pointer;
+     text-decoration: underline;
+}
+
+</style>
+
+</head>
+
+
 @extends('layouts.master')
 <!--========================================================
                           TITLE
@@ -27,15 +46,19 @@
      <main class="site-main">
 
             <div class="container">
-
+@foreach($articles as $article)
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active">
                             <div class="row">
                                 <div class="col-lg-8 col-sm-12 post-block post-big">
                                     <div class="post-box">
-                                        <img src="{{asset('images/food-for-stones.jpg')}}" alt="Slide" />
-                                        <i class="fa fa-heart" style="color: #00aff0" aria-hidden="true">Likes</i>
-                                        <i class="fa fa-eye" style="color: #00aff0" aria-hidden="true">Views</i>
+                                        <img src="{{asset('images/food-for-stones.jpg')}}" alt="Slide" style="margin-bottom: 10px;" />
+                                        <span id="{{$article->likeId}}" onclick="hitLikes(this.id)"> <i class="fa fa-thumbs-up selectClass" aria-hidden="false">&nbsp; Likes&nbsp;<span id="likesCount">
+
+                                                  {{$article->like_count}}
+
+                                         </span></i></span>
+
                                         <div class="entry-content">
                                             <h3><span class="post-category"><a href="{{route('articlesfood')}}" title="Travel">These 4 Foods can Cause Stones in Gall Bladder</a></span></h3>
                                             <a href="{{route('articlesfood')}}" title="White Sand of The Desert Discovery">13 Surprising Habits Proven to Trigger Kidney Stones</a><br>
@@ -94,7 +117,7 @@
                                 </div>
 
                             </div>
-
+@endforeach
                 </div>
 
      </main>
@@ -102,5 +125,5 @@
 
     <!-- LikeBtn.com BEGIN -->
 
-
+    <script src="{{asset('js/emailAvailability.js')}}"></script>
 @stop
