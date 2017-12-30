@@ -16,6 +16,7 @@ class Article extends \Eloquent {
         $this->doctor_id = $doctor_id;
         $this->article_text = $text;
         $this->title = $title;
+
         $this->save();
         return 'sucess';
     }

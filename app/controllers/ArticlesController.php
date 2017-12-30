@@ -9,10 +9,12 @@ class ArticlesController extends \BaseController
      * @return Response
      */
     private $_article;
+    private $_image;
 
-    public function __construct(Article $article)
+    public function __construct(Article $article, Image $image)
     {
         $this->_article = $article;
+        $this->_image = $image;
     }
 
 
@@ -44,9 +46,16 @@ class ArticlesController extends \BaseController
         //
         $data = Input::all();
 //        dd($data);
+
+//       $id = $data['image']->id;
+//       dd($id);
         $response = null;
         if (Input::hasFile('image')) {
             $file = Input::file('image');
+            $type = $file->getMimeType();
+            $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
+            if (in_array($type, $supportedTypes)){
+
             $destinationPath = public_path(GlobalsConst::ARTICLE_PHOTO_DIR);
             $filename = str_random(16) . '_' . $file->getClientOriginalName();
 
@@ -54,14 +63,14 @@ class ArticlesController extends \BaseController
 
 //			$response = ['success'=>true,'error'=>false,'message'=>'Photo has been uploaded successfully!','uploadedFileName'=>$filename,'abc'=>$uploadSuccess];
             $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
-
+            }else{$response = ['success' => false, 'error' => 'No files were processed.']; echo $response;}
         } else {
 //			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
             $response = ['success' => false, 'error' => 'No files were processed.'];
         }
 //        return Response::json($response);
 
-
+        $this->_image->saveImage ($destinationPath,$filename);
         return $this->_article->saveArticle($data);
 
 
