@@ -53,22 +53,12 @@ class Article extends \Eloquent {
     }
 
     public function countLikes($params){
+                                                                  //Save like when hit!
+        $queryBuilder = DB::table('like_logs')
+            ->where('id','=',$params['likeId'])
+            ->update(array('like_count'=>$params['likeData']));
+            return "update";
 
-
-
-
-
-//        $comment = DB::table('likes_logs')
-//            ->where('id','=',$params['commentId']);
-//        if($params['commentAction']=='checked'){
-//            $comment->update(array('status'=>'Approved'));
-//            return "Approved";
-//        }
-//        else{
-//            $comment->update(array('status'=>'Request'));
-//            return "Request";
-//        }
     }
-
 
 }

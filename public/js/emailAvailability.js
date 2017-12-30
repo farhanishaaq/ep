@@ -111,32 +111,41 @@ function statusUpdate(patientId)
 // end Jquery of Comment
 
 //likes add or remove zone
+//Toggle Class
 $(document).ready(function(){
-    $(".selectClass").click(function() {
-        $(".selectClass").toggleClass("slectedClass");
+    $("#articleLike").click(function() {
+        $("#articleLike").toggleClass("selectedClass");
     });
 });
-function hitLikes(patientId)
+//Update Likes
+//function hitLikes(takeId)
+function hitLikes(likeId)
 {
+    var existCount = $('#likesCount').text();
+    //var existCount = parseInt(existNum);
+    //var likeId = parseInt(takeId);
+    $(document).ready(function(){
+        if($("#articleLike").hasClass("selectedClass"))
+            existCount++ ;
 
-    //var existCount = document.getElementById('likesCount').innerHTML;
-    //if($('#'+patientId).prop('checked')) {
-    //    var status = 'checked';
-    //}
-    //else {
-    //    status = 'unchecked';
-    //}
-    if(patientId)
+        else
+            existCount--;
+        });
+
+    if(likeId)
     {
         $.ajax({
             type: 'post',
             url: 'likePerform',
             data: {
-                like_id:patientId
-                //like_action:status
+                like_id: likeId,
+                like_data : existCount
             },
             success: function (response) {
-                alert(response);
+                if(response == "update")
+                    $('#likesCount').text(existCount);
+                else
+                alert("error");
             }
         });
     }
