@@ -65,7 +65,7 @@ Route::group(['Public'],function (){
      * HomeController Routes
      */
     Route::group(['Home'],function (){
-        Route::get('/', 'HomeController@index');
+        Route::get('/', 'SearchController@index');
         Route::group(['domain' => '{companyDomain}.ep.loc'], function ($companyDomain) {
             Route::get('companyHome', array('as'=>'showCompanyHomePage','uses'=>'HomeController@showCompanyHomePage'));
         });
@@ -350,3 +350,5 @@ Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'))
 
 //this controller questions asked by patient to deoctor
 Route::resource('question', 'QuestionController');
+Route::get('question-status',array('as'=>'changeStatus','uses'=> 'QuestionController@updateStatus'));
+Route::resource('answer','AnswerController');

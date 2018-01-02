@@ -1,9 +1,10 @@
+
 @extends('layouts.master')
 <!--========================================================
                           TITLE
 =========================================================-->
 @section('title')
-    Question List
+    Edit Doctor
 @stop
 
 @section('redBar')
@@ -19,14 +20,53 @@
     {{--<link src="{{ asset('css/jquery.rateyo.min.css') }}">--}}
 @endsection
 
+
+
 @section('content')
+<div class="container">
+    <h2>Asked questions</h2>
 
-fdsfds
-@foreach($questions as $question)
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Question</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
 
-    {{$question->question}}
-<br>
-    @endforeach
+        @if($questions)
+        @foreach($questions as $question)
+            <tr>
+                <td>{{$question->id}}</td>
+                <td>{{$question->question}}</td>
+                <td>
+                    <a href="{{route('answer.create')}}/?questionId={{$question->id}}">Reply</a>
+                    <a href="{{route('changeStatus')}}/?id={{$question->id}}">Decline</a>
+                </td>
+            </tr>
+
+        @endforeach
+        @endif
 
 
-    @stop
+        </tbody>
+    </table>
+
+
+
+
+</div>
+@section('scripts')
+    <script>
+
+
+
+    </script>
+
+    @endsection
+
+
+
+@endsection
