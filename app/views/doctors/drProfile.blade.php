@@ -39,7 +39,19 @@
                             <div class="card-body no-padding height-9">
                                 <div class="row">
                                     <div class="profile-userpic">
-                                        <img src="{{ asset('images/dp.svg') }}" class="img-responsive" alt=""> </div>
+
+                                        <img src="
+                                                   @if(isset($profile->photo))
+                                        {{asset('uploads/'.$profile->photo)}}
+                                        @else
+                                        @if($profile->gender =="Male")
+                                        {{asset('uploads/maleUnknown.jpg')}}
+                                        @else
+                                        {{asset('uploads/femaleUnknown.jpg')}}
+                                        @endif
+                                        @endif
+
+                                        " class="img-responsive" alt=""> </div>
                                 </div>
                                 <div class="profile-usertitle">
                                     <div class="profile-usertitle-name"> {{ $profile->full_name }} </div>
@@ -121,7 +133,7 @@
                     <div class="profile-content">
                         <div class="row">
                             <div class="card">
-                                <div class="card-head card-topline-aqua">
+                                <div class="card-head card-topline-aqua" style="border-bottom: 0px">
                                     <header></header>
                                 </div>
                                 <div class="card-body no-padding height-9">
@@ -146,7 +158,7 @@
                                                                             <br>
                                                                             <p class="text-muted">{{$profile->cell}}</p>
                                                                         </div>
-                                                                        <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
+                                                                        <div class="col-md-3 col-xs-6 b-r p0"> <strong>Email</strong>
                                                                             <br>
                                                                             <p class="text-muted">{{$profile->email}}</p>
                                                                         </div>
@@ -191,23 +203,12 @@
                                                                         <li>Life member: Ahmedabad Orthopaedic Society</li>
                                                                     </ul>
                                                                     <br>
-                                                                    <div class="tab-content">
-
-                                                                        <h3 class="tab-content">Comments on Doctor's Checkup</h3> {{--@foreach($drComments as $comment)--}}
-
-                                                                        <div class="actionBox" style="background-color: whitesmoke">
-                                                                            <ul class="commentList" id="commentList">
-
-                                                                            </ul>
-                                                                        </div>
-                                                                        <br> {{--@endforeach--}}
-                                                                    </div>
 
                                                                     {{--
-                                                                    <form class="form-inline" action="{{route('comment')}}" method="post">--}} @if(Auth::user())
+                              <form class="form-inline" action="{{route('comment')}}" method="post">--}} @if(Auth::user())
                                                                         <form class="form-inline">
 
-                                                                            <input class="col-lg-12" type="text" placeholder="Your comments" name="addComment" id="comment" />
+                                                                            <input class="col-lg-12 col-md-12 col-sm-12" type="text" placeholder="Your comments" name="addComment" id="comment" />
                                                                             <br>
                                                                             <input class="form-control" type="hidden" value="{{$id}}" name="Doctro_id" id="Doctro_id">
                                                                             <input class="form-control" type="hidden" value="{{Auth::user()->id}}" name="auth_user" id="auth_user">
@@ -216,11 +217,27 @@
                                                                             <br> {{--
                                                                     <input type="hidden" name="commenttoken" value=" {{csrf_token()}}" />--}}
 
-                                                                            <button class="col-lg-12" id="ajax" type="submit">
+                                                                            <button class="col-lg-12 col-sm-12 col-md-12" id="ajax" type="submit">
                                                                                 <h4>Comment</h4></button>
 
                                                                         </form>
                                                                     @else {{--@include('includes.webSocialLinks')--}} @endif
+
+                                                                    <br>
+                                                                    <hr>
+                                                                    <div class="tab-content">
+
+                                                                        <h3 class="tab-content">Comments on Doctor's Checkup</h3> {{--@foreach($drComments as $comment)--}}
+
+                                                                        <div class="actionBox" style="background-color: white">
+                                                                            <ul class="commentList" id="commentList">
+
+                                                                            </ul>
+                                                                        </div>
+                                                                        <br> {{--@endforeach--}}
+                                                                    </div>
+
+
 
 
 
@@ -380,7 +397,7 @@
                       //  console.log(JSON.stringify(data));
                         $.each( data, function( key, val ) {
                             var txt2 = $(" <li>  " +
-                                "<div  class='commentText'><p> " + val.comments+"</p>"+"<span>"+ val.created_at+"</span>" +
+                                "<div  style='border-bottom: 1px solid #01ADD5; margin-bottom: 25px' class='commentText col-md-12'><span class='col-md-9'> " + val.comments+"</span>"+"<span class='col-md-3'>"+ (val.created_at).slice(0,-3)+"</span>" +
                                 "</div>" +
                                 "</li>");  // Create text with jQuery
 

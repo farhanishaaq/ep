@@ -65,7 +65,7 @@ Route::group(['Public'],function (){
      * HomeController Routes
      */
     Route::group(['Home'],function (){
-        Route::get('/', 'HomeController@index');
+        Route::get('/', 'SearchController@index');
         Route::group(['domain' => '{companyDomain}.ep.loc'], function ($companyDomain) {
             Route::get('companyHome', array('as'=>'showCompanyHomePage','uses'=>'HomeController@showCompanyHomePage'));
         });
