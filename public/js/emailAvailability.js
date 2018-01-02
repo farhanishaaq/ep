@@ -110,50 +110,13 @@ function statusUpdate(patientId)
 }
 // end Jquery of Comment
 
-//likes add or remove zone
-//Toggle Class
-$(document).ready(function(){
-    $("#articleLike").click(function() {
-        $("#articleLike").toggleClass("selectedClass");
-    });
-});
-//Update Likes
-//function hitLikes(takeId)
-function hitLikes(likeId)
-{
-    var existCount = $('#likesCount').text();
-    //var existCount = parseInt(existNum);
-    //var likeId = parseInt(takeId);
-    $(document).ready(function(){
-        if($("#articleLike").hasClass("selectedClass"))
-            existCount++ ;
-
-        else
-            existCount--;
-        });
-
-    if(likeId)
-    {
-        $.ajax({
-            type: 'post',
-            url: 'likePerform',
-            data: {
-                like_id: likeId,
-                like_data : existCount
-            },
-            success: function (response) {
-                if(response == "update")
-                    $('#likesCount').text(existCount);
-                else
-                alert("error");
-            }
-        });
-    }
-}
-
-//--------------------------------------------------
 
 
+
+
+
+
+//
 
 
 
