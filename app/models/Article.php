@@ -1,7 +1,7 @@
 <?php
 
 class Article extends \Eloquent {
-	protected $fillable = ['patient_id','doctor_id','article_text','title'];
+	protected $fillable = ['patient_id','doctor_id','article_text','title', 'bannar_image'];
 
 public function image(){
     return $this->hasMany("Image");
@@ -22,15 +22,25 @@ public function user(){
 
     public function saveArticle ($data){
 
+
         $doctor_id = Auth::user()->id;
 
         $text=$data['body'];
         $title = $data['title'];
         $this->doctor_id = $doctor_id;
         $this->article_text = $text;
+
         $this->title = $title;
         $this->save();
         return 'sucess';
+    }
+    public function bannerpath($filename){
+
+        $this->bannar_image = $filename;
+        $this->save();
+        return 'sucess';
+
+
     }
 
 
