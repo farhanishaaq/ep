@@ -142,6 +142,7 @@ class DoctorsController extends \BaseController {
 
 
    }
+
     public function showDoctors()
 
     {
@@ -153,11 +154,13 @@ class DoctorsController extends \BaseController {
         $data['selectSpecialities'] = '';
 
         if(Input::get('cities')!=''){
-            $data['selectCities'] = implode("','", Input::get('cities'));
+            $data['selectCities'] = Input::get('cities');
         }
-        if(Input::get('specialities')!=''){
-            $data['selectSpecialities'] = implode(",", Input::get('specialities'));
+        if(Input::get('speciality')!=''){
+            $data['selectSpecialities'] =  Input::get('speciality');
         }
+
+
         if($data['selectCities']=='' && $data['selectSpecialities']==''){
             $data['user_id'] = Input::get('user_id');
             $data['city'] = Input::get('city');

@@ -149,12 +149,16 @@ class ArticlesController extends \BaseController
 
     public function likeManage()
     {
-//        $data['likeAction'] = $_POST['like_action'];
+
+        $data['likeData'] = $_POST['like_data'];
         $data['likeId'] = $_POST['like_id'];
         dd($data);
-        $result = $this->_article->countLikes($data);
-    }
 
+        $likes = $this->_article->getLikes($data);
+        dd($likes);
+        $result = $this->_article->countLikes($data);
+        return $result;
+    }
 
     public function articleList()
     {

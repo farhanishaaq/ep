@@ -14,7 +14,11 @@ public function user(){
    return $this->belongsTo("User");
 }
 
+    public function question()
+    {
 
+        $this->hasMany('Question');
+    }
 
     public function saveArticle ($data){
 
@@ -25,8 +29,7 @@ public function user(){
         $this->doctor_id = $doctor_id;
         $this->article_text = $text;
         $this->title = $title;
-
-         $this->save();
+        $this->save();
         return 'sucess';
     }
 
@@ -55,7 +58,28 @@ public function user(){
 
     }
 
-    public function countLikes($params){
+    public function getLikes($params)
+    {
+        $queryBuilder = DB::table('like_logs')
+            ->where('id', '=', $params['likeId'])
+            ->select('like_count');
+        return $queryBuilder;
+    }
+
+    public function countLikes($params)
+    {
+        //Save like when hit!
+
+
+        $queryBuilder = DB::table('like_logs')
+            ->where('id', '=', $params['likeId'])
+            ->update(array('like_count' => $params['likeData']));
+        return "update";
+
+    }
+
+
+//    public function countLikes($params){
 
 
 
@@ -71,7 +95,7 @@ public function user(){
 //            $comment->update(array('status'=>'Request'));
 //            return "Request";
 //        }
-    }
+//    }
 
 
 }

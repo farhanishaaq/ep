@@ -1,0 +1,11 @@
+.selectedClass{
+text-decoration: underline;
+color: #00A0C6;
+cursor:pointer;
+}
+#articleLike:hover
+{
+     color:#00A0C6;
+     cursor:pointer;
+     text-decoration: underline;
+}

@@ -18,6 +18,7 @@ class CreateQuestionsTable extends Migration {
             $table->integer('doctor_id');
             $table->integer('patient_id');
             $table->string('question');
+            $table->string('status');
 			$table->timestamps();
 		});
 	}

@@ -110,41 +110,13 @@ function statusUpdate(patientId)
 }
 // end Jquery of Comment
 
-//likes add or remove zone
-$(document).ready(function(){
-    $(".selectClass").click(function() {
-        $(".selectClass").toggleClass("slectedClass");
-    });
-});
-function hitLikes(patientId)
-{
-
-    //var existCount = document.getElementById('likesCount').innerHTML;
-    //if($('#'+patientId).prop('checked')) {
-    //    var status = 'checked';
-    //}
-    //else {
-    //    status = 'unchecked';
-    //}
-    if(patientId)
-    {
-        $.ajax({
-            type: 'post',
-            url: 'likePerform',
-            data: {
-                like_id:patientId
-                //like_action:status
-            },
-            success: function (response) {
-                alert(response);
-            }
-        });
-    }
-}
-
-//--------------------------------------------------
 
 
+
+
+
+
+//
 
 
 

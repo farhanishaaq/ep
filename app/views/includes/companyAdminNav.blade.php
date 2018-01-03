@@ -5,7 +5,8 @@
 
         {{-- Manage Clinic --}}
         <li class="dropdown @yield('current_services')">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Clinic<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">Manage Clinic<span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="{{URL::route('doctors.index')}}">Manage Doctors</a></li>
                 <li class="divider"></li>
@@ -16,12 +17,15 @@
                 <li><a href="{{URL::route('prescriptions.index')}}">Manage Prescriptions</a></li>
                 <li class="divider"></li>
                 <li><a href="{{URL::route('commentsStatus')}}">Manage Comments</a></li>
+                <li class="divider"></li>
+                <li><a href="{{URL::route('question.index')}}">Manage Questions</a></li>
             </ul>
         </li>
 
         {{-- Inventory --}}
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Inventory <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">Manage Inventory <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="{{route('medicinePurchases.index')}}">Medicine Purchases</a></li>
                 <li class="divider"></li>
@@ -43,7 +47,8 @@
 
         {{-- Administrations --}}
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">Administration <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="{{route('roles.index')}}">Manage Roles</a></li>
                 <li class="divider"></li>

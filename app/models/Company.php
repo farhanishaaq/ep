@@ -1,12 +1,13 @@
 <?php
 use \App\Globals\GlobalsConst;
 
-class Company extends \Eloquent {
+class Company extends \Eloquent
+{
 
     /**
      * @var array
      */
-	protected $fillable = ['name', 'city_id', 'address', 'phone', 'fax', 'description'];
+    protected $fillable = ['name', 'city_id', 'address', 'phone', 'fax', 'description'];
 
 
     public static $rules = [
@@ -16,21 +17,24 @@ class Company extends \Eloquent {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function businessUnits(){
+    public function businessUnits()
+    {
         return $this->hasMany('BusinessUnit');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users(){
+    public function users()
+    {
         return $this->hasMany('User');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function employees(){
+    public function employees()
+    {
         return $this->hasMany('Employee');
     }
 
@@ -38,7 +42,8 @@ class Company extends \Eloquent {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function city(){
+    public function city()
+    {
         return $this->belongsTo('City');
     }
 
@@ -47,23 +52,23 @@ class Company extends \Eloquent {
      * @param int $dataProcessType
      * @return array|null
      */
-    public static function saveCompany($data,$dataProcessType=GlobalsConst::DATA_SAVE){
+    public static function saveCompany($data, $dataProcessType = GlobalsConst::DATA_SAVE)
+    {
         $response = null;
         $comeFrom = isset($data['comeFrom']) ? $data['comeFrom'] : 'Company';
         $validator = Validator::make($data, User::$rules);
 
-        if ($validator->fails())
-        {
-            $response = ['success'=>false, 'error'=> true, 'validatorErrors'=>$validator];
+        if ($validator->fails()) {
+            $response = ['success' => false, 'error' => true, 'validatorErrors' => $validator];
         }
-        if($dataProcessType == GlobalsConst::DATA_SAVE){
+        if ($dataProcessType == GlobalsConst::DATA_SAVE) {
             $company = new Company();
-        }else{
+        } else {
             $id = isset($data['companyId']) ? $data['companyId'] : '';
-            if($id != ''){
+            if ($id != '') {
                 $user = Company::find($id);
-            }else{
-                return $response = ['success'=>false, 'error'=> true, 'message' => $comeFrom.' record did not find for updation! '];
+            } else {
+                return $response = ['success' => false, 'error' => true, 'message' => $comeFrom . ' record did not find for updation! '];
             }
         }
 
@@ -100,8 +105,8 @@ class Company extends \Eloquent {
         $userData['fname'] = $data['fname'];
         $userData['lname'] = $data['lname'];
         $userData['status'] = GlobalsConst::STATUS_ON;
-        $User = User::saveUser($userData,$dataProcessType);
-        $response = ['success'=>true, 'error'=> false, 'message'=>'Company has been saved successfully!'];
+        $User = User::saveUser($userData, $dataProcessType);
+        $response = ['success' => true, 'error' => false, 'message' => 'Company has been saved successfully!'];
         return $response;
     }
 }

@@ -44,6 +44,7 @@ class CommentsController extends \BaseController {
 	public function store()
 	{
         $data = Input::all();
+
         return $this->_comment->saveComment($data);
 
 	}

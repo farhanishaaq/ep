@@ -1,11 +1,11 @@
 <?php
 
 class Image extends \Eloquent {
-	protected $fillable = ['article_id','doctor_id','image'];
+    protected $fillable = ['article_id','doctor_id','image'];
 
-	public function article(){
+    public function article(){
 
-	    return $this->belongsTo("Article");
+        return $this->belongsTo("Article");
     }
 
     public function saveImage ($destinationPath,$filename,$articleid){
@@ -16,7 +16,7 @@ class Image extends \Eloquent {
         $imagepath=$filename;
 //        dd($imagepath);
 
-         $this->article_id = $articleid;
+        $this->article_id = $articleid;
         $this->doctor_id = $doctor_id;
 
         $this->image = $imagepath;
