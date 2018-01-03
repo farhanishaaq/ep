@@ -42,7 +42,7 @@ public function image(){
         try {
             $queryBuilder = DB::table('articles')
                 ->leftJoin('like_logs', 'articles.id', '=', 'like_logs.article_id')
-                ->select('like_logs.id As likeId','articles.id AS articleId', 'articles.id AS articleId', 'like_count','article_text')
+                ->select('like_logs.id As likeId','articles.id AS articleId', 'articles.id AS articleId', 'like_count','article_text','title')
                 ->get();
             return $queryBuilder;
         } catch (Throwable $t) {
@@ -66,33 +66,12 @@ public function image(){
     public function countLikes($params)
     {
         //Save like when hit!
-
-
         $queryBuilder = DB::table('like_logs')
             ->where('id', '=', $params['likeId'])
             ->update(array('like_count' => $params['likeData']));
         return "update";
 
     }
-
-
-//    public function countLikes($params){
-
-
-
-
-
-//        $comment = DB::table('likes_logs')
-//            ->where('id','=',$params['commentId']);
-//        if($params['commentAction']=='checked'){
-//            $comment->update(array('status'=>'Approved'));
-//            return "Approved";
-//        }
-//        else{
-//            $comment->update(array('status'=>'Request'));
-//            return "Request";
-//        }
-//    }
 
 
 }

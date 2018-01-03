@@ -24,49 +24,34 @@ $(document).ready(function(){
 //function hitLikes(takeId)
 function hitLikes(likeId,articleId)
 {
-
-    //Like Toggle Slected class
-    $(document).ready(function(){
-        $("#" +likeId).click(function(){
-            $("#" + likeId).toggleClass("selectedClass");
-        });
-    });
-    //$('#'+likeId).click(function(){
-    //    $('#'+likeId).toggleClass("selectedClass");
-    //});
+        var setLikeId = "like_" +likeId ;
+        $('#'+setLikeId).toggleClass("selectedClass");
 
     //Take LikeCount span Id for getting Existing Likes
     var setArticleId = "article_"+ $.trim(articleId);
     var existCount = $("#"+setArticleId).text();
-    $(document).ready(function() {
-        if ($("#" + likeId).hasClass("selectedClass"))
-        {       existCount++;
-        alert(existCount)
-    }
-        else{
+        if ($("#like_" + likeId).hasClass("selectedClass"))
+               existCount++;
+        else
             existCount--;
-        alert(existCount)}
-    });
-    //
-    //if(likeId && existCount)
-    //{
 
-        //$.ajax({
-        //    type: 'post',
-        //    url: 'likePerform',
-        //    data: {
-        //        like_id: likeId,
-        //        like_data : existCount
-        //    },
-        //    success: function (response) {
-        //        alert(response);
-        //        if(response == "update")
-        //            $('#likesCount').text(existCount);
-        //        else
-        //            alert("error");
-        //    }
-        //});
-    //}
+    if(likeId)
+    {
+        $.ajax({
+            type: 'POST',
+            url: 'likePerform',
+            data: {
+                like_id: likeId,
+                like_data : existCount
+            },
+            success: function (response) {
+                if(response == "update")
+                    $('#'+setArticleId).html(existCount);
+                else
+                    alert("error hei dalne mein value");
+            }
+        });
+    }
 }
 
 
