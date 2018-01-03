@@ -49,6 +49,8 @@ class ArticlesController extends \BaseController
 
 //       $id = $data['image']->id;
 //       dd($id);
+
+
         $response = null;
         if (Input::hasFile('image')) {
             $file = Input::file('image');
@@ -56,22 +58,43 @@ class ArticlesController extends \BaseController
             $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
             if (in_array($type, $supportedTypes)){
 
-            $destinationPath = public_path(GlobalsConst::ARTICLE_PHOTO_DIR);
-            $filename = str_random(16) . '_' . $file->getClientOriginalName();
+//            $destinationPath = public_path(GlobalsConst::ARTICLE_PHOTO_DIR)."/35";
+//            $filename = str_random(16) . '_' . $file->getClientOriginalName();
+//
+//            $uploadSuccess = $file->move($destinationPath, $filename);
+//
+////			$response = ['success'=>true,'error'=>false,'message'=>'Photo has been uploaded successfully!','uploadedFileName'=>$filename,'abc'=>$uploadSuccess];
+//            $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
 
-            $uploadSuccess = $file->move($destinationPath, $filename);
+             $this->_article->saveArticle($data);
 
-//			$response = ['success'=>true,'error'=>false,'message'=>'Photo has been uploaded successfully!','uploadedFileName'=>$filename,'abc'=>$uploadSuccess];
-            $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
-            }else{$response = ['success' => false, 'error' => 'No files were processed.']; echo $response;}
+           $articleid = $this->_article->id;
+                $destinationPath = public_path(GlobalsConst::ARTICLE_PHOTO_DIR)."/".$articleid;
+                $filename = str_random(16) . '_' . $file->getClientOriginalName();
+                $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
+                $uploadSuccess = $file->move($destinationPath, $filename);
+
+
+            $this->_image->saveImage ($destinationPath,$filename, $articleid);
+
+//                return View::make('doctors.articlesEditer', compact('response'));
+
+            }
+            else{
+                $response = ['success' => false, 'error' => 'No files were processed.'] ;
+
+
+                return View::make('doctors.articlesEditer', compact('response'));
+
+            }
+
         } else {
 //			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
             $response = ['success' => false, 'error' => 'No files were processed.'];
         }
 //        return Response::json($response);
 
-        $this->_image->saveImage ($destinationPath,$filename);
-        return $this->_article->saveArticle($data);
+
 
 
     }

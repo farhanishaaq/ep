@@ -3,7 +3,16 @@
 class Article extends \Eloquent {
 	protected $fillable = ['patient_id','doctor_id','article_text','title'];
 
+public function image(){
+    return $this->hasMany("Image");
 
+
+}
+
+public function user(){
+
+   return $this->belongsTo("User");
+}
 
 
 
@@ -17,7 +26,7 @@ class Article extends \Eloquent {
         $this->article_text = $text;
         $this->title = $title;
 
-        $this->save();
+         $this->save();
         return 'sucess';
     }
 
