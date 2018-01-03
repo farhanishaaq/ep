@@ -9,10 +9,12 @@ class ArticlesController extends \BaseController
      * @return Response
      */
     private $_article;
+    private $_image;
 
-    public function __construct(Article $article)
+    public function __construct(Article $article, Image $image)
     {
         $this->_article = $article;
+        $this->_image = $image;
     }
 
 
@@ -44,16 +46,47 @@ class ArticlesController extends \BaseController
         //
         $data = Input::all();
 //        dd($data);
+
+//       $id = $data['image']->id;
+//       dd($id);
+
+
         $response = null;
         if (Input::hasFile('image')) {
             $file = Input::file('image');
-            $destinationPath = public_path(GlobalsConst::ARTICLE_PHOTO_DIR);
-            $filename = str_random(16) . '_' . $file->getClientOriginalName();
+            $type = $file->getMimeType();
+            $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
+            if (in_array($type, $supportedTypes)){
 
-            $uploadSuccess = $file->move($destinationPath, $filename);
+//            $destinationPath = public_path(GlobalsConst::ARTICLE_PHOTO_DIR)."/35";
+//            $filename = str_random(16) . '_' . $file->getClientOriginalName();
+//
+//            $uploadSuccess = $file->move($destinationPath, $filename);
+//
+////			$response = ['success'=>true,'error'=>false,'message'=>'Photo has been uploaded successfully!','uploadedFileName'=>$filename,'abc'=>$uploadSuccess];
+//            $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
 
-//			$response = ['success'=>true,'error'=>false,'message'=>'Photo has been uploaded successfully!','uploadedFileName'=>$filename,'abc'=>$uploadSuccess];
-            $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
+             $this->_article->saveArticle($data);
+
+           $articleid = $this->_article->id;
+                $destinationPath = public_path(GlobalsConst::ARTICLE_PHOTO_DIR)."/".$articleid;
+                $filename = str_random(16) . '_' . $file->getClientOriginalName();
+                $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
+                $uploadSuccess = $file->move($destinationPath, $filename);
+
+
+            $this->_image->saveImage ($destinationPath,$filename, $articleid);
+
+//                return View::make('doctors.articlesEditer', compact('response'));
+
+            }
+            else{
+                $response = ['success' => false, 'error' => 'No files were processed.'] ;
+
+
+                return View::make('doctors.articlesEditer', compact('response'));
+
+            }
 
         } else {
 //			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
@@ -62,7 +95,6 @@ class ArticlesController extends \BaseController
 //        return Response::json($response);
 
 
-        return $this->_article->saveArticle($data);
 
 
     }

@@ -20,8 +20,20 @@
                 <div class="panel-heading clearfix">
                     <h3 class="panel-title pull-left">Upload Image</h3>
                     <div class="btn-group pull-right">
-                        <input type="file" class="btn-group pull-right" name="image"  >
+                        <input type="file" class="btn-group pull-right" name="image" required />
                     </div>
+                         @if(isset($response))
+                        @foreach($response as $result)
+
+                        @if($result==false)
+                                <div class="alert alert-danger">
+                                    <strong>Upload Success is Fail!</strong> File Type Should be jpeg, jpg, png, gif, or svg
+                                </div>
+
+                            @endif
+                            @endforeach
+                           @endif
+
 
                     </div>
                 </div>
@@ -37,6 +49,9 @@
             <textarea name='body'class="form-control" style="min-height: 300px" ></textarea>
         </div>
 
-        <button type="submit"  class="btn btn-raised btn-sm btn-1">Save Draft</button>
+        <button type="submit"  class="btn btn-raised btn-sm btn-1" id="avatar_form">Save Draft</button>
     </form>
+
+
+
 @endsection

@@ -1,15 +1,18 @@
 <?php
 
-class Article extends \Eloquent
-{
-    protected $fillable = ['patient_id', 'doctor_id', 'article_text'];
+class Article extends \Eloquent {
+    protected $fillable = ['patient_id','doctor_id','article_text','title'];
 
-    public function user()
-    {
-        $this->belongsTo('User');
+public function image(){
+    return $this->hasMany("Image");
 
     }
 
+    public function user(){
+
+        return $this->belongsTo("User");
+    }
+    
     public function question()
     {
 
@@ -63,10 +66,33 @@ class Article extends \Eloquent
     public function countLikes($params)
     {
         //Save like when hit!
+
+
         $queryBuilder = DB::table('like_logs')
             ->where('id', '=', $params['likeId'])
             ->update(array('like_count' => $params['likeData']));
-            return "update";
+        return "update";
+
     }
+
+
+//    public function countLikes($params){
+
+
+
+
+
+//        $comment = DB::table('likes_logs')
+//            ->where('id','=',$params['commentId']);
+//        if($params['commentAction']=='checked'){
+//            $comment->update(array('status'=>'Approved'));
+//            return "Approved";
+//        }
+//        else{
+//            $comment->update(array('status'=>'Request'));
+//            return "Request";
+//        }
+//    }
+
 
 }
