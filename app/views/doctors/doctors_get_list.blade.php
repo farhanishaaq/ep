@@ -85,11 +85,11 @@
         <div class="chbxs listm">
                @foreach($specialities as $speciality)
                {{--For Space in list Use Class i.e mB4--}}
-               <div class="btn-group">
-                           <label class="container col-md-12 col-lg-12 col-sm-12 show-read-more" >&nbsp;&nbsp;&nbsp;{{$speciality->name}}
+               <div class="btn-group" style="width: inherit">
+                           <label class="doctorRadio show-read-more" >&nbsp;&nbsp;&nbsp;{{$speciality->name}}
                              {{--<input name="specialities[]" type="checkbox" value="{{$speciality->id}}">--}}
                              <input name="speciality" type="radio" value="{{$speciality->id}}">
-                             <span class="checkmark"></span>
+                             <span class="radiomark"></span>
                            </label></div><br>
          @endforeach
            <div class="clearfix"></div>
@@ -206,7 +206,7 @@
                        </div>
                      </div>
                    </div>
-
+                    <span class="center"><?php echo $doctors->links(); ?></span>
                  </div>
 
                 </div>

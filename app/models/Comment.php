@@ -34,9 +34,10 @@ class Comment extends \Eloquent
          */
         try {
             $queryBuilder = DB::table('comments')
-                ->select('id AS commentId', 'patient_id', 'doctor_id', 'comments', 'status', 'created_at')
-                ->where('status', '!=', 'Approved')
-                ->get();
+            ->select('id AS commentId', 'patient_id', 'doctor_id', 'comments', 'status', 'created_at')
+//            if($params['condition'] == "Approved")
+            ->where('status', '!=', 'Approved')
+            ->get();
             return $queryBuilder;
         } catch (Throwable $t) {
             // Executed only in PHP 7, will not match in PHP 5.x
@@ -59,6 +60,22 @@ class Comment extends \Eloquent
             $comment->update(array('status' => 'Request'));
             return "Request";
         }
+    }
+    public function allComments(){
+
+        try {
+            $queryBuilder = DB::table('comments')
+                ->select('id AS commentId', 'patient_id', 'doctor_id', 'comments', 'status', 'created_at')
+                ->get();
+            return $queryBuilder;
+        } catch (Throwable $t) {
+            // Executed only in PHP 7, will not match in PHP 5.x
+            dd($t->getMessage());
+        } catch (Exception $e) {
+            dd("exeption");
+            dd($e->getMessage());
+        }
+
     }
 
 }

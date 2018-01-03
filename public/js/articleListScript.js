@@ -33,10 +33,10 @@ function hitLikes(likeId,articleId)
         if ($("#like_" + likeId).hasClass("selectedClass"))
                existCount++;
         else
-            existCount--;
-
+            existCount;
     if(likeId)
     {
+
         $.ajax({
             type: 'POST',
             url: 'likePerform',
@@ -46,7 +46,7 @@ function hitLikes(likeId,articleId)
             },
             success: function (response) {
                 if(response == "update")
-                    $('#'+setArticleId).html(existCount);
+                    $(setArticleId).html(existCount);
                 else
                     alert("error hei dalne mein value");
             }

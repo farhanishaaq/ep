@@ -3,10 +3,8 @@
 class Article extends \Eloquent {
     protected $fillable = ['patient_id','doctor_id','article_text','title', 'bannar_image'];
 
-
     public function image(){
     return $this->hasMany("Image");
-
 
 }
 
@@ -40,19 +38,15 @@ public function user(){
         $this->save();
         return 'sucess';
 
-
     }
-
-
-
 
     public function getArticles(){
 
         try{
             $queryBuilder = DB::table('articles')
                 ->leftJoin('like_logs','articles.id','=','like_logs.article_id')
-                ->select('like_logs.id As likeId','articles.id AS articleId','like_count')
-                ->get();
+                ->select('like_logs.id As likeId','articles.id AS articleId','like_count','title','article_text','bannar_image')
+                ->paginate(5);
             return $queryBuilder;
         }
 

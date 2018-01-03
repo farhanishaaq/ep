@@ -53,7 +53,7 @@ font-size: 16px;
       <div class="carousel-item active">
          <div class="row">
             <div class="col-lg-4 col-sm-12 post-block post-thumb" style="background-color: white">
-               {{--Main page Right Panel--}}
+               {{--Main page left Panel--}}
                <div class="post-box">
                   <h1>This is left Panel of Article</h1>
                   <img src="{{asset('images/blog/blog3.jpg')}}" alt="Slide" /><br>
@@ -61,7 +61,7 @@ font-size: 16px;
                   <i class="fa fa-eye" style="color: #00aff0" aria-hidden="true">Views</i>
                </div>
             </div>
-            {{--Main Page Left Panel--}}
+            {{--Main Page right Panel--}}
             <div class="col-lg-8 col-sm-12 ">
                {{--
                <div class="col-lg-8 col-sm-12 post-block post-big">
@@ -81,16 +81,17 @@ font-size: 16px;
                      </div>
                      {{--Article list right panel--}}
                      <div class="col-md-8">
-                        <span class="post-category"><a href="{{route('articlesfood')}}" title="Travel">{{$article->title}}</a></span><br>
-                        <span><a href="{{route('articlesfood')}}" title="White Sand of The Desert Discovery">13 Surprising Habits Proven to Trigger Kidney Stones</a></span><br>
+                        <span class="post-category"><a href="{{route('articles',$article->articleId)}}" title="Travel" style="font-size: 20px;">{{$article->title}}</a></span><br>
+                        <span><a href="{{route('articles',$article->articleId)}}" title="White Sand of The Desert Discovery">13 Surprising Habits Proven to Trigger Kidney Stones</a></span><br>
                         <p><span class="show-read-more">{{$article->article_text}}</span>
-                        <a href="{{route('articlesfood')}}" title="Read More">Read More</a></p>
+                        <a href="{{route('articles',$article->articleId)}}" title="Read More">Read More</a></p>
                         {{--
                      </div>
                      --}}
                   </div>
                </div>
                @endforeach
+                <span class="center"><?php echo $articles->links(); ?></span>
             </div>
          </div>
       </div>
