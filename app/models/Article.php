@@ -34,11 +34,12 @@ class Article extends \Eloquent
 
     public function getArticles()
     {
+//                                       Show List of Articles and related data
 
         try {
             $queryBuilder = DB::table('articles')
                 ->leftJoin('like_logs', 'articles.id', '=', 'like_logs.article_id')
-                ->select('like_logs.id As likeId', 'articles.id AS articleId', 'like_count')
+                ->select('like_logs.id As likeId','articles.id AS articleId', 'articles.id AS articleId', 'like_count','article_text')
                 ->get();
             return $queryBuilder;
         } catch (Throwable $t) {
@@ -62,13 +63,10 @@ class Article extends \Eloquent
     public function countLikes($params)
     {
         //Save like when hit!
-
-
         $queryBuilder = DB::table('like_logs')
             ->where('id', '=', $params['likeId'])
             ->update(array('like_count' => $params['likeData']));
-        return "update";
-
+            return "update";
     }
 
 }

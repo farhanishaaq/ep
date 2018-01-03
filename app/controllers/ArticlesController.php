@@ -120,11 +120,9 @@ class ArticlesController extends \BaseController
 
         $data['likeData'] = $_POST['like_data'];
         $data['likeId'] = $_POST['like_id'];
-        dd($data);
 
         $likes = $this->_article->getLikes($data);
-        dd($likes);
-        $result = $this->_article->countLikes($data);
+        $result = $this->_article->countLikes($likes);
         return $result;
     }
 

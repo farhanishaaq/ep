@@ -22,37 +22,51 @@ $(document).ready(function(){
 
 //Update Likes
 //function hitLikes(takeId)
-function hitLikes(likeId)
+function hitLikes(likeId,articleId)
 {
-    var existCount = $('#likesCount').text();
-    alert(existCount);
-    //var existCount = parseInt(existNum);
-    //var likeId = parseInt(takeId);
+
+    //Like Toggle Slected class
     $(document).ready(function(){
-        if($("."+likeId).hasClass("selectedClass"))
-            existCount++ ;
-
-        else
-            existCount--;
-    });
-
-    if(likeId)
-    {
-        $.ajax({
-            type: 'post',
-            url: 'likePerform',
-            data: {
-                like_id: likeId,
-                like_data : existCount
-            },
-            success: function (response) {
-                if(response == "update")
-                    $('#likesCount').text(existCount);
-                else
-                    alert("error");
-            }
+        $("#" +likeId).click(function(){
+            $("#" + likeId).toggleClass("selectedClass");
         });
+    });
+    //$('#'+likeId).click(function(){
+    //    $('#'+likeId).toggleClass("selectedClass");
+    //});
+
+    //Take LikeCount span Id for getting Existing Likes
+    var setArticleId = "article_"+ $.trim(articleId);
+    var existCount = $("#"+setArticleId).text();
+    $(document).ready(function() {
+        if ($("#" + likeId).hasClass("selectedClass"))
+        {       existCount++;
+        alert(existCount)
     }
+        else{
+            existCount--;
+        alert(existCount)}
+    });
+    //
+    //if(likeId && existCount)
+    //{
+
+        //$.ajax({
+        //    type: 'post',
+        //    url: 'likePerform',
+        //    data: {
+        //        like_id: likeId,
+        //        like_data : existCount
+        //    },
+        //    success: function (response) {
+        //        alert(response);
+        //        if(response == "update")
+        //            $('#likesCount').text(existCount);
+        //        else
+        //            alert("error");
+        //    }
+        //});
+    //}
 }
 
 

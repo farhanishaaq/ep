@@ -76,7 +76,7 @@ cursor:pointer;
                            {{--<span id="{{$article->likeId}}" onclick="hitLikes(this.id)"> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span class="likesCount">--}}
                            {{--{{$article->like_count}}--}}
                            {{--</span></i></span>--}}
-                           <span id="{{$article->likeId}}" onclick="hitLikes(this.id)"> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="likesCount">
+                           <span id="like_{{$article->likeId}}" onclick="hitLikes(this.id,' {{$article->articleId}}')" class=""> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="article_{{$article->articleId}}">
                           {{$article->like_count}}
                           </span></i></span>
                            {{--Like end--}}

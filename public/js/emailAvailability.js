@@ -48,7 +48,7 @@ function checkUserName()
             type: 'post',
             url: 'checkUserName',
             data: {
-                user_Name:userName,
+                user_Name:userName
             },
             success: function (response) {
                 $( '#userName_status' ).html(response).addClass('errorMsg');
