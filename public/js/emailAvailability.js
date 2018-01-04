@@ -103,7 +103,6 @@ function statusUpdate(patientId)
                 comment_action:status
             },
             success: function (response) {
-                alert(response);
             }
         });
     }

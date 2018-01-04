@@ -146,14 +146,20 @@ class ArticlesController extends \BaseController
     {
         $data['likeId'] = $_POST['like_id'];
         $data['likeData'] = $_POST['like_data'];
-//        $likes = $this->_article->getLikes($data);
+        $data['articleId'] = $_POST['article_id'];
+        $data['patientId'] = $_POST['patient_id'];
+        $likes = $this->_article->getLikes($data);
+        if($likes == "1")
+        $result = $this->_article->deleteRecord($data);
+        else
+        $result = $this->_article->addRecord($data,$likes);
 
-        $result = $this->_article->countLikes($data);
         return $result;
     }
 
     public function articleList()
     {
+
         $articles = $this->_article->getArticles();
         return View::make('articles.index', compact('articles'));
     }

@@ -44,9 +44,10 @@
             @if(Auth::user()->role == 'Administrator')
                  link_to_route('prescriptions.create', 'Create Prescription', '', ['class' => 'btn_1'])
             @endif
-            <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
+            <table id="tblRecordsList" class="mT20 table table-hover table-striped display noShow">
                 <thead>
                 <tr>
+                    <th>No.</th>
                     <th>Doctor_ID</th>
                     <th>Patient_ID</th>
                     <th>Comments Details</th>
@@ -57,6 +58,7 @@
                  <tbody>
                 @foreach ($data as $dataComment)
                     <tr>
+                        <td></td>
                         <td>{{$dataComment->doctor_id}}</td>
                         <td>{{$dataComment->patient_id}}</td>
                         <td>{{$dataComment->comments}}</td>
@@ -74,11 +76,11 @@
                         </td>
                     </tr>
                 @endforeach
-                <span class="center"><?php echo $data->links(); ?></span>
+
                 </tbody>
             </table>
         </section>
-
+<span class="center"><?php echo $data->links(); ?></span>
     </div>
 
     <script src="{{asset('js/emailAvailability.js')}}"></script>

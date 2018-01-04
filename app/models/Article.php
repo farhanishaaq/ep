@@ -45,7 +45,8 @@ public function user(){
         try{
             $queryBuilder = DB::table('articles')
                 ->leftJoin('like_logs','articles.id','=','like_logs.article_id')
-                ->select('like_logs.id As likeId','articles.id AS articleId','like_count','title','article_text','bannar_image')
+                ->leftJoin('likes','articles.id','=','likes.article_id')
+                ->select('articles.patient_id AS patientId','like_logs.id As likeId','articles.id AS articleId','title','article_text','bannar_image','article_likes')
                 ->paginate(5);
             return $queryBuilder;
         }
@@ -62,23 +63,44 @@ public function user(){
 
     public function getLikes($params)
     {
+//      Getting Data for Check that Specific record has like record on this article or not
         $queryBuilder = DB::table('like_logs')
-            ->where('id', '=', $params['likeId'])
-            ->select('like_count');
+            ->where('article_id', '=', $params['articleId'])
+            ->where('patient_id', '=', $params['patientId'])
+            ->count();
         return $queryBuilder;
     }
 
-    public function countLikes($params)
+    public function deleteRecord($params)
     {
-        //Save like when hit!
-
-
+//        Delete Record if specific user hit unlike
         $queryBuilder = DB::table('like_logs')
-            ->where('id', '=', $params['likeId'])
-            ->update(array('like_count' => $params['likeData']));
-        return "update";
+            ->where('article_id', '=', $params['articleId'])
+            ->where('patient_id', '=', $params['patientId'])
+            ->delete();
 
+        return "Deleted";
     }
+
+    public function addRecord($params)
+    {
+//        Insert Record when user hit like
+        $queryBuilder = DB::table('like_logs')
+            ->insert(['article_id' => $params['articleId'], 'patient_id' => $params['patientId']]
+            );
+        return "inserted";
+    }
+
+//    public function countLikes($params,$likes)
+//    {
+//        //Save like when hit!
+//        $queryBuilder = DB::table('like_logs')
+//            ->where('id', '=', $params['likeId'])
+////            ->$likes('like_count');
+//            ->update(array('like_count' => $likes));
+//        return "update";
+//
+//    }
 
 
 //    public function countLikes($params){
