@@ -86,37 +86,59 @@
 
         //****************************
         $('#jstree-proton-1').jstree({
-            'plugins': ["wholerow", "checkbox"],
-            'core': {
-                'data': [{
-                    "text": "Wholerow with checkboxes",
-                    "children": [{
-                        "text": "initially selected",
-                        "state": {
-                            "selected": true
-                        }
-                    }, {
-                        "text": "custom icon URL",
-//                        "icon": "./assets/images/tree_icon.png"
-                    }, {
-                        "text": "initially open",
-                        "state": {
-                            "opened": true
-                        },
-                        "children": ["Another node"]
-                    }, {
-                        "text": "custom icon class",
-//                        "icon": "glyphicon glyphicon-leaf"
-                    }]
-                },
-                    "And wholerow selection"
-                ],
-                'themes': {
-                    'name': 'proton',
-                    'responsive': true
+                'plugins': ["wholerow", "checkbox"],
+                'core': {
+                    'data': [{
+                        "text": "Wholerow with checkboxes",
+                        "children": [{
+                            "text": "initially selected",
+
+                        }, {
+                            "text": "custom icon URL",
+    //                        "icon": "./assets/images/tree_icon.png"
+                        }]
+                    }
+
+                    ],
+                    'themes': {
+                        'name': 'proton',
+                        'responsive': true
+                    }
                 }
-            }
+            });
         });
-    });
+//        $('#jstree-proton-1').jstree({
+//            'plugins': ["wholerow", "checkbox"],
+//            'core': {
+//                'data': [{
+//                    "text": "Wholerow with checkboxes",
+//                    "children": [{
+//                        "text": "initially selected",
+//                        "state": {
+//                            "selected": true
+//                        }
+//                    }, {
+//                        "text": "custom icon URL",
+////                        "icon": "./assets/images/tree_icon.png"
+//                    }, {
+//                        "text": "initially open",
+//                        "state": {
+//                            "opened": true
+//                        },
+//                        "children": ["Another node"]
+//                    }, {
+//                        "text": "custom icon class",
+////                        "icon": "glyphicon glyphicon-leaf"
+//                    }]
+//                },
+//                    "And wholerow selection"
+//                ],
+//                'themes': {
+//                    'name': 'proton',
+//                    'responsive': true
+//                }
+//            }
+//        });
+//    });
 </script>
 @stop

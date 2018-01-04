@@ -33,7 +33,7 @@
             <th>id</th>
             <th>Question</th>
             <th>Status</th>
-            <th>Action</th>
+            <th class="center">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -44,8 +44,8 @@
                 <td class="align-top">{{$question->id}}</td>
                 <td>{{$question->question}}</td>
                 <td>{{$question->status}}</td>
-                <td>
-                    <a href="{{route('answer.create')}}/?questionId={{$question->id}}">Reply</a>
+                <td class="center" style="min-width: 150px">
+                    <a class="btn btn-primary" href="{{route('answer.create')}}/?questionId={{$question->id}}">Reply</a>
 
                 </td>
 

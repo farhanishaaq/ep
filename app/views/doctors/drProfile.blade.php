@@ -121,7 +121,7 @@
                                     <input hidden id="address" type="textbox" value="{{$profile->address}}">
                                     <input  hidden id="submit" type="button" value="Geocode">
 
-                                <div id="map"></div>
+                                <div id="map" tyle="width: 100%; height: 100%; position: absolute;"></div>
                                 {{--star rating/--}} {{--star rating/--}}
                             </div>
                         </div>
@@ -497,12 +497,12 @@
     <script>
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 15,
+                zoom: 8,
                 center: {lat: -34.397, lng: 150.644}
             });
             var geocoder = new google.maps.Geocoder();
 
-        //    document.getElementById('submit').addEventListener('click', function() {
+          //  document.getElementById('submit').addEventListener('click', function() {
                 geocodeAddress(geocoder, map);
          //   });
         }
@@ -521,6 +521,7 @@
                 }
             });
         }
+
     </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0h-b6OIqk8pmDhFmH2BiUHSlU4PmFiDU&callback=initMap">
