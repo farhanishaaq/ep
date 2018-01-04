@@ -48,11 +48,12 @@ font-size: 16px;
 
 
 @section('content')
+
 <br><div class="container-fluid" style="background-color: whitesmoke">
     <div class="carousel" role="listbox">
       <div class="carousel-item active">
          <div class="row">
-            <div class="col-lg-4 col-sm-12 post-block post-thumb" style="background-color: white">
+            <div class="col-lg-3 col-sm-12 post-block post-thumb" style="background-color: white">
                {{--Main page left Panel--}}
                <div class="post-box">
                   <h1>This is left Panel of Article</h1>
@@ -62,25 +63,27 @@ font-size: 16px;
                </div>
             </div>
             {{--Main Page right Panel--}}
-            <div class="col-lg-8 col-sm-12 ">
+            <div class="col-lg-9 col-sm-12 ">
                {{--
                <div class="col-lg-8 col-sm-12 post-block post-big">
                   --}}
                   {{--Article List left panel--}}
                   @foreach($articles as $article)
                   <div class="col-md-12 col-sm-12  col-lg-12 card listBox" style="border-radius: 5px; padding-top: 10px; ">
-                     <div class="col-md-4">
+                  {{--<div class="col-md-12 col-sm-12  col-lg-12">--}}
+                     <div class="col-md-5">
                         <div class="post-box">
-                           <img src="{{asset('images/food-for-stones.jpg')}}" alt="Slide" style="margin-bottom: 10px;" />
+                           <img src="{{asset('images/food-for-stones.jpg')}}"   style="margin-bottom: 10px; height:250px;" />
                            {{--Like Button--}}
-                           <span id="like_{{$article->likeId}}" onclick="hitLikes('{{$article->likeId}}',' {{$article->articleId}}')" class=""> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="article_{{$article->articleId}}">
-                          {{$article->like_count}}
+{{--                           <span id="like_{{$article->likeId}}" onclick="hitLikes({{$article->likeId}})" class=""> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="article_{{$article->articleId}}">--}}
+                           <span id="like_{{Auth::user()->id}}" onclick="hitLikes('{{Auth::user()->id}}',' {{$article->articleId}}','{{$article->patientId}}')" class=""> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="article_{{$article->articleId}}">
+                            {{$article->article_likes}}
                           </span></i></span>
                            {{--Like end--}}
                         </div>
                      </div>
                      {{--Article list right panel--}}
-                     <div class="col-md-8">
+                     <div class="col-md-7">
                         <span class="post-category"><a href="{{route('articles',$article->articleId)}}" title="Travel" style="font-size: 20px;">{{$article->title}}</a></span><br>
                         <span><a href="{{route('articles',$article->articleId)}}" title="White Sand of The Desert Discovery">13 Surprising Habits Proven to Trigger Kidney Stones</a></span><br>
                         <p><span class="show-read-more">{{$article->article_text}}</span>
