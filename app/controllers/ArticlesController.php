@@ -58,25 +58,20 @@ class ArticlesController extends \BaseController
             $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
             if (in_array($type, $supportedTypes)){
 
-//            $destinationPath = public_path(GlobalsConst::ARTICLE_PHOTO_DIR)."/35";
-//            $filename = str_random(16) . '_' . $file->getClientOriginalName();
-//
-//            $uploadSuccess = $file->move($destinationPath, $filename);
-//
-////			$response = ['success'=>true,'error'=>false,'message'=>'Photo has been uploaded successfully!','uploadedFileName'=>$filename,'abc'=>$uploadSuccess];
-//            $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
 
-             $this->_article->saveArticle($data);
 
-           $articleid = $this->_article->id;
+
+                $this->_article->saveArticle($data);
+               $articleid = $this->_article->id;
+
                 $destinationPath = public_path(GlobalsConst::ARTICLE_PHOTO_DIR)."/".$articleid;
                 $filename = str_random(16) . '_' . $file->getClientOriginalName();
                 $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
                 $uploadSuccess = $file->move($destinationPath, $filename);
 
 
-            $this->_image->saveImage ($destinationPath,$filename, $articleid);
-
+            $this->_image->saveImage ($destinationPath,$filename, $articleid, $destinationPath);
+               $this->_article->bannerpath($filename);
 //                return View::make('doctors.articlesEditer', compact('response'));
 
             }
@@ -149,13 +144,10 @@ class ArticlesController extends \BaseController
 
     public function likeManage()
     {
-
-        $data['likeData'] = $_POST['like_data'];
         $data['likeId'] = $_POST['like_id'];
-        dd($data);
+        $data['likeData'] = $_POST['like_data'];
+//        $likes = $this->_article->getLikes($data);
 
-        $likes = $this->_article->getLikes($data);
-        dd($likes);
         $result = $this->_article->countLikes($data);
         return $result;
     }

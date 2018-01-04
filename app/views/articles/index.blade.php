@@ -10,6 +10,7 @@
 text-decoration: underline;
 color: #00A0C6;
 cursor:pointer;
+font-size: 16px;
 }
 .articleLike:hover
 {
@@ -51,8 +52,8 @@ cursor:pointer;
     <div class="carousel" role="listbox">
       <div class="carousel-item active">
          <div class="row">
-            <div class="col-lg-4 col-sm-12 post-block post-thumb">
-               {{--Main page Right Panel--}}
+            <div class="col-lg-4 col-sm-12 post-block post-thumb" style="background-color: white">
+               {{--Main page left Panel--}}
                <div class="post-box">
                   <h1>This is left Panel of Article</h1>
                   <img src="{{asset('images/blog/blog3.jpg')}}" alt="Slide" /><br>
@@ -60,7 +61,7 @@ cursor:pointer;
                   <i class="fa fa-eye" style="color: #00aff0" aria-hidden="true">Views</i>
                </div>
             </div>
-            {{--Main Page Left Panel--}}
+            {{--Main Page right Panel--}}
             <div class="col-lg-8 col-sm-12 ">
                {{--
                <div class="col-lg-8 col-sm-12 post-block post-big">
@@ -72,11 +73,7 @@ cursor:pointer;
                         <div class="post-box">
                            <img src="{{asset('images/food-for-stones.jpg')}}" alt="Slide" style="margin-bottom: 10px;" />
                            {{--Like Button--}}
-
-                           {{--<span id="{{$article->likeId}}" onclick="hitLikes(this.id)"> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span class="likesCount">--}}
-                           {{--{{$article->like_count}}--}}
-                           {{--</span></i></span>--}}
-                           <span id="{{$article->likeId}}" onclick="hitLikes(this.id)"> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="likesCount">
+                           <span id="like_{{$article->likeId}}" onclick="hitLikes('{{$article->likeId}}',' {{$article->articleId}}')" class=""> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="article_{{$article->articleId}}">
                           {{$article->like_count}}
                           </span></i></span>
                            {{--Like end--}}
@@ -84,16 +81,17 @@ cursor:pointer;
                      </div>
                      {{--Article list right panel--}}
                      <div class="col-md-8">
-                        <span class="post-category"><a href="{{route('articlesfood')}}" title="Travel">These 4 Foods can Cause Stones in Gall Bladder</a></span><br>
-                        <span><a href="{{route('articlesfood')}}" title="White Sand of The Desert Discovery">13 Surprising Habits Proven to Trigger Kidney Stones</a></span><br>
-                        <p><span class="show-read-more">The gallbladder is a tiny pear-shaped organ located on the right side of the abdomen just beneath the liver. It holds the bile; the product of liver</span>
-                        <a href="{{route('articlesfood')}}" title="Read More">Read More</a></p>
+                        <span class="post-category"><a href="{{route('articles',$article->articleId)}}" title="Travel" style="font-size: 20px;">{{$article->title}}</a></span><br>
+                        <span><a href="{{route('articles',$article->articleId)}}" title="White Sand of The Desert Discovery">13 Surprising Habits Proven to Trigger Kidney Stones</a></span><br>
+                        <p><span class="show-read-more">{{$article->article_text}}</span>
+                        <a href="{{route('articles',$article->articleId)}}" title="Read More">Read More</a></p>
                         {{--
                      </div>
                      --}}
                   </div>
                </div>
                @endforeach
+                <span class="center"><?php echo $articles->links(); ?></span>
             </div>
          </div>
       </div>

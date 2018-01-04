@@ -8,13 +8,13 @@ class Image extends \Eloquent {
         return $this->belongsTo("Article");
     }
 
-    public function saveImage ($destinationPath,$filename,$articleid){
+    public function saveImage ($filename,$articleid){
 //          dd($destinationPath,$filename);
         $doctor_id = Auth::user()->id;
-//        $articleid = $article->id;
+
 
         $imagepath=$filename;
-//        dd($imagepath);
+
 
         $this->article_id = $articleid;
         $this->doctor_id = $doctor_id;

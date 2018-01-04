@@ -27,7 +27,10 @@
 @section('content')
 
     <div class="container mT20">
-        <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'">Comments List</h1>
+        <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'; float: left;">Comments List</h1>
+        <button  onclick="window.location = '{{ route('commentHistory')}}';" class="btn btn-style mT10 mB0" style="float: right;">Comment History <span class="glyphicon glyphicon-search"></span></button>
+
+        {{--<button class="mT10 mB0 c3" style="font-family: 'Marvel'; float: right;"><h3>Comment History</h3></button>--}}
         <hr class="w100p fL mT0" />
         <section id="form-Section">
             <!--========================================================
@@ -55,9 +58,14 @@
                         <td>{{$dataComment->created_at}}</td>
                         <td>
                             <label class="switch">
-                                <input type="checkbox" id="{{$dataComment->commentId}}" onchange="statusUpdate(this.id)">
-                                <span class="slider round"></span>
-                            </label>
+
+                            <input type="checkbox" id="{{$dataComment->commentId}}" onchange="statusUpdate(this.id)"
+                             @if($dataComment->status == "Approved" )
+                             checked
+                            @endif
+                            >
+                            <span class="slider round"></span>
+                                                        </label>
                         </td>
                     </tr>
                 @endforeach

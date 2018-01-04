@@ -21,7 +21,9 @@ class CommentsController extends \BaseController {
 	 */
 	public function index()
     {
+        $action['condition'] = "Approved";
         $data = $this->_comment->commentsList();
+//        dd($data);
         return View::make('comments.index',compact('data'));
     }
 
@@ -66,16 +68,16 @@ class CommentsController extends \BaseController {
 
 	}
 
-
 	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function showHistory()
 	{
-		//
+        $data = $this->_comment->allComments();
+        return View::make('comments.index',compact('data'));
 	}
 
 

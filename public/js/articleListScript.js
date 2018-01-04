@@ -22,24 +22,23 @@ $(document).ready(function(){
 
 //Update Likes
 //function hitLikes(takeId)
-function hitLikes(likeId)
+function hitLikes(likeId,articleId)
 {
-    var existCount = $('#likesCount').text();
-    alert(existCount);
-    //var existCount = parseInt(existNum);
-    //var likeId = parseInt(takeId);
-    $(document).ready(function(){
-        if($("."+likeId).hasClass("selectedClass"))
-            existCount++ ;
+        var setLikeId = "like_" +likeId ;
+        $('#'+setLikeId).toggleClass("selectedClass");
 
+    //Take LikeCount span Id for getting Existing Likes
+    var setArticleId = "article_"+ $.trim(articleId);
+    var existCount = $("#"+setArticleId).text();
+        if ($("#like_" + likeId).hasClass("selectedClass"))
+               existCount++;
         else
-            existCount--;
-    });
-
+            existCount;
     if(likeId)
     {
+
         $.ajax({
-            type: 'post',
+            type: 'POST',
             url: 'likePerform',
             data: {
                 like_id: likeId,
@@ -47,9 +46,9 @@ function hitLikes(likeId)
             },
             success: function (response) {
                 if(response == "update")
-                    $('#likesCount').text(existCount);
+                    $(setArticleId).html(existCount);
                 else
-                    alert("error");
+                    alert("error hei dalne mein value");
             }
         });
     }
