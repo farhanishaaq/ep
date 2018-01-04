@@ -4,10 +4,11 @@
                           TITLE
 =========================================================-->
 @section('title')
-    Questions Asked
+    Questions History
 @stop
 
 @section('redBar')
+
     <div >
 
     </div>
@@ -31,8 +32,8 @@
         <tr>
             <th>id</th>
             <th>Question</th>
+            <th>Status</th>
             <th>Action</th>
-
         </tr>
         </thead>
         <tbody>
@@ -40,12 +41,14 @@
         @if($questions)
         @foreach($questions as $question)
             <tr>
-                <td>{{$question->id}}</td>
+                <td class="align-top">{{$question->id}}</td>
                 <td>{{$question->question}}</td>
+                <td>{{$question->status}}</td>
                 <td>
                     <a href="{{route('answer.create')}}/?questionId={{$question->id}}">Reply</a>
-                    <a href="{{route('changeStatus')}}/?id={{$question->id}}">Decline</a>
+
                 </td>
+
             </tr>
 
         @endforeach
@@ -54,7 +57,6 @@
 
         </tbody>
     </table>
-
     <div class="center" >
         <?php echo $questions->links(); ?>
 
@@ -65,6 +67,11 @@
 
 </div>
 @section('scripts')
+    <style>
+        td, th {
+            vertical-align:top;
+        }
+    </style>
     <script>
 
 

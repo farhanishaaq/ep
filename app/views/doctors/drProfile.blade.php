@@ -150,19 +150,19 @@
                                                             <div class="row">
                                                                 <div id="biography">
                                                                     <div class="row">
-                                                                        <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
+                                                                        <div class="col-md-6 col-xs-6 b-r"> <strong>Full Name</strong>
                                                                             <br>
                                                                             <p class="text-muted">{{ $profile->full_name }}</p>
                                                                         </div>
-                                                                        <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
+                                                                        <div class="col-md-6 col-xs-6 b-r"> <strong>Mobile</strong>
                                                                             <br>
-                                                                            <p class="text-muted">{{$profile->cell}}</p>
+                                                                            <p class="text-muted">{{$profile->cell != "" ? $profile->cell: "No contact" }}</p>
                                                                         </div>
-                                                                        <div class="col-md-3 col-xs-6 b-r p0"> <strong>Email</strong>
+                                                                        <div class="col-md-6 col-xs-6 b-r"> <strong>Email</strong>
                                                                             <br>
                                                                             <p class="text-muted">{{$profile->email}}</p>
                                                                         </div>
-                                                                        <div class="col-md-3 col-xs-6"> <strong>Location</strong>
+                                                                        <div class="col-md-6 col-xs-6"> <strong>Location</strong>
                                                                             <br>
                                                                             <p class="text-muted" id="address">{{$profile->address}}</p>
                                                                         </div>

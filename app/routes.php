@@ -351,4 +351,5 @@ Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'))
 //this controller questions asked by patient to deoctor
 Route::resource('question', 'QuestionController');
 Route::get('question-status',array('as'=>'changeStatus','uses'=> 'QuestionController@updateStatus'));
+Route::get('question-history',array('as' => 'questionHistory', 'uses' => 'QuestionController@viewHistory'));
 Route::resource('answer','AnswerController');

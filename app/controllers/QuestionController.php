@@ -103,4 +103,16 @@ class QuestionController extends \BaseController {
 	    return Redirect::back();
     }
 
+    public function viewHistory(){
+
+	    $questions = DB::table('questions')
+                    ->where('doctor_id',1)
+                    ->paginate('8');
+	    //$questions= Auth::user()->question;
+
+      //  dd($questions);
+        return View::make('question.questionHistory',compact('questions'));
+
+    }
+
 }

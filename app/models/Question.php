@@ -40,7 +40,7 @@ class Question extends \Eloquent {
                 ->orWhere('status','')
                 //  ->where('doctor_id',Auth::user()->id)//must be uncommented on end
                 ->where('doctor_id',1)
-                ->get();
+                ->paginate('8');
             return $questions;
 
         }else {
