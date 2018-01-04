@@ -27,9 +27,14 @@
 @section('content')
 
     <div class="container mT20">
-        <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'; float: left;">Comments List</h1>
+    @if($action['condition'] == 'Request')
+        <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'; float: left;">Request Comments List</h1>
         <button  onclick="window.location = '{{ route('commentHistory')}}';" class="btn btn-style mT10 mB0" style="float: right;">Comment History <span class="glyphicon glyphicon-search"></span></button>
+        @else
+        <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'; float: left;">All Comments List</h1>
+        <button  onclick="window.location = '{{ route('commentsStatus')}}';" class="btn btn-style mT10 mB0" style="float: right;">Request Comments <span class="glyphicon glyphicon-search"></span></button>
 
+@endif
         {{--<button class="mT10 mB0 c3" style="font-family: 'Marvel'; float: right;"><h3>Comment History</h3></button>--}}
         <hr class="w100p fL mT0" />
         <section id="form-Section">
@@ -69,9 +74,11 @@
                         </td>
                     </tr>
                 @endforeach
+                <span class="center"><?php echo $data->links(); ?></span>
                 </tbody>
             </table>
         </section>
+
     </div>
 
     <script src="{{asset('js/emailAvailability.js')}}"></script>

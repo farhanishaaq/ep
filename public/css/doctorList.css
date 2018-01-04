@@ -101,8 +101,8 @@
 .doctorRadio {
     display: block;
     position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
+    padding-left: 27px;
+    margin-bottom: 5px;
     cursor: pointer;
     font-size: 15px;
     -webkit-user-select: none;
@@ -161,4 +161,11 @@
 }
 
 
+/**/
+
+
+/* Read More Css*/
+.show-read-more .more-text{
+    display: none;
+}
 /**/

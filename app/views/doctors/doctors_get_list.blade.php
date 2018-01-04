@@ -1,10 +1,5 @@
 ﻿<head>
     <link href="{{asset('css/doctorList.css')}}" rel="stylesheet">
-    <style>
-    .show-read-more .more-text{
-            display: none;
-        }
-    </style>
 </head>
 {{--This fill CSS Save in CSS Folder As doctorList--}}
 @extends('layouts.master')
@@ -85,8 +80,8 @@
         <div class="chbxs listm">
                @foreach($specialities as $speciality)
                {{--For Space in list Use Class i.e mB4--}}
-               <div class="btn-group" style="width: inherit">
-                           <label class="doctorRadio show-read-more" >&nbsp;&nbsp;&nbsp;{{$speciality->name}}
+               <div class="btn-group" style="width: inherit" >
+                           <label class="doctorRadio" ><span class="show-read-more">{{$speciality->name}}</span>
                              {{--<input name="specialities[]" type="checkbox" value="{{$speciality->id}}">--}}
                              <input name="speciality" type="radio" value="{{$speciality->id}}">
                              <span class="radiomark"></span>
