@@ -17,7 +17,6 @@ class CreateLikeLogsTable extends Migration {
 			$table->increments('id');
             $table->integer('patient_id');
             $table->integer('article_id');
-            $table->integer('like_count');
 			$table->timestamps();
 		});
 	}

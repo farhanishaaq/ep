@@ -126,7 +126,8 @@ Route::filter('csrf', function()
 ///////////////////////// CUSTOM FILTERS //////////////////////
 
 Route::filter('Doctor', function()
-{ 
+{
+    dd(Auth::user()->role);
   if ( Auth::user()->role !== 'Doctor') {
 	    if ( Auth::user()->role == 'Administrator'){
 //	    	return Redirect::to('adminHome');
@@ -150,6 +151,7 @@ Route::filter('Doctor', function()
 
 Route::filter('Super', function()
 {
+   dd(Auth::user()->role."super");
     if ( Auth::user()->role !== 'Super User') {
         if ( Auth::user()->role == 'Doctor'){
             return Redirect::to('doctorHome');
@@ -170,6 +172,7 @@ Route::filter('Super', function()
 
 Route::filter('Administrator', function()
 {
+    dd(Auth::user()->role."admin");
     if ( Auth::user()->role !== 'Administrator') {
         if ( Auth::user()->role == 'Doctor'){
             return Redirect::to('doctorHome');
@@ -190,7 +193,8 @@ Route::filter('Administrator', function()
 });
 
 Route::filter('Accountant', function()
-{ 
+{
+    dd(Auth::user()->role."accc");
   if ( Auth::user()->role !== 'Accountant') {
     if ( Auth::user()->role == 'Doctor'){
     	return Redirect::to('doctorHome');
@@ -210,7 +214,8 @@ Route::filter('Accountant', function()
 }});
 
 Route::filter('Lab', function()
-{ 
+{
+    dd(Auth::user()->role."lab");
   if ( Auth::user()->role !== 'Lab Manager') {
     if ( Auth::user()->role == 'Doctor'){
     	return Redirect::to('doctorHome');

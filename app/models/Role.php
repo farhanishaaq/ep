@@ -67,4 +67,6 @@ class Role extends \Eloquent
         }
 
     }
+
+
 }

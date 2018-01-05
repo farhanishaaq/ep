@@ -21,39 +21,34 @@ $(document).ready(function(){
 });
 
 //Update Likes
-//function hitLikes(takeId)
-function hitLikes(likeId,articleId)
+function hitLikes(articleId,patientId)
 {
-        var setLikeId = "like_" +likeId ;
-        $('#'+setLikeId).toggleClass("selectedClass");
+    var actionDo;
+    var setTotalLikes = "totalLike_"+ $.trim(articleId);
+    var setlikeId = "like_"+ $.trim(articleId);
+    $('#'+setlikeId).toggleClass("selectedClass");
 
-    //Take LikeCount span Id for getting Existing Likes
-    var setArticleId = "article_"+ $.trim(articleId);
-    var existCount = $("#"+setArticleId).text();
-        if ($("#like_" + likeId).hasClass("selectedClass"))
-               existCount++;
+        if ($("#"+ setlikeId).hasClass("selectedClass"))
+               actionDo = "add";
         else
-            existCount;
-    if(likeId)
+             actionDo = "sub";
+    if(articleId)
     {
 
         $.ajax({
             type: 'POST',
             url: 'likePerform',
             data: {
-                like_id: likeId,
-                like_data : existCount
+                like_data : actionDo,
+                article_id : articleId,
+                patient_id : patientId
             },
+            dataType : "json",
             success: function (response) {
-                if(response == "update")
-                    $(setArticleId).html(existCount);
-                else
-                    alert("error hei dalne mein value");
+                    $('#'+setTotalLikes).html(response[0].article_likes);
             }
         });
     }
 }
-
-
 
 //--------------------------------------------------

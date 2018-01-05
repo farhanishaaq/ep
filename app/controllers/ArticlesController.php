@@ -180,16 +180,29 @@ if ($articles != NULL){
 
     public function likeManage()
     {
-        $data['likeId'] = $_POST['like_id'];
         $data['likeData'] = $_POST['like_data'];
-//        $likes = $this->_article->getLikes($data);
+        $data['articleId'] = $_POST['article_id'];
+        $data['patientId'] = $_POST['patient_id'];
 
-        $result = $this->_article->countLikes($data);
-        return $result;
+        $likes = $this->_article->getLikes($data);
+        if($likes == "1") {
+            $result = $this->_article->deleteRecord($data);
+            $decrementResult = $this->_article->decrementLike($data);
+        }
+        else {
+            $result = $this->_article->addRecord($data);
+            $incrementResult = $this->_article->IncrementLike($data);
+        }
+        $newLikes = $this->_article->newLikes($data);
+
+        return json_encode($newLikes);
     }
 
     public function articleList()
     {
+//       $data['userId'] = Auth::patient()->id;
+//        $status = $this->_article->getLikes($data);
+
         $articles = $this->_article->getArticles();
         return View::make('articles.index', compact('articles'));
     }

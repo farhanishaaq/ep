@@ -41,10 +41,13 @@
         @foreach($questions as $question)
             <tr>
                 <td>{{$question->id}}</td>
-                <td>{{$question->question}}</td>
+                <td style="max-width: 50%">{{$question->question}}</td>
                 <td>
-                    <a href="{{route('answer.create')}}/?questionId={{$question->id}}">Reply</a>
-                    <a href="{{route('changeStatus')}}/?id={{$question->id}}">Decline</a>
+                    <a  class="btn btn-primary" href="{{route('answer.create')}}/?questionId={{$question->id}}">Reply</a>
+
+                </td>
+                <td>
+                    <a class="btn btn-danger" href="{{route('changeStatus')}}/?id={{$question->id}}">Decline</a>
                 </td>
             </tr>
 
