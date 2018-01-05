@@ -44,9 +44,8 @@ public function user(){
 
         try{
             $queryBuilder = DB::table('articles')
-                ->leftJoin('like_logs','articles.id','=','like_logs.article_id')
                 ->leftJoin('likes','articles.id','=','likes.article_id')
-                ->select('articles.patient_id AS patientId','like_logs.id As likeId','articles.id AS articleId','title','article_text','bannar_image','article_likes')
+                ->select('articles.patient_id AS patientId','articles.id AS articleId','title','article_text','bannar_image','article_likes')
                 ->paginate(5);
             return $queryBuilder;
         }
