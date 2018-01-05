@@ -20,6 +20,7 @@ class CreateArticlesTable extends Migration {
             $table->string('title');
             $table->string('bannar_image');
             $table->string('article_text', 10000);
+            $table->string('status');
 			$table->timestamps();
 		});
 	}

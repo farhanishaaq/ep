@@ -97,7 +97,7 @@ function statusUpdate(patientId)
     {
         $.ajax({
             type: 'post',
-            url: 'updateComment',
+            url: 'updateArticles',
             data: {
                 comment_id:patientId,
                 comment_action:status
@@ -109,6 +109,50 @@ function statusUpdate(patientId)
     }
 }
 // end Jquery of Comment
+function articlestatus(patientId)
+{
+    if($('#'+patientId).prop('checked')) {
+        var status = 1;
+    }
+    else {
+        status = 0;
+    }
+    if(patientId)
+    {
+        $.ajax({
+            type: 'post',
+            url: 'updateArticles',
+            data: {
+                id:patientId,
+                article_action:status
+            },
+            success: function (response) {
+                alert(response);
+            }
+        });
+    }
+}
+
+function articleshow(patientId)
+{
+
+    if(patientId)
+    {
+        $.ajax({
+            type: 'post',
+            url: 'showArticle',
+            data: {
+                id:patientId,
+
+            },
+            success: function (response) {
+                alert(response);
+            }
+        });
+    }
+}
+
+
 
 
 

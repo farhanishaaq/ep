@@ -100,4 +100,60 @@ public function user(){
 //    }
 
 
+ public function displayarticle($id){
+
+
+     $articles =  DB::table('articles')->where('id', $id)
+         ->where('status',1)
+         ->first();
+
+     //dd($articles);
+     if($articles!= NULL){
+
+         return $articles;
+
+     }
+     elseif (Auth::check()){
+        if (Auth::user()->user_type == 'Admin'){
+            $articles =  DB::table('articles')->where('id', $id)
+                ->first();
+            if($articles != NULL){
+
+
+                return $articles;
+            }
+        }
+
+
+     }
+
+
+
+ }
+
+ public function articlestatus(){
+
+     $articlestatus = DB::table('articles')->paginate(7);
+
+
+    return $articlestatus;
+
+ }
+ public function articlesupdate($data){
+
+     $status=$data['article_action'];
+     $article_id = $data['id'];
+
+     DB::table('articles')
+         ->where('id', $article_id)
+         ->update(array('status' => $status));
+
+     $this->update();
+
+
+
+ }
+
+
+
 }
