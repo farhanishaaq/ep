@@ -29,13 +29,17 @@ font-size: 16px;
                           TITLE
 =========================================================-->
 @section('title')
-    Create Appointment
+    Articles
 @stop
 
 
 <!--========================================================
                           CONTENT
 =========================================================-->
+@section("current_articles")
+class="current"
+@stop
+
 @section('redBar')
     <div class = "user_logo">
         <div class="header_1 wrap_3 color_3 login-bar">Health Articles
@@ -76,9 +80,11 @@ font-size: 16px;
                            <img src="{{asset('images/food-for-stones.jpg')}}"   style="margin-bottom: 10px; height:250px;" />
                            {{--Like Button--}}
 {{--                           <span id="like_{{$article->likeId}}" onclick="hitLikes({{$article->likeId}})" class=""> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="article_{{$article->articleId}}">--}}
-                           <span id="like_{{Auth::user()->id}}" onclick="hitLikes('{{Auth::user()->id}}',' {{$article->articleId}}','{{$article->patientId}}')" class=""> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="article_{{$article->articleId}}">
+                          @if(Auth::check())
+                           <span id="like_{{$article->articleId}}" onclick="hitLikes('{{$article->articleId}}','{{$article->patientId}}')" class=""> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="totalLike_{{$article->articleId}}">
                             {{$article->article_likes}}
                           </span></i></span>
+                          @endif
                            {{--Like end--}}
                         </div>
                      </div>
@@ -87,6 +93,7 @@ font-size: 16px;
                         <span class="post-category"><a href="{{route('articles',$article->articleId)}}" title="Travel" style="font-size: 20px;">{{$article->title}}</a></span><br>
                         <span><a href="{{route('articles',$article->articleId)}}" title="White Sand of The Desert Discovery">13 Surprising Habits Proven to Trigger Kidney Stones</a></span><br>
                         <p><span class="show-read-more">{{$article->article_text}}</span>
+{{--                        <a href="{{route('articles/'.$article->articleId)}}" title="Read More">Read More</a></p>--}}
                         <a href="{{route('articles',$article->articleId)}}" title="Read More">Read More</a></p>
                         {{--
                      </div>

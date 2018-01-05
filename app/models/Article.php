@@ -82,6 +82,16 @@ public function user(){
         return "Deleted";
     }
 
+    public function decrementLike($params)
+    {
+//        Decrement Record if specific user hit unlike
+            $queryBuilder = DB::table('likes')
+            ->where('article_id', '=', $params['articleId'])
+            ->decrement('article_likes',1);
+
+        return "Decremented";
+    }
+
     public function addRecord($params)
     {
 //        Insert Record when user hit like
@@ -89,6 +99,26 @@ public function user(){
             ->insert(['article_id' => $params['articleId'], 'patient_id' => $params['patientId']]
             );
         return "inserted";
+    }
+
+    public function IncrementLike($params)
+    {
+//        Increment Record when user hit like
+        $queryBuilder = DB::table('likes')
+            ->where('article_id', '=', $params['articleId'])
+            ->increment('article_likes',1);
+        return "incremented";
+    }
+
+    public function newLikes($params)
+    {
+//        Decrement Record if specific user hit unlike
+        $queryBuilder = DB::table('likes')
+            ->where('article_id', '=', $params['articleId'])
+            ->select('article_likes')
+            ->get();
+
+        return $queryBuilder ;
     }
 
 //    public function countLikes($params,$likes)
