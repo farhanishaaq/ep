@@ -61,23 +61,21 @@ class Resource extends \Eloquent
 
 
 
-    public function fetchResourcesTree(){
+    public static function fetchControllers(){
 
         $data = DB::table('resources')
             ->where('type','Controller')
-
-
             ->get();
-        echo '<pre>';
-     //   dd($data);
 
-        $reources=        $data = DB::table('resources')
+        return $data;
+    }
+    public static function fetchActions(){
+
+        $data = DB::table('resources')
             ->where('type','action')
-
-
             ->get();
-        echo '<pre>';
-        dd(($reources));
+
+        return $data;
     }
 
 
