@@ -40,17 +40,19 @@ Manage Articles
             <table id="tblRecordsList" class="mT20 table table-hover table-striped display noShow">
                 <thead>
                 <tr>
-                    <th>No.</th>
+                    <th>No</th>
                     <th>Doctor_ID</th>
                     <th>Article Title</th>
                     <th>Date</th>
                     <th>Status</th>
                 </tr>
                 </thead>
-                <tbody>
+
                 @foreach($articlestatus as $data)
+
+                    <tbody>
                     <tr>
-                        <td>{{$data->id}}</td>
+                        <td></td>
                         <td> {{$data->doctor_id }}</td>
 
 
