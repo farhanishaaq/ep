@@ -345,9 +345,12 @@ Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@store'))
 Route::post('articleStore', array('as'=>'arStore','uses'=>'ArticlesController@store'));
 Route::get('getappointment/{id}', array('as'=>'getappointment', 'uses' => 'AppointmentsController@crtappointment'));
 Route::get('articles', array('as'=>'articles','uses'=>'ArticlesController@articleList'));
-Route::POST('likePerform', array('as'=>'likePerform','uses'=>'ArticlesController@likeManage'));
-Route::get('articles/{id}', array('as'=>'articles/{id}','uses'=>'ArticlesController@healthatricle'));
+Route::post('likePerform', array('as'=>'likePerform','uses'=>'ArticlesController@likeManage'));
+Route::get('articles/{id}', array('as'=>'articles','uses'=>'ArticlesController@show'));
 Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'));
+Route::get('articleStatus', array('as'=>'articleStatus','uses'=>'ArticlesController@status'));
+Route::post('updateArticles', array('as'=>'updateArticles','uses'=>'ArticlesController@statusupdate'));
+
 
 //this controller questions asked by patient to deoctor
 Route::resource('question', 'QuestionController');

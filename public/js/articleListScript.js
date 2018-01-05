@@ -3,7 +3,7 @@
  */
 //10 length
 $(document).ready(function(){
-    var maxLength = 100;
+    var maxLength = 400;
     $(".show-read-more").each(function(){
         var myStr = $(this).text();
         if($.trim(myStr).length > maxLength){
@@ -21,46 +21,34 @@ $(document).ready(function(){
 });
 
 //Update Likes
-//function hitLikes(takeId)
-//function hitLikes(likeId,articleId)
-function hitLikes(userId,articleId,patientId)
+function hitLikes(articleId,patientId)
 {
-     var actionDo;
-    var setLikeId = "like_" +userId ;
-    $('#'+setLikeId).toggleClass("selectedClass");
+    var actionDo;
+    var setTotalLikes = "totalLike_"+ $.trim(articleId);
+    var setlikeId = "like_"+ $.trim(articleId);
+    $('#'+setlikeId).toggleClass("selectedClass");
 
-    //Take LikeCount span Id for getting Existing Likes
-
-    var setArticleId = $.trim(articleId);
-    //var setArticleId = "article_"+ $.trim(articleId);
-    //var existCount = $("#"+setArticleId).text();
-
-        if ($("#like_" + likeId).hasClass("selectedClass"))
+        if ($("#"+ setlikeId).hasClass("selectedClass"))
                actionDo = "add";
         else
              actionDo = "sub";
-    if(likeId)
+    if(articleId)
     {
-        alert(likeId)
+
         $.ajax({
             type: 'POST',
             url: 'likePerform',
             data: {
-                like_id: userId,
                 like_data : actionDo,
-                article_id : setArticleId,
+                article_id : articleId,
                 patient_id : patientId
             },
+            dataType : "json",
             success: function (response) {
-                if(response == "update")
-                    $(setArticleId).html(response);
-                else
-                    alert("error hei dalne mein value");
+                    $('#'+setTotalLikes).html(response[0].article_likes);
             }
         });
     }
 }
-
-
 
 //--------------------------------------------------

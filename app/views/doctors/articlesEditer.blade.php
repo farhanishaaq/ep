@@ -28,6 +28,7 @@
                         @if($result==false)
                                 <div class="alert alert-danger">
                                     <strong>Upload Success is Fail!</strong> File Type Should be jpeg, jpg, png, gif, or svg
+                                    <strong>Upload Success is Fail!</strong> File Size Should more than 300X300 Pixels
                                 </div>
 
                             @endif

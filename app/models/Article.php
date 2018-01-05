@@ -44,9 +44,8 @@ public function user(){
 
         try{
             $queryBuilder = DB::table('articles')
-                ->leftJoin('like_logs','articles.id','=','like_logs.article_id')
                 ->leftJoin('likes','articles.id','=','likes.article_id')
-                ->select('articles.patient_id AS patientId','like_logs.id As likeId','articles.id AS articleId','title','article_text','bannar_image','article_likes')
+                ->select('articles.patient_id AS patientId','articles.id AS articleId','title','article_text','bannar_image','article_likes')
                 ->paginate(5);
             return $queryBuilder;
         }
@@ -82,6 +81,16 @@ public function user(){
         return "Deleted";
     }
 
+    public function decrementLike($params)
+    {
+//        Decrement Record if specific user hit unlike
+            $queryBuilder = DB::table('likes')
+            ->where('article_id', '=', $params['articleId'])
+            ->decrement('article_likes',1);
+
+        return "Decremented";
+    }
+
     public function addRecord($params)
     {
 //        Insert Record when user hit like
@@ -89,6 +98,26 @@ public function user(){
             ->insert(['article_id' => $params['articleId'], 'patient_id' => $params['patientId']]
             );
         return "inserted";
+    }
+
+    public function IncrementLike($params)
+    {
+//        Increment Record when user hit like
+        $queryBuilder = DB::table('likes')
+            ->where('article_id', '=', $params['articleId'])
+            ->increment('article_likes',1);
+        return "incremented";
+    }
+
+    public function newLikes($params)
+    {
+//        Decrement Record if specific user hit unlike
+        $queryBuilder = DB::table('likes')
+            ->where('article_id', '=', $params['articleId'])
+            ->select('article_likes')
+            ->get();
+
+        return $queryBuilder ;
     }
 
 //    public function countLikes($params,$likes)
@@ -120,6 +149,62 @@ public function user(){
 //            return "Request";
 //        }
 //    }
+
+
+ public function displayarticle($id){
+
+
+     $articles =  DB::table('articles')->where('id', $id)
+         ->where('status',1)
+         ->first();
+
+     //dd($articles);
+     if($articles!= NULL){
+
+         return $articles;
+
+     }
+     elseif (Auth::check()){
+        if (Auth::user()->user_type == 'Admin'){
+            $articles =  DB::table('articles')->where('id', $id)
+                ->first();
+            if($articles != NULL){
+
+
+                return $articles;
+            }
+        }
+
+
+     }
+
+
+
+ }
+
+ public function articlestatus(){
+
+     $articlestatus = DB::table('articles')->paginate(7);
+
+
+    return $articlestatus;
+
+ }
+ public function articlesupdate($data){
+
+     $status=$data['article_action'];
+     $article_id = $data['id'];
+
+     DB::table('articles')
+         ->where('id', $article_id)
+         ->update(array('status' => $status));
+
+     $this->update();
+
+
+
+ }
+
 
 
 }
