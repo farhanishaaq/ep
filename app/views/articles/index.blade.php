@@ -60,10 +60,9 @@ class="current"
             <div class="col-lg-3 col-sm-12 post-block post-thumb" style="background-color: white">
                {{--Main page left Panel--}}
                <div class="post-box">
-                  <h1>This is left Panel of Article</h1>
+                  <h3 class="green">This is left Panel of Article</h3>
                   <img src="{{asset('images/blog/blog3.jpg')}}" alt="Slide" /><br>
-                  <i class="fa fa-heart" style="color: #00aff0" aria-hidden="true">Likes</i>
-                  <i class="fa fa-eye" style="color: #00aff0" aria-hidden="true">Views</i>
+
                </div>
             </div>
             {{--Main Page right Panel--}}
@@ -73,13 +72,13 @@ class="current"
                   --}}
                   {{--Article List left panel--}}
                   @foreach($articles as $article)
+                  <?php $image = '/articleimage'.'/'.$article->articleId.'/'.$article->bannar_image?>
                   <div class="col-md-12 col-sm-12  col-lg-12 card listBox" style="border-radius: 5px; padding-top: 10px; ">
                   {{--<div class="col-md-12 col-sm-12  col-lg-12">--}}
                      <div class="col-md-5">
                         <div class="post-box">
-                           <img src="{{asset('images/food-for-stones.jpg')}}"   style="margin-bottom: 10px; height:250px;" />
+                           <img src="{{asset($image)}}"   style="margin-bottom: 10px; height:250px;" />
                            {{--Like Button--}}
-{{--                           <span id="like_{{$article->likeId}}" onclick="hitLikes({{$article->likeId}})" class=""> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="article_{{$article->articleId}}">--}}
                           @if(Auth::check())
                            <span id="like_{{$article->articleId}}" onclick="hitLikes('{{$article->articleId}}','{{$article->patientId}}')" class=""> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="totalLike_{{$article->articleId}}">
                             {{$article->article_likes}}
