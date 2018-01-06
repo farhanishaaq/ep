@@ -52,7 +52,7 @@ class="current"
 
 
 @section('content')
-{{--{{dd($status)}}--}}
+
 <br><div class="container-fluid" style="background-color: whitesmoke">
     <div class="carousel" role="listbox">
       <div class="carousel-item active">
@@ -77,12 +77,14 @@ class="current"
                   {{--<div class="col-md-12 col-sm-12  col-lg-12">--}}
                      <div class="col-md-5">
                         <div class="post-box">
-                           <img src="{{asset($image)}}"   style="margin-bottom: 10px; height:250px;" />
+                           <img src="{{asset($image)}}"   style="margin-bottom: 10px; height:250px;" /><br>
                            {{--Like Button--}}
                           @if(Auth::check())
-                           <span id="like_{{$article->articleId}}" onclick="hitLikes('{{$article->articleId}}','{{$article->patientId}}')" class=""> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="totalLike_{{$article->articleId}}">
+
+                           <span id="like_{{$article->articleId}}" onclick="hitLikes('{{$article->articleId}}','{{Auth::user()->id}}')" class="pB10 fL"> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="totalLike_{{$article->articleId}}">
                             {{$article->article_likes}}
                           </span></i></span>
+
                           @endif
                            {{--Like end--}}
                         </div>
@@ -90,6 +92,7 @@ class="current"
                      {{--Article list right panel--}}
                      <div class="col-md-7">
                         <span class="post-category"><a href="{{route('articles',$article->articleId)}}" title="Travel" style="font-size: 20px;">{{$article->title}}</a></span><br>
+                        <h5 style="color: #808080">By Dr.{{$article->full_name}}</h5><br>
                         <span><a href="{{route('articles',$article->articleId)}}" title="White Sand of The Desert Discovery">13 Surprising Habits Proven to Trigger Kidney Stones</a></span><br>
                         <p><span class="show-read-more">{{$article->article_text}}</span>
 {{--                        <a href="{{route('articles/'.$article->articleId)}}" title="Read More">Read More</a></p>--}}

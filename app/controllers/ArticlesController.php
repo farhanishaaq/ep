@@ -184,13 +184,15 @@ if ($articles != NULL){
         $data['articleId'] = $_POST['article_id'];
         $data['patientId'] = $_POST['patient_id'];
 
-        $likes = $this->_article->getLikes($data);
+        $likes = $this->_article->getLikesRecord($data);
+//        dd($likes);
         if($likes == "1") {
             $result = $this->_article->deleteRecord($data);
             $decrementResult = $this->_article->decrementLike($data);
         }
         else {
-            $result = $this->_article->addRecord($data);
+            $result = $this->_article->addRecordLog($data);
+            $result = $this->_article->addRecordLikes($data);
             $incrementResult = $this->_article->IncrementLike($data);
         }
         $newLikes = $this->_article->newLikes($data);
@@ -202,18 +204,21 @@ if ($articles != NULL){
     {
 //       $data['userId'] = Auth::patient()->id;
 //        $status = $this->_article->getLikes($data);
-        if(Auth::user()->id) {
-            $data['patientId'] = Auth::user()->id;
-            $likes = $this->_article->getLikesForList($data);
+        if(Auth::check()){
+            if(Auth::user()->id) {
+                $data['patientId'] = Auth::user()->id;
+                $likes = $this->_article->getLikesForList($data);
+                if($likes == "1")
+                    $articles['status'] = "ON";
+                else
+                    $articles['status'] = "OFF";
+            }
         }
-//        dd($likes);
-        if($likes == "1")
-            $status = "ON";
-        else
-            $status = "OFF";
 
+//        dd($likes);
         $articles = $this->_article->getArticles();
-        return View::make('articles.index', compact('articles','status'));
+//        dd($articles);
+        return View::make('articles.index', compact('articles'));
     }
 
         public function healthatricle()

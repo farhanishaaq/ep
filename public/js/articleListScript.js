@@ -3,7 +3,7 @@
  */
 //10 length
 $(document).ready(function(){
-    var maxLength = 400;
+    var maxLength = 100;
     $(".show-read-more").each(function(){
         var myStr = $(this).text();
         if($.trim(myStr).length > maxLength){
