@@ -94,9 +94,11 @@ class="current"
                         <span class="post-category"><a href="{{route('articles',$article->articleId)}}" title="Travel" style="font-size: 20px;">{{$article->title}}</a></span><br>
                         <h5 style="color: #808080">By Dr.{{$article->full_name}}</h5><br>
                         <span><a href="{{route('articles',$article->articleId)}}" title="White Sand of The Desert Discovery">13 Surprising Habits Proven to Trigger Kidney Stones</a></span><br>
-                        <p><span class="show-read-more">{{$article->article_text}}</span>
+                        {{--<p><span class="show-read-more">{{$article->article_text}}</span>--}}
+                        <span><div class="show-read-more">{{$article->article_text}}</div>
 {{--                        <a href="{{route('articles/'.$article->articleId)}}" title="Read More">Read More</a></p>--}}
-                        <a href="{{route('articles',$article->articleId)}}" title="Read More">Read More</a></p>
+                        </span>
+                        <a href="{{route('articles',$article->articleId)}}" title="Read More">Read More</a>
                         {{--
                      </div>
                      --}}

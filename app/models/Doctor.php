@@ -303,17 +303,21 @@ class Doctor extends \Eloquent
 
             $doctors = $queryBuilder->select('max_fee', 'min_fee', 'full_name', 'medical_specialties.name AS specialityName', 'start', 'end', 'code', 'doctors.id AS doctorsId', 'cities.name AS cityName', 'cities.id AS cityId', 'photo', 'gender')
                 ->groupBy('user_id')->paginate(5);
+
+
+
             return $doctors;
+
 
         } catch (Throwable $t) {
             // Executed only in PHP 7, will not match in PHP 5.x
+
             dd($t->getMessage());
         } catch (Exception $e) {
             dd("exeption");
             dd($e->getMessage());
         }
     }
-
 
     public static function getDoctorsForSelector($data)
     {
