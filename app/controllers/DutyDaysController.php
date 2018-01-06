@@ -8,7 +8,8 @@ class DutydaysController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+
+	public  function index()
 	{
         $dutyDays = Dutyday::where('clinic_id', Auth::user()->clinic_id)->groupBy('employee_id')->paginate(10);
 

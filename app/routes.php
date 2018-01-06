@@ -357,3 +357,4 @@ Route::resource('question', 'QuestionController');
 Route::get('question-status',array('as'=>'changeStatus','uses'=> 'QuestionController@updateStatus'));
 Route::get('question-history',array('as' => 'questionHistory', 'uses' => 'QuestionController@viewHistory'));
 Route::resource('answer','AnswerController');
+

@@ -8,7 +8,13 @@ class RolesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	private $_role;
+	public function __construct(Role $role)
+    {
+        $this->_role=$role;
+    }
+
+    public function index()
 	{
 		$roles = Role::fetchRoles();
 		return View::make('roles.index', compact('roles'));
@@ -39,7 +45,18 @@ class RolesController extends \BaseController {
 	 */
 	public function store()
 	{
-		dd(Input::all());
+
+     $actions=  array_map('intval', explode(',', Input::get('actions')));
+     $role = Input::get('roles');
+   // dd($actions);
+     if ($actions[0] != 0){
+         $this->_role->assignResourceToRole($role,$actions);
+         return $this->index();
+     }else{
+
+         return $this->index();
+     }
+
 	}
 
 	/**
