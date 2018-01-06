@@ -202,9 +202,18 @@ if ($articles != NULL){
     {
 //       $data['userId'] = Auth::patient()->id;
 //        $status = $this->_article->getLikes($data);
+        if(Auth::user()->id) {
+            $data['patientId'] = Auth::user()->id;
+            $likes = $this->_article->getLikesForList($data);
+        }
+//        dd($likes);
+        if($likes == "1")
+            $status = "ON";
+        else
+            $status = "OFF";
 
         $articles = $this->_article->getArticles();
-        return View::make('articles.index', compact('articles'));
+        return View::make('articles.index', compact('articles','status'));
     }
 
         public function healthatricle()

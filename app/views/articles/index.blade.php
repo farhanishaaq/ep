@@ -52,7 +52,7 @@ class="current"
 
 
 @section('content')
-
+{{--{{dd($status)}}--}}
 <br><div class="container-fluid" style="background-color: whitesmoke">
     <div class="carousel" role="listbox">
       <div class="carousel-item active">

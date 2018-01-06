@@ -70,6 +70,15 @@ public function user(){
         return $queryBuilder;
     }
 
+    public function getLikesForList($params)
+    {
+//      Getting Data for Check that Specific record has like record on this article or not
+        $queryBuilder = DB::table('like_logs')
+        ->where('patient_id', '=', $params['patientId'])
+            ->count();
+        return $queryBuilder;
+    }
+
     public function deleteRecord($params)
     {
 //        Delete Record if specific user hit unlike
