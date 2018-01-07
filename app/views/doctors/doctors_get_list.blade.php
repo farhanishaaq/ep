@@ -72,7 +72,7 @@
 
   <div class="col-lg-12 col-md-12 left_panel" role="tab" id="headingOne">
      <h4 class="panel-title s-18">
-        <button type="button" class="col-lg-12 col-md-12 btn btn-info caretForSpeciality" data-toggle="collapse" data-target="#speciality"  aria-controls="collapseOne" ><strong>Specility</strong><span id="specialityCaret" class="caret" style="float: right;"></span></button>
+        <button type="button" class="col-lg-12 col-md-12 btn btn-info caretForSpeciality" data-toggle="collapse" data-target="#speciality"  aria-controls="collapseOne" ><strong>Speciality</strong><span id="specialityCaret" class="caret" style="float: right;"></span></button>
      </h4>
   </div>
   <div id="speciality" class="collapse pL10">
@@ -80,11 +80,12 @@
         <div class="chbxs listm">
                @foreach($specialities as $speciality)
                {{--For Space in list Use Class i.e mB4--}}
-               <div class="btn-group">
-                           <label class="container">&nbsp;&nbsp;&nbsp;{{$speciality->name}}
-                             <input name="specialities[]" type="checkbox" value="{{$speciality->id}}">
-                             <span class="checkmark"></span>
-                           </label></div>
+               <div class="btn-group" style="width: inherit" >
+                           <label class="doctorRadio" ><span class="show-read-more">{{$speciality->name}}</span>
+                             {{--<input name="specialities[]" type="checkbox" value="{{$speciality->id}}">--}}
+                             <input name="speciality" type="radio" value="{{$speciality->id}}">
+                             <span class="radiomark"></span>
+                           </label></div><br>
          @endforeach
            <div class="clearfix"></div>
         </div>
@@ -106,6 +107,7 @@
             <div class="col-md-9 col-sm-9  col-lg-9">
 
                 @if(empty($doctors))
+
                                             {{--No Record Found Error--}}
                                 <div class="col-lg-offset-4 col-md-offset-4">
                                 <span><img src="{{asset('images/not_found.png')}}"></span><br>
@@ -139,14 +141,11 @@
                             <div class="col-xs-12 col-md-12 col-sm-12" style="text-align: center">
                                 <h4 align="center"><strong>
                                 {{$doctors[$i]->full_name}}
-
                                 </strong></h4>
                                 <p align="center" >
-
                                <strong>{{$doctors[$i]->code}}</strong><br>
-
-                                     <span> <a href="#" style="color: red">websitk.ename.com</a> </span></p>
                                 <a style="" href="{{route('drProfile',$doctors[$i]->doctorsId)}}"  class="btn btn-raised btn-sm">View Profile</a>
+                                <span> <a href="#" style="color: red">websitk.ename.com</a> </span></p>
                                 <ul class="social-links list-inline m-t-10">
                                     <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
                                     <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
@@ -161,12 +160,12 @@
                                             {{$doctors[$i]->specialityName}}
                                         </strong></h5>
 
-                                <p align="center" >(
+                                <p align="center" >
 
                                         {{$doctors[$i]->start}}
-                                    <strong>AM</strong>)<br><strong>To</strong><br>
+                                    <strong>AM</strong><br><strong>To</strong><br>
                                         {{$doctors[$i]->end}}
-                                    <strong>PM</strong>)</p>
+                                    <strong>PM</strong></p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-3  col-lg-3">
@@ -203,9 +202,10 @@
                        </div>
                      </div>
                    </div>
-
+                    <span class="center"><?php echo $doctors->links(); ?></span>
                  </div>
 
                 </div>
             </div>
+            <script src="{{asset('js/doctorListScript.js')}}"></script>
 @stop

@@ -42,6 +42,8 @@ class GlobalsConst {
 
     const UPLOAD_DIR = 'uploaded-data';
     const PROFILE_PHOTO_DIR = 'uploaded-data/profile-photos';
+    const ARTICLE_PHOTO_DIR = 'articleimage';
+
     const DUMMY_EMAIL_DOMAIN = '@test.com';
     const CHECK_UP_PHOTO_DIR = 'check-up-photos';
 

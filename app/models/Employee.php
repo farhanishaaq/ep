@@ -5,7 +5,9 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use \App\Globals\GlobalsConst;
-class Employee extends \Eloquent{
+
+class Employee extends \Eloquent
+{
 
     /**
      * The database table used by the model.
@@ -14,20 +16,20 @@ class Employee extends \Eloquent{
      */
     protected $table = 'employees';
 
-	// Add your validation rules here
-	public static $rules = [
-		// 'title' => 'required'
-	];
+    // Add your validation rules here
+    public static $rules = [
+        // 'title' => 'required'
+    ];
 
-	// Don't forget to fill this array
+    // Don't forget to fill this array
 
-	protected $fillable = ['company_id',
-                            'business_unit_id',
-                            'user_id',
-                            'joining_date',
-                            'quite_date',
-                            'joining_salary',
-                            'current_salary'];
+    protected $fillable = ['company_id',
+        'business_unit_id',
+        'user_id',
+        'joining_date',
+        'quite_date',
+        'joining_salary',
+        'current_salary'];
 
 
     /**
@@ -59,7 +61,8 @@ class Employee extends \Eloquent{
         return $this->hasMany('Prescription');
     }
 
-    public function company(){
+    public function company()
+    {
         return $this->belongsTo('Company');
     }
 
@@ -84,16 +87,17 @@ class Employee extends \Eloquent{
      * @param int $dataProcessType
      * @return array|null
      */
-    public static function saveEmployee($data,$dataProcessType=GlobalsConst::DATA_SAVE){
+    public static function saveEmployee($data, $dataProcessType = GlobalsConst::DATA_SAVE)
+    {
         $response = null;
-        if($dataProcessType==GlobalsConst::DATA_SAVE){
+        if ($dataProcessType == GlobalsConst::DATA_SAVE) {
             $employee = new Employee();
-        }else{
+        } else {
             $id = isset($data['employeeId']) ? $data['employeeId'] : '';
-            if($id != ''){
+            if ($id != '') {
                 $employee = Employee::find($id);
-            }else{
-                return ['success'=>false, 'error'=> true, 'message' => 'Employee record did not find for updation! '];
+            } else {
+                return ['success' => false, 'error' => true, 'message' => 'Employee record did not find for updation! '];
             }
         }
         $joiningDate = isset($data['joining_date']) ? $data['joining_date'] : null;
@@ -109,7 +113,7 @@ class Employee extends \Eloquent{
         $employee->joining_salary = $joiningSalary;
         $employee->current_salary = $currentSalary;
         $employee->save();
-        $response = ['success'=>true, 'error'=> false, 'message'=>'Employee has been saved successfully!','Employee'=>$employee];
+        $response = ['success' => true, 'error' => false, 'message' => 'Employee has been saved successfully!', 'Employee' => $employee];
         return $response;
     }
 }

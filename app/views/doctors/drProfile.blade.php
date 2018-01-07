@@ -1,6 +1,4 @@
-<head>
 
-</head>
 @extends('layouts.master')
 <!--========================================================
                           TITLE
@@ -41,7 +39,19 @@
                             <div class="card-body no-padding height-9">
                                 <div class="row">
                                     <div class="profile-userpic">
-                                        <img src="{{ asset('images/dp.svg') }}" class="img-responsive" alt=""> </div>
+
+                                        <img src="
+                                                   @if(isset($profile->photo))
+                                        {{asset('uploads/'.$profile->photo)}}
+                                        @else
+                                        @if($profile->gender =="Male")
+                                        {{asset('uploads/maleUnknown.jpg')}}
+                                        @else
+                                        {{asset('uploads/femaleUnknown.jpg')}}
+                                        @endif
+                                        @endif
+
+                                        " class="img-responsive" alt=""> </div>
                                 </div>
                                 <div class="profile-usertitle">
                                     <div class="profile-usertitle-name"> {{ $profile->full_name }} </div>
@@ -90,7 +100,7 @@
                         </div>
 
                         <div class="card">
-                            <div class="card-head card-topline-aqua">
+                            <div class="card-head card-topline-aqua" style="border: 0px">
                                 <header>About Me</header>
                             </div>
                             <div class="card-body no-padding height-9">
@@ -111,7 +121,7 @@
                                     <input hidden id="address" type="textbox" value="{{$profile->address}}">
                                     <input  hidden id="submit" type="button" value="Geocode">
 
-                                <div id="map"></div>
+                                <div id="map" tyle="width: 100%; height: 100%; position: absolute;"></div>
                                 {{--star rating/--}} {{--star rating/--}}
                             </div>
                         </div>
@@ -123,7 +133,7 @@
                     <div class="profile-content">
                         <div class="row">
                             <div class="card">
-                                <div class="card-head card-topline-aqua">
+                                <div class="card-head card-topline-aqua" style="border-bottom: 0px">
                                     <header></header>
                                 </div>
                                 <div class="card-body no-padding height-9">
@@ -132,7 +142,7 @@
                                             <div class="col-md-12">
                                                 <div class="tabbable-line">
                                                     <ul class="nav nav-tabs">
-                                                        <li class="active"><a href="#tab1" data-toggle="tab"> About Me </a></li>
+                                                        <li ><h4>About Me</h4>  </li>
 
                                                     </ul>
                                                     <div class="tab-content">
@@ -140,19 +150,19 @@
                                                             <div class="row">
                                                                 <div id="biography">
                                                                     <div class="row">
-                                                                        <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
+                                                                        <div class="col-md-6 col-xs-6 b-r"> <strong>Full Name</strong>
                                                                             <br>
                                                                             <p class="text-muted">{{ $profile->full_name }}</p>
                                                                         </div>
-                                                                        <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
+                                                                        <div class="col-md-6 col-xs-6 b-r"> <strong>Mobile</strong>
                                                                             <br>
-                                                                            <p class="text-muted">{{$profile->cell}}</p>
+                                                                            <p class="text-muted">{{$profile->cell != "" ? $profile->cell: "No contact" }}</p>
                                                                         </div>
-                                                                        <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
+                                                                        <div class="col-md-6 col-xs-6 b-r"> <strong>Email</strong>
                                                                             <br>
                                                                             <p class="text-muted">{{$profile->email}}</p>
                                                                         </div>
-                                                                        <div class="col-md-3 col-xs-6"> <strong>Location</strong>
+                                                                        <div class="col-md-6 col-xs-6"> <strong>Location</strong>
                                                                             <br>
                                                                             <p class="text-muted" id="address">{{$profile->address}}</p>
                                                                         </div>
@@ -193,23 +203,12 @@
                                                                         <li>Life member: Ahmedabad Orthopaedic Society</li>
                                                                     </ul>
                                                                     <br>
-                                                                    <div class="tab-content">
-
-                                                                        <h3 class="tab-content">Comments on Doctor's Checkup</h3> {{--@foreach($drComments as $comment)--}}
-
-                                                                        <div class="actionBox" style="background-color: whitesmoke">
-                                                                            <ul class="commentList" id="commentList">
-
-                                                                            </ul>
-                                                                        </div>
-                                                                        <br> {{--@endforeach--}}
-                                                                    </div>
 
                                                                     {{--
-                                                                    <form class="form-inline" action="{{route('comment')}}" method="post">--}} @if(Auth::user())
+                              <form class="form-inline" action="{{route('comment')}}" method="post">--}} @if(Auth::user())
                                                                         <form class="form-inline">
 
-                                                                            <input class="col-lg-12" type="text" placeholder="Your comments" name="addComment" id="comment" />
+                                                                            <input class="col-lg-12 col-md-12 col-sm-12" type="text" placeholder="Your comments" name="addComment" id="comment" />
                                                                             <br>
                                                                             <input class="form-control" type="hidden" value="{{$id}}" name="Doctro_id" id="Doctro_id">
                                                                             <input class="form-control" type="hidden" value="{{Auth::user()->id}}" name="auth_user" id="auth_user">
@@ -218,12 +217,49 @@
                                                                             <br> {{--
                                                                     <input type="hidden" name="commenttoken" value=" {{csrf_token()}}" />--}}
 
-                                                                            <button class="col-lg-12" id="ajax" type="submit">
+                                                                            <button class="col-lg-12 col-sm-12 col-md-12" id="ajax" type="submit">
                                                                                 <h4>Comment</h4></button>
 
                                                                         </form>
                                                                     @else {{--@include('includes.webSocialLinks')--}} @endif
+
+                                                                    <br>
+                                                                    <hr>
+                                                                    <div class="tab-content">
+
+                                                                        <h3 class="tab-content">Comments on Doctor's Checkup</h3> {{--@foreach($drComments as $comment)--}}
+
+                                                                        <div class="actionBox" style="background-color: white">
+                                                                            <ul class="commentList" id="commentList">
+
+                                                                            </ul>
+                                                                        </div>
+                                                                        <br> {{--@endforeach--}}
+                                                                    </div>
+
+
+
+
+
+
                                                                 </div>
+                                                                {{--Form Start Here--}}
+                                                                {{--<form  id="new_question"   method="post" action="{{route('question.store')}}">--}}
+                                                                    {{--{{ Form::token() }}--}}
+
+                                                                    {{--<div class="form-group">--}}
+                                                                        {{--<textarea  class="form-control" placeholder="Ask question here" maxlength="280" name="question" id="question" rows="6"></textarea>--}}
+
+                                                                    {{--</div>--}}
+
+                                                                    {{--<input class="form-control" type="hidden" value="{{$id}}" name="doctor_id" id="Doctro_id">--}}
+
+                                                                    {{--<div class="modal-footer">--}}
+                                                                        {{--<input type="submit" class="btn btn-raised btn-sm btn-1">--}}
+                                                                    {{--</div>--}}
+
+                                                                {{--</form>--}}
+
                                                             </div>
                                                         </div>
 
@@ -254,7 +290,7 @@
     <script src="{{ asset('js/jquery.blockui.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/jquery.sparkline.min.js') }}" type="text/javascript"></script>
     {{--<!-- bootstrap -->--}}
-    <script src="{{ asset('js/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    {{--<script src="{{ asset('js/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>--}}
     <script src="{{ asset('js/bootstrap-switch/js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
 
 
@@ -291,20 +327,20 @@
                             fullStar:true
                             //readOnly: true
                         })
-                        console.log('in no record')
+                       // console.log('in no record')
                     }else {
                         $("#rateYo").rateYo({
                             rating: response[0].rating,
                             fullStar:true,
                             readOnly: true
                         })
-                        console.log(response)
-                        console.log('in found record '+response[0].rating)
+                      //  console.log(response)
+                       // console.log('in found record '+response[0].rating)
                         $('#drRate').html(response[0].rating+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
                     }
                 },
                 error : function(response){
-                    console.log('fail')
+                    //console.log('fail')
                 }
             });
         })
@@ -325,14 +361,14 @@
                         success : function(response){
                             if(response.toString() == "sucess"){
 
-                                console.log('sucess')
+                              //  console.log('sucess')
                             }
                         },
                         error : function(response){
-                            console.log('fail')
+                          //  console.log('fail')
                         }
                     });
-                    alert("The rating is set to " + data.rating + "!");
+//                    alert("The rating is set to " + data.rating + "!");
                 });
 
         });
@@ -356,12 +392,12 @@
                     success: function (data) {
 
                     if ((data.errors)) {
-                        console.log(JSON.stringify(data));
+                       // console.log(JSON.stringify(data));
                     } else {
-                        console.log(JSON.stringify(data));
+                      //  console.log(JSON.stringify(data));
                         $.each( data, function( key, val ) {
                             var txt2 = $(" <li>  " +
-                                "<div  class='commentText'><p> " + val.comments+"</p>"+"<span>"+ val.created_at+"</span>" +
+                                "<div  style='border-bottom: 1px solid #01ADD5; margin-bottom: 25px' class='commentText col-md-12'><span class='col-md-9'> " + val.comments+"</span>"+"<span class='col-md-3'>"+ (val.created_at).slice(0,-3)+"</span>" +
                                 "</div>" +
                                 "</li>");  // Create text with jQuery
 
@@ -400,7 +436,7 @@
 
 //                data: $('#ajax').serialize(),
                     success: function(data){
-                        alert(sucess);
+//                        alert(sucess);
                     },
 
                     error: function(data){
@@ -461,12 +497,12 @@
     <script>
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 15,
+                zoom: 8,
                 center: {lat: -34.397, lng: 150.644}
             });
             var geocoder = new google.maps.Geocoder();
 
-        //    document.getElementById('submit').addEventListener('click', function() {
+          //  document.getElementById('submit').addEventListener('click', function() {
                 geocodeAddress(geocoder, map);
          //   });
         }
@@ -485,9 +521,10 @@
                 }
             });
         }
+
     </script>
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLbrfBzesBjJRccs6wpWGFxpG0HZqU6jA&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0h-b6OIqk8pmDhFmH2BiUHSlU4PmFiDU&callback=initMap">
     </script>
 @stop
 

@@ -16,8 +16,7 @@ class CreateAnswersTable extends Migration {
 		{
 			$table->increments('id');
             $table->integer('question_id');
-            $table->integer('patient_id');
-            $table->integer('doctor_id');
+            $table->integer('user_id');
             $table->string('answer');
 			$table->timestamps();
 		});

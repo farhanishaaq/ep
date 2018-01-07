@@ -27,7 +27,15 @@
 @section('content')
 
     <div class="container mT20">
-        <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'">Comments List</h1>
+    @if($action['condition'] == 'Request')
+        <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'; float: left;">Request Comments List</h1>
+        <button  onclick="window.location = '{{ route('commentHistory')}}';" class="btn btn-style mT10 mB0" style="float: right;">Comment History <span class="glyphicon glyphicon-search"></span></button>
+        @else
+        <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'; float: left;">All Comments List</h1>
+        <button  onclick="window.location = '{{ route('commentsStatus')}}';" class="btn btn-style mT10 mB0" style="float: right;">Request Comments <span class="glyphicon glyphicon-search"></span></button>
+
+@endif
+        {{--<button class="mT10 mB0 c3" style="font-family: 'Marvel'; float: right;"><h3>Comment History</h3></button>--}}
         <hr class="w100p fL mT0" />
         <section id="form-Section">
             <!--========================================================
@@ -36,9 +44,10 @@
             @if(Auth::user()->role == 'Administrator')
                  link_to_route('prescriptions.create', 'Create Prescription', '', ['class' => 'btn_1'])
             @endif
-            <table id="tblRecordsList" class="mT20 table table-hover table-striped display">
+            <table id="tblRecordsList" class="mT20 table table-hover table-striped display noShow">
                 <thead>
                 <tr>
+                    <th>No.</th>
                     <th>Doctor_ID</th>
                     <th>Patient_ID</th>
                     <th>Comments Details</th>
@@ -49,21 +58,29 @@
                  <tbody>
                 @foreach ($data as $dataComment)
                     <tr>
+                        <td></td>
                         <td>{{$dataComment->doctor_id}}</td>
                         <td>{{$dataComment->patient_id}}</td>
                         <td>{{$dataComment->comments}}</td>
                         <td>{{$dataComment->created_at}}</td>
                         <td>
                             <label class="switch">
-                                <input type="checkbox" id="{{$dataComment->commentId}}" onchange="statusUpdate(this.id)">
-                                <span class="slider round"></span>
-                            </label>
+
+                            <input type="checkbox" id="{{$dataComment->commentId}}" onchange="statusUpdate(this.id)"
+                             @if($dataComment->status == "Approved" )
+                             checked
+                            @endif
+                            >
+                            <span class="slider round"></span>
+                                                        </label>
                         </td>
                     </tr>
                 @endforeach
+
                 </tbody>
             </table>
         </section>
+<span class="center"><?php echo $data->links(); ?></span>
     </div>
 
     <script src="{{asset('js/emailAvailability.js')}}"></script>

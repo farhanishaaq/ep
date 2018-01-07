@@ -100,8 +100,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function doctor(){
 		return $this->hasOne('Doctor');
 	}
+    public function article(){
+        return $this->hasMany("Article");
 
-	public function getCurrentRoles()
+    }
+    public function question()
+{
+
+    return $this->hasMany('Question','doctor_id');
+}
+
+    public function getCurrentRoles()
 	{
 		try{
             $currentUser = Ep::currentUser();

@@ -17,7 +17,10 @@ class CreateArticlesTable extends Migration {
 			$table->increments('id');
             $table->integer('patient_id');
             $table->integer('doctor_id');
-            $table->string('article_text');
+            $table->string('title');
+            $table->string('bannar_image');
+            $table->string('article_text', 10000);
+            $table->string('status');
 			$table->timestamps();
 		});
 	}

@@ -21,8 +21,11 @@ class CommentsController extends \BaseController {
 	 */
 	public function index()
     {
+        $action['condition'] = "Request";
         $data = $this->_comment->commentsList();
-        return View::make('comments.index',compact('data'));
+//        dd($action);
+//        dd($data);
+        return View::make('comments.index',compact('action','data'));
     }
 
     /**
@@ -44,6 +47,7 @@ class CommentsController extends \BaseController {
 	public function store()
 	{
         $data = Input::all();
+
         return $this->_comment->saveComment($data);
 
 	}
@@ -65,16 +69,17 @@ class CommentsController extends \BaseController {
 
 	}
 
-
 	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function showHistory()
 	{
-		//
+        $action['condition'] = "All";
+        $data = $this->_comment->allComments();
+        return View::make('comments.index',compact('data','action'));
 	}
 
 

@@ -142,10 +142,12 @@ class DoctorsController extends \BaseController {
 
 
    }
+
     public function showDoctors()
 
     {
 //                                                           From Selected Left Panel,For  handle Errors
+        $doctors = NULL;
         $data['city'] = '';
         $data['user_id'] = '';
         $data['speciality'] = '';
@@ -153,11 +155,14 @@ class DoctorsController extends \BaseController {
         $data['selectSpecialities'] = '';
 
         if(Input::get('cities')!=''){
-            $data['selectCities'] = implode("','", Input::get('cities'));
+
+            $data['selectCities'] = Input::get('cities');
         }
-        if(Input::get('specialities')!=''){
-            $data['selectSpecialities'] = implode(",", Input::get('specialities'));
+        if(Input::get('speciality')!=''){
+            $data['selectSpecialities'] =  Input::get('speciality');
         }
+
+
         if($data['selectCities']=='' && $data['selectSpecialities']==''){
             $data['user_id'] = Input::get('user_id');
             $data['city'] = Input::get('city');
@@ -166,8 +171,17 @@ class DoctorsController extends \BaseController {
         $doctors = $this->_doctor->fetchPublicDoctors($data);
         $cities = City::all();
         $specialities = MedicalSpecialty::all();
-        return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
-    }
+
+        if ($doctors)
+            return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
+
+//        else {
+//            $doctors = NULL;
+//            dd($doctors);
+//            return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
+//        }
+
+        }
 
 
 }

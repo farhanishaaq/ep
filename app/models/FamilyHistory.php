@@ -1,14 +1,15 @@
 <?php
 
-class FamilyHistory extends \Eloquent {
+class FamilyHistory extends \Eloquent
+{
 
-	// Add your validation rules here
-	public static $rules = [
-		// 'title' => 'required| '
-	];
+    // Add your validation rules here
+    public static $rules = [
+        // 'title' => 'required| '
+    ];
 
-	// Don't forget to fill this array
-	protected $fillable = ['f_member_name','patient_relation','gender','age',
+    // Don't forget to fill this array
+    protected $fillable = ['f_member_name', 'patient_relation', 'gender', 'age',
         'diesease_note', 'patient_id', 'company_id'];
 
     // Relationships

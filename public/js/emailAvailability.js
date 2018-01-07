@@ -15,7 +15,7 @@ function checkemail()
             type: 'post',
             url: 'checkEmail',
             data: {
-                user_email:email,
+                user_email:email
             },
             success: function (response) {
                 $( '#email_status' ).html(response).addClass('errorMsg');
@@ -48,7 +48,7 @@ function checkUserName()
             type: 'post',
             url: 'checkUserName',
             data: {
-                user_Name:userName,
+                user_Name:userName
             },
             success: function (response) {
                 $( '#userName_status' ).html(response).addClass('errorMsg');
@@ -97,10 +97,33 @@ function statusUpdate(patientId)
     {
         $.ajax({
             type: 'post',
-            url: 'updateComment',
+            url: 'updateArticles',
             data: {
                 comment_id:patientId,
                 comment_action:status
+            },
+            success: function (response) {
+            }
+        });
+    }
+}
+// end Jquery of Comment
+function articlestatus(patientId)
+{
+    if($('#'+patientId).prop('checked')) {
+        var status = 1;
+    }
+    else {
+        status = 0;
+    }
+    if(patientId)
+    {
+        $.ajax({
+            type: 'post',
+            url: 'updateArticles',
+            data: {
+                id:patientId,
+                article_action:status
             },
             success: function (response) {
                 alert(response);
@@ -108,7 +131,25 @@ function statusUpdate(patientId)
         });
     }
 }
-// end Jquery of Comment
+
+function articleshow(patientId)
+{
+
+    if(patientId)
+    {
+        $.ajax({
+            type: 'post',
+            url: 'showArticle',
+            data: {
+                id:patientId,
+
+            },
+            success: function (response) {
+                alert(response);
+            }
+        });
+    }
+}
 
 
 
@@ -116,6 +157,9 @@ function statusUpdate(patientId)
 
 
 
+
+
+//
 
 
 

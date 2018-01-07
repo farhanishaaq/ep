@@ -23,8 +23,12 @@ class RolesController extends \BaseController {
 	public function create()
 	{
 		$user = null;
+		$controllers=Resource::fetchControllers();
+		$actions=Resource::fetchActions();
+		$roles = Role::all();
+
 		$formMode = GlobalsConst::FORM_CREATE;
-		return View::make('roles.create')->nest('_form','roles.partials._form',compact('formMode','user'));
+		return View::make('roles.create')->nest('_form','roles.partials._form',compact('formMode','user','controllers','actions','roles'));
 	}
 
 	/**
@@ -35,7 +39,7 @@ class RolesController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		dd(Input::all());
 	}
 
 	/**
