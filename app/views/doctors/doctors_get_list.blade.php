@@ -202,7 +202,7 @@
                        </div>
                      </div>
                    </div>
-                    <span class="center"><?php echo $doctors->links(); ?></span>
+
                  </div>
 
                 </div>

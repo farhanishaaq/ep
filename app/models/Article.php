@@ -21,7 +21,7 @@ public function user(){
 
     public function saveArticle ($data){
 
-        $doctor_id = Auth::user()->id;
+    $doctor_id = Auth::user()->id;
 
         $text=$data['body'];
         $title = $data['title'];
@@ -48,8 +48,8 @@ public function user(){
                 ->leftJoin('like_logs','articles.id','=','like_logs.patient_id')
                 ->leftJoin('doctors','articles.doctor_id','=','doctors.id')
                 ->leftJoin('users','doctors.user_id','=','users.id')
-                ->select('like_logs.patient_id AS patientId','articles.id AS articleId','title','article_text','bannar_image','article_likes','full_name')
-                ->distinct()->paginate(5);
+                ->select('articles.created_at AS articleCreate','like_logs.patient_id AS patientId','articles.id AS articleId','title','article_text','bannar_image','article_likes','full_name')
+                ->orderBy('articleCreate', 'desc')->groupBy('articleId')->paginate(5);
             return $queryBuilder;
         }
 

@@ -172,7 +172,6 @@ class DoctorsController extends \BaseController {
         $cities = City::all();
         $specialities = MedicalSpecialty::all();
 
-        if ($doctors)
             return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
 
 //        else {
