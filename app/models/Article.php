@@ -268,6 +268,14 @@ public function restore($data){
 
     }
 
+     public function deletearticle($id){
+
+         DB::table('articles')->where('id', $id)->delete();
+
+
+         return 'sucess';
+
+     }
 
 
 

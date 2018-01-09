@@ -139,7 +139,7 @@ function articleshow(patientId)
     {
         $.ajax({
             type: 'post',
-            url: 'showArticle',
+            url: 'articledelete',
             data: {
                 id:patientId,
 

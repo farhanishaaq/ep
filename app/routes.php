@@ -349,6 +349,7 @@ Route::post('likePerform', array('as'=>'likePerform','uses'=>'ArticlesController
 Route::get('articles/{id}', array('as'=>'articles','uses'=>'ArticlesController@show'));
 Route::get('articlesedit/{id}', array('as'=>'articlesedit','uses'=>'ArticlesController@edit'));
 Route::post('articleupdate', array('as'=>'articleupdate','uses'=>'ArticlesController@replace'));
+Route::get('articledelete/{id}', array('as'=>'articledelete','uses'=>'ArticlesController@destroy'));
 
 Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'));
 Route::get('articleStatus', array('as'=>'articleStatus','uses'=>'ArticlesController@status'));
