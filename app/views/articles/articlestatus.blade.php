@@ -45,6 +45,8 @@ Manage Articles
                     <th>Article Title</th>
                     <th>Date</th>
                     <th>Status</th>
+                    <th></th>
+                    <th>Update</th>
                 </tr>
                 </thead>
 
@@ -74,6 +76,9 @@ Manage Articles
                                 <span class="slider round"></span>
                             </label>
                         </td>
+
+
+                        <td><a type="button" class="btn btn-raised btn-sm btn-1" href="{{url('articlesedit/'.$data->id)}}" name="update">UPDATE</a></td>
                     </tr>
 
                 @endforeach

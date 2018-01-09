@@ -347,6 +347,9 @@ Route::get('getappointment/{id}', array('as'=>'getappointment', 'uses' => 'Appoi
 Route::get('articles', array('as'=>'articles','uses'=>'ArticlesController@articleList'));
 Route::post('likePerform', array('as'=>'likePerform','uses'=>'ArticlesController@likeManage'));
 Route::get('articles/{id}', array('as'=>'articles','uses'=>'ArticlesController@show'));
+Route::get('articlesedit/{id}', array('as'=>'articlesedit','uses'=>'ArticlesController@edit'));
+Route::post('articleupdate', array('as'=>'articleupdate','uses'=>'ArticlesController@replace'));
+
 Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'));
 Route::get('articleStatus', array('as'=>'articleStatus','uses'=>'ArticlesController@status'));
 Route::post('updateArticles', array('as'=>'updateArticles','uses'=>'ArticlesController@statusupdate'));

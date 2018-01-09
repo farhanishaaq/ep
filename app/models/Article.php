@@ -226,6 +226,49 @@ public function user(){
 
  }
 
+public function editarticle($id){
+
+    $articles =  DB::table('articles')->where('id', $id)
+        ->first();
+
+
+    return $articles ;
+}
+
+public function restore($data){
+
+
+    $doctor_id = Auth::user()->id;
+    $id = $data['id'];
+    $text=$data['body'];
+    $title = $data['title'];
+
+
+    DB::table('articles')
+        ->where('id', $id)
+        ->update(array('doctor_id' => $doctor_id, 'article_text' => $text, 'title' => $title));
+
+    $this->update();
+    return 'sucess';
+
+
+}
+
+    public function bannerupdate($filename,$data){
+
+          $id = $data['id'];
+
+        DB::table('articles')
+            ->where('id', $id)
+            ->update(array('bannar_image' => $filename));
+
+        $this->update();
+
+        return 'sucess';
+
+    }
+
+
 
 
 }
