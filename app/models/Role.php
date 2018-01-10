@@ -68,5 +68,15 @@ class Role extends \Eloquent
 
     }
 
+    /**
+     * @param $role
+     * @param $resource
+     */
+        public function assignResourceToRole($role,$resource){
+           $role= $this::find($role);
+        return    $role->resources()->sync($resource);
+
+        }
+
 
 }

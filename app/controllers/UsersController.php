@@ -69,7 +69,8 @@ class UsersController extends \BaseController {
 	{
 		$formMode = GlobalsConst::FORM_EDIT;
 		$user = User::find($id);
-		return View::make('users.edit')->nest('_form','users.partials._form',compact('formMode','user'));
+		$roles=Role::all();
+		return View::make('users.edit')->nest('_form','users.partials._form',compact('formMode','user','roles'));
 	}
 
 	/**
@@ -94,6 +95,7 @@ class UsersController extends \BaseController {
 		}
 
 		$data = Input::all();
+
 		$validator = Validator::make($data, array('status' => 'required', 'role' => 'required'));
 
 		if ($validator->fails())

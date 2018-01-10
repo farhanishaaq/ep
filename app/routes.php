@@ -359,5 +359,7 @@ Route::post('updateArticles', array('as'=>'updateArticles','uses'=>'ArticlesCont
 //this controller questions asked by patient to deoctor
 Route::resource('question', 'QuestionController');
 Route::get('question-status',array('as'=>'changeStatus','uses'=> 'QuestionController@updateStatus'));
+Route::get('medicineSearch',array('as'=>'medicineSearch','uses'=> 'MedicinesController@medicineSearch'));
 Route::get('question-history',array('as' => 'questionHistory', 'uses' => 'QuestionController@viewHistory'));
 Route::resource('answer','AnswerController');
+
