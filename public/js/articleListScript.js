@@ -33,6 +33,7 @@ function hitLikes(articleId,patientId)
         else
              actionDo = "sub";
     if(articleId)
+
     {
 
         $.ajax({
