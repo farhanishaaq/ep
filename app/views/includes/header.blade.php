@@ -12,7 +12,7 @@
                                             <span class="icon-bar"></span>
                                             <span class="icon-bar"></span>
                                         </button>
-                                        <a class="navbar-brand p0" href="#"><img src="{{asset('images/logo_new.png')}}" class="h52"></a>
+                                        <a class="navbar-brand p0" href="{{URL('/')}}"><img src="{{asset('images/logo_new.png')}}" class="h52"></a>
                                     </div>
                             <?php $crntUser=Auth::user(); ?>
                             @if($crntUser)
