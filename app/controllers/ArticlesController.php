@@ -179,6 +179,11 @@ if ($articles != NULL){
     public function destroy($id)
     {
         //
+
+
+        $this->_article->deletearticle($id);
+        return Redirect::back();
+
     }
 
     public function likeManage()

@@ -47,6 +47,7 @@ Manage Articles
                     <th>Status</th>
                     <th></th>
                     <th>Update</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
 
@@ -79,6 +80,9 @@ Manage Articles
 
 
                         <td><a type="button" class="btn btn-raised btn-sm btn-1" href="{{url('articlesedit/'.$data->id)}}" name="update">UPDATE</a></td>
+                        <td><a type="button" class="btn btn-danger btn-sm btn-1"  href="{{url('articledelete/'.$data->id)}}" name="delete">DELETE</a></td>
+                        {{--@include('articles.include.deletearticle')--}}
+
                     </tr>
 
                 @endforeach
