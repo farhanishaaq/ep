@@ -1,7 +1,7 @@
 <?php
 use App\Globals\GlobalsConst;
 use \Illuminate\Support\Facades\Response;
-class DutydaysController extends \BaseController {
+class DutyDaysController extends \BaseController {
 
 	/**
 	 * Display a listing of dutydays
