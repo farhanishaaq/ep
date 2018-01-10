@@ -106,7 +106,7 @@
 //                    console.log($( "#" + value));
 //                    console.log($( "#" + value).prop( "checked"))
 //                }
-                alert('Selected: ' + r.join(', ') +" :" );
+              //  alert('Selected: ' + r.join(', ') +" :" );
 
             })
 

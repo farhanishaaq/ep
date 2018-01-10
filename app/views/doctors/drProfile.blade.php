@@ -60,11 +60,11 @@
                                 <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
                                         <b>Fee:</b>
-                                        <div class="profile-desc-item pull-right">{{$profile->max_fee}}</div>
+                                        <div class="profile-desc-item pull-right">{{($profile->max_fee)-500}}-{{$profile->max_fee}}</div>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Exprience</b>
-                                        <div class="profile-desc-item pull-right">10Year</div>
+                                        <div class="profile-desc-item pull-right">10 Year</div>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Rating</b>
@@ -101,27 +101,15 @@
 
                         <div class="card">
                             <div class="card-head card-topline-aqua" style="border: 0px">
-                                <header>About Me</header>
+                                <header>Location</header>
                             </div>
                             <div class="card-body no-padding height-9">
-                                <div class="profile-desc">
-                                    {{$profile->additional_info}}
 
-                                </div>
-
-                                {{--<ul class="list-group list-group-unbordered">--}}
-
-                                    {{--<li class="list-group-item">--}}
-                                        {{--<b>Operation Done </b>--}}
-                                        {{--<div class="profile-desc-item pull-right">30+</div>--}}
-                                    {{--</li>--}}
-
-                                {{--</ul>--}}
 
                                     <input hidden id="address" type="textbox" value="{{$profile->address}}">
                                     <input  hidden id="submit" type="button" value="Geocode">
 
-                                <div id="map" tyle="width: 100%; height: 100%; position: absolute;"></div>
+                                <div id="map" style="width: 300px; height: 600px;"></div>
                                 {{--star rating/--}} {{--star rating/--}}
                             </div>
                         </div>
