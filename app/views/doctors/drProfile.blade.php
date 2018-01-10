@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="profile-usertitle">
                                     <div class="profile-usertitle-name"> {{ $profile->full_name }} </div>
-                                    <div class="profile-usertitle-job"> Gynaecologist </div>
+                                    <div class="profile-usertitle-job">{{$profile->specialityName}}</div>
                                 </div>
                                 <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
@@ -165,7 +165,7 @@
                                                                     <ul>
                                                                         <li>{{$profile->code}}</li>
                                                                         <li>{{$profile->title}}</li>
-                                                                        <li>{{$profile->description}}</li>
+                                                                        <li>{{$profile->qualificationsDescription}}</li>
                                                                         <li>{{$profile->institute}}</li>
 
                                                                     </ul>
@@ -485,7 +485,7 @@
     <script>
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 8,
+                zoom: 16,
                 center: {lat: -34.397, lng: 150.644}
             });
             var geocoder = new google.maps.Geocoder();
