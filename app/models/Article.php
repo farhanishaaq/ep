@@ -77,8 +77,9 @@ public function user(){
     {
 //      Getting Data for Check that Specific record has like record on this article or not
         $queryBuilder = DB::table('like_logs')
+        ->select('article_id')
         ->where('patient_id', '=', $params['patientId'])
-            ->count();
+        ->get();
         return $queryBuilder;
     }
 

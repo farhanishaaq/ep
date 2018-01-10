@@ -213,20 +213,18 @@ if ($articles != NULL){
 //       $data['userId'] = Auth::patient()->id;
 //        $status = $this->_article->getLikes($data);
         if(Auth::check()){
-            if(Auth::user()->id) {
                 $data['patientId'] = Auth::user()->id;
                 $likes = $this->_article->getLikesForList($data);
-                if($likes == "1")
-                    $articles['status'] = "ON";
-                else
-                    $articles['status'] = "OFF";
-            }
+            $likeData[] = "";
+            foreach($likes as $like){
+                    array_push($likeData, $like->article_id);
+                }
+//                    $selectedClass['status'] = "";
         }
 
-//        dd($likes);
         $articles = $this->_article->getArticles();
 //        dd($articles);
-        return View::make('articles.index', compact('articles'));
+        return View::make('articles.index', compact('articles','likeData'));
     }
 
         public function healthatricle()
