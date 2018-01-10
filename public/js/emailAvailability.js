@@ -132,24 +132,7 @@ function articlestatus(patientId)
     }
 }
 
-function articleshow(patientId)
-{
 
-    if(patientId)
-    {
-        $.ajax({
-            type: 'post',
-            url: 'articledelete',
-            data: {
-                id:patientId,
-
-            },
-            success: function (response) {
-                alert(response);
-            }
-        });
-    }
-}
 
 
 
