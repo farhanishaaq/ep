@@ -1,4 +1,5 @@
-﻿<head>
+﻿
+<head>
     <link href="{{asset('css/doctorList.css')}}" rel="stylesheet">
 </head>
 {{--This fill CSS Save in CSS Folder As doctorList--}}
@@ -13,7 +14,7 @@
     <div class = "user_logo">
         <div class="header_1 wrap_3 color_3 login-bar">
             Searched In
-            @if(!empty($doctors))
+            @if($doctors->count()>0)
             "{{$doctors[0]->cityName}}"
             @endif
         </div>
@@ -106,13 +107,8 @@
             {{--Right Panel--}}
             <div class="col-md-9 col-sm-9  col-lg-9">
 
-                @if(empty($doctors))
+                @if($doctors->count()>0)
 
-                                            {{--No Record Found Error--}}
-                                <div class="col-lg-offset-4 col-md-offset-4">
-                                <span><img src="{{asset('images/not_found.png')}}"></span><br>
-                </div>
-                @else
                     @for($i=0; $i<sizeof($doctors);$i++)
 
                     <div class="col-md-12 col-sm-12  col-lg-12 card listBox" style="border-radius: 5px; padding-top: 10px; ">
@@ -180,7 +176,13 @@
                         </div>
                     </div>
                 @endfor
+                @else
+                                                            {{--No Record Found Error--}}
+                                                <div class="col-lg-offset-4 col-md-offset-4">
+                                                <span><img src="{{asset('images/not_found.png')}}"></span><br>
+                                </div>
 @endif
+
 <!-- Modal -->
                  <div class="modal fade" id="myModal" role="dialog">
                      <div class="modal-dialog modal-sm">

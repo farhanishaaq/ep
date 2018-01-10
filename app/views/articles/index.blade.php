@@ -64,11 +64,7 @@ class="current"
             <div class="col-lg-8 col-sm-12 post-block post-big">
                --}}
                {{--Article List left panel--}}
-               @if(empty($articles))
-               <div class="col-lg-offset-4 col-md-offset-4">
-                  <span><img src="{{asset('images/not_found.png')}}"></span><br>
-               </div>
-               @else
+               @if($articles->count()>0)
                @foreach($articles as $article)
                <?php $image = '/articleimage'.'/'.$article->articleId.'/'.$article->bannar_image?>
                <div class="col-md-12 col-sm-12  col-lg-12 card listBox" style="border-radius: 5px; padding-top: 10px; ">
@@ -108,6 +104,10 @@ class="current"
                        </div>
                </div>
                @endforeach
+                @else
+                              <div class="col-lg-offset-4 col-md-offset-4">
+                                 <span><img src="{{asset('images/not_found.png')}}"></span><br>
+                              </div>
                @endif
                <span class="center"><?php echo $articles->links(); ?></span>
             </div>
