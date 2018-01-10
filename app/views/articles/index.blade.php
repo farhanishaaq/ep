@@ -16,6 +16,7 @@ Articles
 class="current"
 @stop
 @section('redBar')
+
 <div class = "user_logo">
    <div class="header_1 wrap_3 color_3 login-bar">Health Articles
    </div>
@@ -40,11 +41,9 @@ class="current"
                      <div class="post-box">
                         <img src="{{asset($image)}}"   style="margin-bottom: 10px; height:50px;" /><br>
                         {{--Like Button--}}
-                        @if(Auth::check())
                         <span class="pB10"> <i class="fa fa-thumbs-up" aria-hidden="false">&nbsp; Likes&nbsp;<span>
                         {{$article->article_likes}}
                         </span></i></span>
-                        @endif
                         {{--Like end--}}
                      </div>
                   </div>
@@ -81,7 +80,15 @@ class="current"
                            <img src="{{asset($image)}}"   style="margin-bottom: 10px; height:250px;" /><br>
                            {{--Like Button--}}
                            @if(Auth::check())
-                           <span id="like_{{$article->articleId}}" onclick="hitLikes('{{$article->articleId}}','{{Auth::user()->id}}')" class="pB10 fL"> <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="totalLike_{{$article->articleId}}">
+                           <span id="like_{{$article->articleId}}" onclick="hitLikes('{{$article->articleId}}','{{Auth::user()->id}}')"
+                           class="pB10 fL
+                           {{--{{dd($likes)}}--}}
+                           {{--{{dd($article->articleId)}}--}}
+                               @if(in_array($article->articleId ,$likeData))
+                               selectedClass
+                               @endif
+                               ">
+                            <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="totalLike_{{$article->articleId}}">
                            {{$article->article_likes}}
                            </span></i></span>
                            @endif
