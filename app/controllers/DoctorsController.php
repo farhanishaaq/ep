@@ -127,17 +127,13 @@ class DoctorsController extends \BaseController {
 		});
 	}
 
-	public function showDoctorProfile(){
-	    return View::make ("doctors.drProfile");
-
-    }
+//	public function showDoctorProfile(){
+//	    return View::make ("doctors.drProfile");
+//
+//    }
     public function GetProfile($id)
     {
         $drRecord=Doctor::fetechDoctorRecord($id);
-        $drComments=Comment::fetechDoctorComments($id);
-
-
-//       return View::make('doctors.drProfile', compact('drRecord','drComments'));
         return View::make('doctors.drProfile', compact('drRecord'));
 
 
