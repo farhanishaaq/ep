@@ -49,6 +49,7 @@ public function user(){
                 ->leftJoin('doctors','articles.doctor_id','=','doctors.id')
                 ->leftJoin('users','doctors.user_id','=','users.id')
                 ->select('articles.created_at AS articleCreate','like_logs.patient_id AS patientId','articles.id AS articleId','title','article_text','bannar_image','article_likes','full_name')
+                ->where('articles.status','1')
                 ->orderBy('articleCreate', 'desc')->groupBy('articleId')->paginate(5);
             return $queryBuilder;
         }
