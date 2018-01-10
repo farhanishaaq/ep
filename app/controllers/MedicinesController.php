@@ -91,6 +91,12 @@ class MedicinesController extends \BaseController {
 		return $response;
 	}
 
+    public function medicineSearch(){
+
+        return View::make('medicines.medicineSearch');
+    }
+
+
 	/**
 	 * Remove the specified medicine from storage.
 	 *
