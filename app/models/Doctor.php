@@ -292,7 +292,7 @@ class Doctor extends \Eloquent
 
 //                                       For Selected Cities Form Left Panel of Doctor List Show
             if ($filterParams['city'] != '')
-                $queryBuilder->whereIn('cities.id', '=', $filterParams['city']);
+                $queryBuilder->where('cities.id', '=', $filterParams['city']);
              elseif ($filterParams['selectCities'] != '')
                 $queryBuilder->whereIn('cities.id', $filterParams['selectCities']);
 
@@ -300,8 +300,7 @@ class Doctor extends \Eloquent
                 $queryBuilder->where('users.id', $filterParams['user_id']);
 
             $doctors = $queryBuilder->select('max_fee', 'min_fee', 'full_name', 'medical_specialties.name AS specialityName', 'start', 'end', 'code', 'doctors.id AS doctorsId', 'cities.name AS cityName', 'cities.id AS cityId', 'photo', 'gender')
-                ->groupBy('user_id')->get();
-
+                ->groupBy('user_id')->paginate(5);
             return $doctors;
 
 

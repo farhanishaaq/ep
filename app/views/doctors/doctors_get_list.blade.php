@@ -181,6 +181,7 @@
                     </div>
                 @endfor
 @endif
+<span class="center"><?php echo $doctors->links(); ?></span>
 <!-- Modal -->
                  <div class="modal fade" id="myModal" role="dialog">
                      <div class="modal-dialog modal-sm">
