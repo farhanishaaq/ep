@@ -147,6 +147,7 @@ class DoctorsController extends \BaseController {
 
     {
 //                                                           From Selected Left Panel,For  handle Errors
+        $doctors = NULL;
         $data['city'] = '';
         $data['user_id'] = '';
         $data['speciality'] = '';
@@ -154,6 +155,7 @@ class DoctorsController extends \BaseController {
         $data['selectSpecialities'] = '';
 
         if(Input::get('cities')!=''){
+
             $data['selectCities'] = Input::get('cities');
         }
         if(Input::get('speciality')!=''){
@@ -169,8 +171,16 @@ class DoctorsController extends \BaseController {
         $doctors = $this->_doctor->fetchPublicDoctors($data);
         $cities = City::all();
         $specialities = MedicalSpecialty::all();
-        return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
-    }
+
+            return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
+
+//        else {
+//            $doctors = NULL;
+//            dd($doctors);
+//            return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
+//        }
+
+        }
 
 
 }

@@ -11,7 +11,7 @@ Manage Articles
 
 @section('redBar')
 <div class = "user_logo">
-    <div class="header_1 wrap_3 color_3 login-bar">Easy Physician
+    <div class="header_1 wrap_3 color_3 login-bar">Article Status
         {{--<div class="col-md-12 mL25 taL">Easy Physician</div>--}}
     </div>
 </div>
@@ -45,6 +45,9 @@ Manage Articles
                     <th>Article Title</th>
                     <th>Date</th>
                     <th>Status</th>
+                    <th></th>
+                    <th>Update</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
 
@@ -74,6 +77,12 @@ Manage Articles
                                 <span class="slider round"></span>
                             </label>
                         </td>
+
+
+                        <td><a type="button" class="btn btn-raised btn-sm btn-1" href="{{url('articlesedit/'.$data->id)}}" name="update">UPDATE</a></td>
+                        <td><a type="button" class="btn btn-danger btn-sm btn-1"  href="{{url('articledelete/'.$data->id)}}" name="delete">DELETE</a></td>
+                        {{--@include('articles.include.deletearticle')--}}
+
                     </tr>
 
                 @endforeach

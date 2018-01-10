@@ -107,6 +107,7 @@
             <div class="col-md-9 col-sm-9  col-lg-9">
 
                 @if(empty($doctors))
+
                                             {{--No Record Found Error--}}
                                 <div class="col-lg-offset-4 col-md-offset-4">
                                 <span><img src="{{asset('images/not_found.png')}}"></span><br>
@@ -201,7 +202,7 @@
                        </div>
                      </div>
                    </div>
-                    <span class="center"><?php echo $doctors->links(); ?></span>
+
                  </div>
 
                 </div>

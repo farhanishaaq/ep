@@ -2,7 +2,16 @@
 @section('title')
     Add New Post
 @endsection
+
+@section('redBar')
+    <div class = "user_logo">
+        <div class="header_1 wrap_3 color_3 login-bar">Write Article
+        </div>
+    </div>
+@stop
+
 @section('content')
+    <br>
     <script type="text/javascript" src="{{ asset('js/tinymce_4.7.2/tinymce/js/tinymce/tinymce.min.js') }}"></script>
     <script type="text/javascript">
         tinymce.init({
@@ -14,7 +23,7 @@
     <form action="{{route('arStore')}}" method="post" enctype="multipart/form-data" style="padding-left: 60px; padding-right: 60px">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         {{--<div class="form-group">--}}
-            <label style="color: cornflowerblue"><h4>Title of Article</h4></label>
+
 
             <div class="imageupload panel panel-default">
                 <div class="panel-heading clearfix">

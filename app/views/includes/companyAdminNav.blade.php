@@ -15,14 +15,28 @@
                 <li><a href="{{URL::route('patients.index')}}">Manage Patients</a></li>
                 <li class="divider"></li>
                 <li><a href="{{URL::route('prescriptions.index')}}">Manage Prescriptions</a></li>
-                <li class="divider"></li>
-                <li><a href="{{URL::route('commentsStatus')}}">Manage Comments</a></li>
-                <li class="divider"></li>
-                <li><a href="{{URL::route('question.index')}}">Manage Questions</a></li>
-                <li class="divider"></li>
-                <li><a href="{{URL::route('questionHistory')}}">Questions History</a></li>
             </ul>
         </li>
+
+        {{--Blog--}}
+
+          <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Blog<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{URL::route('articlesList')}}">Articles</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{URL::route('editer')}}">Write Article</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{URL::route('articleStatus')}}">Articles Status</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{URL::route('commentsStatus')}}">Manage Comments</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{URL::route('question.index')}}">Manage Questions</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{URL::route('questionHistory')}}">Questions History</a></li>
+                       </ul>
+             </li>
 
         {{-- Inventory --}}
         <li class="dropdown">
@@ -49,8 +63,6 @@
 
         {{-- Administrations --}}
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Administration <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="{{route('roles.index')}}">Manage Roles</a></li>
                 <li class="divider"></li>
@@ -60,6 +72,8 @@
                 <li class="divider"></li>
                 <li><a href="{{URL::route('medicines.index')}}">Manage Medicines</a></li>
             </ul>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">Administration <span class="caret"></span></a>
         </li>
         @include('includes.profileNavDropdown')
     </ul>
