@@ -2,16 +2,24 @@
 
 class MedicineDataController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+    private $_medicine;
+    public function __construct(MedicineData $medicine)
+    {
+        $this->$_medicine = $medicine;
+    }
+
 	public function index()
 	{
-		//
+
 	}
 
+    public function getMedicineList()
+    {
+       $data = $this->_medicine->getMedicineList();
+        dd($data);
+
+        return View::make('medicines.medicineList');
+    }
 
 	/**
 	 * Show the form for creating a new resource.

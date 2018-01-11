@@ -371,6 +371,23 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return "Success";
 
     }
+    public  function savePublicDoctor(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
+
+        $this->company_id = "1";
+        $this->business_unit_id = "1";
+        $this->fname = $filterparams['fname'];
+        $this->lname = $filterparams['lname'];
+        $this->full_name = $filterparams['fname'] . " " . $filterparams['lname'];
+        $this->user_type = $filterparams['userType'];
+        $this->email = $filterparams['doctorEmail'];
+        $this->username = $filterparams['doctorUserName'];
+        $this->city_id = $filterparams['doctorCity'];
+        $this->password = Hash::make($filterparams['password']);
+        $this->phone = $filterparams['phone'];
+        $this->save();
+        return "Success";
+
+    }
 
 public function fetchemail($filterparams){
     $email=self::where('email','=','%'.$filterparams['q'].'%');

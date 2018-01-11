@@ -96,6 +96,17 @@ class AuthController extends \BaseController
             echo "Error In Sign Up";
     }
 
+    public function doSignUpDoctor()
+    {
+        $data = Input::all();
+        $massage = $this->_user->savePublicDoctor($data);
+
+        if ($massage == "Success") {
+            return View::make('doctors.doctorInfo',compact('massage'));
+        } else
+            echo "Error In Sign Up";
+    }
+
     public function checkEmail()
     {
         $user = DB::table('users')->where('email', $_POST['user_email']);

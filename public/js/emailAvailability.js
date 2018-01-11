@@ -4,10 +4,17 @@ $(document).ready(function() {
 
     });
 });
+//For Doctor Sign Up
+$(document).ready(function() {
+    $('#doctorCity').select2({
+        placeholder: 'Select City'
 
-function checkemail()
+    });
+});
+
+function checkemail(id)
 {
-    var email=document.getElementById( "email" ).value;
+    var email=document.getElementById(id ).value;
 
     if(email)
     {
@@ -18,7 +25,7 @@ function checkemail()
                 user_email:email
             },
             success: function (response) {
-                $( '#email_status' ).html(response).addClass('errorMsg');
+                $( '#status_'+id ).html(response).addClass('errorMsg');
                 if(response =="")
                 {
 
@@ -34,13 +41,13 @@ function checkemail()
     }
     else
     {
-        $( '#email_status' ).html("Field is required").addClass('errorMsg');
+        $( '#status_'+id ).html("Field is required").addClass('errorMsg');
         return false;
     }
 }
-function checkUserName()
+function checkUserName(id)
 {
-    var userName =document.getElementById( "userName" ).value;
+    var userName =document.getElementById(id).value;
 
     if(userName)
     {
@@ -51,7 +58,7 @@ function checkUserName()
                 user_Name:userName
             },
             success: function (response) {
-                $( '#userName_status' ).html(response).addClass('errorMsg');
+                $( '#status_'+id ).html(response).addClass('errorMsg');
                 if(response == "")
                 {
 
@@ -66,7 +73,7 @@ function checkUserName()
     }
     else
     {
-        $( '#userName_status' ).html("Field is required").addClass('errorMsg');
+        $( '#status_'+id ).html("Field is required").addClass('errorMsg');
         return false;
     }
 }
