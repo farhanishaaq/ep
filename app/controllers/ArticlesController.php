@@ -251,6 +251,7 @@ if ($articles != NULL){
 
 
         }
+
         public function replace(){
 
             $data = Input::all();

@@ -170,6 +170,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public static function check($controller,$action){
+
+//	    foreach (Ep::currentUser()->roles as $role){
+//
+//	        print_r($role->name);
+//        }
+//
+//        dd(Ep::currentUser()->roles);
+//	    dd('wadksajkd');
 		try{
 		    $currentUser = Ep::currentUser();
 			if($currentUser->roles->count()){
@@ -356,6 +364,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
     public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
 
+        $this->company_id = "1";
+        $this->business_unit_id = "1";
+        $this->user_type = "Portal User";
         $this->fname = $filterparams['fname'];
         $this->lname = $filterparams['lname'];
         $this->full_name = $filterparams['fname'] . " " . $filterparams['lname'];

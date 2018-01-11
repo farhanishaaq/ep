@@ -93,7 +93,7 @@ Manage Articles
     </div>
 
 
-    <script src="{{asset('js/emailAvailability.js')}}"></script>
+    <script src="{{asset('js/articlesstatus.js')}}"></script>
 @stop
 
 

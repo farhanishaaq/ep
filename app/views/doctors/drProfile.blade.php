@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="profile-usertitle">
                                     <div class="profile-usertitle-name"> {{ $profile->full_name }} </div>
-                                    <div class="profile-usertitle-job"> Gynaecologist </div>
+                                    <div class="profile-usertitle-job">{{$profile->specialityName}}</div>
                                 </div>
                                 <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
@@ -88,7 +88,7 @@
                                 <div class="profile-userbuttons">
                                     {{--
                                     <button type="submit" class="btn btn-circle green-bgcolor btn-sm" href="{{URL::route('getappointment')}}">Get Appointment</button>--}}
-                                    <button class="btn btn-raised btn-sm btn-1"> <a href="{{ URL::route('getappointment') }}" type="submit" style="color: white"> Get Appointment </a></button>
+                                     <a  href="{{ URL::route('getappointment') }}" type="submit" style="color: white"><button class="btn btn-raised btn-sm btn-1" > Get Appointment </button></a>
                                     <button type="button" class="btn btn-raised btn-sm btn-1" data-toggle="modal" data-target="#myModal">Ask A Question</button>
                                     <div id="rateYo" style="margin-left: 50px;margin-top: 25px;"></div>
                                     <script src="{{asset('js/jquery.rateyo.js')}}"></script>
@@ -165,7 +165,7 @@
                                                                     <ul>
                                                                         <li>{{$profile->code}}</li>
                                                                         <li>{{$profile->title}}</li>
-                                                                        <li>{{$profile->description}}</li>
+                                                                        <li>{{$profile->qualificationsDescription}}</li>
                                                                         <li>{{$profile->institute}}</li>
 
                                                                     </ul>
@@ -511,7 +511,6 @@
         {{--}--}}
 
     {{--</script>--}}
-    <script src="{{asset("js/doctor.profile.js")}}"></script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0h-b6OIqk8pmDhFmH2BiUHSlU4PmFiDU&callback=initMap">
     </script>
