@@ -83,7 +83,7 @@
 <span class="center"><?php echo $data->links(); ?></span>
     </div>
 
-    <script src="{{asset('js/emailAvailability.js')}}"></script>
+    <script src="{{asset('js/commentStatus.js')}}"></script>
 @stop
 
 

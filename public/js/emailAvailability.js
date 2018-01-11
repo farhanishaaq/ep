@@ -84,22 +84,6 @@ function checkUserName()
             return false;
     }
 
-// Comment Status Approve Or Decline
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
 
 
 

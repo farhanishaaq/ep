@@ -356,6 +356,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
     public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
 
+        $this->company_id = "1";
+        $this->business_unit_id = "1";
+        $this->user_type = "Portal User";
         $this->fname = $filterparams['fname'];
         $this->lname = $filterparams['lname'];
         $this->full_name = $filterparams['fname'] . " " . $filterparams['lname'];
