@@ -30,10 +30,10 @@ class="current"
 <div class="carousel" role="listbox">
    <div class="carousel-item active">
       <div class="row">
-         <div class="col-lg-3 col-sm-12 post-block post-thumb">
+         <div class="col-lg-3 col-sm-3 post-block post-thumb">
             {{--Main page left Panel--}}
             <div class="col-lg-12 col-md-12 pT10 card" role="tab" id="headingOne">
-               <h1 class="mT10 mB0 c3 pB20" style="font-family: 'Marvel'; float: left;">Latest Updates</h1>
+               <h1 class="mT10 mB0 c3 pB20" style="font-family: 'Marvel'; float: left; width: 100%">Latest Updates</h1>
                @foreach ($articles->slice(0, 3) as $article)
                <?php $image = '/articleimage'.'/'.$article->articleId.'/'.$article->bannar_image?>
                <div class="col-md-12 col-sm-12 col-lg-12">
@@ -59,7 +59,7 @@ class="current"
             </div>
          </div>
          {{--Main Page right Panel--}}
-         <div class="col-lg-9 col-sm-12 ">
+         <div class="col-lg-9 col-sm-9 ">
             {{--
             <div class="col-lg-8 col-sm-12 post-block post-big">
                --}}
@@ -86,7 +86,7 @@ class="current"
                                ">
                             <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="totalLike_{{$article->articleId}}">
                            {{$article->article_likes}}
-                           </span></i></span>
+                           </span></i></span><br>
                            @endif
                            {{--Like end--}}
                         </div>
