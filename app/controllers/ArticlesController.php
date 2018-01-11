@@ -108,7 +108,7 @@ class ArticlesController extends \BaseController
 //        return Response::json($response);
 
 
-        return Redirect::back();
+        return Redirect::route('articlesList');
 
     }
 
@@ -315,7 +315,7 @@ if ($articles != NULL){
 //        return Response::json($response);
 
 
-            return Redirect::back();
+            return Redirect::route('articlesList');
 
 
         }
