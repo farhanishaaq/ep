@@ -16,7 +16,7 @@ function articlestatus(patientId)
                 article_action:status
             },
             success: function (response) {
-                alert(response);
+                //alert(response);
             }
         });
     }
