@@ -50,7 +50,7 @@ Sign Up
                </div>
                <div id="signUpDoctor" class="tab-pane fade">
                   {{--Doctor Sign Up--}}
-                                    <form action="{{URL::route('doSignUpDoctor') }}" method="post" name="form" onsubmit="return checkError()">
+                                    <form action="{{URL::route('doSignUpDoctor') }}" method="post" name="form" onsubmit="return checkDoctorError()">
                                        <input type="hidden" id ="userType" name="userType" value="Doctor">
                                        <input type="text" id ="fname" name="fname" placeholder="First Name" required="true">
                                        <input type="text" id ="lname" name="lname" placeholder="Last Name" required="true">
