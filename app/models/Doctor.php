@@ -261,8 +261,10 @@ class Doctor extends \Eloquent
             ->leftjoin('doctor_qualification', 'doctors.id', '=', 'doctor_qualification.doctor_id')
             ->leftjoin('users', 'doctors.user_id', '=', 'users.id')
             ->leftjoin('qualifications', 'doctor_qualification.qualification_id', '=', 'qualifications.id')
+            ->leftjoin('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
+            ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
 //               ->join('comments','comments.doctor_id','=','doctors.id')
-            ->select('doctors.id', 'max_fee', 'code', 'title', 'description', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'cell', 'address', 'email', 'photo')
+            ->select('medical_specialties.name AS specialityName','doctors.id', 'max_fee', 'code', 'title', 'qualifications.description AS qualificationsDescription', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'cell', 'address', 'email', 'photo')
             ->where('doctors.id', '=', $id)
             ->groupBy('doctors.id')
             ->get();
@@ -283,29 +285,24 @@ class Doctor extends \Eloquent
                 ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id');
 
 //                                              For Selected Speciality from Left Panel of Doctors list Show
-//            dd($filterParams['selectSpecialities']);
 
-            if ($filterParams['speciality'] != '') {
+            if ($filterParams['speciality'] != '')
                 $queryBuilder->where('medical_specialties.id', '=', $filterParams['speciality']);
-            } elseif ($filterParams['selectSpecialities'] != '') {
+             elseif ($filterParams['selectSpecialities'] != '')
                 $queryBuilder->whereIn('medical_specialties.id', [$filterParams['selectSpecialities']]);
-            }
+
 
 //                                       For Selected Cities Form Left Panel of Doctor List Show
-            if ($filterParams['city'] != '') {
-                $queryBuilder->whereIn('cities.id', '=', $filterParams['city']);
-            } elseif ($filterParams['selectCities'] != '') {
+            if ($filterParams['city'] != '')
+                $queryBuilder->where('cities.id', '=', $filterParams['city']);
+             elseif ($filterParams['selectCities'] != '')
                 $queryBuilder->whereIn('cities.id', $filterParams['selectCities']);
-            }
-            if ($filterParams['user_id'] != '') {
+
+            if ($filterParams['user_id'] != '')
                 $queryBuilder->where('users.id', $filterParams['user_id']);
-            }
 
             $doctors = $queryBuilder->select('max_fee', 'min_fee', 'full_name', 'medical_specialties.name AS specialityName', 'start', 'end', 'code', 'doctors.id AS doctorsId', 'cities.name AS cityName', 'cities.id AS cityId', 'photo', 'gender')
                 ->groupBy('user_id')->paginate(5);
-
-
-
             return $doctors;
 
 

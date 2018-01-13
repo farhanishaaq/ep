@@ -49,7 +49,7 @@
                             </ul>
 
                     </div>
-                    <input type="hidden" name="jsfields" id="jsfields" value="" />
+                    <input type="hidden" name="actions" id="jsfields" value="" />
                 </div>
             </div>
         </div>
@@ -106,7 +106,7 @@
 //                    console.log($( "#" + value));
 //                    console.log($( "#" + value).prop( "checked"))
 //                }
-                alert('Selected: ' + r.join(', ') +" :" );
+              //  alert('Selected: ' + r.join(', ') +" :" );
 
             })
 

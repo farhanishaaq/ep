@@ -21,7 +21,7 @@ public function user(){
 
     public function saveArticle ($data){
 
-        $doctor_id = Auth::user()->id;
+    $doctor_id = Auth::user()->id;
 
         $text=$data['body'];
         $title = $data['title'];
@@ -48,8 +48,9 @@ public function user(){
                 ->leftJoin('like_logs','articles.id','=','like_logs.patient_id')
                 ->leftJoin('doctors','articles.doctor_id','=','doctors.id')
                 ->leftJoin('users','doctors.user_id','=','users.id')
-                ->select('like_logs.patient_id AS patientId','articles.id AS articleId','title','article_text','bannar_image','article_likes','full_name')
-                ->distinct()->paginate(5);
+                ->select('articles.created_at AS articleCreate','like_logs.patient_id AS patientId','articles.id AS articleId','title','article_text','bannar_image','article_likes','full_name')
+                ->where('articles.status','1')
+                ->orderBy('articleCreate', 'desc')->groupBy('articleId')->paginate(5);
             return $queryBuilder;
         }
 
@@ -77,8 +78,9 @@ public function user(){
     {
 //      Getting Data for Check that Specific record has like record on this article or not
         $queryBuilder = DB::table('like_logs')
+        ->select('article_id')
         ->where('patient_id', '=', $params['patientId'])
-            ->count();
+        ->get();
         return $queryBuilder;
     }
 
@@ -225,6 +227,57 @@ public function user(){
 
 
  }
+
+public function editarticle($id){
+
+    $articles =  DB::table('articles')->where('id', $id)
+        ->first();
+
+
+    return $articles ;
+}
+
+public function restore($data){
+
+
+    $doctor_id = Auth::user()->id;
+    $id = $data['id'];
+    $text=$data['body'];
+    $title = $data['title'];
+
+
+    DB::table('articles')
+        ->where('id', $id)
+        ->update(array('doctor_id' => $doctor_id, 'article_text' => $text, 'title' => $title));
+
+    $this->update();
+    return 'sucess';
+
+
+}
+
+    public function bannerupdate($filename,$data){
+
+          $id = $data['id'];
+
+        DB::table('articles')
+            ->where('id', $id)
+            ->update(array('bannar_image' => $filename));
+
+        $this->update();
+
+        return 'sucess';
+
+    }
+
+     public function deletearticle($id){
+
+         DB::table('articles')->where('id', $id)->delete();
+
+
+         return 'sucess';
+
+     }
 
 
 

@@ -31,6 +31,8 @@ Route::group(['Public'],function (){
 
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
     Route::post('doSignUp', array('as'=>'doSignUp','uses'=>'AuthController@doSignUp'));
+    Route::post('doctorInfoForm', array('as'=>'doctorInfoForm','uses'=>'AuthController@doctorInfoForm'));
+    Route::post('doSignUpDoctor', array('as'=>'doSignUpDoctor','uses'=>'AuthController@doSignUpDoctor'));
     Route::post('checkEmail', array('as'=>'checkEmail','uses'=>'AuthController@checkEmail'));
     Route::post('checkUserName', array('as'=>'checkUserName','uses'=>'AuthController@checkUserName'));
     Route::get('unauthorized', array('as'=>'unauthorized','uses'=>'AuthController@unauthorized'));
@@ -39,7 +41,7 @@ Route::group(['Public'],function (){
      * For ep social doctor profile
      */
     Route::get('drProfile/{id}', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
-    Route::get('patientProfile', array('as'=>'patientProfile','uses'=>'patientsController@getUserProfile'));
+    Route::get('patientProfile', array('as'=>'patientProfile','uses'=>'PatientsController@getUserProfile'));
 
 
     Route::get('search', 'SearchController@index');
@@ -65,7 +67,7 @@ Route::group(['Public'],function (){
      * HomeController Routes
      */
     Route::group(['Home'],function (){
-        Route::get('/', 'SearchController@index');
+        Route::get('/', ['as'=>'homePage','uses'=>'SearchController@index']);
         Route::group(['domain' => '{companyDomain}.ep.loc'], function ($companyDomain) {
             Route::get('companyHome', array('as'=>'showCompanyHomePage','uses'=>'HomeController@showCompanyHomePage'));
         });
@@ -344,9 +346,14 @@ Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@store'))
 
 Route::post('articleStore', array('as'=>'arStore','uses'=>'ArticlesController@store'));
 Route::get('getappointment/{id}', array('as'=>'getappointment', 'uses' => 'AppointmentsController@crtappointment'));
-Route::get('articles', array('as'=>'articles','uses'=>'ArticlesController@articleList'));
+Route::get('articlesList', array('as'=>'articlesList','uses'=>'ArticlesController@articleList'));
+Route::get('medicinesList', array('as'=>'medicinesList','uses'=>'MedicineDataController@getMedicineList'));
 Route::post('likePerform', array('as'=>'likePerform','uses'=>'ArticlesController@likeManage'));
 Route::get('articles/{id}', array('as'=>'articles','uses'=>'ArticlesController@show'));
+Route::get('articlesedit/{id}', array('as'=>'articlesedit','uses'=>'ArticlesController@edit'));
+Route::post('articleupdate', array('as'=>'articleupdate','uses'=>'ArticlesController@replace'));
+Route::get('articledelete/{id}', array('as'=>'articledelete','uses'=>'ArticlesController@destroy'));
+
 Route::get('drEditer', array('as'=>'editer','uses'=>'ArticlesController@index'));
 Route::get('articleStatus', array('as'=>'articleStatus','uses'=>'ArticlesController@status'));
 Route::post('updateArticles', array('as'=>'updateArticles','uses'=>'ArticlesController@statusupdate'));
@@ -355,5 +362,7 @@ Route::post('updateArticles', array('as'=>'updateArticles','uses'=>'ArticlesCont
 //this controller questions asked by patient to deoctor
 Route::resource('question', 'QuestionController');
 Route::get('question-status',array('as'=>'changeStatus','uses'=> 'QuestionController@updateStatus'));
+Route::get('medicineSearch',array('as'=>'medicineSearch','uses'=> 'MedicinesController@medicineSearch'));
 Route::get('question-history',array('as' => 'questionHistory', 'uses' => 'QuestionController@viewHistory'));
 Route::resource('answer','AnswerController');
+

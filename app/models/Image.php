@@ -24,6 +24,27 @@ class Image extends \Eloquent {
         return 'sucess';
     }
 
+    public function updateImage ($filename, $articleid, $destinationPath){
+//          dd($destinationPath,$filename);
+        $doctor_id = Auth::user()->id;
+
+
+        $imagepath=$filename;
+
+
+
+
+        DB::table('images')
+            ->where('id', $articleid)
+            ->update(array('image' => $imagepath, 'doctor_id' => $doctor_id));
+
+        $this->update();
+
+
+        return 'sucess';
+    }
+
+
 
 
 

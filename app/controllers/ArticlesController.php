@@ -108,7 +108,7 @@ class ArticlesController extends \BaseController
 //        return Response::json($response);
 
 
-        return Redirect::back();
+        return Redirect::route('articlesList');
 
     }
 
@@ -151,7 +151,10 @@ if ($articles != NULL){
      */
     public function edit($id)
     {
-        //
+
+        $articles=Article::editarticle($id);
+
+        return View::make('articles.articleupdate', compact('articles'));
     }
 
 
@@ -176,6 +179,11 @@ if ($articles != NULL){
     public function destroy($id)
     {
         //
+
+
+        $this->_article->deletearticle($id);
+        return Redirect::back();
+
     }
 
     public function likeManage()
@@ -205,20 +213,18 @@ if ($articles != NULL){
 //       $data['userId'] = Auth::patient()->id;
 //        $status = $this->_article->getLikes($data);
         if(Auth::check()){
-            if(Auth::user()->id) {
                 $data['patientId'] = Auth::user()->id;
                 $likes = $this->_article->getLikesForList($data);
-                if($likes == "1")
-                    $articles['status'] = "ON";
-                else
-                    $articles['status'] = "OFF";
-            }
+            $likeData[] = "";
+            foreach($likes as $like){
+                    array_push($likeData, $like->article_id);
+                }
+//                    $selectedClass['status'] = "";
         }
 
-//        dd($likes);
         $articles = $this->_article->getArticles();
 //        dd($articles);
-        return View::make('articles.index', compact('articles'));
+        return View::make('articles.index', compact('articles','likeData'));
     }
 
         public function healthatricle()
@@ -242,6 +248,74 @@ if ($articles != NULL){
 
             $this->_article->articlesupdate($data);
 
+
+
+        }
+
+        public function replace(){
+
+            $data = Input::all();
+
+
+            $response = null;
+            if (Input::hasFile('image')) {
+                $file = Input::file('image');
+
+                $type = $file->getMimeType();
+                $size = $file->getSize();
+
+
+                $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
+                if ($size > 6000){
+                    if (in_array($type, $supportedTypes)){
+
+
+
+
+                        $this->_article->restore($data);
+                        $articleid = $data['id'];
+
+
+                        $destinationPath = public_path(GlobalsConst::ARTICLE_PHOTO_DIR)."/".$articleid;
+                        $filename = str_random(16) . '_' . $file->getClientOriginalName();
+                        $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
+                        $uploadSuccess = $file->move($destinationPath, $filename);
+
+
+                        $this->_image->updateImage($filename, $articleid, $destinationPath);
+                        $this->_article->bannerupdate($filename,$data);
+//                return View::make('doctors.articlesEditer', compact('response'));
+
+                    }
+                    else{
+                        $response = ['success' => false, 'error' => 'No files were processed.'] ;
+
+
+                        return View::make('doctors.articlesEditer', compact('response'));
+
+
+                    }
+
+                }
+                else{
+
+                    $response = ['success' => false, 'error' => 'No files were processed.'] ;
+
+
+                    return View::make('doctors.articlesEditer', compact('response'));
+
+                }
+
+            }
+
+            else {
+//			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
+                $response = ['success' => false, 'error' => 'No files were processed.'];
+            }
+//        return Response::json($response);
+
+
+            return Redirect::route('articlesList');
 
 
         }

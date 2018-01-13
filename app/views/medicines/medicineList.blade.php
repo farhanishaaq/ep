@@ -1,6 +1,6 @@
-﻿
+
 <head>
-    <link href="{{asset('css/doctorList.css')}}" rel="stylesheet">
+    <link href="{{asset('css/medicineList.css')}}" rel="stylesheet">
 </head>
 {{--This fill CSS Save in CSS Folder As doctorList--}}
 @extends('layouts.master')
@@ -14,9 +14,9 @@
     <div class = "user_logo">
         <div class="header_1 wrap_3 color_3 login-bar">
             Searched In
-            @if($doctors->count()>0)
-            "{{$doctors[0]->cityName}}"
-            @endif
+            {{--@if($doctors->count()>0)--}}
+            {{--"{{$doctors[0]->medicineName}}"--}}
+            {{--@endif--}}
         </div>
     </div>
 @stop
@@ -53,15 +53,15 @@
   <div id="cities" class="collapse pL10">
      <div class="panel-body" style="padding-top: 0; border-bottom: 1px solid #01ADD5">
         {{--<div class="chbxs listm">--}}
-            @foreach($cities as $city)
+            {{--@foreach($cities as $city)--}}
 
-             <div class="btn-group">
-                 <label class="container">&nbsp;&nbsp;&nbsp;{{$city->name}}
-                     <input name="cities[]" type="checkbox" value="{{$city->id}}">
-                     <span class="checkmark"></span>
-                 </label></div>
+             {{--<div class="btn-group">--}}
+                 {{--<label class="container">&nbsp;&nbsp;&nbsp;{{$city->name}}--}}
+                     {{--<input name="cities[]" type="checkbox" value="{{$city->id}}">--}}
+                     {{--<span class="checkmark"></span>--}}
+                 {{--</label></div>--}}
 
-                @endforeach
+                {{--@endforeach--}}
            <div class="clearfix"></div>
         {{--</div>--}}
      </div>
@@ -79,15 +79,15 @@
   <div id="speciality" class="collapse pL10">
      <div class="panel-body" style="padding-top: 0; border-bottom: 1px solid #01ADD5">
         <div class="chbxs listm">
-               @foreach($specialities as $speciality)
+               {{--@foreach($specialities as $speciality)--}}
                {{--For Space in list Use Class i.e mB4--}}
-               <div class="btn-group" style="width: inherit" >
-                           <label class="doctorRadio" ><span class="show-read-more">{{$speciality->name}}</span>
+               {{--<div class="btn-group" style="width: inherit" >--}}
+                           {{--<label class="doctorRadio" ><span class="show-read-more">{{$speciality->name}}</span>--}}
                              {{--<input name="specialities[]" type="checkbox" value="{{$speciality->id}}">--}}
-                             <input name="speciality" type="radio" value="{{$speciality->id}}">
-                             <span class="radiomark"></span>
-                           </label></div><br>
-         @endforeach
+                             {{--<input name="speciality" type="radio" value="{{$speciality->id}}">--}}
+                             {{--<span class="radiomark"></span>--}}
+                           {{--</label></div><br>--}}
+         {{--@endforeach--}}
            <div class="clearfix"></div>
         </div>
      </div>
@@ -107,9 +107,9 @@
             {{--Right Panel--}}
             <div class="col-md-9 col-sm-9  col-lg-9">
 
-                @if($doctors->count()>0)
+                {{--@if($doctors->count()>0)--}}
 
-                    @for($i=0; $i<sizeof($doctors);$i++)
+                    {{--@for($i=0; $i<sizeof($doctors);$i++)--}}
 
                     <div class="col-md-12 col-sm-12  col-lg-12 card listBox" style="border-radius: 5px; padding-top: 10px; ">
                         <div class="col-md-3 col-sm-3 col-lg-3">
@@ -117,15 +117,15 @@
                         <div class="col-md-10 col-sm-10  col-lg-10   col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-2">
                             <div class="thumb-xl member-thumb " style="align-items: center">
                                 <img src="
-                           @if(isset($doctors[$i]->photo))
-                            {{asset('uploads/'.$doctors[$i]->photo)}}
-                                @else
-                                        @if($doctors[$i]->gender =="Male")
-                                    {{asset('uploads/maleUnknown.jpg')}}
-                                        @else
-                                    {{asset('uploads/femaleUnknown.jpg')}}
-                                    @endif
-                           @endif
+                           {{--@if(isset($doctors[$i]->photo))--}}
+                            {{--{{asset('uploads/'.$doctors[$i]->photo)}}--}}
+                                {{--@else--}}
+                                        {{--@if($doctors[$i]->gender =="Male")--}}
+                                    {{--{{asset('uploads/maleUnknown.jpg')}}--}}
+                                        {{--@else--}}
+                                    {{--{{asset('uploads/femaleUnknown.jpg')}}--}}
+                                    {{--@endif--}}
+                           {{--@endif--}}
 
                                         " class="img-circle" alt="profile-image" >
                                 <i class="zmdi zmdi-info" title="verified user"></i>
@@ -136,11 +136,12 @@
                         <div class="col-md-3 col-sm-3  col-lg-3" >
                             <div class="col-xs-12 col-md-12 col-sm-12" style="text-align: center">
                                 <h4 align="center"><strong>
-                                {{$doctors[$i]->full_name}}
+                                {{--{{$doctors[$i]->full_name}}--}}
                                 </strong></h4>
                                 <p align="center" >
-                               <strong>{{$doctors[$i]->code}}</strong><br>
-                                <a style="" href="{{route('drProfile',$doctors[$i]->doctorsId)}}"  class="btn btn-raised btn-sm">View Profile</a>
+{{--                               <strong>{{$doctors[$i]->code}}</strong><br>--}}
+{{--{{route('drProfile',$doctors[$i]->doctorsId)}}--}}
+                                <a style="" href="#"  class="btn btn-raised btn-sm">View Profile</a>
                                 <span> <a href="#" style="color: red">websitk.ename.com</a> </span></p>
                                 <ul class="social-links list-inline m-t-10">
                                     <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
@@ -153,15 +154,15 @@
                             <div style="">
                                 <h5 align="center" ><strong style="color:  #01ADD5; font-size: 15px">Speciality:</strong><strong>
 
-                                            {{$doctors[$i]->specialityName}}
+                                            {{--{{$doctors[$i]->specialityName}}--}}
                                         </strong></h5>
 
                                 <p align="center" >
 
-                                        {{$doctors[$i]->start}}
-                                    <strong>AM</strong><br><strong>To</strong><br>
-                                        {{$doctors[$i]->end}}
-                                    <strong>PM</strong></p>
+                                        {{--{{$doctors[$i]->start}}--}}
+                                    {{--<strong>AM</strong><br><strong>To</strong><br>--}}
+                                        {{--{{$doctors[$i]->end}}--}}
+                                    {{--<strong>PM</strong></p>--}}
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-3  col-lg-3">
@@ -169,19 +170,19 @@
 <button type="button" class="btn btn-raised btn-sm btn-1" data-toggle="modal" data-target="#myModal"><strong>Call Now</strong></button>
                                 {{--<button class="btn btn-raised btn-sm btn-warning" style="width: inherit ">Call Now</button>--}}
                                 <p>Fee Starting</p>
-                                <p> <strong>{{$doctors[$i]->min_fee}} </strong>PKR <strong>
+{{--                                <p> <strong>{{$doctors[$i]->min_fee}} </strong>PKR <strong>--}}
                                 To</strong>
-                                    <strong>{{$doctors[$i]->max_fee}} </strong>PKR</p>
+{{--                                    <strong>{{$doctors[$i]->max_fee}} </strong>PKR</p>--}}
                             </div>
                         </div>
                     </div>
-                @endfor
-                @else
+                {{--@endfor--}}
+                {{--@else--}}
                                                             {{--No Record Found Error--}}
                                                 <div class="col-lg-offset-4 col-md-offset-4">
                                                 <span><img src="{{asset('images/not_found.png')}}"></span><br>
                                 </div>
-@endif
+{{--@endif--}}
 
 <!-- Modal -->
                  <div class="modal fade" id="myModal" role="dialog">

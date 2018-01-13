@@ -4,10 +4,17 @@ $(document).ready(function() {
 
     });
 });
+//For Doctor Sign Up
+$(document).ready(function() {
+    $('#doctorCity').select2({
+        placeholder: 'Select City'
 
-function checkemail()
+    });
+});
+
+function checkemail(id)
 {
-    var email=document.getElementById( "email" ).value;
+    var email=document.getElementById(id ).value;
 
     if(email)
     {
@@ -18,7 +25,7 @@ function checkemail()
                 user_email:email
             },
             success: function (response) {
-                $( '#email_status' ).html(response).addClass('errorMsg');
+                $( '#status_'+id ).html(response).addClass('errorMsg');
                 if(response =="")
                 {
 
@@ -34,13 +41,13 @@ function checkemail()
     }
     else
     {
-        $( '#email_status' ).html("Field is required").addClass('errorMsg');
+        $( '#status_'+id ).html("Field is required").addClass('errorMsg');
         return false;
     }
 }
-function checkUserName()
+function checkUserName(id)
 {
-    var userName =document.getElementById( "userName" ).value;
+    var userName =document.getElementById(id).value;
 
     if(userName)
     {
@@ -51,7 +58,7 @@ function checkUserName()
                 user_Name:userName
             },
             success: function (response) {
-                $( '#userName_status' ).html(response).addClass('errorMsg');
+                $( '#status_'+id ).html(response).addClass('errorMsg');
                 if(response == "")
                 {
 
@@ -66,15 +73,15 @@ function checkUserName()
     }
     else
     {
-        $( '#userName_status' ).html("Field is required").addClass('errorMsg');
+        $( '#status_'+id ).html("Field is required").addClass('errorMsg');
         return false;
     }
 }
 //ON Submit Exeption Handler
 
     function checkError() {
-        var email = document.getElementById('email_status').innerHTML;
-        var userName = document.getElementById('userName_status').innerHTML;
+        var email = document.getElementById('status_email').innerHTML;
+        var userName = document.getElementById('status_userName').innerHTML;
         if (email == null || email == 0 || email == "0") {
         if (userName == null || userName == 0 || userName == "0") {
             document.form.submit();
@@ -84,83 +91,17 @@ function checkUserName()
             return false;
     }
 
-// Comment Status Approve Or Decline
-function statusUpdate(patientId)
-{
-    if($('#'+patientId).prop('checked')) {
-        var status = 'checked';
-    }
-    else {
-        status = 'unchecked';
-    }
-    if(patientId)
-    {
-        $.ajax({
-            type: 'post',
-            url: 'updateArticles',
-            data: {
-                comment_id:patientId,
-                comment_action:status
-            },
-            success: function (response) {
+function checkDoctorError() {
+        var email = document.getElementById('status_doctorEmail').innerHTML;
+        var userName = document.getElementById('status_doctorUserName').innerHTML;
+        if (email == null || email == 0 || email == "0") {
+        if (userName == null || userName == 0 || userName == "0") {
+            document.form.submit();
+                }
             }
-        });
+        else
+            return false;
     }
-}
-// end Jquery of Comment
-function articlestatus(patientId)
-{
-    if($('#'+patientId).prop('checked')) {
-        var status = 1;
-    }
-    else {
-        status = 0;
-    }
-    if(patientId)
-    {
-        $.ajax({
-            type: 'post',
-            url: 'updateArticles',
-            data: {
-                id:patientId,
-                article_action:status
-            },
-            success: function (response) {
-                alert(response);
-            }
-        });
-    }
-}
-
-function articleshow(patientId)
-{
-
-    if(patientId)
-    {
-        $.ajax({
-            type: 'post',
-            url: 'showArticle',
-            data: {
-                id:patientId,
-
-            },
-            success: function (response) {
-                alert(response);
-            }
-        });
-    }
-}
-
-
-
-
-
-
-
-
-
-//
-
 
 
 

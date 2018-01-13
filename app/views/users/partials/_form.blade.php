@@ -317,7 +317,16 @@
                 </section>
             </div>
             <div role="tabpanel" class="tab-pane dNi" id="patientInfoTab"></div>
-            <div role="tabpanel" class="tab-pane" id="rolesPermissionsTab">Settings Content</div>
+            <div role="tabpanel" class="tab-pane" id="rolesPermissionsTab">Settings Content
+          {{--<label style="width: 30%" >Roles--}}
+            {{--<select  name="roles" id="roles" class="form-control" style="width: 100%">--}}
+                {{--<option disabled selected> Please select role</option>--}}
+               {{--@foreach($roles as $role)--}}
+                {{--<option value="{{$role->id}}">{{$role->name}}</option>--}}
+                {{--@endforeach--}}
+            {{--</select>--}}
+          {{--</label>--}}
+            </div>
         </div>
         <div class="col-xs-12 taR pR0 mT20">
             <input type="reset" id="reset" value="Reset" class="submit" />
