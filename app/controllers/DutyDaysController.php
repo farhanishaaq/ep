@@ -1,7 +1,7 @@
 <?php
 use App\Globals\GlobalsConst;
 use \Illuminate\Support\Facades\Response;
-class DutydaysController extends \BaseController {
+class DutyDaysController extends \BaseController {
 
 	/**
 	 * Display a listing of dutydays
@@ -24,6 +24,7 @@ class DutydaysController extends \BaseController {
 	public function create()
 	{
         $formMode = GlobalsConst::FORM_CREATE;
+
 		$doctors = Employee::has('dutydays', '=', 0)->where('role', GlobalsConst::DOCTOR)
                 ->where('status', 'Active')->where('clinic_id', Auth::user()->clinic_id)->get();
         return View::make('dutydays.create')->nest('_form','dutydays.partials._form', compact('doctors','formMode'));

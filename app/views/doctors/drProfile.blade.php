@@ -130,7 +130,7 @@
                                             <div class="col-md-12">
                                                 <div class="tabbable-line">
                                                     <ul class="nav nav-tabs">
-                                                        <li ><h4>About Me</h4>  </li>
+                                                        <li ><h4><strong>About Me </strong>  </h4>  </li>
 
                                                     </ul>
                                                     <div class="tab-content">
@@ -217,8 +217,8 @@
 
                                                                         <h3 class="tab-content">Comments on Doctor's Checkup</h3> {{--@foreach($drComments as $comment)--}}
 
-                                                                        <div class="actionBox" style="background-color: white">
-                                                                            <ul class="commentList" id="commentList">
+                                                                        <div class="" style="background-color: white">
+                                                                            <ul  class="commentList" id="commentList">
 
                                                                             </ul>
                                                                         </div>
@@ -365,152 +365,152 @@
 
 
 
-//            getComments();
-            function getComments() {
+{{--//            getComments();--}}
+            {{--function getComments() {--}}
 
-                $.ajax({
-                    type: 'get',
-                    url: '{{route('showComment')}}',
-                    dataType: 'json',
-                    data: {
+                {{--$.ajax({--}}
+                    {{--type: 'get',--}}
+                    {{--url: '{{route('showComment')}}',--}}
+                    {{--dataType: 'json',--}}
+                    {{--data: {--}}
 
-                        'id': $('#Doctro_id').val()
+                        {{--'id': $('#Doctro_id').val()--}}
 
-                    },
-                    success: function (data) {
+                    {{--},--}}
+                    {{--success: function (data) {--}}
 
-                    if ((data.errors)) {
-                       // console.log(JSON.stringify(data));
-                    } else {
-                      //  console.log(JSON.stringify(data));
-                        $.each( data, function( key, val ) {
-                            var txt2 = $(" <li>  " +
-                                "<div  style='border-bottom: 1px solid #01ADD5; margin-bottom: 25px' class='commentText col-md-12'><span class='col-md-9'> " + val.comments+"</span>"+"<span class='col-md-3'>"+ (val.created_at).slice(0,-3)+"</span>" +
-                                "</div>" +
-                                "</li>");  // Create text with jQuery
+                    {{--if ((data.errors)) {--}}
+                       {{--// console.log(JSON.stringify(data));--}}
+                    {{--} else {--}}
+                      {{--//  console.log(JSON.stringify(data));--}}
+                        {{--$.each( data, function( key, val ) {--}}
+                            {{--var txt2 = $(" <li>  " +--}}
+                                {{--"<div  style='border-bottom: 1px solid #01ADD5; margin-bottom: 25px' class='commentText col-md-12'><span class='col-md-9'> " + val.comments+"</span>"+"<span class='col-md-3'>"+ (val.created_at).slice(0,-3)+"</span>" +--}}
+                                {{--"</div>" +--}}
+                                {{--"</li>");  // Create text with jQuery--}}
 
-                            $("#commentList").append(txt2);     // Append new elements
+                            {{--$("#commentList").append(txt2);     // Append new elements--}}
 
-//                            $("#commentList").appendChild(txt2);
-                            //alert(val.comments);
-                        });
-
-
-                    }
-                    }
-                });
+{{--//                            $("#commentList").appendChild(txt2);--}}
+                            {{--//alert(val.comments);--}}
+                        {{--});--}}
 
 
-            }
-
-            getComments();
-
-//        getComments();
-
-        $("#ajax").click(function(event) {
-            event.preventDefault();
-            if($('#comment').val().length>5){
-                $.ajax({
-                    type: "get",
-                    url: "{{ url('comment') }}",
-                    dataType: "json",
-                    data: {
-                        //'_token': $('input[name=_token]').val(),
-
-                        'id': $('#Doctro_id').val(),
-                        'user_id': $('#auth_user').val(),
-                        'comment': $('#comment').val()
-                    },
-
-//                data: $('#ajax').serialize(),
-                    success: function(data){
-//                        alert(sucess);
-                    },
-
-                    error: function(data){
-                        commentsreload();
-                        getComments();
-                        $('#comment').val('')
-                    }
-                });
-
-            }else {
-                return 0
-            }
+                    {{--}--}}
+                    {{--}--}}
+                {{--});--}}
 
 
-        });
+            {{--}--}}
+
+            {{--getComments();--}}
+
+{{--//        getComments();--}}
+
+        {{--$("#ajax").click(function(event) {--}}
+            {{--event.preventDefault();--}}
+            {{--if($('#comment').val().length>5){--}}
+                {{--$.ajax({--}}
+                    {{--type: "get",--}}
+                    {{--url: "{{ url('comment') }}",--}}
+                    {{--dataType: "json",--}}
+                    {{--data: {--}}
+                        {{--//'_token': $('input[name=_token]').val(),--}}
+
+                        {{--'id': $('#Doctro_id').val(),--}}
+                        {{--'user_id': $('#auth_user').val(),--}}
+                        {{--'comment': $('#comment').val()--}}
+                    {{--},--}}
+
+{{--//                data: $('#ajax').serialize(),--}}
+                    {{--success: function(data){--}}
+{{--//                        alert(sucess);--}}
+                    {{--},--}}
+
+                    {{--error: function(data){--}}
+                        {{--commentsreload();--}}
+                        {{--getComments();--}}
+                        {{--$('#comment').val('')--}}
+                    {{--}--}}
+                {{--});--}}
+
+            {{--}else {--}}
+                {{--return 0--}}
+            {{--}--}}
 
 
-
-        function commentsreload() {
-
-            $.ajax({
-                type: 'get',
-                url: '{{route('showComment')}}',
-                dataType: 'json',
-                data: {
-
-                    'id': $('#Doctro_id').val()
-
-                },
-                success: function (data) {
-
-                    if ((data.errors)) {
-                        console.log(JSON.stringify(data));
-                    } else {
-                        console.log(JSON.stringify(data));
-                        $.each( data, function( key, val ) {
-                            var txt2 = $(" <li>  " +
-                                "<div  class='commentText'><p> " + val.comments+"</p>"+"<span>"+ val.created_at+"</span>" +
-                                "</div>" +
-                                "</li>");  // Create text with jQuery
-
-                                // Append new elements
-                            $("#commentList").empty();
-//                            $("#commentList").append( txt2)
-
-//                            $("#commentList").appendChild(txt2);
-                            //alert(val.comments);
-                        });
-                    }
-                }
-            });
-        }
+        {{--});--}}
 
 
 
-    </script>
+        {{--function commentsreload() {--}}
 
-    <script>
-        function initMap() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 16,
-                center: {lat: -34.397, lng: 150.644}
-            });
-            var geocoder = new google.maps.Geocoder();
+            {{--$.ajax({--}}
+                {{--type: 'get',--}}
+                {{--url: '{{route('showComment')}}',--}}
+                {{--dataType: 'json',--}}
+                {{--data: {--}}
 
-          //  document.getElementById('submit').addEventListener('click', function() {
-                geocodeAddress(geocoder, map);
-         //   });
-        }
+                    {{--'id': $('#Doctro_id').val()--}}
 
-        function geocodeAddress(geocoder, resultsMap) {
-            var address = document.getElementById('address').value;
-            geocoder.geocode({'address': address}, function(results, status) {
-                if (status === 'OK') {
-                    resultsMap.setCenter(results[0].geometry.location);
-                    var marker = new google.maps.Marker({
-                        map: resultsMap,
-                        position: results[0].geometry.location
-                    });
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
-            });
-        }
+                {{--},--}}
+                {{--success: function (data) {--}}
+
+                    {{--if ((data.errors)) {--}}
+                        {{--console.log(JSON.stringify(data));--}}
+                    {{--} else {--}}
+                        {{--console.log(JSON.stringify(data));--}}
+                        {{--$.each( data, function( key, val ) {--}}
+                            {{--var txt2 = $(" <li>  " +--}}
+                                {{--"<div  class='commentText'><p> " + val.comments+"</p>"+"<span>"+ val.created_at+"</span>" +--}}
+                                {{--"</div>" +--}}
+                                {{--"</li>");  // Create text with jQuery--}}
+
+                                {{--// Append new elements--}}
+                            {{--$("#commentList").empty();--}}
+{{--//                            $("#commentList").append( txt2)--}}
+
+{{--//                            $("#commentList").appendChild(txt2);--}}
+                            {{--//alert(val.comments);--}}
+                        {{--});--}}
+                    {{--}--}}
+                {{--}--}}
+            {{--});--}}
+        {{--}--}}
+
+
 
     </script>
+
+    {{--<script>--}}
+        {{--function initMap() {--}}
+            {{--var map = new google.maps.Map(document.getElementById('map'), {--}}
+                {{--zoom: 16,--}}
+                {{--center: {lat: -34.397, lng: 150.644}--}}
+            {{--});--}}
+            {{--var geocoder = new google.maps.Geocoder();--}}
+
+          {{--//  document.getElementById('submit').addEventListener('click', function() {--}}
+                {{--geocodeAddress(geocoder, map);--}}
+         {{--//   });--}}
+        {{--}--}}
+
+        {{--function geocodeAddress(geocoder, resultsMap) {--}}
+            {{--var address = document.getElementById('address').value;--}}
+            {{--geocoder.geocode({'address': address}, function(results, status) {--}}
+                {{--if (status === 'OK') {--}}
+                    {{--resultsMap.setCenter(results[0].geometry.location);--}}
+                    {{--var marker = new google.maps.Marker({--}}
+                        {{--map: resultsMap,--}}
+                        {{--position: results[0].geometry.location--}}
+                    {{--});--}}
+                {{--} else {--}}
+                    {{--alert('Geocode was not successful for the following reason: ' + status);--}}
+                {{--}--}}
+            {{--});--}}
+        {{--}--}}
+
+    {{--</script>--}}
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0h-b6OIqk8pmDhFmH2BiUHSlU4PmFiDU&callback=initMap">
     </script>

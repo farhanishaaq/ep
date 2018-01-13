@@ -170,6 +170,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public static function check($controller,$action){
+
+//	    foreach (Ep::currentUser()->roles as $role){
+//
+//	        print_r($role->name);
+//        }
+//
+//        dd(Ep::currentUser()->roles);
+//	    dd('wadksajkd');
 		try{
 		    $currentUser = Ep::currentUser();
 			if($currentUser->roles->count()){
