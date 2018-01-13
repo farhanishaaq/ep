@@ -148,6 +148,8 @@ Doctors Info
 </form>
       </section>
 {{--Profile Image--}}
+
+
        <section class="form-Section col-md-6 h850 fL">
                   <div class="container w100p">
                       <h3 class="mT15 mB0 c3">Doctor Photo</h3>
@@ -220,9 +222,9 @@ Doctors Info
    $(document).ready(function() {
    $("#dutyDays").select2();
    });
-   
+
    //                var photoInitialPreview = '';
-   
+
    {{--@if($formMode == App\Globals\GlobalsConst::FORM_CREATE)--}}
            {{--photoInitialPreview = "{{asset('images/profile-dumy.png')}}";--}}
    {{--@else--}}
@@ -233,14 +235,14 @@ Doctors Info
        $('.btn.btn-primary-2.gender').click(function(){
            setRadioValInHidden('gender',$(this));
        });
-   
+
        var options = {
            saveCloseUrl: "{{route('doctors.index')}}",
            photoUploadUrl: "{{route('uploadProfilePic')}}",
            photoInitialPreview :[
                photoInitialPreview
            ]
-   
+
        };
        var doctorsForm = new DoctorsForm(window,document,options);
        doctorsForm.initializeAll();
