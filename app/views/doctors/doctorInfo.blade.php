@@ -1,20 +1,17 @@
-<head>
-    <link href="{{asset('css/doctorList.css')}}" rel="stylesheet">
-</head>
 {{--This fill CSS Save in CSS Folder As doctorList--}}
 @extends('layouts.master')
 <!--========================================================
    TITLE
    =========================================================-->
 @section('title')
-    Doctors Info
+Doctors Info
 @stop
 @section('redBar')
-    <div class = "user_logo">
-        <div class="header_1 wrap_3 color_3 login-bar">
-            Doctor Info
-        </div>
-    </div>
+<div class = "user_logo">
+   <div class="header_1 wrap_3 color_3 login-bar">
+      Doctor Info
+   </div>
+</div>
 @stop
 @section('sliderContent')
 @stop
@@ -22,183 +19,235 @@
    CONTENT
    =========================================================-->
 @section('content')
-        <?php
-{{--        $doctorPassword = isset($doctorPassword) ? $doctorPassword : null;--}}
-{{--        $doctorUsername = isset($doctorUsername)?$doctorUsername:null;--}}
-{{--        $doctorEmail = isset($doctorEmail)?$doctorEmail:null;--}}
-        ?>
-        @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-            {{ Form::open(array('action' => 'DoctorsController@store', 'class' =>"form-horizontal w100p ", 'id' => 'regForm','enctype' => 'multipart/form-data', 'novalidate')) }}
-        @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-            {{Form::model($doctor->user, ['route' => ['doctors.update', $doctor->id], 'method' => 'put' , 'class' => "form-horizontal w100p ", 'id' => 'regForm', 'novalidate'])}}
-        @endif
-        <h3 class="mT10 mB15 c3 bdrB1">Doctor Form<p class="col-xs-3 fR taR p0 required-hint pT10">Required Fields <kbd>*</kbd></p></h3>
-         Start Errors Code Container Block
-        @if(count($errors))
-        <ul class="error-container">
-            <li>Solve Following Errors!</li>
-            <li>
-                <ul>
-                    @foreach($errors->all("<li>:message</li>") as $message)
-                            {{ $message }}
-                    @endforeach
-                </ul>
-            </li>
-        </ul>
-        @endif
-         End Errors Code Container Block
-        <section class="form-Section col-md-6 h850 fL">
-            Basic Info
-            <div class="container w100p">
-                <h3 class="mT15 mB0 c3">Basic Info</h3>
-                <hr class="w95p fL mT0" />
-                <hr class="w95p fL mT0" />
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">*Username</label>
-                    <div class="col-xs-6">
+<div class="row">
+   <div class="container">
+      <br>
+      <section class="form-Section col-md-6 h850 fL">
 
-                        <input type="text" id="username" name="username" required="true" value="{{{ Form::getValueAttribute('username',$doctorUsername ) }}}" class="form-control" placeholder="Username">
-                        <span id="error_username" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">*Email</label>
-                    <div class="col-xs-6">
-                        <input type="text" id="email" name="email" required="true" value="{{{ Form::getValueAttribute('email', $doctorEmail) }}}" class="form-control" placeholder="Email">
-                        <span id="error_email" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-                @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-                    <div class="form-group">
-                        <label class="col-xs-5 control-label asterisk">Password</label>
-                        <div class="col-xs-6">
-                            <input type="password" id="password" name="password" required="true" value="{{{ Form::getValueAttribute('password', $doctorPassword) }}}" class="form-control" placeholder="Password">
-                            <span id="error_password" class="field-validation-msg"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-xs-5 control-label asterisk">Confirm Password</label>
-                        <div class="col-xs-6">
-                            <input type="password" id="confirm_password" name="confirm_password" required="true" value="{{{ Form::getValueAttribute('confirm_password', $doctorPassword) }}}" class="form-control" placeholder="Confirm Password">
-                            <span id="error_confirm_password" class="field-validation-msg"></span>
-                        </div>
-                    </div>
-                @endif
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">First Name</label>
-                    <div class="col-xs-6">
-                        <input type="text" id="fname" name="fname" required="true" value="{{{ Form::getValueAttribute('fname', null) }}}" class="form-control" placeholder="First Name">
-                        <span id="error_fname" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Last Name</label>
-                    <div class="col-xs-6">
-                        <input type="text" id="lname" name="lname" required="true" value="{{{ Form::getValueAttribute('lname', null) }}}" class="form-control" placeholder="Last Name">
-                        <span id="error_lname" class="field-validation-msg"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label">Status</label>
-                    <div class="col-xs-6">
-                        {{switch_btn_group(['fieldName'=>'status', 'onVal'=>'Active', 'offVal'=>'Inactive'])}}
-                    </div>
-                </div>
-
+            <h3 class="mT15 mB0 c3">Basic Info</h3>
+            <hr class="w95p fL mT0" />
+            <hr class="w95p fL mT0" />
+            <form action="{{URL::route('doctorInfoForm') }}" method="post" name="form">
+            <div class="form-group">
+               <label class="col-xs-5 control-label asterisk">First Name</label>
+               <div class="col-xs-6">
+                  <input type="hidden"  name="phone" required="true" value="{{$data['phone']}}">
+                  <input type="hidden"  name="city" required="true" value="{{$data['doctorCity']}}" class="form-control" placeholder="First Name">
+                  <input type="text" id="fname" name="fname" required="true" value="{{$data['fname']}}" class="form-control" placeholder="First Name">
+                  <span id="error_fname" class="field-validation-msg"></span>
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="col-xs-5 control-label asterisk">Last Name</label>
+               <div class="col-xs-6">
+                  <input type="text" id="lname" name="lname" required="true" value="{{$data['lname']}}" class="form-control" placeholder="Last Name">
+                  <span id="error_lname" class="field-validation-msg"></span>
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="col-xs-5 control-label asterisk">*Email</label>
+               <div class="col-xs-6">
+                  <input type="text" id="email" name="email" required="true" value="{{$data['doctorEmail']}}" class="form-control" placeholder="Email" disabled>
+                  <span id="error_email" class="field-validation-msg"></span>
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="col-xs-5 control-label asterisk">*Username</label>
+               <div class="col-xs-6">
+                  <input type="text" id="username" name="username" required="true" value="{{$data['doctorUserName']}}" class="form-control" placeholder="Username" disabled>
+                  <span id="error_username" class="field-validation-msg"></span>
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="col-xs-5 control-label asterisk">Password</label>
+               <div class="col-xs-6">
+                  <input type="password" id="password" name="password" required="true" value="{{$data['password']}}" class="form-control" placeholder="Password">
+                  <span id="error_password" class="field-validation-msg"></span>
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="col-xs-5 control-label asterisk">Confirm Password</label>
+               <div class="col-xs-6">
+                  <input type="password" id="confirm_password" name="confirm_password" required="true" value="{{$data['password']}}" class="form-control" placeholder="Confirm Password">
+                  <span id="error_confirm_password" class="field-validation-msg"></span>
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="col-xs-5 control-label">Status</label>
+               <div class="col-xs-6">
+                  {{switch_btn_group(['fieldName'=>'status', 'onVal'=>'Active', 'offVal'=>'Inactive'])}}
+               </div>
             </div>
 
-            Doctor Info
-            <div class="container w100p">
-                <h3 class="mT15 mB0 c3">Doctor Info</h3>
-                <hr class="w95p fL mT0" />
-                <hr class="w95p fL mT0" />
-
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">*Doctor Category</label>
-                    <div class="col-xs-6 multi-select">
-                        {{medical_specialty_drop_down($user)}}
-                        <span id="error_doctor_category_id" class="field-validation-msg"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Qualification</label>
-                    <div class="col-xs-6 multi-select">
-                        {{qualifications_drop_down($user)}}
-                        <span id="error_doctor_category_id" class="field-validation-msg"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xs-5 control-label asterisk">Fee Range</label>
-                    <div class="col-xs-6">
-                        <div class="input-group col-xs-12">
-                            <input type="text" id="min_fee" name="min_fee" class="form-control input-sm" value="{{Form::getValueAttribute('min_fee', null)}}" placeholder="Min Fee" />
-                            <span class="input-group-btn w20 fs25 taC">-</span>
-                            <input type="text" id="max_fee" name="max_fee" class="form-control input-sm" value="{{Form::getValueAttribute('max_fee', null)}}" placeholder="Max Fee" />
-                        </div>
-                    </div>
-                </div>
-
+            <h3 class="mT15 mB0 c3">Doctor Info</h3>
+            <hr class="w95p fL mT0" />
+            <hr class="w95p fL mT0" />
+            <div class="form-group">
+               <label class="col-xs-5 control-label asterisk">*Doctor Category</label>
+               <div class="col-xs-6 multi-select">
+                  {{medical_specialty_drop_down($user)}}
+                  <span id="error_doctor_category_id" class="field-validation-msg"></span>
+               </div>
             </div>
-
-        </section>
-        <section class="form-Section col-md-6 h850 fL">
-            <div class="container w100p">
-                <h3 class="mT15 mB0 c3">Doctor Photo</h3>
-                <hr class="w95p fL mT0" />
-                <hr class="w95p fL mT0" />
-
-                <div class="form-group profile-photo file-input">
-                    <label class="control-label">Profile Photo</label>
-                    <input id="photo" name="photo" type="hidden" value="{{{ Form::getValueAttribute('photo', null) }}}">
-                    <input id="userPhoto" name="userPhoto" type="file" class="file-loading" accept="image/*">
-                </div>
-
-
-
+            <hr class="w95p fL mT0" />
+            <br>
+            <div class="form-group">
+               <label class="col-xs-5 control-label asterisk">Qualification</label>
+               <div class="col-xs-6 multi-select">
+                  {{qualifications_drop_down($user)}}
+                  <span id="error_doctor_category_id" class="field-validation-msg"></span>
+               </div>
             </div>
-        </section>
-        <div class="col-xs-12 taR pR0 mT20">
-            <input type="reset" id="reset" value="Reset" class="submit" />
-            <input type="submit" id="saveClose" name="saveClose" value="Save and Close" class="submit" />
-            <input type="submit" id="saveContinue" name="saveContinue" value="Save and Continue" class="submit" />
-            <input type="button" id="cancel" value="Cancel" class="submit" novalidate onclick="goTo('{{route("doctors.index")}}')" />
-        </div>
-        {{ Form::close() }}
-        @section('scripts')
-            <link media="all" type="text/css" rel="stylesheet" href="{{asset('plugins/file-input/css/fileinput.min.css')}}">
-            <script src="{{asset('plugins/file-input/js/fileinput.min.js')}}"></script>
-            <script src="{{asset('js/view-pages/doctors/DoctorsForm.js')}}"></script>
-            <script>
-                var photoInitialPreview = '';
+            <hr class="w95p fL mT0" />
+            <br>
+            <div class="form-group">
+               <label class="col-xs-5 control-label asterisk">Fee Range</label>
+               <div class="col-xs-6">
+                  <div class="input-group col-xs-12">
+                     <input type="text" id="min_fee" name="min_fee" class="form-control input-sm" value="" placeholder="Min Fee" />
+                     <span class="input-group-btn w20 fs25 taC">-</span>
+                     <input type="text" id="max_fee" name="max_fee" class="form-control input-sm" value="" placeholder="Max Fee" />
+                  </div>
+               </div>
+            </div>
+            <hr class="w95p fL mT0" />
+            <br>
+            <div class="form-group">
+               <label class="col-xs-12 control-label asterisk mB15">Days & Time</label>
+               <div class="col-xs-5" >
+                  <select id="dutyDays" name="dutyDays[]" multiple>
+                    <option value="monday">Monday</option>
+                    <option value="tuesday">Tuesday</option>
+                    <option value="wednesday">Wednesday</option>
+                    <option value="thursday">Thursday</option>
+                    <option value="friday">Friday</option>
+                    <option value="saturday">Saturday</option>
+                    <option value="sunday">Sunday</option>
+                  </select>
+                  <span id="error_doctor_category_id" class="field-validation-msg"></span>
+               </div></div><br>
 
-                @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-                        photoInitialPreview = "{{asset('images/profile-dumy.png')}}";
-                @else
-                        photoInitialPreview = "{{get_profile_photo_url($doctor->user->photo)}}";
-                @endif
-            $(document).ready(function(){
-                    //***For gender Radio Selection
-                    $('.btn.btn-primary-2.gender').click(function(){
-                        setRadioValInHidden('gender',$(this));
-                    });
+               <div class="col-xs-6 mB15">
+                  <div class="input-group col-xs-12">
+                     <span class="input-group-btn w20 fs25 taC">-</span>
+                     <input type="text" id="start_time" name="start_time" class="form-control input-sm" value="" placeholder="Start" />
+                     <span class="input-group-btn w20 fs25 taC">-</span>
+                     <input type="text" id="end_time" name="end_time" class="form-control input-sm" value="" placeholder="End" />
+                  </div>
+               </div>
 
-                    var options = {
-                        saveCloseUrl: "{{route('doctors.index')}}",
-                        photoUploadUrl: "{{route('uploadProfilePic')}}",
-                        photoInitialPreview :[
-                            photoInitialPreview
-                        ],
-                        formMode: '{{$formMode}}'
-                    };
-                    var doctorsForm = new DoctorsForm(window,document,options);
-                    doctorsForm.initializeAll();
-                });
-            </script>
-        @stop
+            <hr class="w95p fL mT0" />
+            <br>
+            <div class="form-group">
+               <label class="col-xs-5 control-label asterisk">*Estimated Time Slot</label>
+               <div class="col-xs-6">
+                  <input type="number" id="slot_time" name="slot_time" required="true" value="" class="form-control" placeholder="Time Minut">
+                  <span id="error_doctor_category_id" class="field-validation-msg"></span>
+               </div>
+            </div>
+</form>
+      </section>
+{{--Profile Image--}}
+
+
+       <section class="form-Section col-md-6 h850 fL">
+                  <div class="container w100p">
+                      <h3 class="mT15 mB0 c3">Doctor Photo</h3>
+                      <hr class="w95p fL mT0" />
+                      <hr class="w95p fL mT0" />
+                      {{--<div class="form-group profile-photo file-input">--}}
+                          {{--<label class="control-label">Profile Photo</label>--}}
+                          {{--<input id="photo" name="photo" type="hidden" value="{{{ Form::getValueAttribute('photo', null) }}}">--}}
+                          {{--<input id="userPhoto" name="userPhoto" type="file" class="file-loading" accept="image/*">--}}
+                      {{--</div>--}}
+
+                             <div class="imageupload panel panel-default">
+                                                              <div class="panel-heading clearfix">
+
+                                                                  <div class="btn-group pull-right">
+                                                                      <input type="file" class="btn-group pull-right" name="image" required />
+                                                                  </div>
+                                                                       @if(isset($response))
+                                                                      @foreach($response as $result)
+
+                                                                      @if($result==false)
+                                                                              <div class="alert alert-danger">
+                                                                                  <strong>Upload Success is Fail!</strong> File Type Should be jpeg, jpg, png, gif, or svg
+                                                                                  <strong>Upload Success is Fail!</strong> File Size Should more than 300X300 Pixels
+                                                                              </div>
+
+                                                                          @endif
+                                                                          @endforeach
+                                                                         @endif
+
+
+                                                                  </div>
+                                                              </div>
+
+                  </div>
+
+
+
+
+
+
+              </section>
+
+
+
+
+
+
+              {{--Image END--}}
+
+      <div class="col-xs-12 taR pR0 mT20">
+         <input type="submit" id="registerDoctor" name="registerDoctor" value="Submit" class="submit" />
+         <input type="button" id="cancel" value="Cancel" class="submit" novalidate onclick="goTo('{{route("login")}}')" />
+      </div>
+
+   </div>
+</div>
+{{--{{ Form::close() }}--}}
+@section('scripts')
+<link media="all" type="text/css" rel="stylesheet" href="{{asset('plugins/file-input/css/fileinput.min.css')}}">
+<script src="{{asset('plugins/file-input/js/fileinput.min.js')}}"></script>
+<script src="{{asset('js/view-pages/doctors/DoctorsForm.js')}}"></script>
+<script>
+   $(document).ready(function() {
+   $("#medical_specialty_id").select2();
+   });
+   $(document).ready(function() {
+   $("#qualification_id").select2();
+   });
+   $(document).ready(function() {
+   $("#dutyDays").select2();
+   });
+
+   //                var photoInitialPreview = '';
+
+   {{--@if($formMode == App\Globals\GlobalsConst::FORM_CREATE)--}}
+           {{--photoInitialPreview = "{{asset('images/profile-dumy.png')}}";--}}
+   {{--@else--}}
+           {{--photoInitialPreview = "{{get_profile_photo_url($doctor->user->photo)}}";--}}
+   {{--@endif--}}
+   $(document).ready(function(){
+       //***For gender Radio Selection
+       $('.btn.btn-primary-2.gender').click(function(){
+           setRadioValInHidden('gender',$(this));
+       });
+
+       var options = {
+           saveCloseUrl: "{{route('doctors.index')}}",
+           photoUploadUrl: "{{route('uploadProfilePic')}}",
+           photoInitialPreview :[
+               photoInitialPreview
+           ]
+
+       };
+       var doctorsForm = new DoctorsForm(window,document,options);
+       doctorsForm.initializeAll();
+   });
+</script>0
+@stop
+@endsection
 @endsection

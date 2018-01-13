@@ -36,7 +36,7 @@ var DoctorsForm = function(win,doc, options){
                     lname: {
                         required: true,
                         maxlength: 60
-                    },
+                    }
 
                 },
                 messages: {
@@ -57,7 +57,7 @@ var DoctorsForm = function(win,doc, options){
                     },
                     lname: {
                         required: String.format(MessageDictionay.validationMsgs.required, "Last Name")
-                    },
+                    }
                 }
             });
         }
