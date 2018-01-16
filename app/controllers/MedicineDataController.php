@@ -1,11 +1,11 @@
 <?php
-
+use App\Globals\GlobalsConst;
 class MedicineDataController extends \BaseController {
 
     private $_medicine;
-    public function __construct(MedicineData $medicine)
+    public function __construct()
     {
-        $this->$_medicine = $medicine;
+//        $this->$_medicine = $medicine;
     }
 
 	public function index()
@@ -89,6 +89,17 @@ class MedicineDataController extends \BaseController {
 	{
 		//
 	}
+
+    public function medicineSearch(){
+
+    return View::make('medicines.medicineSearch');
+}
+
+    public function medicineDetail(){
+
+        return View::make('medicines.medicineDetail');
+    }
+
 
 
 }

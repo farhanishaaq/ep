@@ -9,7 +9,7 @@
 
 @section('redBar')
     <div class = "user_logo">
-        <div class="header_1 wrap_3 color_3 login-bar">Searched Medicine
+        <div class="header_1 wrap_3 color_3 login-bar"> Medicine Search
             {{--<div class="col-md-12 mL25 taL">Easy Physician</div>--}}
         </div>
     </div>
@@ -20,133 +20,94 @@
             <!--========================================================
                           CONTENT
 =========================================================-->
-
-
 @section('content')
 
-   <br>
-   <div class="container-fluid" style="background-color: whitesmoke">
-   <div class="carousel" role="listbox">
-      <div class="carousel-item active">
-         <div class="row">
-            <div class="col-lg-3 col-sm-12 post-block post-thumb">
-               {{--Main page left Panel--}}
-               <div class="col-lg-12 col-md-12 pT10 card" role="tab" id="headingOne">
-                  <h1 class="mT10 mB0 c3 pB20" style="font-family: 'Marvel'; float: left;">Left Panel</h1>
-               </div>
+
+    <div id="flipkart-navbar">
+
+            <div class="row row2">
+                <div class="col-sm-2">
+                    <h4 style="margin:0px;"><span class="smallnav menu" onclick="openNav()">☰ Madicine Search</span></h4>
+                    <h3 style="margin:0px;"><span class="largenav"></span></h3>
+                </div>
+                <div class="flipkart-navbar-search smallsearch col-sm-8 col-xs-11">
+                    <div class="row">
+                        <input class="flipkart-navbar-input col-xs-11" type="" placeholder="Search for Products, Brands and more" name="">
+                        <button class="flipkart-navbar-button col-xs-1">
+                            <svg width="15px" height="15px">
+                                <path d="M11.618 9.897l4.224 4.212c.092.09.1.23.02.312l-1.464 1.46c-.08.08-.222.072-.314-.02L9.868 11.66M6.486 10.9c-2.42 0-4.38-1.955-4.38-4.367 0-2.413 1.96-4.37 4.38-4.37s4.38 1.957 4.38 4.37c0 2.412-1.96 4.368-4.38 4.368m0-10.834C2.904.066 0 2.96 0 6.533 0 10.105 2.904 13 6.486 13s6.487-2.895 6.487-6.467c0-3.572-2.905-6.467-6.487-6.467 "></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
-            {{--Main Page right Panel--}}
-                <div class="col-lg-9 col-sm-12 ">
-                 <h1 class="mT10 mB0 c3 pB20" style="font-family: 'Marvel'; float: left;">Paracetamol</h1><br><br>
-                   <p>
-                   Paracetamol is a commonly used medicine that can help treat pain and reduce a high temperature (fever).
+    </div>
+      <div class="container">
+    <div class="col-md-12 col-sm-12  col-lg-12 card listBox" style="border-radius: 5px; padding-top: 10px; ">
+        <div class="col-md-5">
+            <div class="post-box">
+                <img src="{{asset('/images/medicines-l.jpg')}}" style="margin-bottom: 10px; height:250px;"><br>
 
-                   It's typically used to relieve mild or moderate pain, such as headaches, toothache or sprains, and reduce fevers caused by illnesses such as colds and flu.
 
-                   Paracetamol is often recommended as one of the first treatments for pain, as it's safe for most people to take and side effects are rare.
-
-                   Types of paracetamol
-                   You can buy most types of paracetamol from supermarkets or pharmacies. Some types are only available on prescription.
-
-                   Paracetamol is available as:
-
-                   tablets or caplets
-                   capsules
-                   liquid – usually for children
-                   soluble tablets (tablets that dissolve in water to make a drink)
-                   suppositories (capsules inserted into the back passage)
-                   an injection given into a vein – normally only used in hospital
-                   In some products, such as cold and flu remedies or certain combination painkillers, paracetamol is combined with other ingredients.
-
-                   It may be sold under the name paracetamol, or under various brand names (which may also contain other ingredients).
-
-                   Who can take paracetamol
-                   Most people can take paracetamol safely, including:
-
-                   pregnant women
-                   breastfeeding women
-                   children over 2 months of age – lower doses are recommended for young children
-                   If you're not sure whether you can take paracetamol, check the leaflet that comes with it or ask your pharmacist or doctor for advice.
-
-                   Always get advice before taking paracetamol if you:
-
-                   have liver or kidney problems
-                   have problems with alcohol, such as long-term alcohol misuse
-                   are very underweight
-                   are taking other medications
-                   Don't take paracetamol if you've had an allergic reaction to it in the past.
-
-                   How to take paracetamol
-                   Make sure you take paracetamol as directed on the label or leaflet, or as instructed by a health professional.
-
-                   How much you can take depends on your age, your weight, the type of paracetamol you're taking and how strong it is.
-
-                   For example:
-
-                   Adults can usually take 1 or 2 500mg tablets every 4 to 6 hours, but shouldn't take more than 4g (8 500mg tablets) in the space of 24 hours.
-                   Children under 16 need to take a lower dose, depending on their age or weight – check the packet or leaflet, or ask a pharmacist or doctor for advice. For very young children, paracetamol liquid is given using a measuring spoon or an oral syringe.
-                   Paracetamol should start to work within an hour and the effect usually lasts several hours. Don't take more than the recommended dose if it isn't relieving your symptoms.
-
-                   Adults can take ibuprofen at the same time if necessary, but this isn't usually recommended for children. For more details, see Can I take paracetamol and ibuprofen together?
-
-                   Contact your GP or call NHS 111 if your symptoms get worse or last more than three days despite taking paracetamol.
-
-                   Be careful not to use other medications that contain paracetamol as an ingredient (such as some cold and flu remedies) while you're taking paracetamol.
-
-                   Taking paracetamol with other medicines, food and alcohol
-                   Paracetamol can react unpredictably with certain other medications. This can affect how well either medicine works and might increase the risk of side effects.
-
-                   It may not be safe to take paracetamol at the same time as:
-
-                   other products containing paracetamol – including combination products where paracetamol is one of the ingredients
-                   carbamazepine – used to treat epilepsy and some types of pain
-                   colestyramine – used to reduce itchiness caused by primary biliary cirrhosis (a type of liver disease)
-                   imatinib and busulfan – used to treat certain types of cancer
-                   ketoconazole – a type of antifungal medicine
-                   lixisenatide – used to treat type 2 diabetes
-                   metoclopramide – used to relieve nausea and vomiting
-                   phenobarbital, phenytoin and primidone – used to control seizures
-                   warfarin – used to prevent blood clots
-                   Check the leaflet that comes with your medicine to see if it can be taken with paracetamol. Ask a pharmacist or doctor if you're not sure.
-
-                   There are no known problems caused by taking paracetamol with any specific foods or by drinking moderate amounts of alcohol while taking paracetamol.
-
-                   Side effects of paracetamol
-                   Side effects from paracetamol are rare, but can include:
-
-                   an allergic reaction, which can cause a rash and swelling
-                   flushing, low blood pressure and a fast heartbeat – this can sometimes happen when paracetamol is given in hospital into a vein in your arm
-                   blood disorders, such as thrombocytopenia (low number of platelet cells) and leukopenia (low number of white blood cells)
-                   liver and kidney damage if you take too much (overdose) – this can be fatal in severe cases
-                   Speak to a pharmacist or doctor if you develop any troublesome side effects that you think could be caused by paracetamol.
-
-                   You can also report suspected side effects using the Yellow Card Scheme.
-
-                   Overdoses of paracetamol
-                   Taking too much paracetamol, known as an overdose, can be very dangerous.
-
-                   If you've taken more than the recommended maximum dose, go to your nearest accident and emergency (A&E) department as soon as possible.
-
-                   It can be helpful to take any remaining medicine and the box or leaflet with you to A&E if you can.
-
-                   Some people feel sick, vomit or have abdominal (tummy) pain after taking too much paracetamol, but often there are no obvious symptoms at first.
-
-                   Go to A&E even if you're feeling well.
-
-                   Try our new paracetamol pages
-                   Try our new paracetamol pages and tell us what you think:
-
-                   Paracetamol for adults
-                   Paracetamol for children
-                   Page last reviewed: 18/05/2016
-                   Next review due: 01/05/2019
-
-                   </p>
-
-              </div>
-           </div>
+                          <br>
+            </div>
         </div>
-     </div>
-  </div>
-</div>
+        <div class="col-md-7">
+            <span class="post-category"><a href="{{url('medicineDetail/1')}}" title="Travel" style="font-size: 20px;">4 Ways to Avoid Side Effects of Radiotherapy</a></span><br>
+            <h5 style="color: #808080">company name</h5>
+            <br>
+            <span>
+                        <div class="show-read-more"><h3>Medicine Detail</h3>In this scientific era radiotherapy is used to treat the wide range of abnormalities from skin scars to cancer. It is really a marvelous technology and works for satisfied results. But it still has so....
+                            <span class="more-text">me side effects. Don’t be afraid of those unwanted effects, these can be avoided. Read how can you minimize side effects of this therapy?
+Side Effects of Radiotherapy: Changes in special area which is treated</span></div>
+
+                        </span>
+            <a href="" title="Read More">Read More</a>
+        </div>
+       </div>
+
+       </div>
+
+    <div class="container">
+        <div class="col-md-12 col-sm-12  col-lg-12 card listBox" style="border-radius: 5px; padding-top: 10px; ">
+            <div class="col-md-5">
+                <div class="post-box">
+                    <img src="{{asset('/images/medicines-l.jpg')}}" style="margin-bottom: 10px; height:250px;"><br>
+
+
+                    <br>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <span class="post-category"><a href="" title="Travel" style="font-size: 20px;">4 Ways to Avoid Side Effects of Radiotherapy</a></span><br>
+                <h5 style="color: #808080">company name</h5>
+                <br>
+                <span>
+                        <div class="show-read-more"><h3>Medicine Detail</h3>In this scientific era radiotherapy is used to treat the wide range of abnormalities from skin scars to cancer. It is really a marvelous technology and works for satisfied results. But it still has so....
+                            <span class="more-text">me side effects. Don’t be afraid of those unwanted effects, these can be avoided. Read how can you minimize side effects of this therapy?
+Side Effects of Radiotherapy: Changes in special area which is treated</span></div>
+
+                        </span>
+                <a href="" title="Read More">Read More</a>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+<br>
+    <br>
+    <br>
+
+
+
+
+    <script src="{{asset('js/medicine.js')}}" type="text/javascript"></script>
+    <link href="{{ asset('css/medicine.css') }}" rel="stylesheet">
+
+
+@endsection
 @stop
