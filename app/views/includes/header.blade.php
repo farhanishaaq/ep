@@ -24,6 +24,9 @@
                                             <?php break; ?>
                                         @elseif($r->id == GlobalsConst::COMPANY_ADMIN_ID)
                                             @include('includes.companyAdminNav')
+                                            @elseif($r->name == "Portal Doctor")
+                                                @include('includes.companyAdminNav')
+                                                <?php break; ?>
                                             <?php break; ?>
                                         @endif
                                     @endforeach

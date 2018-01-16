@@ -75,11 +75,11 @@ class DashboardsController extends \BaseController
                 }
                 $appointmentJson = json_encode($appointmentDataset);
                 return View::make('dashboards.admin', compact('appointmentPieChartDatasetJson','appointmentLineChartDatasetJson', 'dailyFeeCollectionDataset', 'appointmentJson'));
-           // case GlobalsConst::EMPLOYEE:
-            case "Doctor":
+            case GlobalsConst::EMPLOYEE:
+           // case "Doctor":
                 return View::make('dashboards.employee', compact('appointments', 'dataSet', '', '', ''));
             default:
-                echo 'default';
+               return Redirect::route('homePage');
         }
     }
 }

@@ -36,7 +36,6 @@ class RolesController extends \BaseController {
 		$formMode = GlobalsConst::FORM_CREATE;
 		return View::make('roles.create')->nest('_form','roles.partials._form',compact('formMode','user','controllers','actions','roles'));
 	}
-
 	/**
 	 * Store a newly created resource in storage.
 	 * POST /roles

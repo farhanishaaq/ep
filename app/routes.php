@@ -31,6 +31,7 @@ Route::group(['Public'],function (){
 
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
     Route::post('doSignUp', array('as'=>'doSignUp','uses'=>'AuthController@doSignUp'));
+    Route::post('doctorInfoForm', array('as'=>'doctorInfoForm','uses'=>'AuthController@doctorInfoForm'));
     Route::post('doSignUpDoctor', array('as'=>'doSignUpDoctor','uses'=>'AuthController@doSignUpDoctor'));
     Route::post('checkEmail', array('as'=>'checkEmail','uses'=>'AuthController@checkEmail'));
     Route::post('checkUserName', array('as'=>'checkUserName','uses'=>'AuthController@checkUserName'));
@@ -66,7 +67,7 @@ Route::group(['Public'],function (){
      * HomeController Routes
      */
     Route::group(['Home'],function (){
-        Route::get('/', 'SearchController@index');
+        Route::get('/', ['as'=>'homePage','uses'=>'SearchController@index']);
         Route::group(['domain' => '{companyDomain}.ep.loc'], function ($companyDomain) {
             Route::get('companyHome', array('as'=>'showCompanyHomePage','uses'=>'HomeController@showCompanyHomePage'));
         });
