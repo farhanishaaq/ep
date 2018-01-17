@@ -38,7 +38,7 @@ function hitLikes(articleId,patientId)
 
         $.ajax({
             type: 'POST',
-            url: 'likePerform',
+            url: '/likePerform',
             data: {
                 like_data : actionDo,
                 article_id : articleId,

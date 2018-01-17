@@ -122,17 +122,29 @@ class ArticlesController extends \BaseController
     public function show($id)
     {
         //
-
+        if(Auth::check()){
+            $data['patientId'] = Auth::user()->id;
+            $likes = $this->_article->getLikesForList($data);
+            $likeData[] = "";
+            foreach($likes as $like){
+                array_push($likeData, $like->article_id);
+            }
+//                    $selectedClass['status'] = "";
+        }
         $articles=Article::displayarticle($id);
-if ($articles != NULL){
 
 
-    return View::make ("articles.article", compact('articles'));
 
-}    else {
+            if ($articles != NULL){
 
-    return View::make('auth.unauthorized');
-}
+
+                return View::make ("articles.article", compact('articles','likeData'));
+
+
+            }    else {
+
+                return View::make('auth.unauthorized');
+            }
 
 
 

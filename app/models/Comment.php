@@ -5,9 +5,10 @@ class Comment extends \Eloquent
 {
     protected $fillable = ['patient_id', 'doctor_id', 'comments'];
 
-    public static function fetechDoctorComments($id)
+    public static function fetechDoctorComments($data)
     {
-        $users = Comment::where('doctor_id', '=', $id)
+        $users = Comment::where('target_id', '=', $data['id'])
+            ->where("type",$data['type'])
             ->where('status', 'Approved')
             ->get();
         return json_encode($users);
@@ -15,14 +16,11 @@ class Comment extends \Eloquent
 
     public function saveComment($data)
     {
-        $dr_id = $data['id'];
-        $user_id = $data['user_id'];
-        $content = $data['comment'];
 
-
-        $this->doctor_id = $dr_id;
-        $this->patient_id = $user_id;
-        $this->comments = $content;
+        $this->target_id = $data['target_Id'];
+        $this->patient_id = Auth::user()->id;
+        $this->comments = $data['comment'];
+        $this->type = $data['type'];
         $this->save();
         return 'sucess';
     }
@@ -34,10 +32,10 @@ class Comment extends \Eloquent
          */
         try {
             $queryBuilder = DB::table('comments')
-            ->select('id AS commentId', 'patient_id', 'doctor_id', 'comments', 'status', 'created_at')
+            ->select('id AS commentId', 'patient_id','target_id' ,'type', 'comments', 'status', 'created_at')
 //            if($params['condition'] == "Approved")
             ->where('status', '!=', 'Approved')
-            ->paginate(7);
+            ->paginate(5);
             return $queryBuilder;
         } catch (Throwable $t) {
             // Executed only in PHP 7, will not match in PHP 5.x
@@ -65,7 +63,7 @@ class Comment extends \Eloquent
 
         try {
             $queryBuilder = DB::table('comments')
-                ->select('id AS commentId', 'patient_id', 'doctor_id', 'comments', 'status', 'created_at')
+                ->select('id AS commentId', 'patient_id', 'type','target_id', 'comments', 'status', 'created_at')
                 ->paginate(7);
             return $queryBuilder;
         } catch (Throwable $t) {

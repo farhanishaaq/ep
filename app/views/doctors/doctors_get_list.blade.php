@@ -140,7 +140,7 @@
                                 </strong></h4>
                                 <p align="center" >
                                <strong>{{$doctors[$i]->code}}</strong><br>
-                                <a style="" href="{{route('drProfile',$doctors[$i]->doctorsId)}}"  class="btn btn-raised btn-sm">View Profile</a>
+                                <a style="" href="{{route('drProfile',$doctors[$i]->userId)}}"  class="btn btn-raised btn-sm">View Profile</a>
                                 <span> <a href="#" style="color: red">websitk.ename.com</a> </span></p>
                                 <ul class="social-links list-inline m-t-10">
                                     <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
@@ -182,7 +182,7 @@
                                                 <span><img src="{{asset('images/not_found.png')}}"></span><br>
                                 </div>
 @endif
-
+                    <span class="center"><?php echo $doctors->links(); ?></span>
 <!-- Modal -->
                  <div class="modal fade" id="myModal" role="dialog">
                      <div class="modal-dialog modal-sm">

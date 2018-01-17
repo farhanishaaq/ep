@@ -198,8 +198,8 @@
 
                                                                             <input class="col-lg-12 col-md-12 col-sm-12" type="text" placeholder="Your comments" name="addComment" id="comment" />
                                                                             <br>
-                                                                            <input class="form-control" type="hidden" value="{{$id}}" name="Doctro_id" id="Doctro_id">
-                                                                            <input class="form-control" type="hidden" value="{{Auth::user()->id}}" name="auth_user" id="auth_user">
+                                                                            <input class="form-control" type="hidden" value="{{$id}}" name="target_Id" id="target_Id">
+                                                                            <input class="form-control" type="hidden" value="profile" name="type" id="type">
 
                                                                             <meta name="csrf-token" content="{{ csrf_token() }}" />
                                                                             <br> {{--
@@ -511,6 +511,7 @@
         {{--}--}}
 
     {{--</script>--}}
+    <script src="{{asset("js/doctor.profile.js")}}"></script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0h-b6OIqk8pmDhFmH2BiUHSlU4PmFiDU&callback=initMap">
     </script>

@@ -74,7 +74,8 @@ function getComments() {
         dataType: 'json',
         data: {
 
-            'id': $('#Doctro_id').val()
+            'id': $('#target_Id').val(),
+            'type': $('#type').val()
 
         },
         success: function (data) {
@@ -88,7 +89,7 @@ function getComments() {
                         "<div  style='border-bottom: 1px solid darkgrey;padding-bottom: 10px; margin-bottom: 25px' class='commentText col-md-12'><span class='col-md-9'> " + val.comments+"</span>"+"<span class='col-md-3'>"+ (val.created_at).slice(0,-3)+"</span>" +
                         "</div>" +
                         "</li>");  // Create text with jQuery
-
+                    $("#commentList").empty();
                     $("#commentList").append(txt2);     // Append new elements
 
 //                            $("#commentList").appendChild(txt2);
@@ -117,8 +118,8 @@ $("#ajax").click(function(event) {
             data: {
                 //'_token': $('input[name=_token]').val(),
 
-                'id': $('#Doctro_id').val(),
-                'user_id': $('#auth_user').val(),
+                'target_Id': $('#target_Id').val(),
+                'type': $('#type').val(),
                 'comment': $('#comment').val()
             },
 
