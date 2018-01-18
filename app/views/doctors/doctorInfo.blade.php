@@ -1,6 +1,72 @@
 {{--This fill CSS Save in CSS Folder As doctorList--}}
 <head>
-    <link href="{{asset('cs/dutyDays.css')}}">
+       <link href="{{asset('css/doctorList.css')}}" rel="stylesheet">
+<style>
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+</style>
 </head>
 @extends('layouts.master')
 <!--========================================================
@@ -136,6 +202,13 @@
                                 <option value="Saturday">Saturday</option>
                                 <option value="Sunday">Sunday</option>
                             </select>
+
+             {{--<div class="btn-group">--}}
+                             {{--<label class="container">&nbsp;&nbsp;&nbsp;Monday--}}
+                                 {{--<input name="monday" type="checkbox" value="monday">--}}
+                                 {{--<span class="checkmark"></span>--}}
+                             {{--</label></div>--}}
+
                         </div>
 
                     <br>
@@ -215,22 +288,24 @@
             $("#qualification_id").select2();
         });
         $(document).ready(function() {
-            $("#dutyDays").select2();
+            $(".myselect").select2();
         });
         $("#dayAddBtn").click(function(){
             length = $('#doctorDutyDays').children().length;
-if(length < 7) {
+    if(length < 7) {
     var div = document.getElementsByName("doctorDaysData")[0];
     clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
+
     clone.id = "" + (++i);
     clone.querySelector('#dutyDays').setAttribute('name', 'dutyDays[' + i+']');
     clone.querySelector('#start_time').setAttribute('name', 'start_time[' + i+']');
     clone.querySelector('#end_time').setAttribute('name', 'end_time[' + i+']');
-//    clone.querySelector('#start_time').setAttribute('id','1');
+////    clone.querySelector('#start_time').setAttribute('id','1');
             clone.querySelector('#dutyDays').setAttribute('id', 'dutyDays' + i );
             clone.querySelector('#start_time').setAttribute('id', 'start_time' + i );
-            clone.querySelector('#end_time').setAttribute('name', 'end_time[' + i +']');
-    document.getElementById("doctorDutyDays").appendChild(clone);
+            clone.querySelector('#end_time').setAttribute('id', 'end_time' + i);
+             document.getElementById("doctorDutyDays").appendChild(clone);
+
 }
 });
 
