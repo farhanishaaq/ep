@@ -32,14 +32,14 @@ class="current"
       <div class="row">
          <div class="col-lg-3 col-sm-3 post-block post-thumb">
             {{--Main page left Panel--}}
-            <div class="col-lg-12 col-md-12 pT10 card" role="tab" id="headingOne">
-               <h1 class="mT10 mB0 c3 pB20" style="font-family: 'Marvel'; float: left; width: 100%">Latest Updates</h1>
+            <div class="col-lg-12 col-md-12  card p0" role="tab" id="headingOne">
+               <h1 class="mT10 mB0 c3 pB20 pL10" style="font-family: 'Marvel'; float: left; width: 100%">Latest Updates</h1>
                @foreach ($articles->slice(0, 3) as $article)
                <?php $image = '/articleimage'.'/'.$article->articleId.'/'.$article->bannar_image?>
                <div class="col-md-12 col-sm-12 col-lg-12">
-                  <div class="col-md-5">
+                  <div class="col-md-5 p0">
                      <div class="post-box">
-                        <img src="{{asset($image)}}"   style="margin-bottom: 10px; height:50px;" /><br>
+                        <img src="{{asset($image)}}"  style="margin-bottom: 10px; height:70px;" /><br>
                         {{--Like Button--}}
                         <span class="pB10"> <i class="fa fa-thumbs-up" aria-hidden="false">&nbsp; Likes&nbsp;<span>
                         {{$article->article_likes}}
@@ -48,8 +48,8 @@ class="current"
                      </div>
                   </div>
                   {{--Article list right panel--}}
-                  <div class="col-md-7">
-                     <span class="post-category"><a href="{{route('articles',$article->articleId)}}" title="Travel" style="font-size: 15px;">{{$article->title}}</a></span><br>
+                  <div class="col-md-7 p0">
+                     <span class="post-category p0"><a href="{{route('articles',$article->articleId)}}" title="Travel" style="font-size: 15px;">{{$article->title}}</a></span><br>
                      <h5 style="color: #808080">By Dr.{{$article->full_name}}</h5>
                      <br>
                   </div>
