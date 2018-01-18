@@ -68,11 +68,22 @@
         </div>
 
         {{--dsajdkl--}}
+
+        <hr class='w95p fL mT0'/>
         <div class="col-sm-9 col-md-9 col-lg-9">
+
     @if(Auth::user())
+                <h4><strong style="color: #01ADD5">Write Comment On Article</strong></h4>
                 <form class="form-inline">
 
-            <input class="col-lg-12 col-md-12 col-sm-12" type="text" placeholder="Your comments" name="addComment" id="comment" />
+                    <div class="input-group" style="width: 100%">
+
+                        <textarea style="resize: none" class="col-lg-12 col-md-12 col-sm-12 form-control" type="text" placeholder="Write Comments" name="addComment" id="comment"  style="width: 100%"></textarea>
+                        <span class="input-group-addon p0"  style="width: 20%"><button id="ajax" type="submit" style="width: 100%; height: 50px" ><h5>Comment</h5></button></span>
+                    </div>
+
+
+            {{--<input class="col-lg-12 col-md-12 col-sm-12 form-control" type="text" placeholder="Write Comments" name="addComment" id="comment"  style="width: 100%" />--}}
             <br>
             <input class="form-control" type="hidden" value="{{$articles->articleId}}" name="target_Id" id="target_Id" >
             <input class="form-control" type="hidden" value="article" name="type" id="type">
@@ -81,8 +92,8 @@
             <br> {{--
                                                                     <input type="hidden" name="commenttoken" value=" {{csrf_token()}}" />--}}
 
-                    <button class="col-lg-12 col-sm-12 col-md-12" id="ajax" type="submit">
-                <h4>Comment</h4></button>
+                    {{--<button class="col-lg-12 col-sm-12 col-md-12" id="ajax" type="submit">--}}
+                {{--<h4>Comment</h4></button>--}}
 
         </form>
             @else {{--@include('includes.webSocialLinks')--}} @endif
@@ -90,7 +101,7 @@
     <hr>
     <div class="tab-content">
 
-        <h3 class="tab-content">Comments on Doctor's Checkup</h3> {{--@foreach($drComments as $comment)--}}
+        <h4 class="tab-content" ><strong>Comments on Article</strong></h4> {{--@foreach($drComments as $comment)--}}
 
         <div class="" style="background-color: white">
             <ul  class="commentList" id="commentList">

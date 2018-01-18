@@ -3,13 +3,14 @@
 
 class Comment extends \Eloquent
 {
-    protected $fillable = ['patient_id', 'doctor_id', 'comments'];
+    protected $fillable = ['user_id', 'doctor_id', 'comments'];
 
     public static function fetechDoctorComments($data)
     {
         $users = Comment::where('target_id', '=', $data['id'])
+            ->leftJoin('users','comments.user_id','=', 'users.id')
             ->where("type",$data['type'])
-            ->where('status', 'Approved')
+            ->where('comments.status', 'Approved')
             ->get();
         return json_encode($users);
     }
@@ -18,7 +19,7 @@ class Comment extends \Eloquent
     {
 
         $this->target_id = $data['target_Id'];
-        $this->patient_id = Auth::user()->id;
+        $this->user_id = Auth::user()->id;
         $this->comments = $data['comment'];
         $this->type = $data['type'];
         $this->save();
@@ -32,10 +33,12 @@ class Comment extends \Eloquent
          */
         try {
             $queryBuilder = DB::table('comments')
-            ->select('id AS commentId', 'patient_id','target_id' ,'type', 'comments', 'status', 'created_at')
+            ->select('id AS commentId', 'user_id','target_id' ,'type', 'comments', 'status', 'created_at')
 //            if($params['condition'] == "Approved")
             ->where('status', '!=', 'Approved')
             ->paginate(5);
+
+
             return $queryBuilder;
         } catch (Throwable $t) {
             // Executed only in PHP 7, will not match in PHP 5.x
@@ -63,7 +66,7 @@ class Comment extends \Eloquent
 
         try {
             $queryBuilder = DB::table('comments')
-                ->select('id AS commentId', 'patient_id', 'type','target_id', 'comments', 'status', 'created_at')
+                ->select('id AS commentId', 'user_id', 'type','target_id', 'comments', 'status', 'created_at')
                 ->paginate(7);
             return $queryBuilder;
         } catch (Throwable $t) {
