@@ -100,8 +100,8 @@
             <br>
     <hr>
     <div class="tab-content">
-
-        <h4 class="tab-content" ><strong>Comments on Article</strong></h4> {{--@foreach($drComments as $comment)--}}
+        <h4 class="tab-content" ><strong>Comments on Article</strong></h4>
+        {{--@foreach($drComments as $comment)--}}
 
         <div class="" style="background-color: white">
             <ul  class="commentList" id="commentList">
