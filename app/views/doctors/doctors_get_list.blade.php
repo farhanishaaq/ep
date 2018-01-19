@@ -137,7 +137,8 @@
                             <div class="col-xs-12 col-md-12 col-sm-12" style="text-align: center">
                                 <h4 align="center"><strong>
                                 {{$doctors[$i]->full_name}}
-                                </strong></h4>
+                                </strong></h4><br>
+                                <p>{{$doctors[$i]->code}}</p>
                                 <p align="center" >
                                <strong>{{$doctors[$i]->code}}</strong><br>
                                 <a style="" href="{{route('drProfile',$doctors[$i]->userId)}}"  class="btn btn-raised btn-sm">View Profile</a>
@@ -157,11 +158,22 @@
                                         </strong></h5>
 
                                 <p align="center" >
-
+                                    @if($doctors[$i]->start || $doctors[$i]->end)
+                                    @if($doctors[$i]->start)
                                         {{$doctors[$i]->start}}
-                                    <strong>AM</strong><br><strong>To</strong><br>
-                                        {{$doctors[$i]->end}}
-                                    <strong>PM</strong></p>
+                                    <strong>AM</strong>
+                                    @endif
+                                    @if($doctors[$i]->end)
+                                            <br><strong>To</strong><br>
+                                            {{$doctors[$i]->end}}
+                                            <strong>PM</strong>
+                                    @endif
+                                @else
+                                        <b>Time Slots </b><br>
+                                        <strong>Not Yet Available</strong>
+                                @endif
+                                </p>
+
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-3  col-lg-3">
