@@ -30,14 +30,14 @@ class RatingLog extends \Eloquent
         //		$data['user_id'] = Input::get('userId');
 //		$data['rating'] = Input::get('rating');
             if (Auth::check()){
-                if (Auth::user()->id ==$data["userId"]){
+
 
                     $check = self::select()
-                        ->where('patient_id', '=', $data["userId"])
+                        ->where('patient_id', '=', Auth::user()->id)
                         ->where('doctor_id', '=', $data["doctorId"])
                         ->get();
                     if ($check->isEmpty()) {
-                        $this->patient_id = $data['userId'];
+                        $this->patient_id = Auth::user()->id;
                         $this->doctor_id = $data['doctorId'];
                         $this->rating_count = $data['rating'];
                         $rating = new Rating();
@@ -48,7 +48,7 @@ class RatingLog extends \Eloquent
                         return $this->getDoctorRating($data["doctorId"]);
                     }
 
-                }
+
             } else return false;
 
     }
