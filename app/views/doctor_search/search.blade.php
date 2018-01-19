@@ -258,18 +258,35 @@
                 minimumInputLength : 1,
 
                 templateResult : function (repo){
-                    if(repo.loading)
+                    imagePath = "";
+                    if(repo.photo === null) {
+                        if (repo.gender === 'Male') {
+                            imagePath = "/uploads/maleUnknown.jpg";
+                        }
+                        else {
+                            imagePath = "/uploads/femaleUnknown.jpg";
+                        }
+                        }
+                    else {
+                        imagePath = "/uploads/"+repo.photo;
+                    }
 
+                    if(repo.loading)
                         return repo.full_name;
 
                   //  var markup =  repo.full_name;
                     var asset = "{{asset('')}}";
+//                    console.log(repo.photo);
+                    var markup = '<div class="col-sm-1 p0">'
+                        + '<img class="img-circle" src="'
+                        + imagePath
+                        + '" style="width: 100% ;max-height: 30px; position: absolute" />'
+                        + '</div>'
+                        + '<div>'
+                        +"<span  style='margin-left:10px;'>"+repo.full_name
+                        + "</div>"
 
-                    var markup = '<div class="col-sm-1 p0">' +
-                        '<img src="'+asset+repo.photo+'" style="width: 100% ;max-height: 37px" />' +
-                        '</div>'+"|"+repo.full_name;
-
-                    return markup;
+                        return markup;
 
 
                     if (repo.description) {

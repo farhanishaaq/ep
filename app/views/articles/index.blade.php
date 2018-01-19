@@ -84,7 +84,7 @@ class="current"
                                selectedClass
                                @endif
                                ">
-                            <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="totalLike_{{$article->articleId}}">
+                            <i class="fa fa-thumbs-o-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="totalLike_{{$article->articleId}}">
                            {{$article->article_likes}}
                            </span></i></span><br>
                            @endif

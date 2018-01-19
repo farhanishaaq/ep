@@ -36,7 +36,7 @@
                               By Dr.{{$articles->full_name}}
                         </a>
                             @else
-                            By {{$articles->full_name}}
+                            <span title="Admin"> By {{$articles->full_name}}</span>
                             @endif
 
                     </strong></h7>
@@ -55,7 +55,7 @@
                               selectedClass
 @endif
                               ">
-      <i class="fa fa-thumbs-up articleLike" aria-hidden="false">&nbsp; Likes&nbsp;<span id="totalLike_{{$articles->articleId}}">
+      <i class="fa fa-thumbs-o-up articleLike " aria-hidden="false">&nbsp; Likes&nbsp;<span id="totalLike_{{$articles->articleId}}">
       {{$articles->article_likes}}
       </span></i></span><br>
             @endif
