@@ -9,33 +9,36 @@
     </div>
 @stop
 @section('content')
-    <script type="text/javascript" src="{{ asset('js/tinymce_4.7.2/tinymce/js/tinymce/tinymce.min.js') }}"></script>
-    <script type="text/javascript">
-        tinymce.init({
-            selector : "textarea",
-            plugins : ["advlist autolink lists link image charmap print preview anchor", "searchreplace visualblocks code fullscreen", "insertdatetime media table contextmenu paste"],
-            toolbar : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-        });
-    </script>
     <br>
     <div class="row">
         <div class="container-fluid">
             <div class="col-md-12">
-                <form action="{{route('arStore')}}" method="post" enctype="multipart/form-data">
+                <form action="
+                @if(!empty($articles->id))
+                {{route('articleupdate')}}
+                @else
+                {{route('arStore')}}
+                @endif
+                " method="post" enctype="multipart/form-data">
                 {{--Left Panel For Title--}}
                 <div class="col-md-9">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="imageupload panel panel-default">
                             <div class="panel-heading clearfix">
                                 <h3 class="panel-title pB10" style="color: #01ADD5 "><b>Article Title</b></h3>
-                                <input required="required" value="" placeholder="Enter title here" type="text" name = "title"class="form-control" style="width: 100%" />
+                                <input required="required" placeholder="Enter title here"  value="@if(!empty($articles->title)){{$articles->title}}@endif"
+                                       type="text" name = "title" class="form-control" style="width: 100%" />
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="imageupload panel panel-default">
                                 <div class="panel-heading clearfix">
                                     <h3 class="panel-title pB10" style="color: #01ADD5 "><b>Write || Edit Article: </b></h3>
-                                    <textarea name='body'class="form-control" style="min-height: 300px" ></textarea>
+                                    <textarea name='body'class="form-control" style="min-height: 300px"  >
+                                       @if(!empty($articles->article_text))
+                                            {{$articles->article_text}}
+                                        @endif
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
@@ -51,9 +54,33 @@
                     <div class="imageupload panel panel-default">
                         <div class="panel-heading clearfix">
                             <h3 class="panel-title pB10"><b style="color: #01ADD5 ">Upload Article Image</b></h3>
+
+                            {{--IF Use For Update Showing Existing Image--}}
+
+                            @if(!empty($articles->bannar_image))
+                            <input type="hidden" value="{{$articles->id}}" name="id" />
+                            <?php $image = '/articleimage'.'/'.$articles->id.'/'.$articles->bannar_image?>
                             <div class="btn-group">
-                                <input type="file" class="btn-group w100p form-control" name="image" required />
+                               <span id="existImage"><span style="text-align: center;"><strong>Used Image</strong></span>
+                            <img src="{{asset($image)}}" width="300px" ><br>
+                                </span>
+                                <p><input class="btn btn-raised btn-sm btn-1" type="button" id="imageCheck" value="Chose New Image">
+                                </p></div>
+                                                            {{-----------------------}}
+                            @endif
+                            <div class="noneClass" id="newImage"
+                                    @if(!empty($articles->bannar_image))
+                                    style="display: none"
+                                    @endif
+                            >
+                                <strong>Select New Image</strong>
+                                <input type="file" class="btn-group w100p form-control" name="image"
+                                       @if(empty($articles->bannar_image))
+                                       required
+                                        @endif
+                                />
                             </div>
+                            @if(!empty($articles->bannar_image))
                             @if(isset($response))
                                 @foreach($response as $result)
                                     @if($result==false)
@@ -64,6 +91,7 @@
                                     @endif
                                 @endforeach
                             @endif
+                                @endif
                         </div>
                     </div>
                     {{---------------------------------------------------}}
@@ -78,5 +106,7 @@
     {{--
  </div>
  --}}
+    <script type="text/javascript" src="{{ asset('js/tinymce_4.7.2/tinymce/js/tinymce/tinymce.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/articleListScript.js') }}"></script>
 
 @endsection
