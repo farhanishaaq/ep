@@ -9,13 +9,21 @@
     </div>
 @stop
 @section('content')
+    <script type="text/javascript" src="{{ asset('js/tinymce_4.7.2/tinymce/js/tinymce/tinymce.min.js') }}"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector : "textarea",
+            plugins : ["advlist autolink lists link image charmap print preview anchor", "searchreplace visualblocks code fullscreen", "insertdatetime media table contextmenu paste"],
+            toolbar : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+        });
+    </script>
     <br>
     <div class="row">
         <div class="container-fluid">
             <div class="col-md-12">
+                <form action="{{route('arStore')}}" method="post" enctype="multipart/form-data">
                 {{--Left Panel For Title--}}
                 <div class="col-md-9">
-                    <form action="{{route('arStore')}}" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="imageupload panel panel-default">
                             <div class="panel-heading clearfix">
@@ -36,7 +44,7 @@
                                 <button type="submit"  class="btn btn-raised btn-sm btn-1 put-right" id="avatar_form" style="font-size: 15px">Article Done</button>
                             </div>
                         </div>
-                    </form>
+
                 </div>
                 {{--Right Panel For Image  --}}
                 <div class="col-md-3 p0">
@@ -61,6 +69,7 @@
                     {{---------------------------------------------------}}
                 </div>
                 {{--Right Panel End--}}
+                </form>
             </div>
         </div>
     </div>
@@ -69,12 +78,5 @@
     {{--
  </div>
  --}}
-    <script type="text/javascript" src="{{ asset('js/tinymce_4.7.2/tinymce/js/tinymce/tinymce.min.js') }}"></script>
-    <script type="text/javascript">
-        tinymce.init({
-            selector : "textarea",
-            plugins : ["advlist autolink lists link image charmap print preview anchor", "searchreplace visualblocks code fullscreen", "insertdatetime media table contextmenu paste"],
-            toolbar : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-        });
-    </script>
+
 @endsection

@@ -45,12 +45,6 @@ class ArticlesController extends \BaseController
     {
         //
         $data = Input::all();
-//        dd($data);
-
-//       $id = $data['image']->id;
-//       dd($id);
-
-
         $response = null;
         if (Input::hasFile('image')) {
             $file = Input::file('image');
