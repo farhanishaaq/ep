@@ -45,7 +45,7 @@ Manage Articles
                     <th>Article Title</th>
                     <th>Date</th>
                     <th>Status</th>
-                    <th></th>
+
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -65,7 +65,7 @@ Manage Articles
 
 
                         <td>{{$data->created_at }}</td>
-                        <td>@if($data->status==0)Not Approved @else Approved @endif</td>
+                        {{--<td>@if($data->status==0)Not Approved @else Approved @endif</td>--}}
                         <td>
                             <label class="switch">
 

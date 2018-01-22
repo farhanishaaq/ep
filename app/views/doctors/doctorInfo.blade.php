@@ -126,7 +126,7 @@
                         <div id="doctorDutyDays">
                             <div id="1" name="doctorDaysData">
                         <div class="col-xs-4" >
-                            <select id="dutyDays" class="myselect" name="dutyDays[0]" style="height: 35px;">
+                            <select id="dutyDays" class="selectDays " name="dutyDays[0]" style="height: 35px;" onclick="select2(this.id)">
                                 <option>Select Day</option>
                                 <option value="Monday">Monday</option>
                                 <option value="Tuesday">Tuesday</option>
@@ -217,20 +217,27 @@
         $(document).ready(function() {
             $("#dutyDays").select2();
         });
-        $("#dayAddBtn").click(function(){
+        $("#dayAddBtn").on("click", function(){
             length = $('#doctorDutyDays').children().length;
 if(length < 7) {
-    var div = document.getElementsByName("doctorDaysData")[0];
-    clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
-    clone.id = "" + (++i);
-    clone.querySelector('#dutyDays').setAttribute('name', 'dutyDays[' + i+']');
-    clone.querySelector('#start_time').setAttribute('name', 'start_time[' + i+']');
-    clone.querySelector('#end_time').setAttribute('name', 'end_time[' + i+']');
+
+        var div = document.getElementById("1");
+        clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
+        clone.id = "" + (++i);
+        clone.querySelector('#dutyDays').setAttribute('name', 'dutyDays[' + i+']');
+        clone.querySelector('#start_time').setAttribute('name', 'start_time[' + i+']');
+        clone.querySelector('#end_time').setAttribute('name', 'end_time[' + i+']');
 //    clone.querySelector('#start_time').setAttribute('id','1');
-            clone.querySelector('#dutyDays').setAttribute('id', 'dutyDays' + i );
-            clone.querySelector('#start_time').setAttribute('id', 'start_time' + i );
-            clone.querySelector('#end_time').setAttribute('name', 'end_time[' + i +']');
-    document.getElementById("doctorDutyDays").appendChild(clone);
+        clone.querySelector('#dutyDays').setAttribute('id', 'dutyDays' + i);
+        clone.querySelector('#start_time').setAttribute('id', 'start_time' + i );
+        clone.querySelector('#end_time').setAttribute('id', 'end_time' + i );
+//        var div1 = document.getElementById(clone.id);
+            var first = $(clone.id).children().first().children().first().select2();
+            console.log(first);
+//    clone.find('#dutyDays' + i).select2();
+//            $("#dutyDays"+i).select2();
+            document.getElementById("doctorDutyDays").appendChild(clone);
+
 }
 });
 
