@@ -3,6 +3,7 @@
     Add New Post
 @endsection
 @section('content')
+    <?php $image = '/articleimage'.'/'.$articles->id.'/'.$articles->bannar_image?>
     <script type="text/javascript" src="{{ asset('js/tinymce_4.7.2/tinymce/js/tinymce/tinymce.min.js') }}"></script>
     <script type="text/javascript">
         tinymce.init({
@@ -20,8 +21,12 @@
         <div class="imageupload panel panel-default">
             <div class="panel-heading clearfix">
                 <h3 class="panel-title pull-left">Upload Image</h3>
+                {{--<div class="btn-group pull-right">--}}
+                   {{--<img src="{{asset($image)}}" width="300px" >--}}
+                {{--</div>--}}
+
                 <div class="btn-group pull-right">
-                    <input type="file" class="btn-group pull-right"  name="image" required />
+                    <input type="file" class="btn-group pull-right" name="image" required />
                 </div>
                 {{--@if(isset($response))--}}
                     {{--@foreach($response as $result)--}}
