@@ -1,7 +1,7 @@
 <?php
 
 class Article extends \Eloquent {
-    protected $fillable = ['patient_id','doctor_id','article_text','title', 'bannar_image'];
+    protected $fillable = ['patient_id','user_id','article_text','title', 'bannar_image'];
 
     public function image(){
     return $this->hasMany("Image");
@@ -21,11 +21,11 @@ public function user(){
 
     public function saveArticle ($data){
 
-    $doctor_id = Auth::user()->id;
+    $user_id = Auth::user()->id;
 
         $text=$data['body'];
         $title = $data['title'];
-        $this->doctor_id = $doctor_id;
+        $this->user_id = $user_id;
         $this->article_text = $text;
         $this->title = $title;
         $this->save();
@@ -46,8 +46,7 @@ public function user(){
             $queryBuilder = DB::table('articles')
                 ->leftJoin('likes','articles.id','=','likes.article_id')
                 ->leftJoin('like_logs','articles.id','=','like_logs.patient_id')
-                ->leftJoin('doctors','articles.doctor_id','=','doctors.id')
-                ->leftJoin('users','doctors.user_id','=','users.id')
+                ->leftJoin('users','articles.user_id','=','users.id')
                 ->select('articles.created_at AS articleCreate','like_logs.patient_id AS patientId','articles.id AS articleId','title','article_text','bannar_image','article_likes','full_name')
                 ->where('articles.status','1')
                 ->orderBy('articleCreate', 'desc')->groupBy('articleId')->paginate(5);
@@ -174,12 +173,18 @@ public function user(){
 //    }
 
 
- public function displayarticle($id){
+ public static function displayarticle($id){
 
 
-     $articles =  DB::table('articles')->where('id', $id)
-         ->where('status',1)
+     $articles =  DB::table('articles')
+         ->leftJoin('users','articles.user_id','=','users.id')
+         ->leftJoin('likes','articles.id','=','likes.article_id')
+         ->leftJoin('like_logs','articles.id','=','like_logs.patient_id')
+         ->where('articles.id', $id)
+         ->where('articles.status',1)
+         ->select('articles.id AS articleId','full_name','bannar_image','title','article_text','user_id','articles.created_at AS articlePosted','like_logs.patient_id AS patientId','article_likes','users.id AS userId')
          ->first();
+//     dd($articles);
 
      //dd($articles);
      if($articles!= NULL){
@@ -240,7 +245,7 @@ public function editarticle($id){
 public function restore($data){
 
 
-    $doctor_id = Auth::user()->id;
+    $user_id = Auth::user()->id;
     $id = $data['id'];
     $text=$data['body'];
     $title = $data['title'];
@@ -248,7 +253,7 @@ public function restore($data){
 
     DB::table('articles')
         ->where('id', $id)
-        ->update(array('doctor_id' => $doctor_id, 'article_text' => $text, 'title' => $title));
+        ->update(array('user_id' => $user_id, 'article_text' => $text, 'title' => $title));
 
     $this->update();
     return 'sucess';

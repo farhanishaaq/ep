@@ -194,19 +194,24 @@
 
                                                                     {{--
                               <form class="form-inline" action="{{route('comment')}}" method="post">--}} @if(Auth::user())
+                                                                        <h4><strong style="color: #01ADD5">Write Comment On Doctor Profile</strong></h4></button>
                                                                         <form class="form-inline">
 
-                                                                            <input class="col-lg-12 col-md-12 col-sm-12" type="text" placeholder="Your comments" name="addComment" id="comment" />
+                                                                            <div class="input-group" style="width: 100%">
+
+                                                                                <textarea style="resize: none" class="col-lg-12 col-md-12 col-sm-12 form-control" type="text" placeholder="Write Comments" name="addComment" id="comment"  style="width: 100%"></textarea>
+                                                                                <span class="input-group-addon p0"  style="width: 20%"><button id="ajax" type="submit" style="width: 100%; height: 50px" ><h5>Comment</h5></button></span>
+                                                                            </div>
                                                                             <br>
-                                                                            <input class="form-control" type="hidden" value="{{$id}}" name="Doctro_id" id="Doctro_id">
-                                                                            <input class="form-control" type="hidden" value="{{Auth::user()->id}}" name="auth_user" id="auth_user">
+                                                                            <input class="form-control" type="hidden" value="{{$id}}" name="target_Id" id="target_Id">
+                                                                            <input class="form-control" type="hidden" value="profile" name="type" id="type">
 
                                                                             <meta name="csrf-token" content="{{ csrf_token() }}" />
                                                                             <br> {{--
                                                                     <input type="hidden" name="commenttoken" value=" {{csrf_token()}}" />--}}
 
-                                                                            <button class="col-lg-12 col-sm-12 col-md-12" id="ajax" type="submit">
-                                                                                <h4>Comment</h4></button>
+
+
 
                                                                         </form>
                                                                     @else {{--@include('includes.webSocialLinks')--}} @endif
@@ -215,7 +220,7 @@
                                                                     <hr>
                                                                     <div class="tab-content">
 
-                                                                        <h3 class="tab-content">Comments on Doctor's Checkup</h3> {{--@foreach($drComments as $comment)--}}
+                                                                        <h3 class="tab-content"><strong>Doctor Comments</strong></h3> {{--@foreach($drComments as $comment)--}}
 
                                                                         <div class="" style="background-color: white">
                                                                             <ul  class="commentList" id="commentList">
@@ -511,6 +516,7 @@
         {{--}--}}
 
     {{--</script>--}}
+    <script src="{{asset("js/doctor.profile.js")}}"></script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0h-b6OIqk8pmDhFmH2BiUHSlU4PmFiDU&callback=initMap">
     </script>

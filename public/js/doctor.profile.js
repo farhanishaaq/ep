@@ -74,7 +74,8 @@ function getComments() {
         dataType: 'json',
         data: {
 
-            'id': $('#Doctro_id').val()
+            'id': $('#target_Id').val(),
+            'type': $('#type').val()
 
         },
         success: function (data) {
@@ -83,11 +84,82 @@ function getComments() {
                 // console.log(JSON.stringify(data));
             } else {
                 //  console.log(JSON.stringify(data));
+                $("#commentList").empty();
                 $.each( data, function( key, val ) {
-                    var txt2 = $(" <li>  " +
-                        "<div  style='border-bottom: 1px solid darkgrey;padding-bottom: 10px; margin-bottom: 25px' class='commentText col-md-12'><span class='col-md-9'> " + val.comments+"</span>"+"<span class='col-md-3'>"+ (val.created_at).slice(0,-3)+"</span>" +
-                        "</div>" +
-                        "</li>");  // Create text with jQuery
+                    imagePath = "";
+                    if(val.photo === null) {
+                        if (val.gender === 'Male')
+                            imagePath = "/uploads/maleUnknown.jpg";
+                        else
+                            imagePath = "/uploads/femaleUnknown.jpg";
+                    }
+                    else {
+                        imagePath = "/uploads/"+val.photo;
+                    }
+                    var txt2 = $(" <li>  "
+                    //     +"<div>" +
+                    //     "<strong  class='pR10' style='color: #01ADD5'>"+val.full_name+"</strong>" +
+                    //     "<strong class='mT5 text-muted' style='font-size: 10px;' >"+ (val.created_at).slice(0,-3)
+                    //     +"</strong>"+
+                    //     // "<span class='ali' style='font-size: 10px'>"+ (val.created_at).slice(0,-3)
+                    //     // +"</span>"+
+                    // "</div>"+
+// ----------------
+                        // +"<div class='col-md-12'>" +
+                        // +"<div class='col-md-2'>"+
+                        // "<strong  class='pR10' style='color: #01ADD5'>"+val.full_name+"</strong>"
+                        // +"</div>" +
+                        // +"<div class='col-md-10'>"+
+                        // "<strong class='mT5 text-muted' style='font-size: 10px;' >"+ (val.created_at).slice(0,-3)
+                        // +"</strong>"+
+                        // +"</div>" +
+                        // +"</div>" +
+
+
+
+
+                    //     +"<div>" +
+                    //     "<strong  class='pR10' style='color: #01ADD5'>"+val.full_name+"</strong>" +
+                    //     "<strong class='mT5 text-muted' style='font-size: 10px;' >"+ (val.created_at).slice(0,-3)
+                    //     +"</strong>"+
+                    //     // "<span class='ali' style='font-size: 10px'>"+ (val.created_at).slice(0,-3)
+                    //     // +"</span>"+
+                    // "</div>"+
+
+
+
+                        + "<div  style='padding-bottom: 10px; margin-bottom: 25px' class='commentText col-md-12'>"
+                        + "<span class='col-md-1 p0'> "
+                        + "<img src='"+imagePath+"' >"
+
+
+                    //        if(isset($doctors[$i]->photo))
+                    // {{asset('uploads/'.$doctors[$i]->photo)}}
+                    //             else
+                // if($doctors[$i]->gender =="Male")
+                //     'uploads/maleUnknown.jpg'
+                // else
+                //     'uploads/femaleUnknown.jpg'
+
+
+
+
+
+
+
+                        + "</span>"
+                        + "<span class='col-md-11'> "
+                        + "<strong  class='pR10' style='color: #01ADD5'>"+val.full_name+"</strong>"
+                        + "<strong class='mT5 text-muted' style='font-size: 10px; position: absolute' >"+ (val.created_at).slice(0,-3)
+                        + "</strong>"
+                        + "<br>"
+                        + "<p>"
+                        + val.comments
+                        + "</p>"
+                        + "</span>"
+                        + "</div>"
+                        + "<hr class='w95p fL mT0'/>"
+                        + "</li>") ;  // Create text with jQuery
 
                     $("#commentList").append(txt2);     // Append new elements
 
@@ -117,8 +189,8 @@ $("#ajax").click(function(event) {
             data: {
                 //'_token': $('input[name=_token]').val(),
 
-                'id': $('#Doctro_id').val(),
-                'user_id': $('#auth_user').val(),
+                'target_Id': $('#target_Id').val(),
+                'type': $('#type').val(),
                 'comment': $('#comment').val()
             },
 

@@ -56,7 +56,7 @@ Manage Articles
                     <tbody>
                     <tr>
                         <td></td>
-                        <td> {{$data->doctor_id }}</td>
+                        <td> {{$data->user_id }}</td>
 
 
                         <td ><a href="{{url('articles/'.$data->id)}}">{{$data->title }}</a></td>

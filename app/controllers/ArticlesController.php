@@ -45,12 +45,6 @@ class ArticlesController extends \BaseController
     {
         //
         $data = Input::all();
-//        dd($data);
-
-//       $id = $data['image']->id;
-//       dd($id);
-
-
         $response = null;
         if (Input::hasFile('image')) {
             $file = Input::file('image');
@@ -122,17 +116,29 @@ class ArticlesController extends \BaseController
     public function show($id)
     {
         //
-
+        if(Auth::check()){
+            $data['patientId'] = Auth::user()->id;
+            $likes = $this->_article->getLikesForList($data);
+            $likeData[] = "";
+            foreach($likes as $like){
+                array_push($likeData, $like->article_id);
+            }
+//                    $selectedClass['status'] = "";
+        }
         $articles=Article::displayarticle($id);
-if ($articles != NULL){
 
 
-    return View::make ("articles.article", compact('articles'));
 
-}    else {
+            if ($articles != NULL){
 
-    return View::make('auth.unauthorized');
-}
+
+                return View::make ("articles.article", compact('articles','likeData'));
+
+
+            }    else {
+
+                return View::make('auth.unauthorized');
+            }
 
 
 
@@ -153,8 +159,9 @@ if ($articles != NULL){
     {
 
         $articles=Article::editarticle($id);
-
-        return View::make('articles.articleupdate', compact('articles'));
+//    dd($articles);
+//        return View::make('articles.articleupdate', compact('articles'));
+        return View::make('doctors.articlesEditer', compact('articles'));
     }
 
 
@@ -252,73 +259,71 @@ if ($articles != NULL){
 
         }
 
-        public function replace(){
+        public function replace()
+        {
 
             $data = Input::all();
+            if ($data['image'] == NULL) {
+//                For Update Data without Image
+                $this->_article->restore($data);
+            }
+                    else {
+                    $response = null;
+                    if (Input::hasFile('image')) {
+                        $file = Input::file('image');
+
+                        $type = $file->getMimeType();
+                        $size = $file->getSize();
 
 
-            $response = null;
-            if (Input::hasFile('image')) {
-                $file = Input::file('image');
-
-                $type = $file->getMimeType();
-                $size = $file->getSize();
+                        $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
+                        if ($size > 6000) {
+                            if (in_array($type, $supportedTypes)) {
 
 
-                $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
-                if ($size > 6000){
-                    if (in_array($type, $supportedTypes)){
+                                $this->_article->restore($data);
+                                $articleid = $data['id'];
 
 
+                                $destinationPath = public_path(GlobalsConst::ARTICLE_PHOTO_DIR) . "/" . $articleid;
+                                $filename = str_random(16) . '_' . $file->getClientOriginalName();
+                                $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
+                                $uploadSuccess = $file->move($destinationPath, $filename);
 
 
-                        $this->_article->restore($data);
-                        $articleid = $data['id'];
-
-
-                        $destinationPath = public_path(GlobalsConst::ARTICLE_PHOTO_DIR)."/".$articleid;
-                        $filename = str_random(16) . '_' . $file->getClientOriginalName();
-                        $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
-                        $uploadSuccess = $file->move($destinationPath, $filename);
-
-
-                        $this->_image->updateImage($filename, $articleid, $destinationPath);
-                        $this->_article->bannerupdate($filename,$data);
+                                $this->_image->updateImage($filename, $articleid, $destinationPath);
+                                $this->_article->bannerupdate($filename, $data);
 //                return View::make('doctors.articlesEditer', compact('response'));
 
-                    }
-                    else{
-                        $response = ['success' => false, 'error' => 'No files were processed.'] ;
+                            } else {
+                                $response = ['success' => false, 'error' => 'No files were processed.'];
 
 
-                        return View::make('doctors.articlesEditer', compact('response'));
+                                return View::make('doctors.articlesEditer', compact('response'));
 
 
-                    }
+                            }
 
-                }
-                else{
+                        } else {
 
-                    $response = ['success' => false, 'error' => 'No files were processed.'] ;
+                            $response = ['success' => false, 'error' => 'No files were processed.'];
 
 
-                    return View::make('doctors.articlesEditer', compact('response'));
+                            return View::make('doctors.articlesEditer', compact('response'));
 
-                }
+                        }
 
-            }
-
-            else {
+                    } else {
 //			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
-                $response = ['success' => false, 'error' => 'No files were processed.'];
-            }
+                        $response = ['success' => false, 'error' => 'No files were processed.'];
+                    }
 //        return Response::json($response);
 
 
+                }
             return Redirect::route('articlesList');
+            }
 
-
-        }
 
 
 

@@ -48,8 +48,9 @@
                 <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Doctor_ID</th>
-                    <th>Patient_ID</th>
+                    <th>Record_type</th>
+                    <th>Record_id</th>
+                    <th>User_ID</th>
                     <th>Comments Details</th>
                     <th>Date</th>
                     <th>Status</th>
@@ -59,10 +60,12 @@
                 @foreach ($data as $dataComment)
                     <tr>
                         <td></td>
-                        <td>{{$dataComment->doctor_id}}</td>
-                        <td>{{$dataComment->patient_id}}</td>
+                        <td>{{$dataComment->type}}</td>
+                        <td>{{$dataComment->target_id}}</td>
+                        <td>{{$dataComment->user_id}}</td>
                         <td>{{$dataComment->comments}}</td>
                         <td>{{$dataComment->created_at}}</td>
+
                         <td>
                             <label class="switch">
 

@@ -265,9 +265,10 @@ class Doctor extends \Eloquent
             ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
 //               ->join('comments','comments.doctor_id','=','doctors.id')
             ->select('medical_specialties.name AS specialityName','doctors.id', 'max_fee', 'code', 'title', 'qualifications.description AS qualificationsDescription', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'cell', 'address', 'email', 'photo')
-            ->where('doctors.id', '=', $id)
-            ->groupBy('doctors.id')
+            ->where('users.id', '=', $id)
+            ->groupBy('users.id')
             ->get();
+
 //qualifications
         return $data;
     }
@@ -301,7 +302,7 @@ class Doctor extends \Eloquent
             if ($filterParams['user_id'] != '')
                 $queryBuilder->where('users.id', $filterParams['user_id']);
 
-            $doctors = $queryBuilder->select('max_fee', 'min_fee', 'full_name', 'medical_specialties.name AS specialityName', 'start', 'end', 'code', 'doctors.id AS doctorsId', 'cities.name AS cityName', 'cities.id AS cityId', 'photo', 'gender')
+            $doctors = $queryBuilder->select('users.id AS userId','max_fee', 'min_fee', 'full_name', 'medical_specialties.name AS specialityName', 'start', 'end', 'code', 'doctors.id AS doctorsId', 'cities.name AS cityName', 'cities.id AS cityId', 'photo', 'gender')
                 ->groupBy('user_id')->paginate(5);
             return $doctors;
 
@@ -320,7 +321,7 @@ class Doctor extends \Eloquent
     {
         $doctors = User::where('full_name', 'LIKE', '%' . $data['q'] . '%')
             // ->leftJoin('m','','')
-            ->select('full_name', 'photo', 'id')
+            ->select('full_name', 'photo', 'id','gender')
             ->where('city_id', '=', $data['city'])
             ->where('user_type', '=', 'Doctor')
             ->paginate(10);

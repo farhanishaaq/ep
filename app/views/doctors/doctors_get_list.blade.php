@@ -137,10 +137,11 @@
                             <div class="col-xs-12 col-md-12 col-sm-12" style="text-align: center">
                                 <h4 align="center"><strong>
                                 {{$doctors[$i]->full_name}}
-                                </strong></h4>
+                                </strong></h4><br>
+                                <p>{{$doctors[$i]->code}}</p>
                                 <p align="center" >
                                <strong>{{$doctors[$i]->code}}</strong><br>
-                                <a style="" href="{{route('drProfile',$doctors[$i]->doctorsId)}}"  class="btn btn-raised btn-sm">View Profile</a>
+                                <a style="" href="{{route('drProfile',$doctors[$i]->userId)}}"  class="btn btn-raised btn-sm">View Profile</a>
                                 <span> <a href="#" style="color: red">websitk.ename.com</a> </span></p>
                                 <ul class="social-links list-inline m-t-10">
                                     <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
@@ -157,11 +158,22 @@
                                         </strong></h5>
 
                                 <p align="center" >
-
+                                    @if($doctors[$i]->start || $doctors[$i]->end)
+                                    @if($doctors[$i]->start)
                                         {{$doctors[$i]->start}}
-                                    <strong>AM</strong><br><strong>To</strong><br>
-                                        {{$doctors[$i]->end}}
-                                    <strong>PM</strong></p>
+                                    <strong>AM</strong>
+                                    @endif
+                                    @if($doctors[$i]->end)
+                                            <br><strong>To</strong><br>
+                                            {{$doctors[$i]->end}}
+                                            <strong>PM</strong>
+                                    @endif
+                                @else
+                                        <b>Time Slots </b><br>
+                                        <strong>Not Yet Available</strong>
+                                @endif
+                                </p>
+
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-3  col-lg-3">
@@ -182,7 +194,7 @@
                                                 <span><img src="{{asset('images/not_found.png')}}"></span><br>
                                 </div>
 @endif
-
+                    <span class="center"><?php echo $doctors->links(); ?></span>
 <!-- Modal -->
                  <div class="modal fade" id="myModal" role="dialog">
                      <div class="modal-dialog modal-sm">

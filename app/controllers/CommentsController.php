@@ -64,7 +64,7 @@ class CommentsController extends \BaseController {
 	{
         $data = Input::all();
 
-        return Comment::fetechDoctorComments($data['id']);
+        return Comment::fetechDoctorComments($data);
 
 
 	}
