@@ -3,7 +3,7 @@
 
 class Comment extends \Eloquent
 {
-    protected $fillable = ['user_id', 'doctor_id', 'comments'];
+    protected $fillable = ['user_id', 'target_id', 'type', 'comments', 'status'];
 
     public static function fetechDoctorComments($data)
     {
