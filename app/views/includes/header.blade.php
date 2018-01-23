@@ -26,6 +26,8 @@
                                             @include('includes.companyAdminNav')
                                             @elseif($r->name == "Portal Doctor")
                                                 @include('includes.companyAdminNav')
+                                            @elseif($r->name == "Portal User")
+                                                @include('includes.userNav')
                                                 <?php break; ?>
                                             <?php break; ?>
                                         @endif
