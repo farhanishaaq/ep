@@ -10,19 +10,30 @@ class Rating extends \Eloquent
         return $this->belongsTo('User');
     }
 
-
+// in rating table only
     public function setDoctorRating($doctorId, $rating)
     {
 
-        $savedRating = self::find($doctorId);
-        if ($savedRating === NULL) {
+        $savedRating = self::select('rating')
+            ->where('doctor_id',$doctorId)
+            ->get();
+//dd();
+//        $savedRating = self::find($doctorId);
+        if (empty($savedRating)) {
             $this->doctor_id = $doctorId;
+            //dd('dsadsadasd');
             $this->rating = $rating;
             $this->save();
+
         } else {
-            $savedRating->rating = ($savedRating->rating + $rating) / 2;
-            $savedRating->save();
+            //dd('in else');
+            $newRate = ($savedRating[0]->rating + $rating) / 2;
+        //    dd($newRate);
+            self::where('doctor_id',$doctorId)
+                ->update(['rating'=>$newRate]);
         };
+
+
     }
 
     public function getDoctorRating($doctorId)
@@ -32,10 +43,10 @@ class Rating extends \Eloquent
             ->get();
 
         if ($rating->isEmpty()) {
-            return json_encode('noRecord');
+            return 'noRecord';
 
         } else {
-            return json_encode($rating);
+            return $rating;
         }
     }
 

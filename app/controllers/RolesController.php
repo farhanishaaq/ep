@@ -47,7 +47,9 @@ class RolesController extends \BaseController {
 
      $actions=  array_map('intval', explode(',', Input::get('actions')));
      $role = Input::get('roles');
-   // dd($actions);
+//    dd($actions);
+
+
      if ($actions[0] != 0){
          $this->_role->assignResourceToRole($role,$actions);
          return $this->index();

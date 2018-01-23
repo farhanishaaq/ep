@@ -91,10 +91,10 @@ class MedicinesController extends \BaseController {
 		return $response;
 	}
 
-    public function medicineSearch(){
-
-        return View::make('medicines.medicineSearch');
-    }
+//    public function medicineSearch(){
+//
+//        return View::make('medicines.medicineSearch');
+//    }
 
 
 	/**

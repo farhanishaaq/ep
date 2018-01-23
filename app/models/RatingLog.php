@@ -30,27 +30,51 @@ class RatingLog extends \Eloquent
         //		$data['user_id'] = Input::get('userId');
 //		$data['rating'] = Input::get('rating');
             if (Auth::check()){
-                if (Auth::user()->id ==$data["userId"]){
 
-                    $check = self::select()
-                        ->where('patient_id', '=', $data["userId"])
-                        ->where('doctor_id', '=', $data["doctorId"])
-                        ->get();
-                    if ($check->isEmpty()) {
-                        $this->patient_id = $data['userId'];
+                $check = $this->testRatingExist($data["doctorId"]);
+
+//                    $check = self::select()
+//                    ->where('patient_id', '=', Auth::user()->id)
+//                    ->where('doctor_id', '=', $data["doctorId"])
+//                    ->get();
+                    if ($check) {
+                        $this->patient_id = Auth::user()->id;
                         $this->doctor_id = $data['doctorId'];
                         $this->rating_count = $data['rating'];
+
+                        //in only rating table
                         $rating = new Rating();
                         $rating->setDoctorRating($data['doctorId'], $data['rating']);
                         $this->save();
+
                         return $check;
+
                     } else {
                         return $this->getDoctorRating($data["doctorId"]);
                     }
 
-                }
+
             } else return false;
 
     }
+
+    public function testRatingExist($data){
+        $check = self::select()
+                    ->where('patient_id', '=', Auth::user()->id)
+                    ->where('doctor_id', '=', $data)
+                    ->get();
+
+        if($check->isEmpty()){
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+
+    }
+
 
 }
