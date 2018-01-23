@@ -2,6 +2,7 @@
     <ul class="nav navbar-nav navbar-right">
         {{--<li @yield('current_admin_home')><a href="{{URL::route('adminHome')}}">Dashboard</a></li>--}}
         <li @yield('current_admin_home')><a href="{{URL::route('showDashboard')}}">Dashboard</a></li>
+        <li><a href="{{URL::route('medicineSearch')}}">Medicines</a></li>
 
         {{-- Manage Clinic --}}
         <li class="dropdown @yield('current_services')">
