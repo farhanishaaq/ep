@@ -31,19 +31,24 @@ class RatingLog extends \Eloquent
 //		$data['rating'] = Input::get('rating');
             if (Auth::check()){
 
+                $check = $this->testRatingExist($data["doctorId"]);
 
-                    $check = self::select()
-                        ->where('patient_id', '=', Auth::user()->id)
-                        ->where('doctor_id', '=', $data["doctorId"])
-                        ->get();
-                    if ($check->isEmpty()) {
+//                    $check = self::select()
+//                    ->where('patient_id', '=', Auth::user()->id)
+//                    ->where('doctor_id', '=', $data["doctorId"])
+//                    ->get();
+                    if ($check) {
                         $this->patient_id = Auth::user()->id;
                         $this->doctor_id = $data['doctorId'];
                         $this->rating_count = $data['rating'];
+
+                        //in only rating table
                         $rating = new Rating();
                         $rating->setDoctorRating($data['doctorId'], $data['rating']);
                         $this->save();
+
                         return $check;
+
                     } else {
                         return $this->getDoctorRating($data["doctorId"]);
                     }
@@ -52,5 +57,24 @@ class RatingLog extends \Eloquent
             } else return false;
 
     }
+
+    public function testRatingExist($data){
+        $check = self::select()
+                    ->where('patient_id', '=', Auth::user()->id)
+                    ->where('doctor_id', '=', $data)
+                    ->get();
+
+        if($check->isEmpty()){
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+
+    }
+
 
 }

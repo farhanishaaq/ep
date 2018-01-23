@@ -19,7 +19,11 @@ class RatingController extends \BaseController {
 	 */
 	public function index()
 	{
-       return $this->_rating->getDoctorRating(Input::get('doctorId'));
+	    $rating["check"] = $this->_ratingLog->testRatingExist(Input::get('doctorId'));
+        $rating['rating']=   $this->_rating->getDoctorRating(Input::get('doctorId'));
+
+        return json_encode($rating);
+
 	}
 
 

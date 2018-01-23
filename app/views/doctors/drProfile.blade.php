@@ -314,6 +314,7 @@
                 dataType : "json",
                 success : function(response){
                     if(response.toString() == "noRecord"){
+//                    if(response.rating == "noRecord"){
 
                         $("#rateYo").rateYo({
                             rating: 0,
@@ -322,14 +323,29 @@
                         })
                        // console.log('in no record')
                     }else {
-                        $("#rateYo").rateYo({
-                            rating: response[0].rating,
-                            fullStar:true,
-                            readOnly: true
-                        })
+
+                        console.log(response.rating[0]);
+                        if(response.check){
+
+                            $("#rateYo").rateYo({
+                                rating: response.rating[0].rating,
+                                fullStar:true,
+                                readOnly: false
+                            })
+
+                        }else{
+
+                            $("#rateYo").rateYo({
+                                rating: response.rating[0].rating,
+                                fullStar:true,
+                                readOnly: true
+                            })
+
+                        }
                       //  console.log(response)
                        // console.log('in found record '+response[0].rating)
-                        $('#drRate').html(response[0].rating+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
+                        $('#drRate').html(response.rating[0].rating+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
+//                        $('#drRate').html(response.rating['rating']+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
                     }
                 },
                 error : function(response){
