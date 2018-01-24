@@ -31,7 +31,7 @@ Route::group(['Public'],function (){
 
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
     Route::post('doSignUp', array('as'=>'doSignUp','uses'=>'AuthController@doSignUp'));
-    Route::post('doctorInfoForm', array('as'=>'doctorInfoForm','uses'=>'AuthController@doctorInfoForm'));
+    Route::post('doctorInfoForm', array('as'=>'doctorInfoForm','uses'=>'UsersController@doctorInfoForm'));
     Route::post('doSignUpDoctor', array('as'=>'doSignUpDoctor','uses'=>'AuthController@doSignUpDoctor'));
     Route::post('checkEmail', array('as'=>'checkEmail','uses'=>'AuthController@checkEmail'));
     Route::post('checkUserName', array('as'=>'checkUserName','uses'=>'AuthController@checkUserName'));

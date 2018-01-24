@@ -16,4 +16,6 @@ class Qualification extends \Eloquent
         return $this->belongsToMany('Doctor', 'doctor_qualification', 'qualification_id', 'doctor_id')->withPivot(['institute', 'start_date', 'end_date']);
     }
 
+
+
 }

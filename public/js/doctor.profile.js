@@ -184,7 +184,7 @@ $("#ajax").click(function(event) {
     if($('#comment').val().length>5){
         $.ajax({
             type: "get",
-            url: "/comment",
+            url: "comment",
             dataType: "json",
             data: {
                 //'_token': $('input[name=_token]').val(),

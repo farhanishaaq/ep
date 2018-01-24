@@ -144,7 +144,7 @@
                                                                         </div>
                                                                         <div class="col-md-6 col-xs-6 b-r"> <strong>Mobile</strong>
                                                                             <br>
-                                                                            <p class="text-muted">{{$profile->cell != "" ? $profile->cell: "No contact" }}</p>
+                                                                            <p class="text-muted">{{$profile->phone != "" ? $profile->phone: "No contact" }}</p>
                                                                         </div>
                                                                         <div class="col-md-6 col-xs-6 b-r"> <strong>Email</strong>
                                                                             <br>
@@ -156,10 +156,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <hr>
-                                                                    <p class="m-t-30">Completed my graduation in Gynaecologist Medicine from the well known and renowned institution of India – SARDAR PATEL MEDICAL COLLEGE, BARODA in 2000-01, which was affiliated to M.S. University. I ranker in University exams from the same university from 1996-01.</p>
-                                                                    <p>Worked as Professor and Head of the department ; Community medicine Department at Sterline Hospital, Rajkot, Gujarat from 2003-2015 </p>
 
-                                                                    <br>
                                                                     <h4 class="font-bold">Education</h4>
                                                                     <hr>
                                                                     <ul>
@@ -173,22 +170,14 @@
                                                                     <h4 class="font-bold">Experience</h4>
                                                                     <hr>
                                                                     <ul>
-                                                                        <li>One year rotatory internship from April-2009 to march-2010 at B. J. Medical College, Ahmedabad.</li>
-                                                                        <li>Three year residency at V.S. General Hospital as a resident in orthopedics from April - 2008 to April - 2011.</li>
-                                                                        <li>I have worked as a part time physiotherapist in Apang manav mandal from 1st june 2004 to 31st jan 2005.</li>
-                                                                        <li>Clinical and Research fellowship in Scoliosis at Shaurashtra University and Medical Centre (KUMC) , Krishna Hospital , Rajkot from April 2013 to June 2013.</li>
-                                                                        <li>2.5 Years Worked at Mahatma Gandhi General Hospital, Surendranagar.</li>
-                                                                        <li>Consultant Orthopedics Surgeon Jalna 2 years.</li>
+                                                                        <li>{{$profile->experience}}</li>
                                                                     </ul>
 
                                                                     <br>
                                                                     <h4 class="font-bold">Professional Affiliations </h4>
                                                                     <hr>
                                                                     <ul>
-                                                                        <li>Life member: Association of Spine Surgeons’ of India.</li>
-                                                                        <li>Life member: Gujarat Orthopaedic Association.</li>
-                                                                        <li>Life Member: The Indian Society for Bone and Mineral Research (ISBMR).</li>
-                                                                        <li>Life member: Ahmedabad Orthopaedic Society</li>
+                                                                        <li>{{$profile->doctorAffiliation}}</li>
                                                                     </ul>
                                                                     <br>
 

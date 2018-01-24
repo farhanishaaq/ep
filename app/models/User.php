@@ -380,21 +380,31 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return "Success";
 
     }
-    public  function savePublicDoctor(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
+    public function savePublicDoctor(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
 
         $this->company_id = "1";
         $this->business_unit_id = "1";
         $this->fname = $filterparams['fname'];
         $this->lname = $filterparams['lname'];
         $this->full_name = $filterparams['fname'] . " " . $filterparams['lname'];
-        $this->user_type = $filterparams['userType'];
-        $this->email = $filterparams['doctorEmail'];
-        $this->username = $filterparams['doctorUserName'];
+        $this->user_type = GlobalsConst::PORTAL_DOCTOR;
+        $this->email = $filterparams['email'];
+        $this->username = $filterparams['username'];
         $this->password = Hash::make($filterparams['password']);
         $this->phone = $filterparams['phone'];
-        $this->save();
-        return "Success";
+        $this->dob = $filterparams['dob'];
+        $this->cnic = $filterparams['cnic'];
+        $this->gender = $filterparams['gender'];
+        $this->address = $filterparams['address'];
+        if(!empty($filterparams['status']))
+            $this->status = "Active";
+        else
+            $this->status = "Inactive";
 
+        if($this->save()){
+            $this->roles()->sync([2]);
+            return $this->id;
+        }
     }
 
 public function fetchemail($filterparams){
