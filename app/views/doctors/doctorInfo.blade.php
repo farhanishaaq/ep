@@ -90,12 +90,12 @@
 @section('content')
     <div class="row">
         <div class="container">
+            <form action="{{URL::route('doctorInfoForm') }}" method="post" name="form">
             <br>
-            <section class="form-Section col-md-6 h850 fL">
+            <section class="form-Section col-md-6 h750 fL">
                 <h3 class="mT15 mB0 c3">Basic Info</h3>
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
-                <form action="{{URL::route('doctorInfoForm') }}" method="post" name="form">
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">First Name</label>
                         <div class="col-xs-6">
@@ -116,6 +116,7 @@
                         <label class="col-xs-5 control-label asterisk">*Email</label>
                         <div class="col-xs-6">
                             <input type="text" id="email" name="email" required="true" value="{{$data['doctorEmail']}}" class="form-control" placeholder="Email" disabled>
+                            <input type="hidden" name="email" value="{{$data['doctorEmail']}}">
                             <span id="error_email" class="field-validation-msg"></span>
                         </div>
                     </div>
@@ -123,6 +124,8 @@
                         <label class="col-xs-5 control-label asterisk">*Username</label>
                         <div class="col-xs-6">
                             <input type="text" id="username" name="username" required="true" value="{{$data['doctorUserName']}}" class="form-control" placeholder="Username" disabled>
+                            <input type="hidden" name="username" value="{{$data['doctorUserName']}}">
+                            <input type="hidden" name="city" value="{{$data['doctorCity']}}">
                             <span id="error_username" class="field-validation-msg"></span>
                         </div>
                     </div>
@@ -134,18 +137,42 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-xs-5 control-label asterisk">Confirm Password</label>
+                        <label class="col-xs-5 control-label asterisk">DOB</label>
                         <div class="col-xs-6">
-                            <input type="password" id="confirm_password" name="confirm_password" required="true" value="{{$data['password']}}" class="form-control" placeholder="Confirm Password">
-                            <span id="error_confirm_password" class="field-validation-msg"></span>
+                            <input type="number" name="dob" required="true" class="form-control" placeholder="Date Of Birth">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-xs-5 control-label">Status</label>
+
+                <div class="form-group">
+                        <label class="col-xs-5 control-label asterisk">CNIC</label>
                         <div class="col-xs-6">
-                            {{switch_btn_group(['fieldName'=>'status', 'onVal'=>'Active', 'offVal'=>'Inactive'])}}
+                            <input type="number" name="cnic" required="true" class="form-control" placeholder="CNIC">
                         </div>
                     </div>
+                <div class="form-group">
+                    <label class="col-xs-5 control-label">Gender</label>
+                    <div class="col-xs-6">
+                        <select name="gender" class="form-control">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-5 control-label">Status</label>
+                    <div class="col-xs-6">
+                        {{switch_btn_group(['fieldName'=>'status', 'onVal'=>'Active', 'offVal'=>'Inactive'])}}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-5 control-label">Address</label>
+                    <div class="col-xs-6">
+                        <textarea name="address" cols="26" rows="2" minlength="10" maxlength="200"></textarea>
+                    </div>
+                </div>
+
                     <h3 class="mT15 mB0 c3">Doctor Info</h3>
                     <hr class="w95p fL mT0" />
                     <hr class="w95p fL mT0" />
@@ -177,31 +204,31 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="w95p fL mT0" />
-                    <br>
-                    <div class="form-group">
-                        <label class="col-xs-6 control-label asterisk mB15">Days & Time</label>
-                        <div class="col-xs-6 control-label asterisk mB15">
-                            <button type="button" class="btn btn-info btn-sm" style="float: right" id="dayAddBtn">
-                                <span class="glyphicon glyphicon-plus-sign"></span> Add Day
-                            </button>
-                        </div>
+                    {{--<hr class="w95p fL mT0" />--}}
+                    {{--<br>--}}
+                    {{--<div class="form-group">--}}
+                        {{--<label class="col-xs-6 control-label asterisk mB15">Days & Time</label>--}}
+                        {{--<div class="col-xs-6 control-label asterisk mB15">--}}
+                            {{--<button type="button" class="btn btn-info btn-sm" style="float: right" id="dayAddBtn">--}}
+                                {{--<span class="glyphicon glyphicon-plus-sign"></span> Add Day--}}
+                            {{--</button>--}}
+                        {{--</div>--}}
 
                         {{--doctorDutyDays For Append Purpose--}}
 
-                        <div id="doctorDutyDays">
-                            <div id="1" name="doctorDaysData">
-                        <div class="col-xs-4" >
-                            <select id="dutyDays" class="myselect" name="dutyDays[0]" style="height: 35px;">
-                                <option>Select Day</option>
-                                <option value="Monday">Monday</option>
-                                <option value="Tuesday">Tuesday</option>
-                                <option value="Wednesday">Wednesday</option>
-                                <option value="Thursday">Thursday</option>
-                                <option value="Friday">Friday</option>
-                                <option value="Saturday">Saturday</option>
-                                <option value="Sunday">Sunday</option>
-                            </select>
+                        {{--<div id="doctorDutyDays">--}}
+                            {{--<div id="1" name="doctorDaysData">--}}
+                        {{--<div class="col-xs-4" >--}}
+                            {{--<select id="dutyDays" class="myselect" name="dutyDays[0]" style="height: 35px;">--}}
+                                {{--<option>Select Day</option>--}}
+                                {{--<option value="Monday">Monday</option>--}}
+                                {{--<option value="Tuesday">Tuesday</option>--}}
+                                {{--<option value="Wednesday">Wednesday</option>--}}
+                                {{--<option value="Thursday">Thursday</option>--}}
+                                {{--<option value="Friday">Friday</option>--}}
+                                {{--<option value="Saturday">Saturday</option>--}}
+                                {{--<option value="Sunday">Sunday</option>--}}
+                            {{--</select>--}}
 
              {{--<div class="btn-group">--}}
                              {{--<label class="container">&nbsp;&nbsp;&nbsp;Monday--}}
@@ -209,34 +236,34 @@
                                  {{--<span class="checkmark"></span>--}}
                              {{--</label></div>--}}
 
-                        </div>
+                        {{--</div>--}}
 
-                    <br>
-                    <div class="col-xs-5 mB15">
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-btn w20 fs25 taC">-</span>
-                            <input type="text" id="start_time" name="start_time[0]" class="form-control input-sm" value="" placeholder="Start" />
-                            <span class="input-group-btn w20 fs25 taC">-</span>
-                            <input type="text" id="end_time" name="end_time[0]" class="form-control input-sm" value="" placeholder="End" />
-                        </div>
-                    </div>
-                                <button type="button" class="btn btn-danger" style="margin-left: 12px" onclick="deleteRow(this.parentNode.id)">Delete </button>
-                        </div>
-                    </div>
-                    </div>
-                    <hr class="w95p fL mT0" />
-                    <br>
-                    <div class="form-group">
-                        <label class="col-xs-5 control-label asterisk">*Estimated Time Slot</label>
-                        <div class="col-xs-6">
-                            <input type="number" id="slot_time" name="slot_time" required="true" value="" class="form-control" placeholder="Time Minut">
-                            <span id="error_doctor_category_id" class="field-validation-msg"></span>
-                        </div>
-                    </div>
-                </form>
+                    {{--<br>--}}
+                    {{--<div class="col-xs-5 mB15">--}}
+                        {{--<div class="input-group col-xs-12">--}}
+                            {{--<span class="input-group-btn w20 fs25 taC">-</span>--}}
+                            {{--<input type="text" id="start_time" name="start_time[0]" class="form-control input-sm" value="" placeholder="Start" />--}}
+                            {{--<span class="input-group-btn w20 fs25 taC">-</span>--}}
+                            {{--<input type="text" id="end_time" name="end_time[0]" class="form-control input-sm" value="" placeholder="End" />--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                                {{--<button type="button" class="btn btn-danger" style="margin-left: 12px" onclick="deleteRow(this.parentNode.id)">Delete </button>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<hr class="w95p fL mT0" />--}}
+                    {{--<br>--}}
+                    {{--<div class="form-group">--}}
+                        {{--<label class="col-xs-5 control-label asterisk">*Estimated Time Slot</label>--}}
+                        {{--<div class="col-xs-6">--}}
+                            {{--<input type="number" id="slot_time" name="slot_time" required="true" value="" class="form-control" placeholder="Time Minut">--}}
+                            {{--<span id="error_doctor_category_id" class="field-validation-msg"></span>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+
             </section>
             {{--Profile Image--}}
-            <section class="form-Section col-md-6 h850 fL">
+            <section class="form-Section col-md-6 h750 fL">
                 <div class="container w100p">
                     <h3 class="mT15 mB0 c3">Doctor Photo</h3>
                     <hr class="w95p fL mT0" />
@@ -266,6 +293,21 @@
                             @endif
                         </div>
                     </div>
+                    <hr class="w95p fL mT0" />
+
+                    <h3 class="mT15 mB0 c3">Experience</h3>
+                    <div class="imageupload panel panel-default">
+                        <div class="panel-heading clearfix">
+                    <textarea name="experience" class="w100p" rows="4" minlength="10" maxlength="1000"></textarea>
+                        </div>
+                    </div>
+
+                    <h3 class="mT15 mB0 c3">Professional Affiliations</h3>
+                    <div class="imageupload panel panel-default">
+                        <div class="panel-heading clearfix">
+                    <textarea name="affiliation" class="w100p" rows="4" minlength="10" maxlength="1000"></textarea>
+                        </div>
+                    </div>
                 </div>
             </section>
             {{--Image END--}}
@@ -273,8 +315,10 @@
                 <input type="submit" id="registerDoctor" name="registerDoctor" value="Submit" class="submit" />
                 <input type="button" id="cancel" value="Cancel" class="submit" novalidate onclick="goTo('{{route("login")}}')" />
             </div>
+            </form>
         </div>
     </div>
+
     {{--{{ Form::close() }}--}}
 @section('scripts')
     <link media="all" type="text/css" rel="stylesheet" href="{{asset('plugins/file-input/css/fileinput.min.css')}}">
@@ -287,60 +331,60 @@
         $(document).ready(function() {
             $("#qualification_id").select2();
         });
-        $(document).ready(function() {
-            $(".myselect").select2();
-        });
-        $("#dayAddBtn").click(function(){
-            length = $('#doctorDutyDays').children().length;
-    if(length < 7) {
-    var div = document.getElementsByName("doctorDaysData")[0];
-    clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
+        {{--$(document).ready(function() {--}}
+            {{--$(".myselect").select2();--}}
+        {{--});--}}
+        {{--$("#dayAddBtn").click(function(){--}}
+            {{--length = $('#doctorDutyDays').children().length;--}}
+    {{--if(length < 7) {--}}
+    {{--var div = document.getElementsByName("doctorDaysData")[0];--}}
+    {{--clone = div.cloneNode(true); // true means clone all childNodes and all event handlers--}}
 
-    clone.id = "" + (++i);
-    clone.querySelector('#dutyDays').setAttribute('name', 'dutyDays[' + i+']');
-    clone.querySelector('#start_time').setAttribute('name', 'start_time[' + i+']');
-    clone.querySelector('#end_time').setAttribute('name', 'end_time[' + i+']');
-////    clone.querySelector('#start_time').setAttribute('id','1');
-            clone.querySelector('#dutyDays').setAttribute('id', 'dutyDays' + i );
-            clone.querySelector('#start_time').setAttribute('id', 'start_time' + i );
-            clone.querySelector('#end_time').setAttribute('id', 'end_time' + i);
-             document.getElementById("doctorDutyDays").appendChild(clone);
+    {{--clone.id = "" + (++i);--}}
+    {{--clone.querySelector('#dutyDays').setAttribute('name', 'dutyDays[' + i+']');--}}
+    {{--clone.querySelector('#start_time').setAttribute('name', 'start_time[' + i+']');--}}
+    {{--clone.querySelector('#end_time').setAttribute('name', 'end_time[' + i+']');--}}
+{{--////    clone.querySelector('#start_time').setAttribute('id','1');--}}
+            {{--clone.querySelector('#dutyDays').setAttribute('id', 'dutyDays' + i );--}}
+            {{--clone.querySelector('#start_time').setAttribute('id', 'start_time' + i );--}}
+            {{--clone.querySelector('#end_time').setAttribute('id', 'end_time' + i);--}}
+             {{--document.getElementById("doctorDutyDays").appendChild(clone);--}}
 
-}
-});
+{{--}--}}
+{{--});--}}
 
-        function deleteRow(id) {
-            if(id!==1)
-            document.getElementById(id).remove();
+        {{--function deleteRow(id) {--}}
+            {{--if(id!==1)--}}
+            {{--document.getElementById(id).remove();--}}
 
-        }
+        {{--}--}}
 
 
 
-        //                var photoInitialPreview = '';
+        {{--//                var photoInitialPreview = '';--}}
 
         {{--@if($formMode == App\Globals\GlobalsConst::FORM_CREATE)--}}
         {{--photoInitialPreview = "{{asset('images/profile-dumy.png')}}";--}}
         {{--@else--}}
         {{--photoInitialPreview = "{{get_profile_photo_url($doctor->user->photo)}}";--}}
         {{--@endif--}}
-        $(document).ready(function(){
-            //***For gender Radio Selection
-            $('.btn.btn-primary-2.gender').click(function(){
-                setRadioValInHidden('gender',$(this));
-            });
+        {{--$(document).ready(function(){--}}
+            {{--//***For gender Radio Selection--}}
+            {{--$('.btn.btn-primary-2.gender').click(function(){--}}
+                {{--setRadioValInHidden('gender',$(this));--}}
+            {{--});--}}
 
-            var options = {
-                saveCloseUrl: "{{route('doctors.index')}}",
-                photoUploadUrl: "{{route('uploadProfilePic')}}",
-                photoInitialPreview :[
-                    photoInitialPreview
-                ]
+            {{--var options = {--}}
+                {{--saveCloseUrl: "{{route('doctors.index')}}",--}}
+                {{--photoUploadUrl: "{{route('uploadProfilePic')}}",--}}
+                {{--photoInitialPreview :[--}}
+                    {{--photoInitialPreview--}}
+                {{--]--}}
 
-            };
-            var doctorsForm = new DoctorsForm(window,document,options);
-            doctorsForm.initializeAll();
-        });
+            {{--};--}}
+            {{--var doctorsForm = new DoctorsForm(window,document,options);--}}
+            {{--doctorsForm.initializeAll();--}}
+        {{--});--}}
     </script>
 @stop
 @endsection

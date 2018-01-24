@@ -19,7 +19,9 @@ class CreateDoctorsTable extends Migration {
 			$table->integer('employee_id')->nullable();
 			$table->string('min_fee')->nullable();
 			$table->string('max_fee')->nullable();
-			$table->timestamps();
+            $table->string('experience',1024)->nullable();
+            $table->string('affiliation',1024)->nullable();
+            $table->timestamps();
 			$table->softDeletes();
 		});
 	}

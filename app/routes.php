@@ -31,7 +31,7 @@ Route::group(['Public'],function (){
 
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
     Route::post('doSignUp', array('as'=>'doSignUp','uses'=>'AuthController@doSignUp'));
-    Route::post('doctorInfoForm', array('as'=>'doctorInfoForm','uses'=>'AuthController@doctorInfoForm'));
+    Route::post('doctorInfoForm', array('as'=>'doctorInfoForm','uses'=>'UsersController@doctorInfoForm'));
     Route::post('doSignUpDoctor', array('as'=>'doSignUpDoctor','uses'=>'AuthController@doSignUpDoctor'));
     Route::post('checkEmail', array('as'=>'checkEmail','uses'=>'AuthController@checkEmail'));
     Route::post('checkUserName', array('as'=>'checkUserName','uses'=>'AuthController@checkUserName'));
@@ -127,6 +127,8 @@ Route::group(['Private', 'before' => 'auth'],function (){
      * UsersController Routes
      */
     Route::any('uploadProfilePic', array('as' => 'uploadProfilePic', 'uses' => 'UsersController@uploadProfilePic'));
+    Route::any('userProfile', array('as' => 'userProfile', 'uses' => 'UsersController@userProfile'));
+    Route::post('profileUpdate', array('as' => 'profileUpdate', 'uses' => 'UsersController@profileUpdate'));
     Route::resource('users', 'UsersController');
 
 

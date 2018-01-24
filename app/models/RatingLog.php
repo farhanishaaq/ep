@@ -32,7 +32,7 @@ class RatingLog extends \Eloquent
             if (Auth::check()){
 
                 $check = $this->testRatingExist($data["doctorId"]);
-
+//dd($check);
 //                    $check = self::select()
 //                    ->where('patient_id', '=', Auth::user()->id)
 //                    ->where('doctor_id', '=', $data["doctorId"])
@@ -41,7 +41,7 @@ class RatingLog extends \Eloquent
                         $this->patient_id = Auth::user()->id;
                         $this->doctor_id = $data['doctorId'];
                         $this->rating_count = $data['rating'];
-
+//dd($this);
                         //in only rating table
                         $rating = new Rating();
                         $rating->setDoctorRating($data['doctorId'], $data['rating']);
