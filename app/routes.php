@@ -347,7 +347,6 @@ Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@store'))
 Route::post('articleStore', array('as'=>'arStore','uses'=>'ArticlesController@store'));
 Route::get('getappointment/{id}', array('as'=>'getappointment', 'uses' => 'AppointmentsController@crtappointment'));
 Route::get('articlesList', array('as'=>'articlesList','uses'=>'ArticlesController@articleList'));
-Route::get('medicinesList', array('as'=>'medicinesList','uses'=>'MedicineDataController@getMedicineList'));
 Route::post('likePerform', array('as'=>'likePerform','uses'=>'ArticlesController@likeManage'));
 Route::get('articles/{id}', array('as'=>'articles','uses'=>'ArticlesController@show'));
 Route::get('articlesedit/{id}', array('as'=>'articlesedit','uses'=>'ArticlesController@edit'));
@@ -363,6 +362,7 @@ Route::post('updateArticles', array('as'=>'updateArticles','uses'=>'ArticlesCont
 Route::resource('question', 'QuestionController');
 Route::get('question-status',array('as'=>'changeStatus','uses'=> 'QuestionController@updateStatus'));
 Route::get('medicineSearch',array('as'=>'medicineSearch','uses'=> 'MedicineInfoController@medicineSearch'));
+Route::get('medicineDetail',array('as'=>'medicineDetail','uses'=> 'MedicineInfoController@medicineDetail'));
 Route::get('medicinename',array('as'=>'medicinename','uses'=> 'MedicineInfoController@medicinename'));
 Route::get('medicineDetail/{id}',array('as'=>'medicineDetail','uses'=> 'MedicineInfoController@medicineDetail'));
 Route::get('question-history',array('as' => 'questionHistory', 'uses' => 'QuestionController@viewHistory'));

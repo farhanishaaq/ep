@@ -26,5 +26,20 @@ class MedicineInfo extends \Eloquent {
 
     }
 
+    public function medicinestack($data){
+
+
+        $queryBuilder = DB::table('medicineinfo')
+            ->where('PRODUCT_NAME','like','%'.$data['medicine'].'%')
+            ->paginate(3);
+
+
+
+        return $queryBuilder;
+
+    }
+
+
+
 
 }
