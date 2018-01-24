@@ -93,7 +93,7 @@
         <div class="container">
             <form action="{{URL::route('profileUpdate') }}" method="post">
             <br>
-            <section class="form-Section col-md-6 fL ">
+            <section class="form-Section col-md-6 fL h400 ">
                 <h3 class="mT15 mB0 c3">Profile Info</h3>
                 <hr class="w95p fL mT0" />
                 <hr class="w95p fL mT0" />
@@ -134,25 +134,12 @@
 
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-xs-5 control-label asterisk">Password</label>
-                        <div class="col-xs-6">
-                            <input type="password" id="password" name="password" required="true" value="{{$data[0]->password}}" class="form-control" placeholder="Password">
-                            <span id="error_password" class="field-validation-msg"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-5 control-label asterisk">Confirm Password</label>
-                        <div class="col-xs-6">
-                            <input type="password" id="confirm_password" name="confirm_password" required="true" value="{{$data[0]->password}}" class="form-control" placeholder="Confirm Password">
-                            <span id="error_confirm_password" class="field-validation-msg"></span>
-                        </div>
-                    </div>
+
 
 
             </section>
             {{--Profile Image--}}
-            <section class="form-Section col-md-6 fL">
+            <section class="form-Section col-md-6 fL h400">
                 <div class="container w100p">
                     <h3 class="mT15 mB0 c3">User Photo</h3>
                     <hr class="w95p fL mT0" />

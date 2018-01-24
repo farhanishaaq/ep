@@ -424,9 +424,8 @@ public function fetchemail($filterparams){
         public static function updateProfileUser($filterparams){
             $userProfile = DB::table('users')
                 ->where('id','=', Auth::user()->id )
-                ->update(['business_unit_id'=>"1",'company_id'=>"1",'user_type'=>"Portal User","fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>$filterparams['fname'] . " " . $filterparams['lname'],'password'=>Hash::make($filterparams['password']),'phone' => $filterparams['phone']]);
+                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone']]);
 
-//
                         return "Success";
 }
 
