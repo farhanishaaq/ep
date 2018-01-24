@@ -16,8 +16,8 @@ class Rating extends \Eloquent
 
         $savedRating = self::select('rating')
             ->where('doctor_id',$doctorId)
-            ->get();
-//dd();
+            ->first();
+
 //        $savedRating = self::find($doctorId);
         if (empty($savedRating)) {
             $this->doctor_id = $doctorId;
@@ -26,8 +26,9 @@ class Rating extends \Eloquent
             $this->save();
 
         } else {
-            //dd('in else');
-            $newRate = ($savedRating[0]->rating + $rating) / 2;
+            //dd('in else');\
+      //      dd($savedRating);
+            $newRate = ($savedRating->rating + $rating) / 2;
         //    dd($newRate);
             self::where('doctor_id',$doctorId)
                 ->update(['rating'=>$newRate]);

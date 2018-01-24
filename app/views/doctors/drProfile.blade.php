@@ -200,7 +200,7 @@
                                                                             <div class="input-group" style="width: 100%">
 
                                                                                 <textarea style="resize: none" class="col-lg-12 col-md-12 col-sm-12 form-control" type="text" placeholder="Write Comments" name="addComment" id="comment"  style="width: 100%"></textarea>
-                                                                                <span class="input-group-addon p0"  style="width: 20%"><button id="ajax" type="submit" style="width: 100%; height: 50px" ><h5>Comment</h5></button></span>
+                                                                                <span class="input-group-addon p0"  style="width: 20%; height: inherit"><button id="ajax" type="submit" style="width: 100%; height: 50px" ><h5>Comment</h5></button></span>
                                                                             </div>
                                                                             <br>
                                                                             <input class="form-control" type="hidden" value="{{$id}}" name="target_Id" id="target_Id">

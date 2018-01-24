@@ -390,7 +390,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $this->user_type = $filterparams['userType'];
         $this->email = $filterparams['doctorEmail'];
         $this->username = $filterparams['doctorUserName'];
-        $this->city_id = $filterparams['doctorCity'];
         $this->password = Hash::make($filterparams['password']);
         $this->phone = $filterparams['phone'];
         $this->save();
@@ -403,5 +402,22 @@ public function fetchemail($filterparams){
     return $email;
 }
 
+    public static function profileFetch($userId){
+
+
+	    $userProfile = DB::table('users')
+        ->where('id','=', $userId )
+         ->get();
+	    return $userProfile;
+        }
+
+        public static function updateProfileUser($filterparams){
+            $userProfile = DB::table('users')
+                ->where('id','=', Auth::user()->id )
+                ->update(['business_unit_id'=>"1",'company_id'=>"1",'user_type'=>"Portal User","fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>$filterparams['fname'] . " " . $filterparams['lname'],'password'=>Hash::make($filterparams['password']),'phone' => $filterparams['phone']]);
+
+//
+                        return "Success";
+}
 
 }

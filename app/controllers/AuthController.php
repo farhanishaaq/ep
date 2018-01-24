@@ -164,7 +164,7 @@ class AuthController extends \BaseController
 
 
 
-dd($data);
+//dd($data);
         $user= $this->_user;
             return View::make('doctors.doctorInfo',compact('data','user'));
     }

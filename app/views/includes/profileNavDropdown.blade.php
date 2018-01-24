@@ -8,7 +8,7 @@
         <li class="divider"></li>
         <li><a href="#">Change Password</a></li>
         <li class="divider"></li>
-        <li><a href="#">Profile</a></li>
+        <li><a href="{{route('userProfile')}}">Profile</a></li>
         <li class="divider"></li>
         <li><a href="{{route('logout')}}">Logout</a></li>
     </ul>

@@ -46,6 +46,7 @@ class RatingController extends \BaseController {
 	public function store()
 	{
 		$data = Input::all();
+
 		return $this->_ratingLog->setRatingOfDoctor($data);
 
 	}

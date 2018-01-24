@@ -3,10 +3,10 @@
         <li @yield('current_home')><a href="{{URL('/')}}">Home</a></li>
         <li><a href="{{URL::route('medicineSearch')}}">Medicines</a></li>
         <li @yield('current_articles')><a href="{{URL::route('articlesList')}}">Articles</a></li>
-        <li @yield('current_login')><a href="{{URL::route('login')}}">Login</a></li>
         <li @yield('current_services')><a href="{{URL::route('services')}}">Services</a></li>
         <li @yield('current_about')><a href="{{URL::route('about')}}">About</a></li>
         <li @yield('current_contacts')><a href="{{URL::route('contacts')}}">Contacts</a></li>
+        <li @yield('current_login')><a href="{{URL::route('login')}}">Login</a></li>
         {{--<li class="dropdown">--}}
             {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>--}}
             {{--<ul class="dropdown-menu">--}}

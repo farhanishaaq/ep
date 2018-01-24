@@ -8,6 +8,14 @@ class UsersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+    private $_user;
+
+
+    public function __construct(User $user)
+    {
+        $this->_user = $user;
+
+    }
 	public function index()
 	{
 		$users = User::fetchUsers();
@@ -138,4 +146,21 @@ class UsersController extends \BaseController {
 		}
 		return Response::json($response);
 	}
+
+    public function userProfile(){
+
+        $user = Auth::user()->id;
+        $data = User::profileFetch($user);
+        return View::make('doctors.userProfileUpdate',compact('data','user'));
+    }
+
+	public function profileUpdate(){
+//        uploadProfilePic();
+        $userData = Input::all();
+	    $data = User::updateProfileUser($userData);
+
+        return Redirect::back();
+        return Redirect::URL('/');
+    }
+
 }

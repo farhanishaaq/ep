@@ -55,9 +55,8 @@
         </div>
     </section>
     <div class="col-xs-12 taR pR0 mT20">
-        <input type="reset" id="reset" value="Reset" class="submit" />
-        <input type="submit" id="saveClose" name="saveClose" value="Save and Close" class="submit" />
-        <button onclick="submitMe()" class="submit" >submiaaatt</button>
+
+        <button onclick="submitMe()" class="submit" >Submit</button>
         <input type="button" id="cancel" value="Cancel" class="submit" onclick="goTo('{{route('doctors.index')}}')" />
     </div>
 {{ Form::close() }}

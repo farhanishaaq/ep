@@ -127,6 +127,8 @@ Route::group(['Private', 'before' => 'auth'],function (){
      * UsersController Routes
      */
     Route::any('uploadProfilePic', array('as' => 'uploadProfilePic', 'uses' => 'UsersController@uploadProfilePic'));
+    Route::any('userProfile', array('as' => 'userProfile', 'uses' => 'UsersController@userProfile'));
+    Route::post('profileUpdate', array('as' => 'profileUpdate', 'uses' => 'UsersController@profileUpdate'));
     Route::resource('users', 'UsersController');
 
 
