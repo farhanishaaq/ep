@@ -217,6 +217,7 @@ class UsersTableSeeder extends Seeder {
 			'photo'=> 'umarButt.JPG',
 			'dob'=> '1988-12-01',
 			'cnic'=> '35200-1478048-1',
+			'phone'=> '+92-323-8406757',
 			'gender'=> 'Male',
 			'address'=> 'lawrance Road Lahore',
 			'status'=> 'Active',

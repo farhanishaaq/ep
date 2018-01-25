@@ -264,7 +264,7 @@ class Doctor extends \Eloquent
             ->leftjoin('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
             ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
 //               ->join('comments','comments.doctor_id','=','doctors.id')
-            ->select('medical_specialties.name AS specialityName','doctors.id', 'max_fee', 'code', 'title', 'qualifications.description AS qualificationsDescription', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'cell', 'address', 'email', 'photo')
+            ->select('medical_specialties.name AS specialityName','doctors.id', 'max_fee', 'code', 'title', 'qualifications.description AS qualificationsDescription', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'phone', 'address', 'email', 'photo','experience','doctors.affiliation AS doctorAffiliation')
             ->where('users.id', '=', $id)
             ->groupBy('users.id')
             ->get();
@@ -329,5 +329,27 @@ class Doctor extends \Eloquent
         return $doctors;
     }
 
+    public function saveInDoctorTable($filterparams,$userId){
+
+        $this->user_id = $userId;
+        $this->min_fee = $filterparams['min_fee'];
+        $this->max_fee = $filterparams['max_fee'];
+        $this->experience = $filterparams['experience'];
+        $this->affiliation = $filterparams['affiliation'];
+        if($this->save())
+        return $this->id;
+    }
+
+    public function saveDoctorSpeciality($filterparams,$doctorId){
+        $doctor = self::find($doctorId);
+        $doctor->medicalSpecialties()->sync($filterparams['medical_specialty_id']);
+        return "Success";
+    }
+
+    public function saveDoctorQualificaion($filterparams,$doctorId){
+        $doctor = self::find($doctorId);
+        $doctor->qualifications()->sync($filterparams['qualification_id']);
+        return "Success";
+    }
 
 }

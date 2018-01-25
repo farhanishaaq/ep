@@ -31,7 +31,7 @@ Route::group(['Public'],function (){
 
     Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
     Route::post('doSignUp', array('as'=>'doSignUp','uses'=>'AuthController@doSignUp'));
-    Route::post('doctorInfoForm', array('as'=>'doctorInfoForm','uses'=>'AuthController@doctorInfoForm'));
+    Route::post('doctorInfoForm', array('as'=>'doctorInfoForm','uses'=>'UsersController@doctorInfoForm'));
     Route::post('doSignUpDoctor', array('as'=>'doSignUpDoctor','uses'=>'AuthController@doSignUpDoctor'));
     Route::post('checkEmail', array('as'=>'checkEmail','uses'=>'AuthController@checkEmail'));
     Route::post('checkUserName', array('as'=>'checkUserName','uses'=>'AuthController@checkUserName'));
@@ -127,6 +127,8 @@ Route::group(['Private', 'before' => 'auth'],function (){
      * UsersController Routes
      */
     Route::any('uploadProfilePic', array('as' => 'uploadProfilePic', 'uses' => 'UsersController@uploadProfilePic'));
+    Route::any('userProfile', array('as' => 'userProfile', 'uses' => 'UsersController@userProfile'));
+    Route::post('profileUpdate', array('as' => 'profileUpdate', 'uses' => 'UsersController@profileUpdate'));
     Route::resource('users', 'UsersController');
 
 
@@ -347,7 +349,6 @@ Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@store'))
 Route::post('articleStore', array('as'=>'arStore','uses'=>'ArticlesController@store'));
 Route::get('getappointment/{id}', array('as'=>'getappointment', 'uses' => 'AppointmentsController@crtappointment'));
 Route::get('articlesList', array('as'=>'articlesList','uses'=>'ArticlesController@articleList'));
-Route::get('medicinesList', array('as'=>'medicinesList','uses'=>'MedicineDataController@getMedicineList'));
 Route::post('likePerform', array('as'=>'likePerform','uses'=>'ArticlesController@likeManage'));
 Route::get('articles/{id}', array('as'=>'articles','uses'=>'ArticlesController@show'));
 Route::get('articlesedit/{id}', array('as'=>'articlesedit','uses'=>'ArticlesController@edit'));
@@ -363,6 +364,7 @@ Route::post('updateArticles', array('as'=>'updateArticles','uses'=>'ArticlesCont
 Route::resource('question', 'QuestionController');
 Route::get('question-status',array('as'=>'changeStatus','uses'=> 'QuestionController@updateStatus'));
 Route::get('medicineSearch',array('as'=>'medicineSearch','uses'=> 'MedicineInfoController@medicineSearch'));
+Route::get('medicineDetail',array('as'=>'medicineDetail','uses'=> 'MedicineInfoController@medicineDetail'));
 Route::get('medicinename',array('as'=>'medicinename','uses'=> 'MedicineInfoController@medicinename'));
 Route::get('medicineDetail/{id}',array('as'=>'medicineDetail','uses'=> 'MedicineInfoController@medicineDetail'));
 Route::get('question-history',array('as' => 'questionHistory', 'uses' => 'QuestionController@viewHistory'));

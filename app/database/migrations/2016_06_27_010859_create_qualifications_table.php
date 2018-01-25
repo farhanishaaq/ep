@@ -18,6 +18,7 @@ class CreateQualificationsTable extends Migration {
 			$table->string('code',60);
 			$table->string('title',60);
 			$table->string('description',1024)->nullable();
+			$table->string('affiliation',1024)->nullable();
 			$table->timestamps();
 		});
 	}

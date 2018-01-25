@@ -122,6 +122,21 @@ class MedicineInfoController extends \BaseController {
                     }
         return $resultset;
     }
+    public function medicineDetail(){
+
+        $data = Input::all();
+
+
+        $availableMedicine = $this->_medicine->medicinestack($data);
+//        echo "<pre>";
+//        dd($availableMedicine);
+
+        return View::make('medicines.medicineSearch', compact('availableMedicine'));
+
+
+
+
+    }
 
 
 }

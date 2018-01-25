@@ -45,6 +45,8 @@ class CommentsController extends \BaseController {
 	 * @return Response
 	 */
 	public function store()
+
+
 	{
         $data = Input::all();
 
