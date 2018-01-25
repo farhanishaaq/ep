@@ -1,13 +1,17 @@
-@extends('app')
+@extends('layouts.master')
 @section('title')
     Add New Post
 @endsection
+
 @section('redBar')
     <div class = "user_logo">
         <div class="header_1 wrap_3 color_3 login-bar">Write Article
         </div>
     </div>
 @stop
+
+@section('sliderContent')
+    @endsection
 @section('content')
     <br>
     <div class="row">
