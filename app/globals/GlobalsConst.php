@@ -41,10 +41,9 @@ class GlobalsConst {
 
 
     const UPLOAD_DIR = 'uploaded-data';
-    const PROFILE_PHOTO_DIR = 'uploaded-data/profile-photos';
+    const PROFILE_PHOTO_DIR = 'profileImages';
     const ARTICLE_PHOTO_DIR = 'articleimage';
-    const PORTAL_PROFILE_DIR = 'portal-doctor';
-    const PORTAL_DOCTOR = 'Portal Doctor';
+
 
     const DUMMY_EMAIL_DOMAIN = '@test.com';
     const CHECK_UP_PHOTO_DIR = 'check-up-photos';
@@ -140,6 +139,7 @@ class GlobalsConst {
     const DOCTOR = "Doctor";
     const PATIENT = "Patient";
     const PORTAL_USER = "Portal User";
+    const PORTAL_DOCTOR = 'Portal Doctor';
 
 
     //Data Process Type
@@ -156,7 +156,8 @@ class GlobalsConst {
         self::WORKER=>self::WORKER,
         self::DOCTOR=>self::DOCTOR,
         self::PATIENT=>self::PATIENT,
-        self::PORTAL_USER=>self::PORTAL_USER
+        self::PORTAL_USER=>self::PORTAL_USER,
+        self::PORTAL_DOCTOR=>self::PORTAL_DOCTOR
         ];
 
 

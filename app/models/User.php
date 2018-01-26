@@ -354,6 +354,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $response;
 	}
 
+    public function fetechUserRecord($id)
+    {
+        $data = DB::table('users')
+            ->where('users.id', '=', $id)
+            ->get();
+
+        return $data;
+    }
+
 
 	public function getDoctorByNameForSelector($name){
 	    $doctors = self::select('full_name')
@@ -362,17 +371,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	    return json_encode($doctors);
     }
-    public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
 
-        $this->company_id = "1";
+    public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
+//            Active Funtion For Sign Up
+	    $this->company_id = "1";
         $this->business_unit_id = "1";
-        $this->user_type = "Portal User";
+        $this->user_type = $filterparams['user_type'];
         $this->fname = $filterparams['fname'];
         $this->lname = $filterparams['lname'];
         $this->full_name = $filterparams['fname'] . " " . $filterparams['lname'];
         $this->email = $filterparams['email'];
-        $this->username = $filterparams['userName'];
-        $this->city_id = $filterparams['city'];
+        $this->username = $filterparams['username'];
+        $this->city_id = $filterparams['city_id'];
         $this->password = Hash::make($filterparams['password']);
         $this->phone = $filterparams['phone'];
         $this->save();
@@ -380,8 +390,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return "Success";
 
     }
-    public function savePublicDoctor(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
 
+    public  function savePublicInfo(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
+	    $this->gender = $filterparams['gender'];
+	    $this->dob = $filterparams['dob'];
+	    $this->cnic= $filterparams['cnic'];
+	    $this->address= $filterparams['address'];
+        $this->save();
+        return "Success";
+
+    }
+    public function savePublicDoctor(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
+//                    Not Use for Yet
         $this->company_id = "1";
         $this->business_unit_id = "1";
         $this->fname = $filterparams['fname'];
@@ -393,13 +413,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $this->password = Hash::make($filterparams['password']);
         $this->phone = $filterparams['phone'];
         $this->dob = $filterparams['dob'];
+        $this->city_id = $filterparams['city_id'];
         $this->cnic = $filterparams['cnic'];
         $this->gender = $filterparams['gender'];
         $this->address = $filterparams['address'];
-        if(!empty($filterparams['status']))
-            $this->status = "Active";
-        else
-            $this->status = "Inactive";
 
         if($this->save()){
             $this->roles()->sync([2]);
@@ -415,18 +432,44 @@ public function fetchemail($filterparams){
     public static function profileFetch($userId){
 
 
-	    $userProfile = DB::table('users')
+	    $data = DB::table('users')
         ->where('id','=', $userId )
          ->get();
-	    return $userProfile;
+        $datanew = array_map(function($object){
+            return (array) $object;
+        }, $data);
+        return $datanew;
+//
         }
 
         public static function updateProfileUser($filterparams){
             $userProfile = DB::table('users')
                 ->where('id','=', Auth::user()->id )
-                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone']]);
+                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=>$filterparams['dob'],'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender'],'city_id'=>$filterparams['city_id']]);
 
                         return "Success";
 }
+
+    public static function updateProfileDoctor($filterparams){
+	    $userProfile = DB::table('users')
+
+                ->where('id','=', Auth::user()->id )
+                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>"Dr.".$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=>$filterparams['dob'],'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender']]);
+
+                        return "Success";
+        }
+    public function updateProfileImage ($filename){
+//          dd($destinationPath,$filename);
+        $userId = Auth::user()->id;
+        $imagePath = "profileImages/".$userId."/".$filename;
+        $queryBuilder = self::find($userId);
+            $queryBuilder->photo = $imagePath;
+        $queryBuilder->update();
+
+//        DB::table('users')
+//            ->where('id','=', $userId)
+//            ->update(['photo' => $imagePath]);
+        return 'sucess';
+    }
 
 }

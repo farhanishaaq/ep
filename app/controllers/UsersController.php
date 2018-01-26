@@ -9,13 +9,15 @@ class UsersController extends \BaseController {
 	 * @return Response
 	 */
     private $_user;
+    private $_image;
     private $_qualification;
     private $_doctor;
 
 
-    public function __construct(User $user,Qualification $qualification,Doctor $doctor)
+    public function __construct(User $user,Qualification $qualification,Doctor $doctor,Image $image)
     {
         $this->_user = $user;
+        $this->_image = $image;
         $this->_doctor= $doctor;
         $this->_qualification = $qualification;
 
@@ -151,87 +153,146 @@ class UsersController extends \BaseController {
 		return Response::json($response);
 	}
 
-    public function userProfile(){
+    public function userProfile()
+    {
+//        For Public User if Come after Click on Profile form login drop down
+        if (Auth::user()->user_type == "Portal User" || Auth::user()->user_type == "Admin") {
+            $userId = Auth::user()->id;
+            $dataResult = $this->_user->fetechUserRecord($userId);
+            $data = array_map(function ($object) {
+                return (array)$object;
+            }, $dataResult);
+            $data = $data[0];
+            $cities = City::all();
+            return View::make('doctors.doctorInfo', compact('data','cities'));
 
-        $user = Auth::user()->id;
-        $data = User::profileFetch($user);
-        return View::make('doctors.userProfileUpdate',compact('data','user'));
-    }
+//            IF Portal Doctor Come after Click on profile from drop down login
+        } elseif (Auth::user()->user_type == "Portal Doctor") {
 
-	public function profileUpdate(){
+            $user = $this->_user;
+            $userId = Auth::user()->id;
+
+                $dataResult = $this->_doctor->fetechDoctorRecord($userId);
+                if(!$dataResult){
+                    $dataResult = $this->_user->fetechUserRecord($userId);
+                }
+                    $data = array_map(function ($object) {
+                    return (array)$object;
+                }, $dataResult);
+                $cities = City::all();
+                $data = $data[0];
+                return View::make('doctors.doctorInfo', compact('data', 'user', 'cities'));
+//        return View::make('doctors.userProfileUpdate',compact('data','user'));
+            }
+        }
+
+	public function userProfileUpdate(){
+
 //        uploadProfilePic();
+
+        $response = null;
+        if (Input::hasFile('image')) {
+
+            $file = Input::file('image');
+            $type = $file->getMimeType();
+            $size = $file->getSize();
+        $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
+        if ($size > 6000){
+            if (in_array($type, $supportedTypes)){
+                $userId = Auth::user()->id;
+
+
+                $destinationPath = public_path(GlobalsConst::PROFILE_PHOTO_DIR)."/".$userId;
+                $filename = str_random(16) . '_' . $file->getClientOriginalName();
+                $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
+                $uploadSuccess = $file->move($destinationPath, $filename);
+                $imageStatus=$this->_user->updateProfileImage ($filename);
+//                $imageStatus = $this->_user->profilePhoto($filename);
+            }
+            else{
+                $response = ['success' => false, 'error' => 'No files were processed.'] ;
+                return View::make('doctors.doctorInfo', compact('response'));
+            }
+        }
+    }
+else {
+//			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
+$response = ['success' => false, 'error' => 'No files were processed.'];
+}
         $userData = Input::all();
 	    $data = User::updateProfileUser($userData);
         return Redirect::to('/');
     }
 
 
+
     public function doctorInfoForm()
     {
-//        After Sign Up Take Doctor To the Further Detail
-        $data = Input::all();
-        $saveUserId = $this->_user->savePublicDoctor($data);
-        $saveDoctorId = $this->_doctor->saveInDoctorTable($data,$saveUserId);
-        $saveReport = $this->_doctor->saveDoctorSpeciality($data,$saveDoctorId);
-        $saveQualificationReport = $this->_doctor->saveDoctorQualificaion($data,$saveDoctorId);
-
-        if($saveQualificationReport == "Success") {
-            $credentials = array(
-                'email' => Input::get('email'),
-                'password' => Input::get('password')
-            );
-            if (Auth::attempt($credentials)) {
-                return Redirect::to('/');
-            }
-        }
-        else
-            return Redirect::back();
 
 // Image Part
         $response = null;
         if (Input::hasFile('image')) {
             $file = Input::file('image');
-
             $type = $file->getMimeType();
             $size = $file->getSize();
 
+
+//               After Sign Up Take Doctor To the Further Detail
+
+            $data = Input::all();
+            $credentials = array(
+                'email' => Input::get('email'),
+                'password' => Input::get('password')
+            );
+//        Check For Additional Info Form: Fill First Time OR Update
+            $formIteration = Doctor::findDoctorId();
+            if ($formIteration == "Not Exist") {
+                if (Auth::check()) {
+//             Come For Update
+                    $saveUserId = Auth::user()->id;
+                    $resultUserData = $this->_user->updateProfileDoctor($data);
+                    $saveDoctorId = $this->_doctor->saveInDoctorTable($data, $saveUserId);
+                    $this->_doctor->saveDoctorSpeciality($data, $saveDoctorId);
+                    $this->_doctor->saveDoctorQualificaion($data, $saveDoctorId);
+                }
+            } else {
+//            Means Come For First Time
+                if (Auth::check()) {
+                    $saveUserId = Auth::user()->id;
+                    $resultUserData = $this->_user->updateProfileDoctor($data);
+                    $saveDoctorId = $this->_doctor->updateInDoctorTable($data);
+
+                }
+            }
+
             $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
-            if ($size > 6000){
-                if (in_array($type, $supportedTypes)){
-
-                    $this->_user->savePublicDoctor($data);
-                    $this->_doctor->saveInDoctorTable($data);
-                    $this->_qualification->saveDoctorQualificaion($data);
-                    $doctorId = $this->_user->id;
-
-                    $destinationPath = public_path(GlobalsConst::PORTAL_PROFILE_DIR)."/".$doctorId;
+            if ($size > 6000) {
+                if (in_array($type, $supportedTypes)) {
+                    $userId = Auth::user()->id;
+                    $destinationPath = public_path(GlobalsConst::PROFILE_PHOTO_DIR) . "/" . $userId;
                     $filename = str_random(16) . '_' . $file->getClientOriginalName();
                     $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
                     $uploadSuccess = $file->move($destinationPath, $filename);
-
-                    $this->_image->saveImage ($destinationPath,$filename, $doctorId, $destinationPath);
-                    $this->_user->bannerpath($filename);
-//                return View::make('doctors.articlesEditer', compact('response'));
+                    $imageStatus = $this->_user->updateProfileImage($filename);
+//                $imageStatus = $this->_user->profilePhoto($filename);
                 }
                 else{
-                    $response = ['success' => false, 'error' => 'No files were processed.'] ;
-                    return View::make('doctors.articlesEditer', compact('response'));
-                }
-            }
-            else{
-                $response = ['success' => false, 'error' => 'No files were processed.'] ;
-                return View::make('doctors.articlesEditer', compact('response'));
+                        $response = ['success' => false, 'error' => 'No files were processed.'];
+                        return View::make('doctors.doctorInfo', compact('response'));
+                    }
+
+//        return Response::json($response);
+//        return Redirect::route('articlesList');
+////dd($data);
+//        $user= $this->_user;
+//        return View::make('doctors.doctorInfo',compact('data','user'));
+
             }
         }
         else {
 //			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
             $response = ['success' => false, 'error' => 'No files were processed.'];
         }
-//        return Response::json($response);
-        return Redirect::route('articlesList');
-//dd($data);
-        $user= $this->_user;
-        return View::make('doctors.doctorInfo',compact('data','user'));
+        return Redirect::to('/');
     }
-
 }
