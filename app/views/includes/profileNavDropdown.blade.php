@@ -4,7 +4,7 @@
     <ul class="dropdown-menu">
         {{--<li><a href="#">Welcome, {{Auth::user()->fname . ' '. Auth::user()->lname}}</a></li>--}}
         <li><a href="#">Welcome, {{Auth::user()->full_name}}</a></li>
-        <li><a href="#"><img src="{{asset('images/profile-dumy.png')}}" width="100px"> </a></li>
+        <li><a href="#"><img src="{{asset(Auth::user()->photo)}}" width="100px"> </a></li>
         <li class="divider"></li>
         <li><a href="#">Change Password</a></li>
         <li class="divider"></li>

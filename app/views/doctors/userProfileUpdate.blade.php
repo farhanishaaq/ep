@@ -184,41 +184,6 @@
     <link media="all" type="text/css" rel="stylesheet" href="{{asset('plugins/file-input/css/fileinput.min.css')}}">
     <script src="{{asset('plugins/file-input/js/fileinput.min.js')}}"></script>
     <script src="{{asset('js/view-pages/doctors/DoctorsForm.js')}}"></script>
-    <script>
-
-        function deleteRow(id) {
-            if(id!==1)
-            document.getElementById(id).remove();
-
-        }
-
-
-
-        //                var photoInitialPreview = '';
-
-        {{--@if($formMode == App\Globals\GlobalsConst::FORM_CREATE)--}}
-        {{--photoInitialPreview = "{{asset('images/profile-dumy.png')}}";--}}
-        {{--@else--}}
-        {{--photoInitialPreview = "{{get_profile_photo_url($doctor->user->photo)}}";--}}
-        {{--@endif--}}
-        $(document).ready(function(){
-            //***For gender Radio Selection
-            $('.btn.btn-primary-2.gender').click(function(){
-                setRadioValInHidden('gender',$(this));
-            });
-
-            var options = {
-                saveCloseUrl: "{{route('doctors.index')}}",
-                photoUploadUrl: "{{route('uploadProfilePic')}}",
-                photoInitialPreview :[
-                    photoInitialPreview
-                ]
-
-            };
-            var doctorsForm = new DoctorsForm(window,document,options);
-            doctorsForm.initializeAll();
-        });
-    </script>
 @stop
 @endsection
 @endsection
