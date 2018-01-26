@@ -43,7 +43,7 @@
 
                                         <img src="
                                                    @if(isset($profile->photo))
-                                        {{asset('uploads/'.$profile->photo)}}
+                                        {{asset('/'.$profile->photo)}}
                                         @else
                                         @if($profile->gender =="Male")
                                         {{asset('uploads/maleUnknown.jpg')}}

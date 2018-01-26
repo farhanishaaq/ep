@@ -118,7 +118,7 @@
                             <div class="thumb-xl member-thumb " style="align-items: center">
                                 <img src="
                            @if(isset($doctors[$i]->photo))
-                            {{asset('uploads/'.$doctors[$i]->photo)}}
+                            {{asset('/'.$doctors[$i]->photo)}}
                                 @else
                                         @if($doctors[$i]->gender =="Male")
                                     {{asset('uploads/maleUnknown.jpg')}}
@@ -138,7 +138,6 @@
                                 <h4 align="center"><strong>
                                 {{$doctors[$i]->full_name}}
                                 </strong></h4><br>
-                                <p>{{$doctors[$i]->code}}</p>
                                 <p align="center" >
                                <strong>{{$doctors[$i]->code}}</strong><br>
                                 <a style="" href="{{route('drProfile',$doctors[$i]->userId)}}"  class="btn btn-raised btn-sm">View Profile</a>

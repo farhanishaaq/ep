@@ -87,14 +87,14 @@ function getComments() {
                 $("#commentList").empty();
                 $.each( data, function( key, val ) {
                     imagePath = "";
-                    if(val.photo === null) {
+                    if(val.photo != null) {
                         if (val.gender === 'Male')
                             imagePath = "/uploads/maleUnknown.jpg";
                         else
                             imagePath = "/uploads/femaleUnknown.jpg";
                     }
                     else {
-                        imagePath = "/uploads/"+val.photo;
+                        imagePath =  "/"+val.photo;
                     }
                     var txt2 = $(" <li>  "
                     //     +"<div>" +
@@ -184,7 +184,7 @@ $("#ajax").click(function(event) {
     if($('#comment').val().length>5){
         $.ajax({
             type: "get",
-            url: "comment",
+            url: "/comment",
             dataType: "json",
             data: {
                 //'_token': $('input[name=_token]').val(),

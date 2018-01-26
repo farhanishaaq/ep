@@ -25,7 +25,6 @@
 =========================================================-->
 
 @section('content')
-
     <div class="container mT20">
     @if($action['condition'] == 'Request')
         <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'; float: left;">Request Comments List</h1>
