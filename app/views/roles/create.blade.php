@@ -24,7 +24,7 @@
         {{ $message }}
     @endforeach
     <div class="container">
-        {!! $_form !!}
+        {{$_form}}
     </div>
 
 @stop

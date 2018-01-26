@@ -74,6 +74,7 @@ class PrescriptionsController extends \BaseController
     public function store()
     {
 
+
         $data = Input::all();
 
         $result = Prescription::savePrescription($data);
@@ -136,7 +137,7 @@ class PrescriptionsController extends \BaseController
         $data['PrescriptionDetailId'] = $id;
         $result = Prescription::savePrescription($data, GlobalsConst::DATA_UPDATE);
         return $result;
-        dd($data);
+
 }
 
     /**
