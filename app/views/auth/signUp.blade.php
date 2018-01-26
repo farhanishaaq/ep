@@ -29,15 +29,16 @@ Sign Up
                <div id="signUp" class="tab-pane fade in active">
                   {{--General Sign Up--}}
                   <form action="{{URL::route('doSignUp') }}" method="post" name="form" onsubmit="return checkError()">
-                     <input type="hidden" id ="userType" name="userType" value="Portal User">
-                     <input type="text" id ="fname" name="fname" placeholder="First Name" required="true">
-                     <input type="text" id ="lname" name="lname" placeholder="Last Name" required="true">
+                     <input type="hidden"  name="routeAddress" value="new">
+                     <input type="hidden"  name="user_type" value="Portal User">
+                     <input type="text"  name="fname" placeholder="First Name" required="true">
+                     <input type="text" name="lname" placeholder="Last Name" required="true">
                      <input type="email" name="email" placeholder="Email Address" id="email" onblur="checkemail(this.id)">
                      <span id="status_email"></span>
-                     <input type="text" placeholder="User Name" name="userName" id="userName" onblur="checkUserName(this.id)">
+                     <input type="text" placeholder="User Name" name="username" id="userName" onblur="checkUserName(this.id)">
                      <span id="status_userName"></span>
                      <input type="password" required="true" name="password" id="password" placeholder="Password">
-                     <select class="js-example-basic-single" id="city" name="city">
+                     <select class="js-example-basic-single" id="city" name="city_id">
                         <option class="vhid"></option>
                         @foreach($cities as $city)
                         <option value="{{$city['id']}}">{{$city['name']}}</option>
@@ -50,23 +51,24 @@ Sign Up
                </div>
                <div id="signUpDoctor" class="tab-pane fade">
                   {{--Doctor Sign Up--}}
-                                    <form action="{{URL::route('doSignUpDoctor') }}" method="post" name="form" onsubmit="return checkDoctorError()">
-                                       <input type="hidden" id ="userType" name="userType" value="Doctor">
+                                    <form action="{{URL::route('doSignUp') }}" method="post" name="form" onsubmit="return checkDoctorError()">
+                                       <input type="hidden"  name="user_type" value="Portal Doctor">
+
                                        <input type="text" id ="fname" name="fname" placeholder="First Name" required="true">
                                        <input type="text" id ="lname" name="lname" placeholder="Last Name" required="true">
-                                       <input type="email" name="doctorEmail" placeholder="Email Address" id="doctorEmail" onblur="checkemail(this.id)">
+                                       <input type="email" name="email" placeholder="Email Address" id="doctorEmail" onblur="checkemail(this.id)">
                                        <span id="status_doctorEmail"></span>
-                                       <input type="text" placeholder="User Name" name="doctorUserName" id="doctorUserName" onblur="checkUserName(this.id)">
+                                       <input type="text" placeholder="User Name" name="username" id="doctorUserName" onblur="checkUserName(this.id)">
                                        <span id="status_doctorUserName"></span>
                                        <input type="password" required="true" name="password" id="password" placeholder="Password">
-                                       <select class="js-example-basic-single" id="doctorCity" name="doctorCity">
+                                       <select class="js-example-basic-single" id="doctorCity" name="city_id">
                                           <option class="vhid"></option>
                                           @foreach($cities as $city)
                                           <option value="{{$city['id']}}">{{$city['name']}}</option>
                                           @endforeach
                                        </select>
                                        <input type="number" required="true" name="phone" id="number" placeholder="Phone Number" style="width: 100%;">
-                                       <input  type="submit" class="btn btn-raised btn-sm btn-1"  value="Continue" id="submitButton">
+                                       <input  type="submit" class="btn btn-raised btn-sm btn-1"  value="Submit & Continue" id="submitButton">
                                     </form>
                                     {{--End Sign Up--}}
                </div>

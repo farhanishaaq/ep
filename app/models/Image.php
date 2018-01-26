@@ -43,6 +43,18 @@ class Image extends \Eloquent {
 
         return 'sucess';
     }
+    public function saveProfileImage ($filename,$articleid){
+//          dd($destinationPath,$filename);
+        $doctor_id = Auth::user()->id;
+
+        $imagepath=$filename;
+
+        $this->ImagePath = $imagepath;
+        $this->save();
+        return 'sucess';
+    }
+
+
 
 
 

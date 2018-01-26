@@ -88,21 +88,26 @@ class AuthController extends \BaseController
 
     public function doSignUp()
     {
+
         $data = Input::all();
         $massage = $this->_user->savePublicUser($data);
         if ($massage == "Success") {
-            return View::make('auth.login');
+            $credentials = array(
+                'email' => Input::get('email'),
+                'password' => Input::get('password')
+            );
+            if (Auth::attempt($credentials)) {
+                if(Auth::user()->user_type == "Portal User")
+                return Redirect::to('/');
+                else {
+                    $user = $this->_user;
+                    return View::make('doctors.doctorInfo', compact('data', 'user'));
+                }
+            }
         } else
             echo "Error In Sign Up";
     }
 
-    public function doSignUpDoctor()
-    {
-//        Just For Next Form For Filling Additional Detail
-        $data = Input::all();
-        $user= $this->_user;
-            return View::make('doctors.doctorInfo',compact('data','user'));
-    }
 
     public function checkEmail()
     {

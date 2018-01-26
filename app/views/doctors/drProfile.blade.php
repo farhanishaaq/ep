@@ -3,8 +3,12 @@
 <!--========================================================
                           TITLE
 =========================================================-->
+<?php $id=0; ?>
+
+@foreach($drRecord as $profile)
+    <?php $id = $profile->id ?>
 @section('title')
-    Edit Doctor
+   {{$profile->full_name}}
 @stop
 
 @section('redBar')
@@ -23,10 +27,7 @@
 @section('content')
     {{--<div class="container">--}}
 
-<?php $id=0; ?>
 
-    @foreach($drRecord as $profile)
-        <?php $id = $profile->id ?>
     {{--</div>--}}
         <div class=" container-fluid" style="max-width: 1200px;">
             {{--{{$drRecord->fname}}--}} {{--{{ $i=0 }}--}}
@@ -225,22 +226,6 @@
 
 
                                                                 </div>
-                                                                {{--Form Start Here--}}
-                                                                {{--<form  id="new_question"   method="post" action="{{route('question.store')}}">--}}
-                                                                    {{--{{ Form::token() }}--}}
-
-                                                                    {{--<div class="form-group">--}}
-                                                                        {{--<textarea  class="form-control" placeholder="Ask question here" maxlength="280" name="question" id="question" rows="6"></textarea>--}}
-
-                                                                    {{--</div>--}}
-
-                                                                    {{--<input class="form-control" type="hidden" value="{{$id}}" name="doctor_id" id="Doctro_id">--}}
-
-                                                                    {{--<div class="modal-footer">--}}
-                                                                        {{--<input type="submit" class="btn btn-raised btn-sm btn-1">--}}
-                                                                    {{--</div>--}}
-
-                                                                {{--</form>--}}
 
                                                             </div>
                                                         </div>
@@ -292,7 +277,7 @@
 
     <script src="{{ asset('js/jquery.rateyo.min.js') }}" type="text/javascript"></script>
     <script>
-
+    function rating () {
         $(function () {
             $.ajax({
                 type : "get",
@@ -310,7 +295,7 @@
                             fullStar:true
                             //readOnly: true
                         })
-                       // console.log('in no record')
+                        // console.log('in no record')
                     }else {
 
                         console.log(response.rating[0]);
@@ -331,8 +316,8 @@
                             })
 
                         }
-                      //  console.log(response)
-                       // console.log('in found record '+response[0].rating)
+                        //  console.log(response)
+                        // console.log('in found record '+response[0].rating)
                         $('#drRate').html(response.rating[0].rating+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
 //                        $('#drRate').html(response.rating['rating']+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
                     }
@@ -342,7 +327,9 @@
                 }
             });
         })
+    }
 
+rating();
         $(function () {
 
             $("#rateYo")
@@ -357,12 +344,14 @@
                         },
                         dataType : "json",
                         success : function(response){
+                            rating();
                             if(response.toString() == "sucess"){
 
                               //  console.log('sucess')
                             }
                         },
                         error : function(response){
+                            rating();
                           //  console.log('fail')
                         }
                     });

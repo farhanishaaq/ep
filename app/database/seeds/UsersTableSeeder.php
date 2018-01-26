@@ -61,6 +61,7 @@ class UsersTableSeeder extends Seeder {
 		$this->addFakerData();
 	}
 
+
 	private function addFakerData(){
 		$faker = Faker::create();
 		$businessUnits = BusinessUnit::all()->lists('id');
