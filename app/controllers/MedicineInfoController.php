@@ -128,10 +128,148 @@ class MedicineInfoController extends \BaseController {
 
 
         $availableMedicine = $this->_medicine->medicinestack($data);
-//        echo "<pre>";
-//        dd($availableMedicine);
 
-        return View::make('medicines.medicineSearch', compact('availableMedicine'));
+        $namejpge = "";
+        $pathname = "";
+        $namenull ="";
+         $item1 = "";
+         $para1 = "";
+        $namecontent = "";
+        $paratd  = "";
+        $paralast  = "";
+        $text = "";
+          $medicineName = "";
+
+      if (isset($availableMedicine)){
+
+      foreach ($availableMedicine as $key=>$value){
+
+          $medicineName = $value->PRODUCT_NAME;
+
+          $path = "medicineXML/".$value->SETID;
+         if(file_exists($path)){
+          $allfiles = File::allFiles($path);
+
+          if(isset($allfiles)){
+
+
+
+
+              foreach ($allfiles as $files){
+
+
+
+                  $getpathname = $files->getPathname();
+                  $name = $files->getfileName();
+
+                  $file = new Symfony\Component\HttpFoundation\File\File($getpathname);
+                  $mime = $file->getMimeType();
+
+
+                 if ($mime=="application/xml"){
+
+
+
+                     $pathname = $files->getPathname();
+
+
+
+
+                 }
+
+//                 elseif ($mime=="image/jpeg"){
+//
+//
+//
+//
+//
+//
+//                 }
+
+
+                 else{
+
+//                     $namenull = $files->getfileName();
+
+
+                     $namejpge = $files->getPathname();
+
+
+
+
+
+                 }
+
+
+
+
+
+
+              }
+
+          }
+
+
+         }else{
+             $params = [
+                 'xmlfile' => "There is no Record",
+                 'jpgfile'        => "/images/medicines-l.jpg",
+                 'MedicineName'        => "No Record",
+             ];
+
+             return View::make('medicines.medicineSearch', compact('params'));
+
+         }
+
+      }
+      }
+
+        $xml=simplexml_load_file($pathname);
+
+//        $components = $xml->component->structuredBody->component->section;
+
+        if (!$xml==0)
+        {
+        for($i=0;$i<5;$i++) {
+
+            $body = $xml->component->structuredBody->component[$i];
+            $bodypara = $xml->component->structuredBody->component[$i];
+             $text = $bodypara->section->text;
+             if(count($text>0)){
+
+            $text = $text->paragraph;
+             }else{
+
+                $text = "There is no Record";
+             }
+        }
+        }else{
+
+            $text = "There is no Record";
+
+        }
+
+
+        $params = [
+            'xmlfile' => $text,
+            'jpgfile'        => $namejpge,
+            'MedicineName'        => $medicineName,
+        ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+        return View::make('medicines.medicineSearch', compact('params'));
+
 
 
 
