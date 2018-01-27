@@ -386,6 +386,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $this->password = Hash::make($filterparams['password']);
         $this->phone = $filterparams['phone'];
         $this->save();
+
         $this->roles()->sync([3]);
         return "Success";
 
