@@ -14,5 +14,17 @@ class ResourcesRolesTableSeeder extends Seeder {
 		foreach ($resourceIds as $resourceId){
 			$Role->resources()->attach($resourceId, ['status'=>'Allow']);
 		}
+        //////////ONLY IN DEVLOPMENT MODE///////////////////////////
+
+        $Role = Role::find(3);
+        foreach ($resourceIds as $resourceId){
+            $Role->resources()->attach($resourceId, ['status'=>'Allow']);
+        }
+
+        $Role = Role::find(4);
+        foreach ($resourceIds as $resourceId){
+            $Role->resources()->attach($resourceId, ['status'=>'Allow']);
+        }
+        //////////ONLY IN DEVLOPMENT MODE///////////////////////////
 	}
 }

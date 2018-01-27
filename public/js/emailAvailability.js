@@ -45,6 +45,7 @@ function checkemail(id)
         return false;
     }
 }
+
 function checkUserName(id)
 {
     var userName =document.getElementById(id).value;
@@ -103,7 +104,69 @@ function checkDoctorError() {
             return false;
     }
 
+//    Check Old Password
+function checkOldPassword(id)
+{
 
+    var oldPassword =document.getElementById(id).value;
+
+    if(oldPassword)
+    {
+        $.ajax({
+            type: 'get',
+            url: 'checkOldPassword',
+            data: {
+                oldPassword:oldPassword
+            },
+            success: function (response) {
+
+                if(response == "Match")
+                {
+                    $( '#'+id).css({"border": "2px solid Green"});
+                    $( '#status_'+id ).html("");
+                    return true;
+                }
+                else
+                {
+                    $( '#'+id).css({"border": "1px solid red"})
+                    $( '#status_'+id ).html("Wrong Password").addClass('errorMsg');
+                    return false;
+                }
+            }
+        });
+    }
+    else
+    {
+        $( '#status_'+id ).html("Field is Required").addClass('errorMsg');
+        return false;
+    }
+}
+//Confirm password
+
+function checkConfirmPassword(id) {
+
+    var newPassword = document.getElementById("newPassword").value;
+    var confirmPassword = document.getElementById(id).value;
+    if (newPassword !=  '') {
+        if (newPassword == confirmPassword) {
+            $("#newPassword").css({"border": "2px solid Green"});
+            $("#confirmPassword").css({"border": "2px solid Green"});
+            $('#status_' + id).html("");
+            return true;
+        }
+        else {
+            $("#newPassword").css({"border": "1px solid red"});
+            $("#confirmPassword").css({"border": "1px solid red"});
+            $('#status_' + id).html("New Password Not Match").addClass('errorMsg');
+            return false;
+        }
+    }
+    else
+        {
+            $('#status_' + id).html("Field Is Requeired").addClass('errorMsg');
+            return false;
+        }
+}
 
 
 

@@ -168,7 +168,6 @@ class UsersController extends \BaseController {
 
 //            IF Portal Doctor Come after Click on profile from drop down login
         } elseif (Auth::user()->user_type == "Portal Doctor") {
-
             $user = $this->_user;
             $userId = Auth::user()->id;
 
@@ -181,6 +180,7 @@ class UsersController extends \BaseController {
                 }, $dataResult);
                 $cities = City::all();
                 $data = $data[0];
+
                 return View::make('doctors.doctorInfo', compact('data', 'user', 'cities'));
 //        return View::make('doctors.userProfileUpdate',compact('data','user'));
             }
@@ -188,7 +188,6 @@ class UsersController extends \BaseController {
 
 	public function userProfileUpdate(){
 //        uploadProfilePic();
-
         $response = null;
         if (Input::hasFile('image')) {
 //dd();
@@ -234,7 +233,6 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
             $type = $file->getMimeType();
             $size = $file->getSize();
 
-
 //               After Sign Up Take Doctor To the Further Detail
 
             $data = Input::all();
@@ -244,6 +242,7 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
             );
 //        Check For Additional Info Form: Fill First Time OR Update
             $formIteration = Doctor::findDoctorId();
+
             if ($formIteration == "Not Exist") {
                 if (Auth::check()) {
 //             Come For Update
@@ -293,4 +292,6 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
         }
         return Redirect::to('/');
     }
+
+
 }

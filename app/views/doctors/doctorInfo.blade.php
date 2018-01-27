@@ -32,7 +32,7 @@
             @elseif(Auth::user()->user_type == "Portal User" || Auth::user()->user_type == "Admin")
             {{--For action After Fill profile for update action--}}
             {{URL::route('userProfileUpdate')}}
-            @else
+            @elseif(Auth::user()->user_type == "Portal Doctor")
             {{URL::route('doctorProfileUpdate')}}
             @endif
                     " method="post" name="form">
@@ -103,7 +103,7 @@
                         <div class="col-xs-6">
                             {{--<input type="text" id="date" name="date" required="true" value="{{{ Form::getValueAttribute('date', null) }}}" class="form-control" placeholder="mm/dd/yyyy">--}}
                             <div class="input-group date" data-provide="datepicker">
-                                <input type="text" class="form-control" id="dob" name="dob" value="{{{ retrieve_date_for_input('date')}}}" placeholder="Select Date of Birth">
+                                <input type="text" class="form-control" id="dob" name="dob" value="@if(!empty($data['dob']) ){{$data['dob'] }} @else{{{ retrieve_date_for_input('date')}}}@endif" placeholder="Select Date of Birth">
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>

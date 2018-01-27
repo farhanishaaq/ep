@@ -12,7 +12,7 @@
                 @endif
                              " width="100px"> </a></li>
         <li class="divider"></li>
-        <li><a href="#">Change Password</a></li>
+        <li><a href="{{route('showChangePassword')}}">Change Password</a></li>
         <li class="divider"></li>
         <li><a href="{{route('userProfile')}}">Profile</a></li>
         <li class="divider"></li>
