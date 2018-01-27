@@ -239,13 +239,9 @@
                             <label class="col-xs-5 control-label asterisk">Fee Range</label>
                             <div class="col-xs-6">
                                 <div class="input-group col-xs-12">
-                                    <input type="text" id="min_fee" name="min_fee" class="form-control input-sm" value="
-                  @if(!empty($data['min_fee'])){{$data['min_fee']}}@endif
-                                            " placeholder="Min Fee" />
+                                    <input type="text" id="min_fee" name="min_fee" class="form-control input-sm" value="@if(!empty($data['min_fee'])){{$data['min_fee']}}@endif" placeholder="Min Fee" />
                                     <span class="input-group-btn w20 fs25 taC">-</span>
-                                    <input type="text" id="max_fee" name="max_fee" class="form-control input-sm" value="
-                  @if(!empty($data['max_fee'])){{$data['max_fee']}}@endif
-                                            " placeholder="Max Fee" />
+                                    <input type="text" id="max_fee" name="max_fee" class="form-control input-sm" value="@if(!empty($data['max_fee'])){{$data['max_fee']}}@endif" placeholder="Max Fee" />
                                 </div>
                             </div>
                         </div>
