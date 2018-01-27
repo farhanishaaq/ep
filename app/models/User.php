@@ -392,8 +392,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     public  function savePublicInfo(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
+        $originalDate = $filterparams['dob'];
+        $newDate = date("Y-m-d", strtotime($originalDate));
 	    $this->gender = $filterparams['gender'];
-	    $this->dob = $filterparams['dob'];
+	    $this->dob = $newDate;
 	    $this->cnic= $filterparams['cnic'];
 	    $this->address= $filterparams['address'];
         $this->save();
@@ -406,7 +408,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $this->business_unit_id = "1";
         $this->fname = $filterparams['fname'];
         $this->lname = $filterparams['lname'];
-        $this->full_name = $filterparams['fname'] . " " . $filterparams['lname'];
+        $this->full_name = "Dr.".$filterparams['fname'] . " " . $filterparams['lname'];
         $this->user_type = GlobalsConst::PORTAL_DOCTOR;
         $this->email = $filterparams['email'];
         $this->username = $filterparams['username'];
@@ -443,18 +445,22 @@ public function fetchemail($filterparams){
         }
 
         public static function updateProfileUser($filterparams){
+            $originalDate = $filterparams['dob'];
+            $newDate = date("Y-m-d", strtotime($originalDate));
             $userProfile = DB::table('users')
                 ->where('id','=', Auth::user()->id )
-                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=>$filterparams['dob'],'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender'],'city_id'=>$filterparams['city_id']]);
+                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=> $newDate,'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender'],'city_id'=>$filterparams['city_id']]);
 
                         return "Success";
 }
 
     public static function updateProfileDoctor($filterparams){
+        $originalDate = $filterparams['dob'];
+        $newDate = date("Y-m-d", strtotime($originalDate));
 	    $userProfile = DB::table('users')
 
                 ->where('id','=', Auth::user()->id )
-                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>"Dr.".$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=>$filterparams['dob'],'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender']]);
+                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>"Dr.".$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=>$newDate,'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender']]);
 
                         return "Success";
         }

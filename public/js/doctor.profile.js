@@ -87,7 +87,7 @@ function getComments() {
                 $("#commentList").empty();
                 $.each( data, function( key, val ) {
                     imagePath = "";
-                    if(val.photo != null) {
+                    if(val.photo === null) {
                         if (val.gender === 'Male')
                             imagePath = "/uploads/maleUnknown.jpg";
                         else
@@ -130,7 +130,7 @@ function getComments() {
 
                         + "<div  style='padding-bottom: 10px; margin-bottom: 25px' class='commentText col-md-12'>"
                         + "<span class='col-md-1 p0'> "
-                        + "<img src='"+imagePath+"' >"
+                        + "<img src='"+imagePath+"' class='p0'>"
 
 
                     //        if(isset($doctors[$i]->photo))

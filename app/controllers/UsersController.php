@@ -187,20 +187,18 @@ class UsersController extends \BaseController {
         }
 
 	public function userProfileUpdate(){
-
 //        uploadProfilePic();
 
         $response = null;
         if (Input::hasFile('image')) {
-
+//dd();
             $file = Input::file('image');
             $type = $file->getMimeType();
             $size = $file->getSize();
         $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
-        if ($size > 6000){
+        if ($size > 4000){
             if (in_array($type, $supportedTypes)){
                 $userId = Auth::user()->id;
-
 
                 $destinationPath = public_path(GlobalsConst::PROFILE_PHOTO_DIR)."/".$userId;
                 $filename = str_random(16) . '_' . $file->getClientOriginalName();
@@ -266,7 +264,7 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
             }
 
             $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
-            if ($size > 6000) {
+            if ($size > 4000) {
                 if (in_array($type, $supportedTypes)) {
                     $userId = Auth::user()->id;
                     $destinationPath = public_path(GlobalsConst::PROFILE_PHOTO_DIR) . "/" . $userId;
