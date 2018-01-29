@@ -389,7 +389,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         if($filterparams['user_type'] == "Portal User")
             $this->roles()->sync([3]);
             else
-                $this->roles()->sync([3]);
+                $this->roles()->sync([4]);
         return "Success";
 
     }
