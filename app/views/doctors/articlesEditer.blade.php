@@ -110,6 +110,9 @@
     {{--
  </div>
  --}}
+
+    <script type="text/javascript" src="{{ asset('js/tinymce_4.7.2/tinymce/js/tinymce/tinymce.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/articleListScript.js') }}"></script>
     <script>
         // Update Article JS
         tinymce.init({
@@ -119,7 +122,5 @@
         });
 
     </script>
-    <script type="text/javascript" src="{{ asset('js/tinymce_4.7.2/tinymce/js/tinymce/tinymce.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/articleListScript.js') }}"></script>
 
 @endsection
