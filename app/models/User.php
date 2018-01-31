@@ -372,9 +372,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    return json_encode($doctors);
     }
 
-    public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
+    public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE)
+    {
 //            Active Funtion For Sign Up
-	    $this->company_id = "1";
+        $this->company_id = "1";
         $this->business_unit_id = "1";
         $this->user_type = $filterparams['user_type'];
         $this->fname = $filterparams['fname'];
@@ -385,8 +386,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $this->city_id = $filterparams['city_id'];
         $this->password = Hash::make($filterparams['password']);
         $this->phone = $filterparams['phone'];
+        if (!empty($filterparams['status']))
+        $this->status = $filterparams['status'];
         $this->save();
-        $this->roles()->sync([3]);
+        if ($filterparams['user_type'] == "Portal User") {
+            $this->roles()->sync([3]);
+        } elseif ($filterparams['user_type'] == "Portal Doctor"){
+            $this->roles()->sync([4]);
+    }
         return "Success";
 
     }
@@ -454,28 +461,65 @@ public function fetchemail($filterparams){
                         return "Success";
 }
 
-    public static function updateProfileDoctor($filterparams){
+    public static function updateProfileDoctor($filterparams,$currentUserId){
         $originalDate = $filterparams['dob'];
         $newDate = date("Y-m-d", strtotime($originalDate));
 	    $userProfile = DB::table('users')
 
-                ->where('id','=', Auth::user()->id )
-                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>"Dr.".$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=>$newDate,'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender']]);
+                ->where('id','=', $currentUserId )
+                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>"Dr.".$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=>$newDate,'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender'],'status'=>"Inactive"]);
 
                         return "Success";
         }
-    public function updateProfileImage ($filename){
+    public function updateProfileImage ($filename,$currentUserId){
 //          dd($destinationPath,$filename);
-        $userId = Auth::user()->id;
-        $imagePath = "profileImages/".$userId."/".$filename;
-        $queryBuilder = self::find($userId);
-            $queryBuilder->photo = $imagePath;
+        $imagePath = "profileImages/".$currentUserId."/".$filename;
+        $queryBuilder = self::find($currentUserId);
+        $queryBuilder->photo = $imagePath;
         $queryBuilder->update();
 
 //        DB::table('users')
 //            ->where('id','=', $userId)
 //            ->update(['photo' => $imagePath]);
         return 'sucess';
+    }
+
+    public function updatePassword($password){
+//$passwordStore = self::find(Auth::user()->id);
+//    $passwordStore->update(['password'=>$password]);
+        $userProfile = DB::table('users')
+            ->where('id','=', Auth::user()->id )
+            ->update(['password'=>$password]);
+            return "Success";
+    }
+
+    public function getDoctorRequestRecords(){
+
+        $queryBuilder = DB::table('users')
+            ->where('status','Inactive')
+            ->paginate(7);
+        return $queryBuilder;
+    }
+
+    public function getDoctorAllRequest(){
+
+        $queryBuilder = DB::table('users')
+            ->paginate(7);
+                return $queryBuilder;
+    }
+
+    public function UpdateStatus($filterparams){
+        {
+            $queryBuilder = DB::table('users')
+                ->where('id', '=', $filterparams['userId']);
+            if ($filterparams['doctorAction'] == 'checked') {
+                $queryBuilder->update(array('status' => 'Active'));
+                return "Active";
+            } else {
+                $queryBuilder->update(array('status' => 'Inactive'));
+                return "Inactive";
+            }
+        }
     }
 
 }

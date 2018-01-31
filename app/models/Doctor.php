@@ -240,12 +240,12 @@ class Doctor extends \Eloquent
         return $qryBuilder->get();
     }
 
-    public static function findDoctorId(){
+    public static function findDoctorId($currentUserId){
 //        Check If Record Exist Then Do Update Else Do Save
-        $userId = Auth::user()->id;
+        ;
 
         $result = DB::table('doctors')
-        ->where('user_id','=', $userId)
+        ->where('user_id','=', $currentUserId)
         ->get();
         if(!empty($result))
          return "Exist";
@@ -370,9 +370,9 @@ class Doctor extends \Eloquent
     }
 
 //    Doctor Table Update Reqest with Doctor Request
-        public function updateInDoctorTable($filterparams){
+        public function updateInDoctorTable($filterparams,$currentUserId){
             $userProfile = DB::table('doctors')
-                ->where('user_id','=', Auth::user()->id )
+                ->where('user_id','=', $currentUserId )
                 ->update(["max_fee"=>$filterparams['max_fee'],'min_fee'=>$filterparams['min_fee'],'experience'=>$filterparams['experience'],'affiliation' => $filterparams['affiliation']]);
             return "Success";
         }

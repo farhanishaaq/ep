@@ -99,9 +99,10 @@ class AuthController extends \BaseController
             if (Auth::attempt($credentials)) {
                 if(Auth::user()->user_type == "Portal User")
                 return Redirect::to('/');
-                else {
+                elseif(Auth::user()->user_type == "Portal Doctor") {
                     $user = $this->_user;
-                    return View::make('doctors.doctorInfo', compact('data', 'user'));
+                   $currentUserId= Auth::user()->id;
+                    return View::make('doctors.doctorInfo', compact('data', 'user','currentUserId'));
                 }
             }
         } else
@@ -119,6 +120,15 @@ class AuthController extends \BaseController
         }
     }
 
+    public function checkOldPassword()
+    {
+         if(Hash::check(Input::get('oldPassword'),Auth::user()->password)) {
+             echo "Match";
+         }
+        else
+            echo  "Oops";
+    }
+
     public function checkUserName()
     {
         $user = DB::table('users')->where('username',$_POST['user_Name']);
@@ -128,4 +138,25 @@ class AuthController extends \BaseController
             echo "";
         }
     }
+
+//    public function updatePassword(){
+    public function showPasswordChange(){
+
+        return View::make('auth.changePassword');
+    }
+
+    public function userPasswordChange(){
+//    public function userPasswordChange(){
+        $data = Input::get('confirmPassword');
+        $data = Hash::make($data);
+        $result = $this->_user->updatePassword($data);
+        if($result == "Success") {
+            $response = "Success";
+            return View::make('auth.changePassword', compact('response'));
+        }
+        else
+            return Redirect::back()->withErrors('Password incorrect');
+    }
+
+
 }

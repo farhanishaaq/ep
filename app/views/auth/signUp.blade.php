@@ -53,7 +53,8 @@ Sign Up
                   {{--Doctor Sign Up--}}
                                     <form action="{{URL::route('doSignUp') }}" method="post" name="form" onsubmit="return checkDoctorError()">
                                        <input type="hidden"  name="user_type" value="Portal Doctor">
-
+                                        <input type="hidden"  name="routeAddress" value="new">
+                                        <input type="hidden"  name="status" value="Inactive">
                                        <input type="text" id ="fname" name="fname" placeholder="First Name" required="true">
                                        <input type="text" id ="lname" name="lname" placeholder="Last Name" required="true">
                                        <input type="email" name="email" placeholder="Email Address" id="doctorEmail" onblur="checkemail(this.id)">

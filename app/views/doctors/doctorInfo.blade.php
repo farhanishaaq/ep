@@ -32,7 +32,7 @@
             @elseif(Auth::user()->user_type == "Portal User" || Auth::user()->user_type == "Admin")
             {{--For action After Fill profile for update action--}}
             {{URL::route('userProfileUpdate')}}
-            @else
+            @elseif(Auth::user()->user_type == "Portal Doctor")
             {{URL::route('doctorProfileUpdate')}}
             @endif
                     " method="post" name="form">
@@ -66,6 +66,7 @@
                         <div class="col-xs-6">
                             <input type="text" id="email" name="email" required="true" value="{{$data['email']}}" class="form-control" placeholder="Email" disabled>
                             <input type="hidden" name="email" value="{{$data['email']}}">
+                            <input type="hidden" name="currentUserId" value="@if(!empty($currentUserId)){{$currentUserId}}@endif">
                             <span id="error_email" class="field-validation-msg"></span>
                         </div>
                     </div>
@@ -103,7 +104,7 @@
                         <div class="col-xs-6">
                             {{--<input type="text" id="date" name="date" required="true" value="{{{ Form::getValueAttribute('date', null) }}}" class="form-control" placeholder="mm/dd/yyyy">--}}
                             <div class="input-group date" data-provide="datepicker">
-                                <input type="text" class="form-control" id="dob" name="dob" value="{{{ retrieve_date_for_input('date')}}}" placeholder="Select Date of Birth">
+                                <input type="text" class="form-control" id="dob" name="dob" value="@if(!empty($data['dob']) ){{$data['dob'] }} @else{{{ retrieve_date_for_input('date')}}}@endif" placeholder="Select Date of Birth">
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
@@ -239,13 +240,9 @@
                             <label class="col-xs-5 control-label asterisk">Fee Range</label>
                             <div class="col-xs-6">
                                 <div class="input-group col-xs-12">
-                                    <input type="text" id="min_fee" name="min_fee" class="form-control input-sm" value="
-                  @if(!empty($data['min_fee'])){{$data['min_fee']}}@endif
-                                            " placeholder="Min Fee" />
+                                    <input type="text" id="min_fee" name="min_fee" class="form-control input-sm" value="@if(!empty($data['min_fee'])){{$data['min_fee']}}@endif" placeholder="Min Fee" />
                                     <span class="input-group-btn w20 fs25 taC">-</span>
-                                    <input type="text" id="max_fee" name="max_fee" class="form-control input-sm" value="
-                  @if(!empty($data['max_fee'])){{$data['max_fee']}}@endif
-                                            " placeholder="Max Fee" />
+                                    <input type="text" id="max_fee" name="max_fee" class="form-control input-sm" value="@if(!empty($data['max_fee'])){{$data['max_fee']}}@endif" placeholder="Max Fee" />
                                 </div>
                             </div>
                         </div>
@@ -441,14 +438,16 @@
                             </div>
                         @endif
                     </div>
+                    </div>
                 </section>
+
                 {{--Image END--}}
                 <div class="col-xs-12 taR pR0 mT20">
                     <input type="submit" id="registerDoctor" name="registerDoctor" value="Submit" class="submit" />
                     <input type="button" id="cancel" value="Skip" class="submit" novalidate
                            @if(Auth::user()->user_type == "Portal Doctor")
                            onclick="goTo('{{route("login")}}')"
-                           @@else
+                           @else
                            onclick="goTo('{{URL("/")}}')"
                             @endif
                     />
