@@ -386,6 +386,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $this->city_id = $filterparams['city_id'];
         $this->password = Hash::make($filterparams['password']);
         $this->phone = $filterparams['phone'];
+        if (!empty($filterparams['status']))
+        $this->status = $filterparams['status'];
         $this->save();
         if ($filterparams['user_type'] == "Portal User") {
             $this->roles()->sync([3]);
@@ -459,22 +461,21 @@ public function fetchemail($filterparams){
                         return "Success";
 }
 
-    public static function updateProfileDoctor($filterparams){
+    public static function updateProfileDoctor($filterparams,$currentUserId){
         $originalDate = $filterparams['dob'];
         $newDate = date("Y-m-d", strtotime($originalDate));
 	    $userProfile = DB::table('users')
 
-                ->where('id','=', Auth::user()->id )
-                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>"Dr.".$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=>$newDate,'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender']]);
+                ->where('id','=', $currentUserId )
+                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>"Dr.".$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=>$newDate,'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender'],'status'=>"Inactive"]);
 
                         return "Success";
         }
-    public function updateProfileImage ($filename){
+    public function updateProfileImage ($filename,$currentUserId){
 //          dd($destinationPath,$filename);
-        $userId = Auth::user()->id;
-        $imagePath = "profileImages/".$userId."/".$filename;
-        $queryBuilder = self::find($userId);
-            $queryBuilder->photo = $imagePath;
+        $imagePath = "profileImages/".$currentUserId."/".$filename;
+        $queryBuilder = self::find($currentUserId);
+        $queryBuilder->photo = $imagePath;
         $queryBuilder->update();
 
 //        DB::table('users')

@@ -203,7 +203,7 @@ class UsersController extends \BaseController {
                 $filename = str_random(16) . '_' . $file->getClientOriginalName();
                 $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
                 $uploadSuccess = $file->move($destinationPath, $filename);
-                $imageStatus=$this->_user->updateProfileImage ($filename);
+                $imageStatus=$this->_user->updateProfileImage ($filename,$userId);
 //                $imageStatus = $this->_user->profilePhoto($filename);
             }
             else{
@@ -227,6 +227,18 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
     {
 
 // Image Part
+//        dd(Input::get('currentUserId'));
+        if(Auth::check()){
+            $currentUserId = Auth::user()->id;
+//            If true then Ok Filter Pass
+        }else{
+            $currentUserId = Input::get('currentUserId');
+            $credentials = array(
+                'email' => Input::get('email'),
+                'password' => Input::get('password')
+            );
+            Auth::attempt($credentials);
+        }
         $response = null;
         if (Input::hasFile('image')) {
             $file = Input::file('image');
@@ -234,44 +246,39 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
             $size = $file->getSize();
 
 //               After Sign Up Take Doctor To the Further Detail
-
             $data = Input::all();
             $credentials = array(
                 'email' => Input::get('email'),
                 'password' => Input::get('password')
             );
 //        Check For Additional Info Form: Fill First Time OR Update
-            $formIteration = Doctor::findDoctorId();
+            $formIteration = Doctor::findDoctorId($currentUserId);
 
             if ($formIteration == "Not Exist") {
-                if (Auth::check()) {
-//             Come For Update
-                    $saveUserId = Auth::user()->id;
-                    $resultUserData = $this->_user->updateProfileDoctor($data);
-                    $saveDoctorId = $this->_doctor->saveInDoctorTable($data, $saveUserId);
+                if (!empty($currentUserId)) {
+//             Means Come For First Time
+                    $resultUserData = $this->_user->updateProfileDoctor($data,$currentUserId);
+                    $saveDoctorId = $this->_doctor->saveInDoctorTable($data, $currentUserId);
                     $this->_doctor->saveDoctorSpeciality($data, $saveDoctorId);
                     $this->_doctor->saveDoctorQualificaion($data, $saveDoctorId);
                 }
             } else {
-//            Means Come For First Time
-                if (Auth::check()) {
-                    $saveUserId = Auth::user()->id;
-                    $resultUserData = $this->_user->updateProfileDoctor($data);
-                    $saveDoctorId = $this->_doctor->updateInDoctorTable($data);
 
-                }
+//            come for update
+                    $resultUserData = $this->_user->updateProfileDoctor($data,$currentUserId);
+                    $saveDoctorId = $this->_doctor->updateInDoctorTable($data,$currentUserId);
+
+
             }
 
             $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
             if ($size > 4000) {
                 if (in_array($type, $supportedTypes)) {
-                    $userId = Auth::user()->id;
-                    $destinationPath = public_path(GlobalsConst::PROFILE_PHOTO_DIR) . "/" . $userId;
+                    $destinationPath = public_path(GlobalsConst::PROFILE_PHOTO_DIR) . "/" . $currentUserId;
                     $filename = str_random(16) . '_' . $file->getClientOriginalName();
                     $response = ['success' => true, 'uploaded' => $filename, 'message' => 'Photo has been uploaded successfully!'];
                     $uploadSuccess = $file->move($destinationPath, $filename);
-                    $imageStatus = $this->_user->updateProfileImage($filename);
-//                $imageStatus = $this->_user->profilePhoto($filename);
+                    $imageStatus = $this->_user->updateProfileImage($filename,$currentUserId);
                 }
                 else{
                         $response = ['success' => false, 'error' => 'No files were processed.'];
@@ -289,7 +296,14 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
         else {
 //			$response = ['success'=>false,'error'=>true,'message'=>'Photo upload has been failed!'];
             $response = ['success' => false, 'error' => 'No files were processed.'];
+
+            if(Auth::check()){
+                return Redirect::to('/');
+
+            }
+
         }
+        Auth::attempt($credentials);
         return Redirect::to('/');
     }
 

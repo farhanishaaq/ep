@@ -101,7 +101,8 @@ class AuthController extends \BaseController
                 return Redirect::to('/');
                 elseif(Auth::user()->user_type == "Portal Doctor") {
                     $user = $this->_user;
-                    return View::make('doctors.doctorInfo', compact('data', 'user'));
+                   $currentUserId= Auth::user()->id;
+                    return View::make('doctors.doctorInfo', compact('data', 'user','currentUserId'));
                 }
             }
         } else
