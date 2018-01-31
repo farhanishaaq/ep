@@ -119,15 +119,17 @@ function checkOldPassword(id)
                 oldPassword:oldPassword
             },
             success: function (response) {
-
-                if(response == "Match")
+                response = $.trim(response);
+                if(response === "Match")
                 {
+
                     $( '#'+id).css({"border": "2px solid Green"});
                     $( '#status_'+id ).html("");
                     return true;
                 }
                 else
                 {
+                    $( '#success').css("display","none");
                     $( '#'+id).css({"border": "1px solid red"})
                     $( '#status_'+id ).html("Wrong Password").addClass('errorMsg');
                     return false;
@@ -145,29 +147,58 @@ function checkOldPassword(id)
 
 function checkConfirmPassword(id) {
 
-    var newPassword = document.getElementById("newPassword").value;
-    var confirmPassword = document.getElementById(id).value;
-    if (newPassword !=  '') {
-        if (newPassword == confirmPassword) {
+    var newPassword = $("#newPassword").val();
+    var confirmPassword = $("#confirmPassword").val();
+    var input = $("#"+id).val();
+    var length = input.length;
+    var error = "";
+    if (input !=  "" && newPassword != "") {
+        if (newPassword.length > "5") {
+            var newPasswordStatus = "fine";
             $("#newPassword").css({"border": "2px solid Green"});
-            $("#confirmPassword").css({"border": "2px solid Green"});
-            $('#status_' + id).html("");
-            return true;
         }
-        else {
-            $("#newPassword").css({"border": "1px solid red"});
-            $("#confirmPassword").css({"border": "1px solid red"});
-            $('#status_' + id).html("New Password Not Match").addClass('errorMsg');
-            return false;
+        if (length > "5" && newPassword.length > "5") {
+            if (confirmPassword != '') {
+                if (newPassword === confirmPassword) {
+                    $("#newPassword").css({"border": "2px solid Green"});
+                    $("#confirmPassword").css({"border": "2px solid Green"});
+                    $('#status_' + id).html("");
+                    return true;
+                }
+                else{
+                    error = "New Password Not Match";
+                    newPasswordStatus = "No";
+                }
+            }
         }
+        else
+            error = "Min length 6";
     }
     else
-        {
-            $('#status_' + id).html("Field Is Requeired").addClass('errorMsg');
-            return false;
-        }
+        error = "Field is Required";
+  if(error != ""){
+      if(newPasswordStatus != "fine")
+      $("#newPassword").css({"border": "1px solid red"});
+      $("#confirmPassword").css({"border": "1px solid red"});
+      $('#status_confirmPassword').html(error).addClass('errorMsg');
+      $( '#success').css("display","none");
+      return false;
+  }
 }
 
+function checkPasswordError() {
+    var oldPassword = document.getElementById('status_oldPassword').innerHTML;
+    var newConfirmPassword = document.getElementById('status_confirmPassword').innerHTML;
+    if (oldPassword == null || oldPassword == 0 || oldPassword == "0") {
+        if (newConfirmPassword == null || newConfirmPassword == 0 || newConfirmPassword == "0") {
+            document.form.submit();
+        }
+        else
+            return false;
+    }
+    else
+        return false;
+}
 
 
 

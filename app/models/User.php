@@ -485,7 +485,8 @@ public function fetchemail($filterparams){
     }
 
     public function updatePassword($password){
-
+//$passwordStore = self::find(Auth::user()->id);
+//    $passwordStore->update(['password'=>$password]);
         $userProfile = DB::table('users')
             ->where('id','=', Auth::user()->id )
             ->update(['password'=>$password]);

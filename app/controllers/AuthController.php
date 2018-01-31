@@ -122,8 +122,9 @@ class AuthController extends \BaseController
 
     public function checkOldPassword()
     {
-         if(Hash::check(Input::get('oldPassword'),Auth::user()->password))
-        echo "Match";
+         if(Hash::check(Input::get('oldPassword'),Auth::user()->password)) {
+             echo "Match";
+         }
         else
             echo  "Oops";
     }
@@ -138,17 +139,23 @@ class AuthController extends \BaseController
         }
     }
 
+//    public function updatePassword(){
     public function showPasswordChange(){
 
         return View::make('auth.changePassword');
     }
 
     public function userPasswordChange(){
-        $data = Input::get('oldPassword');
+//    public function userPasswordChange(){
+        $data = Input::get('confirmPassword');
         $data = Hash::make($data);
         $result = $this->_user->updatePassword($data);
-        return Redirect::to("/");
-
+        if($result == "Success") {
+            $response = "Success";
+            return View::make('auth.changePassword', compact('response'));
+        }
+        else
+            return Redirect::back()->withErrors('Password incorrect');
     }
 
 
