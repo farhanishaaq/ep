@@ -22,6 +22,9 @@ Route::group(['Public'],function (){
      */
 
     Route::get('getDoctors', array('as'=>'getDoctors','uses'=>'DoctorsController@showDoctors'));
+    Route::get('doctorStatus', array('as'=>'doctorStatus','uses'=>'UsersController@doctorStatusList'));
+    Route::get('doctorAllRequest', array('as'=>'doctorAllRequest','uses'=>'UsersController@doctorAllRequest'));
+    Route::post('updateDoctorStatus', array('as'=>'updateDoctorStatus','uses'=>'UsersController@updateDoctorStatus'));
     Route::get('login', array('as'=>'login','uses'=>'AuthController@showLogin'));
     Route::get('showChangePassword', array('as'=>'showChangePassword','uses'=>'AuthController@showPasswordChange'));
     Route::post('changePassword', array('as'=>'changePassword','uses'=>'AuthController@userPasswordChange'));
@@ -348,6 +351,7 @@ Route::post('updateComment', array('as'=>'updateComment','uses'=>'CommentsContro
 Route::get('showComment', array('as'=>'showComment','uses'=>'CommentsController@show'));
 Route::get('commentHistory', array('as'=>'commentHistory','uses'=>'CommentsController@showHistory'));
 Route::get('commentsStatus', array('as'=>'commentsStatus','uses'=>'CommentsController@index'));
+Route::get('commentsStatus', array('as'=>'commentsStatus','uses'=>'@index'));
 Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
 
 Route::post('articleStore', array('as'=>'arStore','uses'=>'ArticlesController@store'));

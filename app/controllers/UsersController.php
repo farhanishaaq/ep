@@ -307,5 +307,24 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
         return Redirect::to('/');
     }
 
+    public function doctorStatusList(){
+        $action['condition'] = "Request";
+        $data = $this->_user->getDoctorRequestRecords();
+        return View::make('doctors.doctorStatus',compact('data','action'));
+    }
+
+    public function doctorAllRequest(){
+        $action['condition'] = "All";
+        $data = $this->_user->getDoctorAllRequest();
+        return View::make('doctors.doctorStatus',compact('data','action'));
+    }
+
+    public function updateDoctorStatus(){
+        $data['doctorAction'] = $_POST['doctor_action'];
+        $data['userId'] =$_POST['user_id'];
+
+        $result = $this->_user->UpdateStatus($data);
+        echo $result;
+    }
 
 }

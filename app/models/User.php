@@ -493,4 +493,33 @@ public function fetchemail($filterparams){
             return "Success";
     }
 
+    public function getDoctorRequestRecords(){
+
+        $queryBuilder = DB::table('users')
+            ->where('status','Inactive')
+            ->paginate(7);
+        return $queryBuilder;
+    }
+
+    public function getDoctorAllRequest(){
+
+        $queryBuilder = DB::table('users')
+            ->paginate(7);
+                return $queryBuilder;
+    }
+
+    public function UpdateStatus($filterparams){
+        {
+            $queryBuilder = DB::table('users')
+                ->where('id', '=', $filterparams['userId']);
+            if ($filterparams['doctorAction'] == 'checked') {
+                $queryBuilder->update(array('status' => 'Active'));
+                return "Active";
+            } else {
+                $queryBuilder->update(array('status' => 'Inactive'));
+                return "Inactive";
+            }
+        }
+    }
+
 }
