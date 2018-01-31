@@ -196,13 +196,13 @@ $("#ajax").click(function(event) {
 
 //                data: $('#ajax').serialize(),
             success: function(data){
-//                        alert(sucess);
-            },
-
-            error: function(data){
                 commentsreload();
                 getComments();
                 $('#comment').val('')
+            },
+
+            error: function(data){
+
             }
         });
 
