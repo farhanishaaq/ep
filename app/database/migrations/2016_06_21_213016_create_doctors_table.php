@@ -21,6 +21,7 @@ class CreateDoctorsTable extends Migration {
 			$table->string('max_fee')->nullable();
             $table->string('experience',1024)->nullable();
             $table->string('affiliation',1024)->nullable();
+            $table->enum('status',['Active','Inactive'])->default('Active');
             $table->timestamps();
 			$table->softDeletes();
 		});

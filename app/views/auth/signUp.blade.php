@@ -30,6 +30,7 @@ Sign Up
                   {{--General Sign Up--}}
                   <form action="{{URL::route('doSignUp') }}" method="post" name="form" onsubmit="return checkError()">
                      <input type="hidden"  name="routeAddress" value="new">
+                     <input type="hidden"  name="dataProcessType" value="1">
                      <input type="hidden"  name="user_type" value="Portal User">
                      <input type="text"  name="fname" placeholder="First Name" required="true">
                      <input type="text" name="lname" placeholder="Last Name" required="true">
@@ -53,6 +54,7 @@ Sign Up
                   {{--Doctor Sign Up--}}
                                     <form action="{{URL::route('doSignUp') }}" method="post" name="form" onsubmit="return checkDoctorError()">
                                        <input type="hidden"  name="user_type" value="Portal Doctor">
+                                       <input type="hidden"  name="dataProcessType" value="1">
                                         <input type="hidden"  name="routeAddress" value="new">
                                         <input type="hidden"  name="status" value="Inactive">
                                        <input type="text" id ="fname" name="fname" placeholder="First Name" required="true">
