@@ -24,20 +24,24 @@
         @if(Auth::user()->user_type==="Portal User")
             <div hidden>
                 <select id="doctor_id" name="doctor_id" required="true" hidden>
-                    <option value="15" selected>Select Doctor</option>
+                    <option value="{{Input::all()['id']}}" selected>Select Doctor</option>
                 </select>
 
+                <input hidden name="paid_fee" id="paid_fee" value="00">
+                <input hidden name="status" id="status" value="Advance Booking">
+                <input hidden name="status" id="status" value="Pending">
+                <input hidden name="patient_id" id="patient_id" value="{{Auth::User()->id}}">
             </div>
 
 
-            <section class="form-Section col-md-6 h1000 fL">
+            <section class="form-Section col-md-12 h250 fL">
                 <div class="container w100p">
                     <h3 class="mT15 mB0 c3">&nbsp;</h3>
-                    <hr class="w95p fL mT0" />
-                    <hr class="w95p fL mT0" />
+                    <hr class="w95p  mT0" />
+                    <hr class="w95p mT0" />
 
                     <div class="form-group">
-                        <label class="col-xs-5 control-label asterisk">Select Date</label>
+                        <label class="col-xs-3 control-label asterisk">Select Date</label>
                         <div class="col-xs-6">
                             {{--<input type="text" id="date" name="date" required="true" value="{{{ Form::getValueAttribute('date', null) }}}" class="form-control" placeholder="mm/dd/yyyy">--}}
                             <div class="input-group date" data-provide="datepicker">
@@ -51,7 +55,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-xs-5 control-label asterisk">Select Time Slot</label>
+                        <label class="col-xs-3 control-label asterisk">Select Time Slot</label>
                         <div class="col-xs-6">
                             @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
                                 <select id="time_slot_id" name="time_slot_id" required="true">
