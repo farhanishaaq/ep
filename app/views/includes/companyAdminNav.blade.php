@@ -31,11 +31,13 @@
                         <li class="divider"></li>
                         <li><a href="{{URL::route('articleStatus')}}">Articles Status</a></li>
                         <li class="divider"></li>
-                        <li><a href="{{URL::route('commentsStatus')}}">Manage Comments</a></li>
+                        <li><a href="{{URL::route('questionHistory')}}">Questions History</a></li>
                         <li class="divider"></li>
                         <li><a href="{{URL::route('question.index')}}">Manage Questions</a></li>
                         <li class="divider"></li>
-                        <li><a href="{{URL::route('questionHistory')}}">Questions History</a></li>
+                        <li><a href="{{URL::route('commentsStatus')}}">Manage Comments</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{URL::route('doctorStatus')}}">Portal Doctor Status</a></li>
                        </ul>
              </li>
 

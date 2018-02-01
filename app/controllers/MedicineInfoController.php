@@ -108,21 +108,18 @@ class MedicineInfoController extends \BaseController {
         if (empty($availableTags)){
             $resultset[] = "there is no data";
         }
-                    else{
-                        $resultset=[];
-                        $medicine =[];
-                        foreach ($availableTags as $key=>$value){
-                            $medicine['text'] = $value->PRODUCT_NAME;
-                            $medicine['id'] = $value->id;
-                            array_push($resultset,$medicine);
-                        }
-                    }
+        else{
+            $resultset=[];
+            $medicine =[];
+            foreach ($availableTags as $key=>$value){
+                $medicine['text'] = $value->PRODUCT_NAME;
+                $medicine['id'] = $value->id;
+                array_push($resultset,$medicine);
+            }
+        }
         return json_encode($resultset);
+
     }
-
-
-
-
     public function medicineDetail(){
 
         $data = Input::all();
@@ -140,13 +137,13 @@ class MedicineInfoController extends \BaseController {
         $paralast  = "";
         $text = "";
           $medicineName = "";
-
+        $medicineid = "";
       if (isset($availableMedicine)){
 
       foreach ($availableMedicine as $key=>$value){
 
           $medicineName = $value->PRODUCT_NAME;
-
+          $medicineid = $value->id;
           $path = "medicineXML/".$value->SETID;
          if(file_exists($path)){
           $allfiles = File::allFiles($path);
@@ -213,6 +210,7 @@ class MedicineInfoController extends \BaseController {
 
          }else{
              $params = [
+                 'medicineid'=>$medicineid,
                  'xmlfile' => "There is no Record",
                  'jpgfile'        => "/images/medicines-l.jpg",
                  'MedicineName'        => "No Record",
@@ -231,7 +229,7 @@ class MedicineInfoController extends \BaseController {
 
         if (!$xml==0)
         {
-        for($i=0;$i<5;$i++) {
+        for($i=0;$i<10;$i++) {
 
             $body = $xml->component->structuredBody->component[$i];
             $bodypara = $xml->component->structuredBody->component[$i];
@@ -244,6 +242,161 @@ class MedicineInfoController extends \BaseController {
                 $text = "There is no Record";
              }
         }
+        }else{
+
+            $text = "There is no Record";
+
+        }
+
+
+        $params = [
+            'medicineid'=>$medicineid,
+            'xmlfile' => $text,
+            'jpgfile'        => $namejpge,
+            'MedicineName'        => $medicineName,
+        ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+        return View::make('medicines.medicineSearch', compact('params'));
+
+
+
+
+
+    }
+
+    public function medicineResutl($id){
+
+
+
+
+        $availableMedicine = $this->_medicine->medicineResultset($id);
+
+        $namejpge = "";
+        $pathname = "";
+        $namenull ="";
+        $item1 = "";
+        $para1 = "";
+        $namecontent = "";
+        $paratd  = "";
+        $paralast  = "";
+        $text = "";
+        $medicineName = "";
+
+        if (isset($availableMedicine)){
+
+            foreach ($availableMedicine as $key=>$value){
+
+                $medicineName = $value->PRODUCT_NAME;
+
+                $path = "medicineXML/".$value->SETID;
+                if(file_exists($path)){
+                    $allfiles = File::allFiles($path);
+
+                    if(isset($allfiles)){
+
+
+
+
+                        foreach ($allfiles as $files){
+
+
+
+                            $getpathname = $files->getPathname();
+                            $name = $files->getfileName();
+
+                            $file = new Symfony\Component\HttpFoundation\File\File($getpathname);
+                            $mime = $file->getMimeType();
+
+
+                            if ($mime=="application/xml"){
+
+
+
+                                $pathname = $files->getPathname();
+
+
+
+
+                            }
+
+//                 elseif ($mime=="image/jpeg"){
+//
+//
+//
+//
+//
+//
+//                 }
+
+
+                            else{
+
+//                     $namenull = $files->getfileName();
+
+
+                                $namejpge = $files->getPathname();
+
+
+
+
+
+                            }
+
+
+
+
+
+
+                        }
+
+                    }
+
+
+                }else{
+                    $params = [
+                        'xmlfile' => "There is no Record",
+                        'jpgfile'        => "/images/medicines-l.jpg",
+                        'MedicineName'        => "No Record",
+                    ];
+
+                    return View::make('medicines.medicineSearch', compact('params'));
+
+                }
+
+            }
+        }
+
+        $xml=simplexml_load_file($pathname);
+
+//        $components = $xml->component->structuredBody->component->section;
+
+        if (!$xml==0)
+        {
+            for($i=0;$i<10;$i++) {
+
+                $body = $xml->component->structuredBody->component[$i];
+                $bodypara = $xml->component->structuredBody->component[$i];
+                $text = $bodypara->section->text;
+                if(count($text>0)){
+
+                    $text = $text->paragraph;
+                }else{
+
+                    $text = "There is no Record";
+                }
+            }
         }else{
 
             $text = "There is no Record";
@@ -269,13 +422,14 @@ class MedicineInfoController extends \BaseController {
 
 
 
-        return View::make('medicines.medicineSearch', compact('params'));
+        return View::make('medicines.medicineDetail', compact('params'));
 
 
 
 
 
     }
+
 
 
 }

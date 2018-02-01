@@ -66,6 +66,7 @@
                         <div class="col-xs-6">
                             <input type="text" id="email" name="email" required="true" value="{{$data['email']}}" class="form-control" placeholder="Email" disabled>
                             <input type="hidden" name="email" value="{{$data['email']}}">
+                            <input type="hidden" name="currentUserId" value="@if(!empty($currentUserId)){{$currentUserId}}@endif">
                             <span id="error_email" class="field-validation-msg"></span>
                         </div>
                     </div>
@@ -437,14 +438,16 @@
                             </div>
                         @endif
                     </div>
+                    </div>
                 </section>
+
                 {{--Image END--}}
                 <div class="col-xs-12 taR pR0 mT20">
                     <input type="submit" id="registerDoctor" name="registerDoctor" value="Submit" class="submit" />
                     <input type="button" id="cancel" value="Skip" class="submit" novalidate
                            @if(Auth::user()->user_type == "Portal Doctor")
                            onclick="goTo('{{route("login")}}')"
-                           @@else
+                           @else
                            onclick="goTo('{{URL("/")}}')"
                             @endif
                     />
