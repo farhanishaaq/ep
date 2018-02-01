@@ -20,6 +20,56 @@
             </li>
         </ul>
         @endif
+
+        @if(Auth::user()->user_type==="Portal User")
+            <div hidden>
+                <select id="doctor_id" name="doctor_id" required="true" hidden>
+                    <option value="15" selected>Select Doctor</option>
+                </select>
+
+            </div>
+
+
+            <section class="form-Section col-md-6 h1000 fL">
+                <div class="container w100p">
+                    <h3 class="mT15 mB0 c3">&nbsp;</h3>
+                    <hr class="w95p fL mT0" />
+                    <hr class="w95p fL mT0" />
+
+                    <div class="form-group">
+                        <label class="col-xs-5 control-label asterisk">Select Date</label>
+                        <div class="col-xs-6">
+                            {{--<input type="text" id="date" name="date" required="true" value="{{{ Form::getValueAttribute('date', null) }}}" class="form-control" placeholder="mm/dd/yyyy">--}}
+                            <div class="input-group date" data-provide="datepicker">
+                                <input type="text" class="form-control" id="date" name="date" required="true" value="{{{ retrieve_date_for_input('date')}}}" readonly >
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                            <span id="errorDate" class="field-validation-msg"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-5 control-label asterisk">Select Time Slot</label>
+                        <div class="col-xs-6">
+                            @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
+                                <select id="time_slot_id" name="time_slot_id" required="true">
+                                    <option> Select Time slot </option>
+                                </select>
+                            @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
+                                {{ Form::select('time_slot_id', $timeSlotsByAppointmentDate, Form::getValueAttribute('date', $timeSlot), ['required' => 'true', 'id' => 'time_slot_id'] )}}
+                            @endif
+                            <span id="errorTimeslotId" class="field-validation-msg"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="container w100p">
+                    <div id="fCalendar" class="col-xs-12 m0A"></div>
+                </div>
+            </section>
+        @else
             {{-- End Errors Code Container Block --}}
             <section class="form-Section col-md-6 h1000 fL">
 
@@ -166,6 +216,8 @@
                     <div id="fCalendar" class="col-xs-12 m0A"></div>
                 </div>
             </section>
+
+            @endif
             <div class="col-xs-12 taR pR0 mT20">
                 <input type="reset" id="reset" value="Reset" class="submit" />
                 <input type="submit" id="saveClose" name="saveClose" value="Save and Close" class="submit" />

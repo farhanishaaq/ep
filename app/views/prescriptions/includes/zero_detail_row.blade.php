@@ -23,7 +23,9 @@
             </div>
             <div class="form-group col-xs-5 pR2 mB3">
                 <div class="col-xs-12">
-                    {{Medicine_drop_down($i)}}
+
+                    <select name="medicine_id[]" id="medicine_id"></select>
+                    {{--<input class="-input col-xs-11" type="" placeholder="Search for Products, Brands and more" name="medicine_id[]" id="searchMed"/>--}}
                     <span id="errorName" class="field-validation-msg"></span>
                 </div>
             </div>

@@ -33,10 +33,10 @@
 
                     {{--{{ Form::open(array('url' => 'doSignUp')) }}--}}
 
-                    <input type="text" id = "fname" name="first_name" placeholder="First Name" required="true">
-                    <input type="text" id = "lname" name="last_name" placeholder="Last Name" required="true">
-                    <input type="email" id = "email" name="email" placeholder="Email" required="true">
-                    <input type="number" required="true" name="phone" id="number" placeholder="Phone Number" style="width: 100%;">
+                    {{--<input type="text" id = "fname" name="first_name" placeholder="First Name" required="true">--}}
+                    {{--<input type="text" id = "lname" name="last_name" placeholder="Last Name" required="true">--}}
+                    {{--<input type="email" id = "email" name="email" placeholder="Email" required="true">--}}
+                    {{--<input type="number" required="true" name="phone" id="number" placeholder="Phone Number" style="width: 100%;">--}}
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item">
                             <b>Doctor's duty days</b>

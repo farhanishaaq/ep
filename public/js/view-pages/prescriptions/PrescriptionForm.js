@@ -117,9 +117,38 @@ var PrescriptionForm = function(win,doc, options){
         });
 
         //** medicine_id select2
+
+
+
         $('[name="medicine_id['+ rowIndex +']"]').select2({
-            tags: "true",
+
+            allowClear:true,
             placeholder: "Medicine"
+            ,
+            ajax : {
+                url : '/medicinename',
+                dataType : 'json',
+                delay : 200,
+                data : function(params){
+                    return {
+                        q : params.term,
+                    };
+                },
+                processResults: function (data) {
+                    var myResults = [];
+                    $.each(data, function (index, item) {
+                        myResults.push({
+                            'id': item.id,
+                            'text': item.text
+                        });
+                    });
+                    return {
+                        results: myResults
+                    };
+                }
+            },
+            minimumInputLength : 3
+
         });
 
         //** dosage_strength select2
@@ -258,8 +287,35 @@ var PrescriptionForm = function(win,doc, options){
          * medicine_id select2
          */
         $('#medicine_id').select2({
-            tags: "true",
+
+            allowClear:true,
             placeholder: "Medicine"
+            ,
+            ajax : {
+                url : '/medicinename',
+                dataType : 'json',
+                delay : 200,
+                data : function(params){
+                    return {
+                        q : params.term,
+                    };
+            },
+                processResults: function (data) {
+                    var myResults = [];
+                    $.each(data, function (index, item) {
+                        myResults.push({
+                            'id': item.id,
+                            'text': item.text
+                        });
+                    });
+                    return {
+                        results: myResults
+                    };
+                }
+        },
+        minimumInputLength : 3
+
+
         });
 
         /**
@@ -396,6 +452,7 @@ var PrescriptionForm = function(win,doc, options){
             var validator = s.validationRulesForForm(frm);
             //if (frm.valid()) {
                 var formData = frm.serialize();
+                console.log(formData);
                 var saveUrl = frm.attr('action') || "";
                 $.ajax({
                     type: 'POST',

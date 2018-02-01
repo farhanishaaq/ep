@@ -13,14 +13,12 @@
 $( function() {
 
 
-
-
     $( "#searchMed" ).autocomplete({
 //'http://localhost:8008/ep/public/medicinename'
         source: function (request, response ) {
             $.ajax({
                 type: "GET",
-                url:"medicinename",
+                url:"/medicinename",
                 data: {
                     'name': $('#searchMed').val()
 
