@@ -16,8 +16,8 @@ class MedicineInfo extends \Eloquent {
 
 //        $queryBuilder = DB::table('medicine_data')
 //            ->get('PRODUCT_NAME');
-        $queryBuilder = DB::table('medicineinfo')->select('PRODUCT_NAME')
-            ->where('PRODUCT_NAME','LIKE','%'.$data['name'].'%')
+        $queryBuilder = DB::table('medicineinfo')->select('PRODUCT_NAME',"id")
+            ->where('PRODUCT_NAME','LIKE','%'.$data['q'].'%')
             ->paginate(3);
 //            ->get();
 
@@ -31,7 +31,22 @@ class MedicineInfo extends \Eloquent {
 
         $queryBuilder = DB::table('medicineinfo')
             ->where('PRODUCT_NAME','like','%'.$data['medicine'].'%')
-            ->paginate(3);
+            ->get();
+
+
+
+        return $queryBuilder;
+
+
+    }
+
+
+    public function medicineResultset($id){
+
+
+        $queryBuilder = DB::table('medicineinfo')
+            ->where('id','=',$id)
+            ->get();
 
 
 

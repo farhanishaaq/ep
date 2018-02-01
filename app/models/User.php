@@ -372,10 +372,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    return json_encode($doctors);
     }
 
-    public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE)
-    {
+    public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
 //            Active Funtion For Sign Up
-        $this->company_id = "1";
+	    $this->company_id = "1";
         $this->business_unit_id = "1";
         $this->user_type = $filterparams['user_type'];
         $this->fname = $filterparams['fname'];
@@ -387,11 +386,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $this->password = Hash::make($filterparams['password']);
         $this->phone = $filterparams['phone'];
         $this->save();
-        if ($filterparams['user_type'] == "Portal User") {
+        if($filterparams['user_type'] == "Portal User")
             $this->roles()->sync([3]);
-        } elseif ($filterparams['user_type'] == "Portal Doctor"){
-            $this->roles()->sync([4]);
-    }
+            else
+                $this->roles()->sync([4]);
         return "Success";
 
     }

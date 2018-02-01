@@ -214,7 +214,7 @@ class UsersTableSeeder extends Seeder {
 			'lname'=> 'Butt',
 			'full_name'=> 'Umar Butt',
 			'user_type'=> 'Doctor',
-			'photo'=> 'uploads/umarButt.JPG',
+			'photo'=> 'profileImages/3/umarButt.JPG',
 			'dob'=> '1988-12-01',
 			'cnic'=> '35200-1478048-1',
 			'phone'=> '+92-323-8406757',

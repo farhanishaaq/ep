@@ -25,6 +25,10 @@ Create Prescriptions
     <div class="container">
         {{$_form}}
     </div>
+    <link href="{{ asset('css/medicine.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+    <script src="{{url('https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js')}}"></script>
+    <script src="{{asset('js/medicine.js')}}" type="text/javascript"></script>
 @stop
 
 @section('scripts')
@@ -38,4 +42,7 @@ Create Prescriptions
 
 
     </script>
+
+
+
 @stop

@@ -371,9 +371,10 @@ Route::post('updateArticles', array('as'=>'updateArticles','uses'=>'ArticlesCont
 Route::resource('question', 'QuestionController');
 Route::get('question-status',array('as'=>'changeStatus','uses'=> 'QuestionController@updateStatus'));
 Route::get('medicineSearch',array('as'=>'medicineSearch','uses'=> 'MedicineInfoController@medicineSearch'));
-Route::get('medicineDetail',array('as'=>'medicineDetail','uses'=> 'MedicineInfoController@medicineDetail'));
+
 Route::get('medicinename',array('as'=>'medicinename','uses'=> 'MedicineInfoController@medicinename'));
 Route::get('medicineDetail/{id}',array('as'=>'medicineDetail','uses'=> 'MedicineInfoController@medicineDetail'));
+Route::get('medicineResutl/{id}',array('as'=>'medicineResutl','uses'=> 'MedicineInfoController@medicineResutl'));
 Route::get('question-history',array('as' => 'questionHistory', 'uses' => 'QuestionController@viewHistory'));
 Route::resource('answer','AnswerController');
 
