@@ -50,6 +50,7 @@
 
             </div>
     </div>
+
     @if(isset($params))
 
          <div class="container">
@@ -80,7 +81,7 @@
             <span> <div class="show-read-more"><h3>Medicine Detail</h3> {{$params['xmlfile']}} </div>
 
                         </span>
-            <a href="" title="Read More">Read More</a>
+            <a href="{{url("medicineResutl",$params['medicineid'])}}" title="Read More">Read More</a>
         </div>
        </div>
 
