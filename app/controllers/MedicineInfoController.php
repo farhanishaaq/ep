@@ -135,7 +135,7 @@ class MedicineInfoController extends \BaseController {
         $namecontent = "";
         $paratd  = "";
         $paralast  = "";
-        $text = "";
+        $textpara = "";
           $medicineName = "";
         $medicineid = "";
       if (isset($availableMedicine)){
@@ -227,31 +227,32 @@ class MedicineInfoController extends \BaseController {
 
 //        $components = $xml->component->structuredBody->component->section;
 
-        if (!$xml==0)
+        if (isset($xml))
         {
         for($i=0;$i<10;$i++) {
 
             $body = $xml->component->structuredBody->component[$i];
             $bodypara = $xml->component->structuredBody->component[$i];
              $text = $bodypara->section->text;
+
              if(count($text>0)){
 
-            $text = $text->paragraph;
+            $textpara = $text->paragraph;
              }else{
 
-                $text = "There is no Record";
+                 $textpara = "There is no Record";
              }
         }
         }else{
 
-            $text = "There is no Record";
+            $textpara = "There is no Record";
 
         }
 
 
         $params = [
             'medicineid'=>$medicineid,
-            'xmlfile' => $text,
+            'xmlfile' => $textpara,
             'jpgfile'        => $namejpge,
             'MedicineName'        => $medicineName,
         ];

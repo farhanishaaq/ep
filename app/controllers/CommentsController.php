@@ -93,6 +93,7 @@ class CommentsController extends \BaseController {
 	 */
 	public function updateCommentStatus()
 	{
+
         $data['commentAction'] = $_POST['comment_action'];
         $data['commentId'] =$_POST['comment_id'];
 

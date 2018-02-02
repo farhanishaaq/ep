@@ -25,7 +25,6 @@
 =========================================================-->
 
 @section('content')
-
     <div class="container mT20">
     @if($action['condition'] == 'Request')
         <h1 class="mT10 mB0 c3" style="font-family: 'Marvel'; float: left;">Doctor Request List</h1>
@@ -61,36 +60,29 @@
                 @foreach ($data as $dataDoctors)
                     <tr>
                         <td></td>
-                        <td>{{$dataDoctors->id}}</td>
+                        <td>{{$dataDoctors->userId}}</td>
                         <td>{{$dataDoctors->user_type}}</td>
                         <td>
                         <span class="pT0">
-                        <a style="" href="{{route('drProfile',$dataDoctors->id)}}"  class="btn btn-raised btn-sm">View Profile</a>
+                        <a style="" href="{{route('drProfile',$dataDoctors->userId)}}"  class="btn btn-raised btn-sm">View Profile</a>
                         </span>
                         </td>
-                        <td>{{$dataDoctors->created_at}}</td>
+                        <td>{{$dataDoctors->doctorCreated_at}}</td>
 
                         <td>
                             <label class="switch">
-
-
-                             @if($dataDoctors->status == "Active" )
-                            <input type="checkbox" id="{{$dataDoctors->id}}" onchange="doctorStatusUpdate(this.id)"
-                             checked>
-                             @elseif($dataDoctors->status == "Inactive")
-                            <input type="checkbox" id="{{$dataDoctors->id}}" onchange="doctorStatusUpdate(this.id)">
-                             @elseif($dataDoctors->status == "Rejected")
-                            <input class="alert-warning" type="checkbox" id="{{$dataDoctors->id}}" onchange="doctorStatusUpdate(this.id)">
+                                <input type="checkbox" id="{{$dataDoctors->userId}}" onchange="doctorStatusUpdate(this.id)"
+                             @if($dataDoctors->doctorStatus == "Active" )
+                             checked
                             @endif
-
-                            <span class="slider round"></span>
-                                                        </label>
+                            ><span class="slider round"></span>
+                            </label>
                         </td>
-                        @if($dataDoctors->user_type == "Rejected")
-                        <td>
-                        <input type="button" class="btn-danger" value="Reject">
-                        </td>
-                        @endif
+                        {{--@if($dataDoctors->user_type == "Rejected")--}}
+                        {{--<td>--}}
+                        {{--<input type="button" class="btn-danger" value="Reject">--}}
+                        {{--</td>--}}
+                        {{--@endif--}}
                     </tr>
                 @endforeach
 

@@ -239,6 +239,10 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
             );
             Auth::attempt($credentials);
         }
+        $data = Input::all();
+        if (!empty(Input::hasFile('image'))){
+
+
         $response = null;
         if (Input::hasFile('image')) {
             $file = Input::file('image');
@@ -246,7 +250,7 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
             $size = $file->getSize();
 
 //               After Sign Up Take Doctor To the Further Detail
-            $data = Input::all();
+
             $credentials = array(
                 'email' => Input::get('email'),
                 'password' => Input::get('password')
@@ -255,6 +259,7 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
             $formIteration = Doctor::findDoctorId($currentUserId);
 
             if ($formIteration == "Not Exist") {
+
                 if (!empty($currentUserId)) {
 //             Means Come For First Time
                     $resultUserData = $this->_user->updateProfileDoctor($data,$currentUserId);
@@ -263,7 +268,6 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
                     $this->_doctor->saveDoctorQualificaion($data, $saveDoctorId);
                 }
             } else {
-
 //            come for update
                     $resultUserData = $this->_user->updateProfileDoctor($data,$currentUserId);
                     $saveDoctorId = $this->_doctor->updateInDoctorTable($data,$currentUserId);
@@ -303,7 +307,12 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
             }
 
         }
-        Auth::attempt($credentials);
+        }
+        else{
+            $resultUserData = $this->_user->updateProfileDoctor($data,$currentUserId);
+            $saveDoctorId = $this->_doctor->updateInDoctorTable($data,$currentUserId);
+        }
+//        Auth::attempt($credentials);
         return Redirect::to('/');
     }
 
@@ -323,7 +332,7 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
         $data['doctorAction'] = $_POST['doctor_action'];
         $data['userId'] =$_POST['user_id'];
 
-        $result = $this->_user->UpdateStatus($data);
+        $result = $this->_doctor->UpdateStatus($data);
         echo $result;
     }
 
