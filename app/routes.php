@@ -351,7 +351,7 @@ Route::post('updateComment', array('as'=>'updateComment','uses'=>'CommentsContro
 Route::get('showComment', array('as'=>'showComment','uses'=>'CommentsController@show'));
 Route::get('commentHistory', array('as'=>'commentHistory','uses'=>'CommentsController@showHistory'));
 Route::get('commentsStatus', array('as'=>'commentsStatus','uses'=>'CommentsController@index'));
-Route::get('commentsStatus', array('as'=>'commentsStatus','uses'=>'@index'));
+
 Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
 
 Route::post('articleStore', array('as'=>'arStore','uses'=>'ArticlesController@store'));
@@ -378,4 +378,5 @@ Route::get('medicineDetail/{id}',array('as'=>'medicineDetail','uses'=> 'Medicine
 Route::get('medicineResutl/{id}',array('as'=>'medicineResutl','uses'=> 'MedicineInfoController@medicineResutl'));
 Route::get('question-history',array('as' => 'questionHistory', 'uses' => 'QuestionController@viewHistory'));
 Route::resource('answer','AnswerController');
+//Route::resource('Checkreply','AnswerController@getRepliesFromDoctor');
 

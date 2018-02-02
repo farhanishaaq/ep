@@ -69,7 +69,7 @@
                             <button type="submit" class="btn btn-style" style="">Search <span class="glyphicon glyphicon-search"></span></button>
                         </div>
                     </form>
-                    <div style="margin-top: 422px"></div>
+                    {{--<div style="margin-top: 150px"></div>--}}
                 </div>
             </div>
         </div>
@@ -340,7 +340,7 @@
         #multiple-datasets .league-name {
             margin: 0 20px 5px 20px;
             padding: 3px 0;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;s
         }
         .select2-search input {
             font-size: 16px;
@@ -353,8 +353,10 @@
         }
         .bgt{
             background-image: url({{asset('images/index_slide02.jpg')}});
-            background-size: 100% auto;
+            background-size: 100% ;
             background-repeat: no-repeat;
+
+
         }
         ul.tabs{
             margin: 0px;
