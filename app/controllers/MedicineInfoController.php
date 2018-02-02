@@ -105,26 +105,19 @@ class MedicineInfoController extends \BaseController {
 
         $availableTags = $this->_medicine->medicineresult($data);
 
-        $resultset="";
-
-
-
         if (empty($availableTags)){
-
-
             $resultset[] = "there is no data";
-
-
-
-                    }
-                    else{
-
-                        foreach ($availableTags as $key=>$value){
-//
-                            $resultset[] = $value->PRODUCT_NAME;
-                        }
-                    }
-        return $resultset;
+        }
+        else{
+            $resultset=[];
+            $medicine =[];
+            foreach ($availableTags as $key=>$value){
+                $medicine['text'] = $value->PRODUCT_NAME;
+                $medicine['id'] = $value->id;
+                array_push($resultset,$medicine);
+            }
+        }
+        return json_encode($resultset);
 
     }
     public function medicineDetail(){
@@ -145,14 +138,12 @@ class MedicineInfoController extends \BaseController {
         $textpara = "";
           $medicineName = "";
         $medicineid = "";
-
       if (isset($availableMedicine)){
 
       foreach ($availableMedicine as $key=>$value){
 
           $medicineName = $value->PRODUCT_NAME;
           $medicineid = $value->id;
-
           $path = "medicineXML/".$value->SETID;
          if(file_exists($path)){
           $allfiles = File::allFiles($path);

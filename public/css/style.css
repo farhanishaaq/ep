@@ -1226,9 +1226,7 @@ ul.error-container li{
     background-color: red;
     font-weight: 300;
     color: white;
-    color: red;
-    padding-top: 5px;
-    padding-bottom: 5px;
+  text-align: center;
 }
 
 .success{
@@ -1236,8 +1234,6 @@ ul.error-container li{
     background-color: green;
     text-align: center;
     color: white;
-    padding-top: 5px;
-    padding-bottom: 5px;
 }
 /**********************************/
 

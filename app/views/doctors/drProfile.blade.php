@@ -89,7 +89,11 @@
                                 <div class="profile-userbuttons">
                                     {{--
                                     <button type="submit" class="btn btn-circle green-bgcolor btn-sm" href="{{URL::route('getappointment')}}">Get Appointment</button>--}}
-                                     <a  href="{{ URL::route('getappointment') }}" type="submit" style="color: white"><button class="btn btn-raised btn-sm btn-1" > Get Appointment </button></a>
+
+                                    @if($profile->company_id != 1)
+                                     <a  href="{{ URL::route('appointments.create')."?id=".$profile->id }}" type="submit" style="color: white"><button class="btn btn-raised btn-sm btn-1" > Get Appointment </button></a>
+                                   @endif
+
                                     <button type="button" class="btn btn-raised btn-sm btn-1" data-toggle="modal" data-target="#myModal">Ask A Question</button>
                                     <div id="rateYo" style="margin-left: 50px;margin-top: 25px;"></div>
                                     <script src="{{asset('js/jquery.rateyo.js')}}"></script>

@@ -279,7 +279,7 @@ class Doctor extends \Eloquent
             ->leftjoin('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
             ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
 //               ->join('comments','comments.doctor_id','=','doctors.id')
-            ->select('medical_specialties.name AS specialityName','doctors.id','min_fee', 'max_fee', 'code', 'title', 'qualifications.description AS qualificationsDescription', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'phone', 'address', 'email', 'photo','experience','doctors.affiliation AS doctorAffiliation','user_type','username','password','city_id','cnic')
+            ->select('medical_specialties.name AS specialityName','doctors.id','min_fee', 'max_fee', 'code', 'title', 'qualifications.description AS qualificationsDescription', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'phone', 'address', 'email', 'photo','experience','doctors.affiliation AS doctorAffiliation','user_type','username','password','city_id','cnic','doctors.status AS doctorStatus','company_id')
             ->where('users.id', '=', $id)
             ->groupBy('users.id')
             ->get();
@@ -320,6 +320,7 @@ class Doctor extends \Eloquent
                 $queryBuilder->where('users.id', $filterParams['user_id']);
 
             $doctors = $queryBuilder->select('users.id AS userId','max_fee', 'min_fee', 'full_name', 'medical_specialties.name AS specialityName', 'start', 'end', 'code', 'doctors.id AS doctorsId', 'cities.name AS cityName', 'cities.id AS cityId', 'photo', 'gender')
+                ->where('doctors.status','=',GlobalsConst::STATUS_ON)
                 ->groupBy('user_id')->paginate(5);
             return $doctors;
 
@@ -353,6 +354,7 @@ class Doctor extends \Eloquent
         $this->max_fee = $filterparams['max_fee'];
         $this->experience = $filterparams['experience'];
         $this->affiliation = $filterparams['affiliation'];
+        $this->status = GlobalsConst::STATUS_OFF;
         if($this->save())
         return $this->id;
     }
@@ -373,8 +375,22 @@ class Doctor extends \Eloquent
         public function updateInDoctorTable($filterparams,$currentUserId){
             $userProfile = DB::table('doctors')
                 ->where('user_id','=', $currentUserId )
-                ->update(["max_fee"=>$filterparams['max_fee'],'min_fee'=>$filterparams['min_fee'],'experience'=>$filterparams['experience'],'affiliation' => $filterparams['affiliation']]);
+                ->update(["max_fee"=>$filterparams['max_fee'],'min_fee'=>$filterparams['min_fee'],'experience'=>$filterparams['experience'],'affiliation' => $filterparams['affiliation'],'status' =>GlobalsConst::STATUS_OFF]);
             return "Success";
         }
+
+    public function UpdateStatus($filterparams){
+        {
+            $queryBuilder = DB::table('doctors')
+                ->where('user_id', '=', $filterparams['userId']);
+            if ($filterparams['doctorAction'] == 'checked') {
+                $queryBuilder->update(array('status' => 'Active'));
+                return "Active";
+            } else {
+                $queryBuilder->update(array('status' => 'Inactive'));
+                return "Inactive";
+            }
+        }
+    }
 
 }

@@ -38,7 +38,6 @@ class PrescriptionDetail extends \Eloquent
 
         $vRules = PrescriptionDetail::$rules;
 
-
         $usage_types = $data['usage_type'];
         foreach ($usage_types as $k => $usage_type) {
             if ($k == -1) {
@@ -46,7 +45,8 @@ class PrescriptionDetail extends \Eloquent
             }
             if ($dataProcessType == GlobalsConst::DATA_SAVE) {
                 $prescription_detail = new PrescriptionDetail();
-            } elseif ($dataProcessType == GlobalsConst::DATA_UPDATE) {
+            }
+            elseif ($dataProcessType == GlobalsConst::DATA_UPDATE) {
 
                 $id = isset($data['PrescriptionDetailId']) ? $data['PrescriptionDetailId'] : '';
                 if ($id != '') {
@@ -62,27 +62,19 @@ class PrescriptionDetail extends \Eloquent
                 return ['success' => false, 'error' => true, 'validatorErrors' => $validator->errors()];
             }
             //*****End Rules Validators
-//            $fArr=[];
-//            $frequencies = $data['frequencies'][$k];
-////            echo $k;
-////            print_r($data['frequencies'][$k]);
-//
-//            foreach($frequencies as $key =>$f ){
-//                $fArr['key_'.$key] = $f;
-//            }
-//            $jsonStr = json_encode($fArr);
 
-            $prescription_detail->prescription_id = $data['PrescriptionDetailId'];
-            $prescription_detail->medicine_id = 2;
-            $prescription_detail->usage_type = $data['usage_type'][$k];
-            $prescription_detail->strength_quantity = $data['strength_quantity'][$k];
-            $prescription_detail->dosage_strength = $data['dosage_strength'][$k];
-            $prescription_detail->usage_quantity = $data['usage_quantity'][$k];
-            $prescription_detail->quantity_unit = $data['quantity_unit'][$k];
-            $prescription_detail->frequencies = $data['frequencies'][$k];
-            //$prescription_detail->frequencies       = $jsonStr;
-            $prescription_detail->extra_note = $data['extra_note'][$k];
-            $prescription_detail->save();
+
+                    $prescription_detail->prescription_id = $data['PrescriptionDetailId'];
+                    $prescription_detail->medicine_id = $data['medicine_id'][$k+1];
+                    $prescription_detail->usage_type = $data['usage_type'][$k];
+                    $prescription_detail->strength_quantity = $data['strength_quantity'][$k];
+                    $prescription_detail->dosage_strength = $data['dosage_strength'][$k];
+                    $prescription_detail->usage_quantity = $data['usage_quantity'][$k];
+                    $prescription_detail->quantity_unit = $data['quantity_unit'][$k];
+                    $prescription_detail->frequencies = $data['frequencies'][$k];
+                    //$prescription_detail->frequencies       = $jsonStr;
+                    $prescription_detail->extra_note = $data['extra_note'][$k];
+                    $prescription_detail->save();
 
         }
 

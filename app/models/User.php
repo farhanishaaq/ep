@@ -372,10 +372,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    return json_encode($doctors);
     }
 
-    public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE)
-    {
+    public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
 //            Active Funtion For Sign Up
-        $this->company_id = "1";
+	    $this->company_id = "1";
         $this->business_unit_id = "1";
         $this->user_type = $filterparams['user_type'];
         $this->fname = $filterparams['fname'];
@@ -386,14 +385,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $this->city_id = $filterparams['city_id'];
         $this->password = Hash::make($filterparams['password']);
         $this->phone = $filterparams['phone'];
-        if (!empty($filterparams['status']))
-        $this->status = $filterparams['status'];
         $this->save();
-        if ($filterparams['user_type'] == "Portal User") {
+        if($filterparams['user_type'] == "Portal User")
             $this->roles()->sync([3]);
-        } elseif ($filterparams['user_type'] == "Portal Doctor"){
-            $this->roles()->sync([4]);
-    }
+            else
+                $this->roles()->sync([4]);
         return "Success";
 
     }
@@ -467,7 +463,7 @@ public function fetchemail($filterparams){
 	    $userProfile = DB::table('users')
 
                 ->where('id','=', $currentUserId )
-                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>"Dr.".$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=>$newDate,'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender'],'status'=>"Inactive"]);
+                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>"Dr.".$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=>$newDate,'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender']]);
 
                         return "Success";
         }
@@ -496,7 +492,10 @@ public function fetchemail($filterparams){
     public function getDoctorRequestRecords(){
 
         $queryBuilder = DB::table('users')
-            ->where('status','Inactive')
+            ->leftJoin('doctors','users.id','=','doctors.user_id')
+            ->where('doctors.status','Inactive')
+            ->where('user_type', '=', "Portal Doctor")
+            ->select('full_name','doctors.status AS doctorStatus','users.id AS userId','user_type','users.created_at AS doctorCreated_at')
             ->paginate(7);
         return $queryBuilder;
     }
@@ -504,22 +503,12 @@ public function fetchemail($filterparams){
     public function getDoctorAllRequest(){
 
         $queryBuilder = DB::table('users')
+            ->leftJoin('doctors','users.id','=','doctors.user_id')
+            ->where('user_type', '=', "Portal Doctor")
+            ->select('full_name','doctors.status AS doctorStatus','users.id AS userId','user_type','users.created_at AS doctorCreated_at')
             ->paginate(7);
                 return $queryBuilder;
     }
 
-    public function UpdateStatus($filterparams){
-        {
-            $queryBuilder = DB::table('users')
-                ->where('id', '=', $filterparams['userId']);
-            if ($filterparams['doctorAction'] == 'checked') {
-                $queryBuilder->update(array('status' => 'Active'));
-                return "Active";
-            } else {
-                $queryBuilder->update(array('status' => 'Inactive'));
-                return "Inactive";
-            }
-        }
-    }
 
 }

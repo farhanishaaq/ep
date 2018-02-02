@@ -22,6 +22,22 @@
    CONTENT
    =========================================================-->
 @section('content')
+    {{--{{dd($data)}}--}}
+@if(Auth::user()->user_type == \App\Globals\GlobalsConst::PORTAL_DOCTOR)
+    @if(!empty($data['status']))
+    @if($data['status'] == App\Globals\GlobalsConst::STATUS_OFF)
+    <div class="error">Profile Not Approved Yet! You Can Update Your Profile For Approval.</div>
+    @else
+    <div class="success">Profile Has Been Approved And Will Show As Publicly. In Case of Update, Your Profile Will Not Able to View Until Profile Approved Again.</div>
+    @endif
+        @else
+        @if($data['doctorStatus'] == App\Globals\GlobalsConst::STATUS_OFF)
+            <div class="error">Profile Not Approved Yet! You Can Update Your Profile For Approval.</div>
+        @else
+            <div class="success">Profile Has Been Approved And Will Show As Publicly. In Case of Update, Your Profile Will Not Able to View Until Profile Approved Again.</div>
+        @endif
+    @endif
+@endif
     <div class="row">
         <div class="container">
             <form enctype="multipart/form-data" action="
@@ -124,8 +140,7 @@
                             <div class="col-xs-6">
                                 <select class="js-example-basic-single form-control" id="city" name="city_id">
                                     <option class="vhid"></option>
-                                    <option selected>Select City</option>
-                                    <option value="{{$data['city_id']}}">Save Same City</option>
+                                    <option selected value="{{$data['city_id']}}">Save Same City</option>
                                     @foreach($cities as $city)
                                         <option value="{{$city['id']}}">{{$city['name']}}</option>
                                     @endforeach
@@ -371,14 +386,7 @@
                         <h3 class="mT15 mB0 c3">Profile Photo</h3>
                         <hr class="w95p fL mT0" />
                         <hr class="w95p fL mT0" />
-                        {{--
-                        <div class="form-group profile-photo file-input">--}}
-                        {{--<label class="control-label">Profile Photo</label>--}}
-                        {{--<input id="photo" name="photo" type="hidden" value="{{{ Form::getValueAttribute('photo', null) }}}">--}}
-                        {{--<input id="userPhoto" name="userPhoto" type="file" class="file-loading" accept="image/*">--}}
-                        {{--
-                     </div>
-                     --}}
+
                         <div class="imageupload panel panel-default">
                             <div class="panel-heading clearfix">
                                 <div class="btn-group">
@@ -387,41 +395,37 @@
                                <span id="existImage"><span style="text-align: center;"><strong>Used Image</strong></span><br>
                             <img src="{{asset($data['photo'])}}" width="300px" ><br>
                                 </span>
-                                    <p><input class="btn btn-raised btn-sm btn-1" type="button" id="imageCheck" value="Chose New Image">
-                                    </p></div>
-                                {{-----------------------}}
-                                @endif
+                                            <p><input class="btn btn-raised btn-sm btn-1" type="button" id="imageCheck" value="Chose New Image">
+                                            </p></div>
+                                        {{-----------------------}}
+                                    @endif
 
-                                {{--<div class="btn-group pull-right">--}}
-                                    {{--<input type="file" class="btn-group pull-right" name="image" required />--}}
-                                {{--</div>--}}
-
-                                <div class="noneClass" id="newImage"
-                                     @if(!empty($data['photo']))
-                                     style="display: none"
-                                        @endif
-                                >
-                                    <p class="pull-left"><strong>Select New Image</strong>
-                                    <input type="file" class="btn-group w100p form-control" name="image"
-                                           @if(empty($data['photo']))
-                                           required
+                                    <div class="noneClass" id="newImage"
+                                         @if(!empty($data['photo']))
+                                         style="display: none"
                                             @endif
-                                    /></p>
-                                </div>
-                                @if(!empty($articles->bannar_image))
-                                @if(isset($response))
-                                    @foreach($response as $result)
-                                        @if($result==false)
-                                            <div class="alert alert-danger">
-                                                <strong>Upload Success is Fail!</strong> File Type Should be jpeg, jpg, png, gif, or svg
-                                                <strong>Upload Success is Fail!</strong> File Size Should more than 300X300 Pixels
-                                            </div>
+                                    >
+                                        <p class="pull-left"><strong>Select New Image</strong>
+                                            <input type="file" class="btn-group w100p form-control" name="image"
+                                                   @if(empty($data['photo']))
+                                                   required
+                                                    @endif
+                                            /></p>
+                                    </div>
+                                    @if(!empty($articles->bannar_image))
+                                        @if(isset($response))
+                                            @foreach($response as $result)
+                                                @if($result==false)
+                                                    <div class="alert alert-danger">
+                                                        <strong>Upload Success is Fail!</strong> File Type Should be jpeg, jpg, png, gif, or svg
+                                                        <strong>Upload Success is Fail!</strong> File Size Should more than 300X300 Pixels
+                                                    </div>
+                                                @endif
+                                            @endforeach
                                         @endif
-                                    @endforeach
-                                @endif
-                                @endif
+                                    @endif
+                                </div>
                             </div>
-                        </div>
                         @if($data['user_type'] == "Portal Doctor")
                             <hr class="w95p fL mT0" />
                             <h3 class="mT15 mB0 c3">Experience</h3>
@@ -444,13 +448,7 @@
                 {{--Image END--}}
                 <div class="col-xs-12 taR pR0 mT20">
                     <input type="submit" id="registerDoctor" name="registerDoctor" value="Submit" class="submit" />
-                    <input type="button" id="cancel" value="Skip" class="submit" novalidate
-                           @if(Auth::user()->user_type == "Portal Doctor")
-                           onclick="goTo('{{route("login")}}')"
-                           @else
-                           onclick="goTo('{{URL("/")}}')"
-                            @endif
-                    />
+                    <input type="button" id="cancel" value="Skip" class="submit" novalidate onclick="goTo('{{URL("/")}}')"/>
                 </div>
             </form>
         </div>
@@ -492,9 +490,9 @@
 
         {{--}--}}
 
-        {{--//                var photoInitialPreview = '';--}}
+        //                var photoInitialPreview = '';
 
-        {{--@if($formMode == App\Globals\GlobalsConst::FORM_CREATE)--}}
+        {{--@if($data['dataProcessType'] == App\Globals\GlobalsConst::FORM_CREATE)--}}
         {{--photoInitialPreview = "{{asset('images/profile-dumy.png')}}";--}}
         {{--@else--}}
         {{--photoInitialPreview = "{{get_profile_photo_url($doctor->user->photo)}}";--}}
@@ -506,7 +504,7 @@
         {{--});--}}
 
         {{--var options = {--}}
-        {{--saveCloseUrl: "{{route('doctors.index')}}",--}
+        {{--saveCloseUrl: "{{route('doctors.index')}}",--}}
         {{--photoUploadUrl: "{{route('uploadProfilePic')}}",--}}
         {{--photoInitialPreview :[--}}
         {{--photoInitialPreview--}}
