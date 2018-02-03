@@ -24,10 +24,12 @@
                                             <?php break; ?>
                                         @elseif($r->id == GlobalsConst::COMPANY_ADMIN_ID)
                                             @include('includes.companyAdminNav')
-                                            @elseif($r->name == "Portal Doctor")
-                                                @include('includes.companyAdminNav')
-                                            @elseif($r->name == "Portal User")
+                                            @elseif($r->name == \App\Globals\GlobalsConst::PORTAL_DOCTOR)
+                                                @include('includes.portalDoctorNav')
+                                            @elseif($r->name == \App\Globals\GlobalsConst::PORTAL_USER)
                                                 @include('includes.userNav')
+                                            @elseif($r->name == \App\Globals\GlobalsConst::COMPANY_DOCTOR)
+                                                @include('includes.doctorNav')
                                                 <?php break; ?>
                                             <?php break; ?>
                                         @endif

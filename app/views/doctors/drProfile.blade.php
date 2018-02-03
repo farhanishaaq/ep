@@ -93,9 +93,10 @@
                                     @if($profile->company_id != 1)
                                      <a  href="{{ URL::route('appointments.create')."?id=".$profile->id }}" type="submit" style="color: white"><button class="btn btn-raised btn-sm btn-1" > Get Appointment </button></a>
                                    @endif
-
+                                    @if(Auth::check())
                                     <button type="button" class="btn btn-raised btn-sm btn-1" data-toggle="modal" data-target="#myModal">Ask A Question</button>
-                                    <div id="rateYo" style="margin-left: 50px;margin-top: 25px;"></div>
+                                    @endif
+                                        <div id="rateYo" style="margin-left: 50px;margin-top: 25px;"></div>
                                     <script src="{{asset('js/jquery.rateyo.js')}}"></script>
                                     @include('doctors.includes.questionModal')
                                 </div>
@@ -189,12 +190,13 @@
                                                                     {{--
                               <form class="form-inline" action="{{route('comment')}}" method="post">--}} @if(Auth::user())
                                                                         <h4><strong style="color: #01ADD5">Write Comment On Doctor Profile</strong></h4></button>
-                                                                        <form class="form-inline">
+                                                                        <form class="form-inline" id="commentForm">
 
                                                                             <div class="input-group" style="width: 100%">
 
                                                                                 <textarea style="resize: none" class="col-lg-12 col-md-12 col-sm-12 form-control" type="text" placeholder="Write Comments" name="addComment" id="comment"  style="width: 100%"></textarea>
-                                                                                <span class="input-group-addon p0"  style="width: 20%; height: inherit"><button id="ajax" type="submit" style="width: 100%; height: 50px" ><h5>Comment</h5></button></span>
+                                                                                <button class="p0 mT2 w200 pull-right"  id="ajax" type="submit" onclick="submitForm()"><h5>Comment</h5></button>
+                                                                                {{--<span class="input-group-addon p0"  style="width: 20%; height: inherit"><button id="ajax" type="submit" style="width: 100%; height: inherit " onclick="submitForm()"><h5>Comment</h5></button></span>--}}
                                                                             </div>
                                                                             <br>
                                                                             <input class="form-control" type="hidden" value="{{$id}}" name="target_Id" id="target_Id">
@@ -208,8 +210,9 @@
 
 
                                                                         </form>
-                                                                    @else {{--@include('includes.webSocialLinks')--}} @endif
-
+                                                                    @endif
+                                                                    <input class="form-control" type="hidden" value="profile" name="type" id="type">
+                                                                    <input class="form-control" type="hidden" value="{{$id}}" name="target_Id" id="target_Id">
                                                                     <br>
                                                                     <hr>
                                                                     <div class="tab-content">
@@ -281,6 +284,13 @@
 
     <script src="{{ asset('js/jquery.rateyo.min.js') }}" type="text/javascript"></script>
     <script>
+
+        // $( document ).ready(function() {
+        //     var rating  = $("#drRate").html();
+        //     if(rating == ""){
+        //     $("#drRate").replaceWith("0");
+        // }
+        // });
     function rating () {
         $(function () {
             $.ajax({
@@ -322,7 +332,15 @@
                         }
                         //  console.log(response)
                         // console.log('in found record '+response[0].rating)
-                        $('#drRate').html(response.rating[0].rating+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
+                        if(typeof response.rating[0].rating == "undefined"){
+                            $('#drRate').html("0"+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
+
+                        }
+                        else
+                        {
+                            console.log(response.rating[0].rating);
+                            $('#drRate').html(response.rating[0].rating+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
+                        }
 //                        $('#drRate').html(response.rating['rating']+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
                     }
                 },
@@ -363,6 +381,9 @@ rating();
                 });
 
         });
+        function submitForm() {
+            $("#commentForm")[0].reset();
+        }
 
 
 

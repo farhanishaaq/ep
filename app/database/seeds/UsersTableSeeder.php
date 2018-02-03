@@ -202,7 +202,10 @@ class UsersTableSeeder extends Seeder {
 		]);
 	}
 
-	private function addDoctor(){
+    /**
+     *
+     */
+    private function addDoctor(){
 		$user = User::create([
 			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
@@ -214,7 +217,7 @@ class UsersTableSeeder extends Seeder {
 			'lname'=> 'Butt',
 			'full_name'=> 'Umar Butt',
 			'user_type'=> 'Doctor',
-			'photo'=> 'profileImages/3/umarButt.JPG',
+			'photo'=> '/profileImages/3/umarButt.JPG',
 			'dob'=> '1988-12-01',
 			'cnic'=> '35200-1478048-1',
 			'phone'=> '+92-323-8406757',
@@ -222,10 +225,11 @@ class UsersTableSeeder extends Seeder {
 			'address'=> 'lawrance Road Lahore',
 			'status'=> 'Active',
 		]);
+		$doctorRole = 5;
+	    $user->roles()->attach($doctorRole);
 
-		$doctorRole = 1;
-		$user->roles()->attach($doctorRole);
-		$employee = Employee::create([
+	    DB::table("role_user")->insert(array('user_id'=>'3','role_id'=>'5'));
+	    $employee = Employee::create([
 			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
 			'user_id'=> $user->id,
@@ -263,6 +267,7 @@ class UsersTableSeeder extends Seeder {
 			'gender'=> 'Female',
 			'status'=> 'Active',
 		]);
+
 		$receptionistRole = 6;
 		$user->roles()->attach($receptionistRole);
 

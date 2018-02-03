@@ -73,13 +73,14 @@
         <div class="col-sm-9 col-md-9 col-lg-9">
 
     @if(Auth::user())
-                <h4><strong style="color: #01ADD5">Write Comment On Article</strong></h4>
-                <form class="form-inline">
+                <h4><strong style="color: #01ADD5">Write Comment on Article</strong></h4>
+                <form class="form-inline" id="commentForm">
 
                     <div class="input-group" style="width: 100%">
 
                         <textarea style="resize: none" class="col-lg-12 col-md-12 col-sm-12 form-control" type="text" placeholder="Write Comments" name="addComment" id="comment"  style="width: 100%"></textarea>
-                        <span class="input-group-addon p0"  style="width: 20%"><button id="ajax" type="submit" style="width: 100%; height: 50px" ><h5>Comment</h5></button></span>
+                        <button class="p0 mT2 w200 pull-right"  id="ajax" type="submit" onclick="submitForm()"><h5>Comment</h5></button>
+                        {{--<span class="input-group-addon p0"  style="width: 20%"><button id="ajax" type="submit" style="width: 100%; height: 50px"  onclick="submitForm()"><h5>Comment</h5></button></span>--}}
                     </div>
 
 
@@ -98,6 +99,8 @@
         </form>
             @else {{--@include('includes.webSocialLinks')--}} @endif
             <br>
+        <input class="form-control" type="hidden" value="{{$articles->articleId}}" name="target_Id" id="target_Id" >
+        <input class="form-control" type="hidden" value="article" name="type" id="type">
     <hr>
     <div class="tab-content">
         <h4 class="tab-content" ><strong>Comments on Article</strong></h4>

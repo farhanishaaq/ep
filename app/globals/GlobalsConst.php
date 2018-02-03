@@ -140,6 +140,7 @@ class GlobalsConst {
     const PATIENT = "Patient";
     const PORTAL_USER = "Portal User";
     const PORTAL_DOCTOR = 'Portal Doctor';
+    const COMPANY_DOCTOR = 'Company Doctor';
 
 
     //Data Process Type

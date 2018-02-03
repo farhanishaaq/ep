@@ -329,6 +329,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 				break;
 				case GlobalsConst::DOCTOR:
 					$employeeResponse = Employee::saveEmployee($data,$dataProcessType);
+					$user->roles()->sync([5]);
 					if(isset($employeeResponse['Employee'])){
 						$employee = $employeeResponse['Employee'];
 						$data['employee_id'] = $employee->id;
