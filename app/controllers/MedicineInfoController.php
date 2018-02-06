@@ -105,19 +105,26 @@ class MedicineInfoController extends \BaseController {
 
         $availableTags = $this->_medicine->medicineresult($data);
 
+        $resultset="";
+
+
+
         if (empty($availableTags)){
+
+
             $resultset[] = "there is no data";
-        }
-        else{
-            $resultset=[];
-            $medicine =[];
-            foreach ($availableTags as $key=>$value){
-                $medicine['text'] = $value->PRODUCT_NAME;
-                $medicine['id'] = $value->id;
-                array_push($resultset,$medicine);
-            }
-        }
-        return json_encode($resultset);
+
+
+
+                    }
+                    else{
+
+                        foreach ($availableTags as $key=>$value){
+//
+                            $resultset[] = $value->PRODUCT_NAME;
+                        }
+                    }
+        return $resultset;
 
     }
     public function medicineDetail(){
