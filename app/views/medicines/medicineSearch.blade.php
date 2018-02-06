@@ -76,9 +76,9 @@
 
         <div class="col-md-7">
             {{--<span class="post-category"><a href="{{url('medicineDetail/1')}}" title="Travel" style="font-size: 20px;">Detail of Medicine</a></span><br>--}}
-            <a href="{{url("medicineResutl",$params['medicineid'])}}"> <h2> <span class="Post-category" style="color: #0AA0D3 ">{{$params['MedicineName']}}</span> </h2></a>
+            <a href="{{url("medicineResutl",$params['medicineid'])}}"> <h2> <span class="text_2 color_7 maxheight1" style="color: #0AA0D3 ">{{$params['MedicineName']}}</span> </h2></a>
 
-            <span> <div class="show-read-more"><h3>Medicine Detail</h3> {{$params['xmlfile']}} </div>
+            <span> <div class="show-read-more"><h3 class="text_2 color_7 maxheight1">Medicine Detail</h3> {{$params['xmlfile']}} </div>
 
                         </span>
             <a href="{{url("medicineResutl",$params['medicineid'])}}" title="Read More">Read More</a>
@@ -86,40 +86,6 @@
        </div>
 
        </div>
-
-        {{--@foreach($params as $new)--}}
-
-
-    {{--@endforeach--}}
-    {{--@endif--}}
-    @else
-
-    <div class="container">
-        <div class="col-md-12 col-sm-12  col-lg-12 card listBox" style="border-radius: 5px; padding-top: 10px; ">
-            <div class="col-md-5">
-                <div class="post-box">
-                    <img src="{{asset('/images/medicines-l.jpg')}}" style="margin-bottom: 10px; height:250px;"><br>
-
-
-                    <br>
-                </div>
-            </div>
-            <div class="col-md-7">
-                <span class="post-category"><a href="" title="Travel" style="font-size: 20px;">4 Ways to Avoid Side Effects of Radiotherapy</a></span><br>
-                <h5 style="color: #808080">company name</h5>
-                <br>
-                <span>
-                        <div class="show-read-more"><h3>Medicine Detail</h3>In this scientific era radiotherapy is used to treat the wide range of abnormalities from skin scars to cancer. It is really a marvelous technology and works for satisfied results. But it still has so....
-                            <span class="more-text">me side effects. Don’t be afraid of those unwanted effects, these can be avoided. Read how can you minimize side effects of this therapy?
-Side Effects of Radiotherapy: Changes in special area which is treated</span></div>
-
-                        </span>
-                <a href="" title="Read More">Read More</a>
-            </div>
-        </div>
-
-    </div>
-
 
 
     @endif
@@ -135,20 +101,65 @@ Side Effects of Radiotherapy: Changes in special area which is treated</span></d
                 </div>
             </div>
             <div class="col-md-7">
-                <span class="post-category"><a href="" title="Travel" style="font-size: 20px;">4 Ways to Avoid Side Effects of Radiotherapy</a></span><br>
-                <h5 style="color: #808080">company name</h5>
-                <br>
+               <h2> <span class="text_2 color_7 maxheight1" >Drug Abuse and Addiction</span></h2>
+
                 <span>
-                        <div class="show-read-more"><h3>Medicine Detail</h3>In this scientific era radiotherapy is used to treat the wide range of abnormalities from skin scars to cancer. It is really a marvelous technology and works for satisfied results. But it still has so....
-                            <span class="more-text">me side effects. Don’t be afraid of those unwanted effects, these can be avoided. Read how can you minimize side effects of this therapy?
-Side Effects of Radiotherapy: Changes in special area which is treated</span></div>
+                        <div class="show-read-more"><h3>What is drug addiction?</h3>
+                            <span class="more-text">Addiction is defined as a chronic, relapsing brain disease that is characterized by compulsive drug seeking and use, despite harmful consequences.† It is considered a brain disease because drugs change the brain—they change its structure and how it works. These brain changes can be long-lasting, and can lead to the harmful behaviors seen in people who abuse drugs.</span></div>
 
                         </span>
-                <a href="" title="Read More">Read More</a>
+
             </div>
         </div>
 
     </div>
+    <section id="content">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <div class="box_1">
+                        <div class="icon_1"></div>
+                        <h3 class="text_2 color_7 maxheight1"><a href="#">Fee Management</a></h3>
+                        <p class="text_3 color_2 maxheight">
+                            Online creation and generation of patient's Bills anywhere, anytime.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="box_1">
+                        <div class="icon_2"></div>
+                        <h3 class="text_2 color_7 maxheight1"><a href="#">Appointment on Phone</a></h3>
+                        <p class="text_3 color_2 maxheight">
+                            Now Appointment reservation also is just ahead of a Phone Call, by Receptionist.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="box_1">
+                        <div class="icon_3"></div>
+                        <h3 class="text_2 color_7 maxheight1"><a href="#">Patient Check-Up</a></h3>
+                        <p class="text_3 color_2 maxheight">
+                            Now Check your patients with much convinience by keeping medical records
+                            Online.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="box_1">
+                        <div class="icon_4"></div>
+                        <h3 class="text_2 color_7 maxheight1"><a href="#">Administration</a></h3>
+                        <p class="text_3 color_2 maxheight">
+                            Now administrator could manage everything in the system using his full access rights.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
 @endif
 
     <br>
