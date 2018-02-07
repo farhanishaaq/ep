@@ -47,7 +47,8 @@ class="current"
 				    </div>
 
                 @endif
-				{{ Form::open(array('url' => 'doLogin')) }}
+				<form action="{{route('doLogin')}}" method="POST" >
+				{{--{{ Form::open(array('url' => 'doLogin')) }}--}}
                     <input type="email" id = "email" name="email" placeholder="Email" required="true">
                     <input type="password" required="true" name="password" id="password" placeholder="Password">
 
@@ -56,7 +57,8 @@ class="current"
                         <label for="remember_me">Remember me</label>
                     </div>
                     <input style="width:100%" type="submit" name="login" class="login login-submit" value="login">
-				{{ Form::close() }}
+				{{--{{ Form::close() }}--}}
+                </form>
 
 				{{--</form>--}}
 
