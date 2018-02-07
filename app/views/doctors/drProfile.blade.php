@@ -61,7 +61,7 @@
                                 <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
                                         <b>Fee:</b>
-                                        <div class="profile-desc-item pull-right">{{($profile->max_fee)-500}}-{{$profile->max_fee}}</div>
+                                        <div class="profile-desc-item pull-right">{{($profile->max_fee)-20*$profile->max_fee/100}}-{{$profile->max_fee}}</div>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Exprience</b>
