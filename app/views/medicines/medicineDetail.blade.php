@@ -43,7 +43,7 @@ Search Medicines
                     {{--<span class="post-category"><a href="{{url('medicineDetail/1')}}" title="Travel" style="font-size: 20px;">Detail of Medicine</a></span><br>--}}
                      <h2> <span class="Post-category" style="color: #0AA0D3 ">{{$params['MedicineName']}}</span> </h2>
 
-                    <span> <div class="show-read-more" style="font-size: large"><h3 style="color: blue">Medicine Detail</h3> {{$params['xmlfile']}} </div>
+                    <span> <div class="show-read-more" style="font-size: large"><h3 class="text_2 color_7 maxheight1">Medicine Detail</h3> {{$params['xmlfile']}} </div>
 
                         </span>
 
