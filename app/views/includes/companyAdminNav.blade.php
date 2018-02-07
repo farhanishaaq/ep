@@ -2,12 +2,12 @@
     <ul class="nav navbar-nav navbar-right">
         {{--<li @yield('current_admin_home')><a href="{{URL::route('adminHome')}}">Dashboard</a></li>--}}
         <li @yield('current_admin_home')><a href="{{URL::route('showDashboard')}}">Dashboard</a></li>
-        <li><a href="{{URL::route('medicineSearch')}}">Medicines</a></li>
+
 
         {{-- Manage Clinic --}}
         <li class="dropdown @yield('current_services')">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Manage Clinic<span class="caret"></span></a>
+               aria-expanded="false">Clinic<span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="{{URL::route('doctors.index')}}">Manage Doctors</a></li>
                 <li class="divider"></li>
@@ -27,6 +27,8 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{URL::route('articlesList')}}">Articles</a></li>
                         <li class="divider"></li>
+                        <li><a href="{{URL::route('medicineSearch')}}">Medicines</a></li>
+                        <li class="divider"></li>
                         <li><a href="{{URL::route('editer')}}">Write Article</a></li>
                         <li class="divider"></li>
                         <li><a href="{{URL::route('articleStatus')}}">Articles Status</a></li>
@@ -44,7 +46,7 @@
         {{-- Inventory --}}
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Manage Inventory <span class="caret"></span></a>
+               aria-expanded="false">Inventory <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="{{route('medicinePurchases.index')}}">Medicine Purchases</a></li>
                 <li class="divider"></li>
@@ -80,4 +82,5 @@
         </li>
         @include('includes.profileNavDropdown')
     </ul>
-</div><!--/.nav-collapse -->
+</div>
+<!--/.nav-collapse -->

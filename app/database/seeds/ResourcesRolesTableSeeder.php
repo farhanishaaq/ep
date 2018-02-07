@@ -25,6 +25,13 @@ class ResourcesRolesTableSeeder extends Seeder {
         foreach ($resourceIds as $resourceId){
             $Role->resources()->attach($resourceId, ['status'=>'Allow']);
         }
+        $Role = Role::find(5);
+        foreach ($resourceIds as $resourceId){
+            $Role->resources()->attach($resourceId, ['status'=>'Allow']);
+        }
         //////////ONLY IN DEVLOPMENT MODE///////////////////////////
+        ///
+        /// Just For One Doctor Which is Already Exist in seeding
+        DB::table("role_user")->insert(array('user_id'=>'3','role_id'=>'5'));
 	}
 }

@@ -379,3 +379,9 @@ Route::get('medicineResutl/{id}',array('as'=>'medicineResutl','uses'=> 'Medicine
 Route::get('question-history',array('as' => 'questionHistory', 'uses' => 'QuestionController@viewHistory'));
 Route::resource('answer','AnswerController');
 
+Route::group(array('prefix'=>'api'),function () {
+
+    Route::post('doLogin', array('as'=>'doLogin','uses'=>'AuthController@doLogin'));
+    Route::post('doSignUp', array('as'=>'doSignUp','uses'=>'AuthController@doSignUp'));
+
+});
