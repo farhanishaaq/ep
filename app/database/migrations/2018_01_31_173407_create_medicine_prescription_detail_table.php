@@ -16,7 +16,7 @@ class CreateMedicinePrescriptionDetailTable extends Migration {
         {
 
             $table->integer('id')->unsigned();
-            $table->integer('id')->unsigned();
+
 
         });
 		//
