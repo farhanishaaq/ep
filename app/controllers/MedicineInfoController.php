@@ -136,12 +136,7 @@ class MedicineInfoController extends \BaseController {
 
         $namejpge = "";
         $pathname = "";
-        $namenull ="";
-         $item1 = "";
-         $para1 = "";
-        $namecontent = "";
-        $paratd  = "";
-        $paralast  = "";
+
         $textpara = "";
           $medicineName = "";
         $medicineid = "";
@@ -236,23 +231,42 @@ class MedicineInfoController extends \BaseController {
 
         if (isset($xml))
         {
+
         for($i=0;$i<10;$i++) {
 
-            $body = $xml->component->structuredBody->component[$i];
-            $bodypara = $xml->component->structuredBody->component[$i];
-             $text = $bodypara->section->text;
 
-             if(count($text>0)){
 
-            $textpara = $text->paragraph;
-             }else{
+            try{
 
-                 $textpara = "There is no Record";
-             }
+                $bodypara = $xml->component->structuredBody->component[$i];
+                $text = $bodypara->section->text;
+//             dd($text);
+                $textpara = $text->paragraph;
+            }
+            catch(\Exception $e){
+//                Redirect::to('medicineSearch')->send();
+
+                $params = [
+                    'medicineid'=>$medicineid,
+                    'xmlfile' => "There is no Record",
+                    'jpgfile'        => "/images/medicines-l.jpg",
+
+                    'MedicineName'        => "No Record",
+                ];
+
+
+                return View::make('medicines.medicineSearch', compact('params'));
+
+
+            }
+
+
         }
+
+//        dd($textpara);
         }else{
 
-            $textpara = "There is no Record";
+            $textpara = "There is no Medicine Detail";
 
         }
 
