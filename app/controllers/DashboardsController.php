@@ -63,6 +63,7 @@ class DashboardsController extends \BaseController
                             $endTimeStr = strtotime("+".GlobalsConst::TIME_SLOT_INTERVAL." minutes", strtotime($startTime));
                             $endTime = date('h:i:s', $endTimeStr);
                             $title = $a->patient->user->full_name . " have appointment with Dr. ".$a->doctor->user->full_name.' at '. $startTime;
+//                            $title = "";
                             $aDate = $a->date;
                             $dpDay = array_search($a->day, GlobalsConst::$DP_DAYS);
                             $appointmentDataset[$k]['start'] =  $aDate.'T'. $startTime;

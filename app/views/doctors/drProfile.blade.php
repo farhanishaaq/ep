@@ -61,7 +61,7 @@
                                 <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
                                         <b>Fee:</b>
-                                        <div class="profile-desc-item pull-right">{{($profile->max_fee)-500}}-{{$profile->max_fee}}</div>
+                                        <div class="profile-desc-item pull-right">{{($profile->max_fee)-20*$profile->max_fee/100}}-{{$profile->max_fee}}</div>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Exprience</b>
@@ -69,7 +69,7 @@
                                     </li>
                                     <li class="list-group-item">
                                         <b>Rating</b>
-                                        <div class="profile-desc-item pull-right" id="drRate"></div>
+                                        <div class="profile-desc-item pull-right " id="drRate"></div>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Degree</b>
@@ -281,6 +281,7 @@
                    </div>
 {{--Modal End--}}
 
+
                      <br><br>
                     <br><br>
 
@@ -379,7 +380,7 @@
     }
 
 rating();
-        $(function () {
+
 
             $("#rateYo")
                 .on("rateyo.set", function (e, data) {
@@ -394,10 +395,8 @@ rating();
                         dataType : "json",
                         success : function(response){
                             rating();
-                            if(response.toString() == "sucess"){
 
-                              //  console.log('sucess')
-                            }
+
                         },
                         error : function(response){
                             rating();
@@ -407,7 +406,7 @@ rating();
 //                    alert("The rating is set to " + data.rating + "!");
                 });
 
-        });
+        
 //        function submitForm() {
 //            $("#commentForm")[0].reset();
 //        }

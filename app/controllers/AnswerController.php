@@ -101,5 +101,11 @@ class AnswerController extends \BaseController {
 		//
 	}
 
+    public function getRepliesFromDoctor($id)
+    {
+        $questions= $this->_question->getQuestionsAskedByUser($id);
+        $answers =$this->_answer->getAnswersForUser($id);
+
+    }
 
 }

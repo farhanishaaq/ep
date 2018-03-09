@@ -351,6 +351,7 @@ Route::post('updateComment', array('as'=>'updateComment','uses'=>'CommentsContro
 Route::get('showComment', array('as'=>'showComment','uses'=>'CommentsController@show'));
 Route::get('commentHistory', array('as'=>'commentHistory','uses'=>'CommentsController@showHistory'));
 Route::get('commentsStatus', array('as'=>'commentsStatus','uses'=>'CommentsController@index'));
+
 Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
 
 Route::post('articleStore', array('as'=>'arStore','uses'=>'ArticlesController@store'));

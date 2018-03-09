@@ -367,11 +367,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 
 	public function getDoctorByNameForSelector($name){
-	    $doctors = self::select('full_name')
-                    ->where("user_type",'=','Doctor')
-                    ->where('full_name','like','%'.$name.'%')->get();
+	        $doctors = self::select('full_name')
+            ->where("user_type",'=','Doctor')
+            ->where('full_name','like','%'.$name.'%')->get();
 
-	    return json_encode($doctors);
+	        return json_encode($doctors);
     }
 
     public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){

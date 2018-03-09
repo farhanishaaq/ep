@@ -13,10 +13,10 @@
 @section('redBar')
     <div class = "user_logo">
         <div class="header_1 wrap_3 color_3 login-bar">
-            Searched In
-            @if($doctors->count()>0)
-            "{{$doctors[0]->cityName}}"
-            @endif
+            Search Results
+            {{--@if($doctors->count()>0)--}}
+            {{--"{{$doctors[0]->cityName}}"--}}
+            {{--@endif--}}
         </div>
     </div>
 @stop

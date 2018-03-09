@@ -170,12 +170,6 @@ class DoctorsController extends \BaseController {
 
             return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
 
-//        else {
-//            $doctors = NULL;
-//            dd($doctors);
-//            return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
-//        }
-
         }
 
 
@@ -183,11 +177,3 @@ class DoctorsController extends \BaseController {
 
 }
 
-
-//Some Practice
-//            $data['selectCities'] = Input::get('cities');
-//            $string = implode("','", Input::get('cities'));
-////            dd("'".$string."'");
-////            For Integer
-//            $data['selectCities'] = array_map('intval',explode(',', $string));
-//            dd($data['selectCities']);
