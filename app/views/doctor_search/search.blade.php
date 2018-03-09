@@ -231,7 +231,7 @@
                 var city = $('#city');
                 var speciality =$('#speciality');
                 var user= $('#users');
-                if (city.val()=="" && speciality.val()=="" && user.val()==null ){
+                if (city.val()=="" && speciality.val()=="" && user.val()=="" ){
                     city.attr("border-color","red")
                     toast();
                 }else {
