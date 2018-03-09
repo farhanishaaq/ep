@@ -3127,7 +3127,8 @@ table.dataTable thead .sorting_desc {
   display: inline-block;
   vertical-align: middle;
   position: relative;
-  padding-left: 5px; }
+  padding-left: 5px;
+  padding-top: 6px; }
 .stylish-checkbox label::before {
   content: "";
   display: inline-block;

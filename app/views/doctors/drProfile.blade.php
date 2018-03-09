@@ -112,7 +112,10 @@
                             <div class="card-body no-padding height-9">
 
 
-                                    <input hidden id="address" type="textbox" value="{{$profile->address}}">
+                                    <input hidden id="address" type="textbox" value="
+                                    {{--{{$profile->address}}--}}
+                                    {{$profile->cityName}}
+                                    ">
                                     <input  hidden id="submit" type="button" value="Geocode">
 
                                 <div id="map" style="width: 300px; height: 600px;"></div>
@@ -127,9 +130,6 @@
                     <div class="profile-content">
                         <div class="row">
                             <div class="card">
-                                <div class="card-head card-topline-aqua" style="border-bottom: 0px">
-                                    <header></header>
-                                </div>
                                 <div class="card-body no-padding height-9">
                                     <div class="container-fluid">
                                         <div class="row">
@@ -152,50 +152,60 @@
                                                                             <br>
                                                                             <p class="text-muted">{{$profile->phone != "" ? $profile->phone: "No contact" }}</p>
                                                                         </div>
-                                                                        <div class="col-md-6 col-xs-6 b-r"> <strong>Email</strong>
+                                                                        <div class="col-md-6 col-xs-6 b-r" > <strong>Email</strong>
                                                                             <br>
-                                                                            <p class="text-muted">{{$profile->email}}</p>
+                                                                            <p class="text-muted" >{{$profile->email}}</p>
                                                                         </div>
                                                                         <div class="col-md-6 col-xs-6"> <strong>Location</strong>
                                                                             <br>
-                                                                            <p class="text-muted" id="address">{{$profile->address}}</p>
+                                                                            <p class="text-muted " id="address">{{$profile->address}}</p>
+                                                                            {{--
+                                                                            Use this For Removing Alert Error {{$profile->cityName}}
+                                                                            --}}
                                                                         </div>
                                                                     </div>
                                                                     <hr>
-
+                                                                     @if(!empty($profile->code))
                                                                     <h4 class="font-bold">Education</h4>
-                                                                    <hr>
                                                                     <ul>
-                                                                        <li>{{$profile->code}}</li>
+                                                                        <li>{{$profile->code}} &nbsp;
+                                                                        <a data-toggle="modal" data-target="#code"><h7>what is {{$profile->code}}?</h7></a>
+                                                                        </li>
                                                                         <li>{{$profile->title}}</li>
                                                                         <li>{{$profile->qualificationsDescription}}</li>
                                                                         <li>{{$profile->institute}}</li>
 
                                                                     </ul>
                                                                     <br>
+                                                                    @endif
+                                                                    <span id="experienceSection">
                                                                     <h4 class="font-bold">Experience</h4>
                                                                     <hr>
                                                                     <ul>
-                                                                        <li>{{$profile->experience}}</li>
+                                                                        <li id="experience">{{$profile->experience}}</li>
                                                                     </ul>
-
+                                                                    </span>
+                                                                    @if(!empty($profile->doctorAffiliation))
                                                                     <br>
                                                                     <h4 class="font-bold">Professional Affiliations </h4>
                                                                     <hr>
                                                                     <ul>
-                                                                        <li>{{$profile->doctorAffiliation}}</li>
+                                                                        <li id="affiliation">{{$profile->doctorAffiliation}}</li>
                                                                     </ul>
                                                                     <br>
+                                                                    @endif
+
 
                                                                     {{--
                               <form class="form-inline" action="{{route('comment')}}" method="post">--}} @if(Auth::user())
-                                                                        <h4><strong style="color: #01ADD5">Write Comment On Doctor Profile</strong></h4></button>
+                                                                        <h4><strong style="color: #01ADD5">Reviews About Doctor</strong></h4></button>
                                                                         <form class="form-inline" id="commentForm">
 
                                                                             <div class="input-group" style="width: 100%">
 
                                                                                 <textarea style="resize: none" class="col-lg-12 col-md-12 col-sm-12 form-control" type="text" placeholder="Write Comments" name="addComment" id="comment"  style="width: 100%"></textarea>
-                                                                                <button class="p0 mT2 w200 pull-right"  id="ajax" type="submit" onclick="submitForm()"><h5>Comment</h5></button>
+
+                                                                                 <button class="btn btn-raised btn-sm btn-1 w100p pT10"  id="ajax" type="submit"><span class="fs15">Submit</span></button>
                                                                                 {{--<span class="input-group-addon p0"  style="width: 20%; height: inherit"><button id="ajax" type="submit" style="width: 100%; height: inherit " onclick="submitForm()"><h5>Comment</h5></button></span>--}}
                                                                             </div>
                                                                             <br>
@@ -215,9 +225,9 @@
                                                                     <input class="form-control" type="hidden" value="{{$id}}" name="target_Id" id="target_Id">
                                                                     <br>
                                                                     <hr>
-                                                                    <div class="tab-content">
+                                                                    <div class="tab-content" id="commentSection">
 
-                                                                        <h3 class="tab-content"><strong>Doctor Comments</strong></h3> {{--@foreach($drComments as $comment)--}}
+                                                                        <h3 class="tab-content"><strong>Doctor Reviews:</strong></h3> {{--@foreach($drComments as $comment)--}}
 
                                                                         <div class="" style="background-color: white">
                                                                             <ul  class="commentList" id="commentList">
@@ -252,7 +262,24 @@
 
     @endforeach
 
-
+<!-- Modal -->
+                 <div class="modal fade" id="code" role="dialog">
+                     <div class="modal-dialog modal-sm">
+                       <div class="modal-content">
+                         <div class="modal-header">
+                           <button type="button" class="close" data-dismiss="modal">&times;</button>
+                           <h4>{{$profile->code}}</h4>
+                         </div>
+                         <div class="col-md-offset-4">
+                         </div>
+                           <p style="text-align: center">{{$profile->qualificationsDescription}}</p>
+                         <div class="modal-footer">
+                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+{{--Modal End--}}
 
                      <br><br>
                     <br><br>
@@ -381,9 +408,9 @@ rating();
                 });
 
         });
-        function submitForm() {
-            $("#commentForm")[0].reset();
-        }
+//        function submitForm() {
+//            $("#commentForm")[0].reset();
+//        }
 
 
 

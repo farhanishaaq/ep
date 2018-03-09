@@ -46,19 +46,20 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'additional_info',
 		'status',];
 
-	public static $rules = [
-		'user_type' => 'required',
-		'username' => 'required|unique:users',
-		'password' => 'required|min:6',
-		'email' => 'required|unique:users',
-		'fname' => 'required|max:40',
-		'lname' => 'required|max:40',
-	];
+    public static $rules = [
+        'user_type' => 'required',
+        'username' => 'required|unique:users',
+        'password' => 'required|min:6',
+        'fname' => 'required|max:40',
+        'lname' => 'required|max:40',
+        'email' => 'required|unique:users',
+        'password_confirmation' => 'required|min:6|same:password'
+    ];
 
-	// Don't forget to fill this array
+    // Don't forget to fill this array
 
 
-	/**
+    /**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
 	public function company(){
@@ -375,22 +376,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
 //            Active Funtion For Sign Up
-	    $this->company_id = "1";
+        $this->company_id = "0";
         $this->business_unit_id = "1";
         $this->user_type = $filterparams['user_type'];
         $this->fname = $filterparams['fname'];
         $this->lname = $filterparams['lname'];
         $this->full_name = $filterparams['fname'] . " " . $filterparams['lname'];
         $this->email = $filterparams['email'];
-        $this->username = $filterparams['username'];
-        $this->city_id = $filterparams['city_id'];
+        $this->username = '';
+        $this->status= 'Inactive';
         $this->password = Hash::make($filterparams['password']);
-        $this->phone = $filterparams['phone'];
         $this->save();
-        if($filterparams['user_type'] == "Portal User")
-            $this->roles()->sync([3]);
-            else
-                $this->roles()->sync([4]);
+        if($filterparams['user_type'] == GlobalsConst::PORTAL_USER)
+        {$this->roles()->sync([3]);}
+            else{
+                $this->roles()->sync([4]);}
         return "Success";
 
     }
