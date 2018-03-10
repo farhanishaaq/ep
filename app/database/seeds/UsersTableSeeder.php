@@ -48,6 +48,8 @@ class UsersTableSeeder extends Seeder {
 			'gender'=> 'Male',
 			'status'=> 'Active',
 		]);
+
+        $user->roles()->attach(1);
 		Employee::create([
 			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,

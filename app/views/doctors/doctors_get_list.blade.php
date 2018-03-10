@@ -179,8 +179,8 @@
                             <div style=" margin-top: 10px; text-align: center ">
 <button type="button" class="btn btn-raised btn-sm btn-1" data-toggle="modal" data-target="#myModal"><strong>Call Now</strong></button>
                                 {{--<button class="btn btn-raised btn-sm btn-warning" style="width: inherit ">Call Now</button>--}}
-                                <p>Fee Starting</p>
-                                <p> <strong>{{$doctors[$i]->min_fee}} </strong>PKR <strong>
+                                <p>Fee Range</p>
+                                <p>From <strong>{{$doctors[$i]->min_fee}} </strong>PKR <strong>
                                 To</strong>
                                     <strong>{{$doctors[$i]->max_fee}} </strong>PKR</p>
                             </div>
@@ -215,7 +215,7 @@
                        </div>
                      </div>
                    </div>
-
+{{--Modal End--}}
                  </div>
 
                 </div>

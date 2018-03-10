@@ -199,9 +199,11 @@ $("#ajax").click(function(event) {
                 commentsreload();
                 getComments();
                 $('#comment').val('')
+                $("#commentForm")[0].reset();
             },
 
             error: function(data){
+                $("#commentForm")[0].reset();
 
             }
         });
@@ -279,4 +281,15 @@ function geocodeAddress(geocoder, resultsMap) {
         }
     });
 }
+$( document ).ready(function() {
+         if($('#commentList ').children().length > 0)
+        $("#commentSection").show();
+    else
+             $("#commentSection").hide();
+
+    if($('#experience ').val().length > 0)
+        $("#experienceSection").show();
+    else
+             $("#experienceSection").hide();
+});
 

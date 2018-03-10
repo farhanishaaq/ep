@@ -1,4 +1,11 @@
-
+.statusError{
+    color: #ff0000;
+    text-align: center;
+    background-color: whitesmoke
+}
+.statusSuccess{
+    color: #008000;  text-align: center;  background-color: whitesmoke
+}
 /*Caret Handling Css on Left Panel Searched Doctor*/
 .caret-up {
     width: 0;

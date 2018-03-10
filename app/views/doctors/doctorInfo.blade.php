@@ -26,15 +26,15 @@
 @if(Auth::user()->user_type == \App\Globals\GlobalsConst::PORTAL_DOCTOR)
     @if(!empty($data['status']))
     @if($data['status'] == App\Globals\GlobalsConst::STATUS_OFF)
-    <div class="error">Profile Not Approved Yet! You Can Update Your Profile For Approval.</div>
+    <div style="color: #ff0000; text-align: center; background-color: whitesmoke">Profile Not Approved Yet! You Can Update Your Profile For Approval.</div>
     @else
-    <div class="success">Profile Has Been Approved And Will Show As Publicly. In Case of Update, Your Profile Will Not Able to View Until Profile Approved Again.</div>
+    <div style="color: #008000; text-align: center; background-color: whitesmoke">Profile Has Been Approved And Will Show As Publicly. In Case of Update, Your Profile Will Not Able to View Until Profile Approved Again.</div>
     @endif
         @else
         @if($data['doctorStatus'] == App\Globals\GlobalsConst::STATUS_OFF)
-            <div class="error">Profile Not Approved Yet! You Can Update Your Profile For Approval.</div>
+            <div style="color: #ff0000;  text-align: center;  background-color: whitesmoke">Profile Not Approved Yet! You Can Update Your Profile For Approval.</div>
         @else
-            <div class="success">Profile Has Been Approved And Will Show As Publicly. In Case of Update, Your Profile Will Not Able to View Until Profile Approved Again.</div>
+            <div style="color: #008000;  text-align: center;  background-color: whitesmoke">Profile Has Been Approved And Will Show As Publicly. In Case of Update, Your Profile Will Not Able to View Until Profile Approved Again.</div>
         @endif
     @endif
 @endif
@@ -51,7 +51,7 @@
             @elseif(Auth::user()->user_type == "Portal Doctor")
             {{URL::route('doctorProfileUpdate')}}
             @endif
-                    " method="post" name="form">
+                    " method="post" name="form" onsubmit="return checkUserNameError()">
                 <br>
                 <section class="form-Section col-md-6
       @if($data['user_type'] == "Portal Doctor" )
@@ -89,9 +89,8 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">*Username</label>
                         <div class="col-xs-6">
-                            <input type="text" id="username" name="username" required="true" value="{{$data['username']}}" class="form-control" placeholder="Username" disabled>
-                            <input type="hidden" name="username" value="{{$data['username']}}">
-                            <span id="error_username" class="field-validation-msg"></span>
+                           <input type="text" placeholder="User Name" name="username" id="userName" class="form-control" onblur="checkUserName(this.id)">
+                           {{--<span id="status_userName"></span>--}}
                         </div>
                     </div>
                     {{--@if($data['user_type']== "Portal Doctor")--}}
@@ -112,7 +111,7 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Phone</label>
                         <div class="col-xs-6">
-                            <input type="number" CLASS="form-control" name="phone" required="true" value="{{$data['phone']}}">
+                            <input type="number" CLASS="form-control" name="phone" required="true">
                         </div>
                     </div>
                     <div class="form-group">
@@ -139,8 +138,8 @@
                             <label class="col-xs-5 control-label asterisk">City</label>
                             <div class="col-xs-6">
                                 <select class="js-example-basic-single form-control" id="city" name="city_id">
-                                    <option class="vhid"></option>
-                                    <option selected value="{{$data['city_id']}}">Save Same City</option>
+                                    <option class="vhid">Select Cities</option>
+                                    <option selected value="">Save Same City</option>
                                     @foreach($cities as $city)
                                         <option value="{{$city['id']}}">{{$city['name']}}</option>
                                     @endforeach
@@ -148,7 +147,7 @@
                             </div>
                         </div>
                     @else
-                        <input type="hidden"  name="city_id" required="true" value="{{$data['city_id']}}" >
+                        <input type="hidden"  name="city_id" required="true" value="" >
                     @endif
                     <div class="form-group">
                         <label class="col-xs-5 control-label">Gender</label>
@@ -515,6 +514,7 @@
         {{--doctorsForm.initializeAll();--}}
         {{--});--}}
     </script>
+    <script src="{{asset('js/emailAvailability.js')}}"></script>
 @stop
 @endsection
 @endsection

@@ -76,6 +76,7 @@ class AuthController extends \BaseController
 
     public function logout()
     {
+
         Auth::logout();
         return Redirect::route('login');
 //        \Illuminate\Support\Facades\Session::flush();
@@ -88,27 +89,32 @@ class AuthController extends \BaseController
 
     public function doSignUp()
     {
-
-        $data = Input::all();
-        $massage = $this->_user->savePublicUser($data);
-        if ($massage == "Success") {
-            $credentials = array(
-                'email' => Input::get('email'),
-                'password' => Input::get('password')
-            );
-            if (Auth::attempt($credentials)) {
-                if(Auth::user()->user_type == "Portal User")
-                return Redirect::to('/');
-                elseif(Auth::user()->user_type == "Portal Doctor") {
-                    $user = $this->_user;
-                   $currentUserId= Auth::user()->id;
-                    return View::make('doctors.doctorInfo', compact('data', 'user','currentUserId'));
+        $validator = Validator::make(Input::all(),
+            array(
+                'email' => 'email',
+                'password' => 'required|min:6|confirmed',
+            ));
+        if ($validator->fails()) {
+            return Redirect::to('signUp')->withErrors($validator);
+        }
+        else{
+            $data = Input::all();
+            $massage = $this->_user->savePublicUser($data);
+                $credentials = array(
+                    'email' => Input::get('email'),
+                    'password' => Input::get('password')
+                );
+                if (Auth::attempt($credentials)) {
+                    return Redirect::to('/');
+//                    if (Auth::user()->user_type == GlobalsConst::PORTAL_USER)
+//                    elseif(Auth::user()->user_type == GlobalsConst::PORTAL_DOCTOR) {
+//                        $user = $this->_user;
+//                        $currentUserId= Auth::user()->id;
+//                        return View::make('doctors.doctorInfo', compact('data', 'user','currentUserId'));
+//                    }
                 }
             }
-        } else
-            echo "Error In Sign Up";
     }
-
 
     public function checkEmail()
     {
@@ -131,6 +137,7 @@ class AuthController extends \BaseController
 
     public function checkUserName()
     {
+
         $user = DB::table('users')->where('username',$_POST['user_Name']);
         if ($user->count()) {
             echo "User Name Already Exist";

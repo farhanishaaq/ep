@@ -45,7 +45,7 @@ Route::group(['Public'],function (){
     /**
      * For ep social doctor profile
      */
-    Route::get('drProfile/{id}', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
+    //Route::get('drProfile/{id}', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
     Route::get('patientProfile', array('as'=>'patientProfile','uses'=>'PatientsController@getUserProfile'));
 
 
@@ -61,7 +61,7 @@ Route::group(['Public'],function (){
 
 
 
-    Route::get('drProfile/{id}', 'DoctorsController@GetProfile');
+    Route::get('drProfile/{id}', array('as'=>'drProfile','uses'=>'DoctorsController@GetProfile'));
     Route::resource('starRating','RatingController');
 
 

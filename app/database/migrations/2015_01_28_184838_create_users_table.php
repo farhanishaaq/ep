@@ -19,13 +19,13 @@ class CreateUsersTable extends Migration {
 			$table->integer('company_id')->nullable();
 			$table->integer('business_unit_id')->nullable();
 			$table->integer('city_id')->nullable();
-			$table->string('username',60)->unique();
+			$table->string('username',60);
 			$table->string('email',60)->unique();
 			$table->string('password', 128);
 			$table->string('fname',40)->nullable();
 			$table->string('lname',40)->nullable();
 			$table->string('full_name',80)->nullable();
-			$table->enum('user_type',array_keys(GlobalsConst::$USER_TYPES))->nullable();
+			$table->enum('user_type',["Disease","Treatment" ])->nullable();
 			$table->string('photo', 100)->nullable();
 			$table->date('dob')->nullable();
 			$table->string('cnic',15)->nullable();//35200-1469067-9

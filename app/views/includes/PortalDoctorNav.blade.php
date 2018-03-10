@@ -1,6 +1,6 @@
 <div id="navbar" class="navbar-collapse collapse">
     <ul class="nav navbar-nav navbar-right">
-        <li @yield('current_doc_home')><a href="{{URL::route('doctorHome')}}">Home</a></li>
+        <li @yield('current_doc_home')><a href="{{URL('/')}}">Home</a></li>
         {{--<li @yield('current_doc_home')><a href="{{URL::route('drEditer')}}">Article</a></li>--}}
         <li @yield('current_services')><a href="{{URL::route('services')}}">Services</a></li>
         <li @yield('current_about')><a href="{{URL::route('about')}}">About</a></li>
