@@ -302,6 +302,7 @@
                 dataType : "json",
                 success : function(response){
                     if(response.toString() == "noRecord"){
+                        alert( "in false  wala");
 
                         $("#rateYo").rateYo({
                             rating: 0,
@@ -309,33 +310,37 @@
                         })
                     }else {
 
-                        console.log(response.check);
-                        if(response.check){
+                                console.log(response.check);
+                                if(response.check){
+                                    alert( "in false 1ST R CHECK IF wala");
 
-                            $("#rateYo").rateYo({
-                                rating: response.rating[0].rating,
-                                fullStar:true,
-                                readOnly: false
-                            })
+                                    $("#rateYo").rateYo({
+                                        rating: response.rating[0].rating,
+                                        fullStar:true,
+                                        readOnly: false
+                                    })
 
-                        }else{
+                                }else{
+                                    alert( "in true wala R CHICK ELSE");
 
-                            $("#rateYo").rateYo({
-                                rating: response.rating[0].rating,
-                                fullStar:true,
-                                readOnly: true
-                            })
+                                    $("#rateYo").rateYo({
+                                        rating: response.rating[0].rating,
+                                        fullStar:true,
+                                        readOnly: true
+                                    })
+                                    $("#rateYo").rateYo("option", "readOnly", true);
+                                }
 
-                        }
-                        if(typeof response.rating[0].rating == "undefined"){
-                            $('#drRate').html("0"+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
 
-                        }
-                        else
-                        {
-                            console.log(response.rating[0].rating);
-                            $('#drRate').html(response.rating[0].rating+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
-                        }
+                                if(typeof response.rating[0].rating == "undefined"){
+                                    $('#drRate').html("0"+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
+
+                                }
+                                else
+                                {
+                                    console.log(response.rating[0].rating);
+                                    $('#drRate').html(response.rating[0].rating+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
+                                }
                     }
                 },
                 error : function(response){
