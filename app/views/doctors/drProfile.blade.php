@@ -129,7 +129,7 @@
                     <!-- BEGIN PROFILE CONTENT -->
                     <div class="profile-content">
                         <div class="row">
-                            <div class="card">
+                            <div class="card card-topline-aqua">
                                 <div class="card-body no-padding height-9">
                                     <div class="container-fluid">
                                         <div class="row">
@@ -272,7 +272,7 @@
                          </div>
                          <div class="col-md-offset-4">
                          </div>
-                           <p style="text-align: center">{{$profile->qualificationsDescription}}</p>
+                           <p style="text-align: center">{{$profile->qualificationsDescription}}....<a href="{{route('categoryDetail',$profile->qualificationId)}}">Read More  {{$profile->code}}</a></p>
                          <div class="modal-footer">
                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                          </div>

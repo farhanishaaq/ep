@@ -26,16 +26,17 @@
    CONTENT
    =========================================================-->
 @section('content')
+
     <!-- Page Loader -->
     <div class="container-fluid">
         <div class="row"></div>
-        <div class="block-header">
-            <h3 style="margin-left: 50px;"><strong>EP-Sociale</strong></h3>
-        </div>
+        {{--<div class="block-header">--}}
+            {{--<h3 style="margin-left: 50px;"><strong>EP-Sociale</strong></h3>--}}
+        {{--</div>--}}
                                                                                                    {{--//Total Screen--}}
         <div class="col-md-12 col-sm-12  col-lg-12" style="background-color: whitesmoke">
                                                                                                        {{--//Left Panel--}}
-            <div class="col-md-3 col-sm-3  col-lg-3">
+            <div class="col-md-3 col-sm-3  col-lg-3" style=" height: 500px">
                 <div class="col-md-12 col-sm-12  col-lg-12 card pT10" style="border-radius: 5px;">
 
 
@@ -111,10 +112,10 @@
 
                     @for($i=0; $i<sizeof($doctors);$i++)
 
-                    <div class="col-md-12 col-sm-12  col-lg-12 card listBox" style="border-radius: 5px; padding-top: 10px; ">
-                        <div class="col-md-3 col-sm-3 col-lg-3">
+                    <div class="col-md-12 col-sm-12  col-lg-12 card listBox m0" style="border-radius: 5px; padding-top: 10px; margin-bottom: 5px; ">
+                        <div class="col-md-2 col-sm-2 col-lg-2 p0">
 
-                        <div class="col-md-10 col-sm-10  col-lg-10   col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-2">
+                        {{--<div class="col-md-10 col-sm-10  col-lg-10   col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-2">--}}
                             <div class="thumb-xl member-thumb " style="align-items: center">
                                 <img src="
                            @if(isset($doctors[$i]->photo))
@@ -127,26 +128,32 @@
                                     @endif
                            @endif
 
-                                        " class="img-circle" alt="profile-image" >
+                                        " style="border-radius: 5px;" height="100px" width="100px" alt="profile-image" >
                                 <i class="zmdi zmdi-info" title="verified user"></i>
                             </div>
-                         </div>
-                         <div class="col-md-8 col-sm-8  col-lg-8   col-lg-offset-2 col-md-offset-2 col-sm-offset-2" style="text-align: center; border-radius:25px; margin-top:10px;border: 2px solid wheat; background-color: #01ADD5; color: white ">Exp. 15 year</div>
+                         {{--</div>--}}
+                         {{--<div class="col-md-8 col-sm-8  col-lg-8   col-lg-offset-2 col-md-offset-2 col-sm-offset-2" style="text-align: center; border-radius:5px; margin-top:10px;border: 2px solid wheat; background-color: #01ADD5; color: white ">Exp. 15 year</div>--}}
                         </div>
-                        <div class="col-md-3 col-sm-3  col-lg-3" >
-                            <div class="col-xs-12 col-md-12 col-sm-12" style="text-align: center">
+                        <div class="col-md-3 col-sm-3  col-lg-3 p0" >
+                            <div class="col-xs-12 col-md-12 col-sm-12 p0" style="text-align: center">
                                 <h4 align="center"><strong>
-                                {{$doctors[$i]->full_name}}
-                                </strong></h4><br>
-                                <p align="center" >
-                               <strong>{{$doctors[$i]->code}}</strong><br>
-                                <a style="" href="{{route('drProfile',$doctors[$i]->userId)}}"  class="btn btn-raised btn-sm">View Profile</a>
-                                <span> <a href="#" style="color: red">websitk.ename.com</a> </span></p>
-                                <ul class="social-links list-inline m-t-10">
-                                    <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                    <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                                    <li><a title="instagram" href="3.html" ><i class="zmdi zmdi-instagram"></i></a></li>
-                                </ul>
+                                <a href="{{route('drProfile',$doctors[$i]->userId)}}">{{$doctors[$i]->full_name}}</a>
+                                </strong></h4>
+                                <span align="center" style="text-decoration: none" ><strong>
+                                @if(isset($doctors[$i]->code))
+                                    <a href="{{route('categoryDetail',$doctors[$i]->qualificationsId)}}">{{$doctors[$i]->code}}</a>
+                                 @else
+                                 Qualified
+                                 @endif
+                               </strong></span><br>
+                               {{--<span> <a href="#" style="color: red">websitk.ename.com</a> </span></p>--}}
+                                <a href="{{route('drProfile',$doctors[$i]->userId)}}"><button  class="btn btn-raised btn-sm btn-1">View Profile</button></a>
+
+                                {{--<ul class="social-links list-inline m-t-10">--}}
+                                    {{--<li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>--}}
+                                    {{--<li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>--}}
+                                    {{--<li><a title="instagram" href="3.html" ><i class="zmdi zmdi-instagram"></i></a></li>--}}
+                                {{--</ul>--}}
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-3  col-lg-3" style="text-align: center">
@@ -179,10 +186,10 @@
                             <div style=" margin-top: 10px; text-align: center ">
 <button type="button" class="btn btn-raised btn-sm btn-1" data-toggle="modal" data-target="#myModal"><strong>Call Now</strong></button>
                                 {{--<button class="btn btn-raised btn-sm btn-warning" style="width: inherit ">Call Now</button>--}}
-                                <p>Fee Range</p>
-                                <p>From <strong>{{$doctors[$i]->min_fee}} </strong>PKR <strong>
+                                <br><span>Fee Range</span><br>
+                                <span class="fs12">From <strong>{{$doctors[$i]->min_fee}} </strong>PKR <strong>
                                 To</strong>
-                                    <strong>{{$doctors[$i]->max_fee}} </strong>PKR</p>
+                                    <strong>{{$doctors[$i]->max_fee}} </strong>PKR</span>
                             </div>
                         </div>
                     </div>
@@ -193,6 +200,7 @@
                                                 <span><img src="{{asset('images/not_found.png')}}"></span><br>
                                 </div>
 @endif
+<div class="clearfix"></div>
                     <span class="center"><?php echo $doctors->links(); ?></span>
 <!-- Modal -->
                  <div class="modal fade" id="myModal" role="dialog">
