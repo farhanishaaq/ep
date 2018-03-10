@@ -79,10 +79,12 @@
                                         <b>Gender </b>
                                         <div class="profile-desc-item pull-right">{{ $profile->gender }}</div>
                                     </li>
+                                    @if($profile->company_id == 0)
                                     <li class="list-group-item">
-                                        <b>Designation</b>
-                                        <div class="profile-desc-item pull-right"></div>
+                                        <b>Contact</b>
+                                        <div class=" pull-right" style="margin-right: 30px">{{$profile->phone}}</div>
                                     </li>
+                                        @endif
                                 </ul>
                                 <!-- END SIDEBAR USER TITLE -->
                                 <!-- SIDEBAR BUTTONS -->
@@ -90,11 +92,17 @@
                                     {{--
                                     <button type="submit" class="btn btn-circle green-bgcolor btn-sm" href="{{URL::route('getappointment')}}">Get Appointment</button>--}}
 
-                                    @if($profile->company_id != 1)
+                                    @if($profile->company_id != 0)
                                      <a  href="{{ URL::route('appointments.create')."?id=".$profile->id }}" type="submit" style="color: white"><button class="btn btn-raised btn-sm btn-1" > Get Appointment </button></a>
-                                   @endif
+
+
+                                    @endif
                                     @if(Auth::check())
                                     <button type="button" class="btn btn-raised btn-sm btn-1" data-toggle="modal" data-target="#myModal">Ask A Question</button>
+                                    @else
+                                        {{--<button type="button" class="btn btn-raised btn-sm btn-1"  href="{{route("login")}}">Ask A Question</button>--}}
+                                        <a  href="{{ URL::route('login')}}" type="submit" style="color: white"><button class="btn btn-raised btn-sm btn-1" > Ask A Question </button></a>
+
                                     @endif
                                         <div id="rateYo" style="margin-left: 50px;margin-top: 25px;"></div>
                                     <script src="{{asset('js/jquery.rateyo.js')}}"></script>
@@ -330,17 +338,14 @@
                 dataType : "json",
                 success : function(response){
                     if(response.toString() == "noRecord"){
-//                    if(response.rating == "noRecord"){
 
                         $("#rateYo").rateYo({
                             rating: 0,
                             fullStar:true
-                            //readOnly: true
                         })
-                        // console.log('in no record')
                     }else {
 
-                        console.log(response.rating[0]);
+                        console.log(response.check);
                         if(response.check){
 
                             $("#rateYo").rateYo({
@@ -351,25 +356,24 @@
 
                         }else{
 
-                            $("#rateYo").rateYo({
-                                rating: response.rating[0].rating,
-                                fullStar:true,
-                                readOnly: true
-                            })
+                                    $("#rateYo").rateYo({
+                                        rating: response.rating[0].rating,
+                                        fullStar:true,
+                                        readOnly: true
+                                    })
+                                    $("#rateYo").rateYo("option", "readOnly", true);
+                                }
 
-                        }
-                        //  console.log(response)
-                        // console.log('in found record '+response[0].rating)
-                        if(typeof response.rating[0].rating == "undefined"){
-                            $('#drRate').html("0"+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
 
-                        }
-                        else
-                        {
-                            console.log(response.rating[0].rating);
-                            $('#drRate').html(response.rating[0].rating+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
-                        }
-//                        $('#drRate').html(response.rating['rating']+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
+                                if(typeof response.rating[0].rating == "undefined"){
+                                    $('#drRate').html("0"+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
+
+                                }
+                                else
+                                {
+                                    console.log(response.rating[0].rating);
+                                    $('#drRate').html(response.rating[0].rating+'<i class="fa fa-star fa-2x" style="color: goldenrod;margin-top: 4px" aria-hidden="true"></i>')
+                                }
                     }
                 },
                 error : function(response){
@@ -406,7 +410,7 @@ rating();
 //                    alert("The rating is set to " + data.rating + "!");
                 });
 
-        
+
 //        function submitForm() {
 //            $("#commentForm")[0].reset();
 //        }

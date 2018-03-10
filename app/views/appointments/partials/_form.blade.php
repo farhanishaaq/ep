@@ -55,11 +55,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-xs-3 control-label asterisk">Select Time Slot</label>
+                        <label class="col-xs-3 control-label asterisk">Select Time </label>
                         <div class="col-xs-6">
                             @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
                                 <select id="time_slot_id" name="time_slot_id" required="true">
-                                    <option> Select Time slot </option>
+                                    <option > Select Time of Appointment </option>
                                 </select>
                             @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
                                 {{ Form::select('time_slot_id', $timeSlotsByAppointmentDate, Form::getValueAttribute('date', $timeSlot), ['required' => 'true', 'id' => 'time_slot_id'] )}}
@@ -69,9 +69,7 @@
                     </div>
 
                 </div>
-                <div class="container w100p">
-                    <div id="fCalendar" class="col-xs-12 m0A"></div>
-                </div>
+
             </section>
         @else
             {{-- End Errors Code Container Block --}}

@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration {
 			$table->string('fname',40)->nullable();
 			$table->string('lname',40)->nullable();
 			$table->string('full_name',80)->nullable();
-			$table->enum('user_type',array_keys(GlobalsConst::$USER_TYPES))->nullable();
+			$table->enum('user_type',["Disease","Treatment" ])->nullable();
 			$table->string('photo', 100)->nullable();
 			$table->date('dob')->nullable();
 			$table->string('cnic',15)->nullable();//35200-1469067-9
