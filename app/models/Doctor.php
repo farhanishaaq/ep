@@ -402,4 +402,28 @@ class Doctor extends \Eloquent
         }
     }
 
+    public function fetchPublicDoctorsDutyDays(){
+
+        try {
+            $queryBuilder = DB::table('doctors')
+                ->leftjoin('users', 'doctors.user_id', '=', 'users.id')
+                ->leftjoin('duty_days', 'doctors.id', '=', 'duty_days.doctor_id')
+                ->select('users.id AS userId','full_name','day' ,'start', 'end', 'doctors.id AS doctorsId')
+//                ->where('doctors.status','=',GlobalsConst::STATUS_ON)
+                ->where('user_id','=',Auth::user()->id)
+                ->groupBy('user_id')->get();
+//                ->groupBy('user_id')->paginate(5);
+            return $queryBuilder;
+
+
+        } catch (Throwable $t) {
+            // Executed only in PHP 7, will not match in PHP 5.x
+
+            dd($t->getMessage());
+        } catch (Exception $e) {
+            dd("exeption");
+            dd($e->getMessage());
+        }
+    }
+
 }
