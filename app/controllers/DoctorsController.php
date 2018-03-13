@@ -172,6 +172,13 @@ class DoctorsController extends \BaseController {
 
         }
 
+    public function showMedicalCategory($id){
+                                                    //Show Qualification Detail With Related Doctor List
+        $data['qualificationId'] = $id;
+        $data['city'] = '';
+        $doctors = $this->_doctor->fetchPublicDoctorsSpecialized($data);
+        return View::make('doctors.qualification',compact('doctors'));
+    }
 
 
 
