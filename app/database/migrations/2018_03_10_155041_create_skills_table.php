@@ -17,7 +17,7 @@ class CreateSkillsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string("name");
-            $table->enum('skill_type',array_keys(GlobalsConst::SKILLS_TABLE_ENUM))->nullable();
+            $table->enum('skill_type',["Disease","Treatment"])->nullable();
 			$table->timestamps();
 
 		});
