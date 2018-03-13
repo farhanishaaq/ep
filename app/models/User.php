@@ -384,7 +384,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $this->full_name = $filterparams['fname'] . " " . $filterparams['lname'];
         $this->email = $filterparams['email'];
         $this->username = '';
-        $this->status= 'Inactive';
         $this->password = Hash::make($filterparams['password']);
         $this->save();
         if($filterparams['user_type'] == GlobalsConst::PORTAL_USER)

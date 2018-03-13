@@ -2,6 +2,7 @@
 {{ Form::open(array('action' => 'dutyDays.store','class' => "form-horizontal w100p ", 'id' => 'dutyDaysForm')) }}
     <h3 class="mT10 mB0 c3">Add Duty Days</h3>
     <hr class="w95p fL mT0" />
+
     <section class="form-Section col-md-12 fL">
         <input type="hidden" id="Sunday" name="Sunday" value="{{Form::getValueAttribute('Sunday', null)}}">
         <input type="hidden" id="Monday" name="Monday" value="{{Form::getValueAttribute('Monday', null)}}">
@@ -15,10 +16,22 @@
                 <label class="col-xs-2 control-label asterisk">Select Doctors</label>
                 <div class="col-xs-8">
                     <label class="form-control">{{ $doctorName }}</label>
-                    @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
-                    {{ Form::select('doctor_id', $doctors, $doctorId , ['required' => 'true', 'id' => 'doctor_id'] ) }}
-                    @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
-                    {{ Form::select('doctor_id', $doctors, $doctors->id , ['required' => 'true', 'id' => 'doctor_id'] ) }}
+
+                    @if(Auth::user()->user_type == "Admin")
+                        @if($formMode == App\Globals\GlobalsConst::FORM_CREATE)
+                        {{ Form::select('doctor_id', $doctors, $doctorId , ['required' => 'true', 'id' => 'doctor_id'] ) }}
+                        @elseif($formMode == App\Globals\GlobalsConst::FORM_EDIT)
+                        {{ Form::select('doctor_id', $doctors, $doctors->id , ['required' => 'true', 'id' => 'doctor_id'] ) }}
+
+                        @endif
+
+                            <span hidden id="redirectLink" >{{url('doctors')}}</span>
+
+                    @else
+                        <select hidden id="doctor_id" name="doctor_id" >
+                            <option value="{{$doctorId}}"></option>
+                        </select>
+                         <span hidden id="redirectLink" >{{url('/')}}</span>
                     @endif
 
                     <span id="errorEmployeeId" class="field-validation-msg"></span>
@@ -78,10 +91,13 @@
 
   </div>
 </div>
+
 <script>
     $(document).ready(function(){
+        url = $("#redirectLink").html();
         var options = {
-            saveCloseUrl: "{{route('doctors.index')}}",
+            {{--saveCloseUrl: "{{route('doctors.index')}}",--}}
+            saveCloseUrl: url,
             selectedDrId: "{{$doctorId}}",
         };
         var dutyDayForm = new DutyDayForm(window,document,options);

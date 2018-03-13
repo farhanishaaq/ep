@@ -23,10 +23,17 @@ class DutyDaysController extends \BaseController {
     {
         $doctorName = null;
         $doctorId = Input::get('doctor_id',null);
-        if($doctorId != null){
-            $employee = (Doctor::findOrFail($doctorId)->employee) ? (Doctor::findOrFail($doctorId)->employee) : null;
-            $doctorName = ($employee->user)  ? $employee->user->full_name : null;
+        if(Auth::user()->user_type =="Admin"){
+
+            if($doctorId != null){
+                $employee = (Doctor::findOrFail($doctorId)->employee) ? (Doctor::findOrFail($doctorId)->employee) : null;
+                $doctorName = ($employee->user)  ? $employee->user->full_name : null;
+            }
+        }else{
+
+            $doctorName = Auth::user()->full_name;
         }
+     //   dd($doctorName);
         $formMode = GlobalsConst::FORM_CREATE;
         $doctors = Doctor::fetchDoctorsWithNoDutyDays(null, true);
         return View::make('duty_days.create')->nest('_form','duty_days.partials._form', compact('doctors', 'doctorId','doctorName', 'formMode'));
@@ -41,6 +48,7 @@ class DutyDaysController extends \BaseController {
     {
         $response=null;
         $data = Input::all();
+      //  dd($data);
         $response = DutyDay::saveDutyDays($data);
         return Response::json($response);
     }
