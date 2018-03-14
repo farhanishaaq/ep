@@ -40,6 +40,7 @@
                             <ul class="tabs">
                                 <li class="tab-link current" data-tab="tab-1">Search Doctor by Name</li>
                                 <li class="tab-link" data-tab="tab-2">Search by Speciality</li>
+                                <li class="tab-link" data-tab="tab-3">Search by Hospital</li>
                             </ul>
                         </div>
                         <div class="col-lg-3 col-md-3 pd0">
@@ -63,6 +64,10 @@
                                         <option value="{{$ms['id']}}">{{$ms['name']}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div id="tab-3" class="tab-content pd0">
+
+                                tab3
                             </div>
                         </div>
                         <div id="snackbar">Please Select City or Speciality to Search </div>
