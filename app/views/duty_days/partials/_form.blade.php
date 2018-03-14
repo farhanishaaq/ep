@@ -46,7 +46,7 @@
     <div class="col-xs-12 taR pR0 mT20">
         <input type="reset" id="reset" value="Reset" class="submit" />
         <input type="button" id="saveClose" name="saveClose" value="Save and Close" class="submit" />
-        <input type="button" id="cancel" value="Cancel" class="submit" onclick="goTo('{{route('doctors.index')}}')" />
+        <input type="button" id="cancel" value="Cancel" class="submit" onclick="goTo('{{route('homePage')}}')" />
     </div>
 {{ Form::close() }}
 @section('scripts')
