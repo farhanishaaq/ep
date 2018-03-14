@@ -12,6 +12,12 @@
                 @endif
                              " width="100px"> </a></li>
         <li class="divider"></li>
+
+        @if(Auth::user()->user_type == \App\Globals\GlobalsConst::PORTAL_DOCTOR)
+        <li><a href="{{route('drDutyDays')}}">My Duty Days</a></li>
+        <li class="divider"></li>
+        @endif
+
         <li><a href="{{route('showChangePassword')}}">Change Password</a></li>
         <li class="divider"></li>
         <li><a href="{{route('userProfile')}}">Profile</a></li>

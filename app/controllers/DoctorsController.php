@@ -180,6 +180,14 @@ class DoctorsController extends \BaseController {
         return View::make('doctors.qualification',compact('doctors'));
     }
 
+    public function showDoctorDutyDays(){
+
+
+        $doctors = $this->_doctor->fetchPublicDoctorsDutyDays();
+        return View::make('doctors.portalDutyDays',compact('doctors'));
+
+    }
+
 
 
 }
