@@ -23,9 +23,12 @@
    CONTENT
    =========================================================-->
 @section('content')
+{{--{{dd($doctors)}}--}}
 <br>
+
             <div class="container">
             <div class="row">
+<a href="{{route('dutyDays.create').'?'.'doctor_id='.$doctors[0]->doctorsId}}"><button class="btn btn-raised btn-sm btn-1">Add Duty Days</button></a>
             <table class="table table-striped">
                 <thead>
                   <tr>
