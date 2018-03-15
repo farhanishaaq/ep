@@ -91,6 +91,12 @@ Route::group(['Public'],function (){
      */
     Route::get('remind', array('as'=>'remind','uses'=>'RemindersController@getRemind'));
     Route::controller('password', 'RemindersController');
+
+    /**
+     * Clinic routes
+     */
+    Route::resource('clinic',"ClinicController");
+    Route::get('searchClinic' ,array('as'=>'searchClinic','uses'=>'ClinicController@getClinicForSelector'));
 });
 
 

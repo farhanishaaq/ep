@@ -38,13 +38,13 @@
                     <form class="col-lg-12 form-inline" method="" id="search" action="{{route('getDoctors')}}" style="margin-top: 150px">
                         <div class="col-md-9 col-md-offset-3 pd0">
                             <ul class="tabs">
-                                <li class="tab-link current" data-tab="tab-1">Search Doctor by Name</li>
-                                <li class="tab-link" data-tab="tab-2">Search by Speciality</li>
-                                <li class="tab-link" data-tab="tab-3">Search by Hospital</li>
+                                <li class="tab-link current " data-tab="tab-1">By Doctor</li>
+                                <li class="tab-link " data-tab="tab-2">By Speciality</li>
+                                <li class="tab-link " data-tab="tab-3">By Hospital</li>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-3 pd0">
-                            <select class="js-example-basic-single" id="city" name="city">
+                        <div class="col-lg-3 col-md-3 pd0" >
+                            <select class="js-example-basic-single" id="city" name="city" style="width: 300px">
                                 <option class="vhid"></option>
                                 @foreach($cities as $city)
                                     <option value="{{$city['id']}}">{{$city['name']}}</option>
@@ -67,7 +67,9 @@
                             </div>
                             <div id="tab-3" class="tab-content pd0">
 
-                                tab3
+                                <select class="js-example-basic-single " name="hospital" id="hospital"   style="width:100%">
+                                    <option class="vhid"></option>
+                                </select>
                             </div>
                         </div>
                         <div id="snackbar">Please Select City or Speciality to Search </div>
@@ -236,7 +238,8 @@
                 var city = $('#city');
                 var speciality =$('#speciality');
                 var user= $('#users');
-                if (city.val()=="" && speciality.val()=="" && user.val()=="" ){
+                var hospital=$('#hospital')
+                if (city.val()=="" && speciality.val()=="" && user.val()=="" && hospital.val()==""){
                     city.attr("border-color","red")
                     toast();
                 }else {
@@ -252,7 +255,37 @@
             $('#speciality').select2({
                 allowClear: true,
                 placeholder: 'Select Doctor\'s Speciality'
+            });
 
+            $('#hospital').select2({
+                allowClear:true,
+                placeholder: "Enter Hospital Name"
+                ,
+                ajax : {
+                    url : '/searchClinic',
+                    dataType : 'json',
+                    delay : 200,
+                    data : function(params){
+                        return {
+                            name : params.term,
+                            city_id : $( "#city" ).val()
+                        };
+                    },
+                    processResults: function (data) {
+                        console.log(data)
+                        var myResults = [];
+                        $.each(data.data, function (index, item) {
+                            myResults.push({
+                                'id': item.id,
+                                'text': item.name
+                            });
+                        });
+                        return {
+                            results: myResults
+                        };
+                    }
+                },
+                minimumInputLength : 3
 
             });
             var userId=0
