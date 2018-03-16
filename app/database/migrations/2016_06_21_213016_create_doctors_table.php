@@ -16,6 +16,7 @@ class CreateDoctorsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('user_id')->nullable();
+			$table->integer('clinic_id')->nullable();
 			$table->integer('employee_id')->nullable();
 			$table->string('min_fee')->nullable();
 			$table->string('max_fee')->nullable();

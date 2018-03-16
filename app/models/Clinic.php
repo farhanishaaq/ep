@@ -9,9 +9,11 @@ class Clinic extends \Eloquent {
        return $this->belongsToMany('Doctor');
     }
 
-    public function clinic(){
+    public function city(){
         return $this->hasOne('City');
     }
+
+
     /**
      * @param string name
      * @return string
