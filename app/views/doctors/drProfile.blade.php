@@ -169,7 +169,7 @@
                                                                         </div>
                                                                         <div class="col-md-6 col-xs-6"> <strong>Location</strong>
                                                                             <br>
-                                                                            <p class="text-muted " id="address">{{$profile->address}}</p>
+                                                                            <p class="text-muted " id="address">{{$profile->userAddress}}</p>
                                                                             {{--
                                                                             Use this For Removing Alert Error {{$profile->cityName}}
                                                                             --}}

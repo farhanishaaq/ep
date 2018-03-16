@@ -54,7 +54,7 @@ class Doctor extends \Eloquent
     }
 
     public function clinics(){
-        return $this->hasMany("Clinic");
+        return $this->belongsToMany("Clinic");
     }
 
 
@@ -290,13 +290,15 @@ class Doctor extends \Eloquent
 
         $data = DB::table('doctors')
             ->leftjoin('doctor_qualification', 'doctors.id', '=', 'doctor_qualification.doctor_id')
+            ->leftjoin('clinic_doctor', 'doctors.id', '=', 'clinic_doctor.doctor_id')
             ->leftjoin('users', 'doctors.user_id', '=', 'users.id')
             ->leftjoin('qualifications', 'doctor_qualification.qualification_id', '=', 'qualifications.id')
+            ->leftjoin('clinics', 'clinic_doctor.clinic_id', '=', 'clinics.id')
             ->leftjoin('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
             ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
             ->leftjoin('cities', 'users.city_id', '=', 'cities.id')
 //               ->join('comments','comments.doctor_id','=','doctors.id')
-            ->select('cities.name AS cityName','medical_specialties.name AS specialityName','doctors.id AS doctorId','min_fee', 'max_fee', 'code', 'title','qualifications.id AS qualificationId', 'qualifications.description AS qualificationsDescription', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'phone', 'address', 'email', 'photo','experience','doctors.affiliation AS doctorAffiliation','user_type','username','password','city_id','cnic','doctors.status AS doctorStatus','company_id')
+            ->select('clinics.name AS clinicsName','clinics.address AS clinicsAddress','clinics.city_id AS clinicsCity','cities.name AS cityName','medical_specialties.name AS specialityName','doctors.id AS doctorId','min_fee', 'max_fee', 'code', 'title','qualifications.id AS qualificationId', 'qualifications.description AS qualificationsDescription', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'phone', 'users.address AS userAddress', 'email', 'photo','experience','doctors.affiliation AS doctorAffiliation','user_type','username','password','users.city_id AS userCity','cnic','doctors.status AS doctorStatus','company_id')
 //
             ->where('user_id','=', $id)
             ->groupBy('user_id')
@@ -357,6 +359,43 @@ class Doctor extends \Eloquent
         }
     }
 
+
+    public static function fetchPublicDoctorsSpecialized($filterParams = null, $offset = 0, $limit = GlobalsConst::LIST_DATA_LIMIT)
+    {
+        try {
+
+            $queryBuilder = DB::table('doctors')
+                ->leftjoin('users', 'doctors.user_id', '=', 'users.id')
+                ->leftjoin('duty_days', 'doctors.id', '=', 'duty_days.doctor_id')
+                ->leftjoin('doctor_qualification', 'doctors.id', '=', 'doctor_qualification.doctor_id')
+                ->leftjoin('qualifications', 'doctor_qualification.id', '=', 'qualifications.id')
+                ->leftjoin('cities', 'users.city_id', '=', 'cities.id')
+                ->leftjoin('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
+                ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id');
+
+
+//                                       For Selected Cities Form Left Panel of Doctor List Show
+//            if ($filterParams['city'] != '')
+//                $queryBuilder->where('cities.id', '=', $filterParams['city']);
+//            elseif ($filterParams['selectCities'] != '')
+//                $queryBuilder->whereIn('cities.id', $filterParams['selectCities']);
+            $doctors = $queryBuilder->select('qualifications.id AS qualificationsId','users.id AS userId','max_fee', 'min_fee', 'full_name', 'medical_specialties.name AS specialityName', 'start', 'end', 'code','qualifications.description AS qualificationsDescription', 'doctors.id AS doctorsId', 'cities.name AS cityName', 'cities.id AS cityId', 'photo', 'gender')
+                ->where('doctors.status','=',GlobalsConst::STATUS_ON)
+                ->where('qualifications.id','=',$filterParams['qualificationId'])
+                ->groupBy('qualifications.id')->paginate(4);
+            return $doctors;
+
+
+        } catch (Throwable $t) {
+            // Executed only in PHP 7, will not match in PHP 5.x
+
+            dd($t->getMessage());
+        } catch (Exception $e) {
+            dd("exeption");
+            dd($e->getMessage());
+        }
+    }
+
     public static function getDoctorsForSelector($data)
     {
         $doctors="";
@@ -397,6 +436,12 @@ class Doctor extends \Eloquent
     public function saveDoctorQualificaion($filterparams,$doctorId){
         $doctor = self::find($doctorId);
         $doctor->qualifications()->sync($filterparams['qualification_id']);
+        return "Success";
+    }
+
+    public function saveDoctorClinic($filterparams,$doctorId){
+        $doctor = self::find($doctorId);
+        $doctor->clinics()->sync($filterparams['clinic_id']);
         return "Success";
     }
 

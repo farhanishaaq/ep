@@ -4,3 +4,6 @@ $(document).ready(function() {
 $(document).ready(function() {
     $("#qualification_id").select2();
 });
+$(document).ready(function() {
+    $("#clinic_id").select2();
+});

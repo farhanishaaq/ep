@@ -139,8 +139,8 @@
                             <label class="col-xs-5 control-label asterisk">City</label>
                             <div class="col-xs-6">
                                 <select class="js-example-basic-single form-control" id="city" name="city_id">
-                                @if($data['city_id'] != 0)
-                                    <option value="{{$data['city_id']}}">Select Same City</option>
+                                @if($data['userCity'] != 0)
+                                    <option value="{{$data['userCity']}}">Select Same City</option>
                                     @endif
                                     @foreach($cities as $city)
                                         <option value="{{$city['id']}}">{{$city['name']}}</option>
@@ -153,8 +153,11 @@
                         <label class="col-xs-5 control-label">Gender</label>
                         <div class="col-xs-6">
                             <select name="gender" class="form-control">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                            @if(isset($data['gender']))
+                                <option value="{{$data['gender']}}" selected>{{$data['gender']}}</option>
+                               @endif
+                                <option value="{{\App\Globals\GlobalsConst::MALE}}">Male</option>
+                                <option value="{{\App\Globals\GlobalsConst::FEMALE}}">Female</option>
                             </select>
                         </div>
                     </div>
@@ -174,7 +177,7 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label">Address</label>
                         <div class="col-xs-6">
-                            <textarea name="address" cols="27" rows="2" minlength="10" maxlength="200">@if(!empty($data['address'])) {{$data['address']}} @endif</textarea>
+                            <textarea name="address" cols="27" rows="2" minlength="10" maxlength="200">@if(!empty($data['userAddress'])){{$data['userAddress']}}@endif</textarea>
                         </div>
                     </div>
                     @if($data['user_type'] == "Portal Doctor")
@@ -200,6 +203,7 @@
                                 </div>
                             </div>
                         @endif
+
                         {{--
                         <div class="form-group">
                            --}}
@@ -234,6 +238,27 @@
                                 </div>
                             </div>
                         @endif
+                        @if(empty($data['cityName']))
+                        <hr class="w95p fL mT0" />
+                        <div class="form-group">
+                            <label class="col-xs-5 control-label asterisk">Clinic(s)</label>
+                            <div class="col-xs-6 multi-select">
+                                {{clinic_drop_down($user)}}
+                                <span id="error_doctor_category_id" class="field-validation-msg"></span>
+                            </div>
+                        </div>
+                        @else
+                        <hr class="w95p fL mT0" />
+                        <span style="color: gray;">Previous Clinic : {{$data['clinicsName']}}</span>
+                        <hr class="w95p fL mT0" />
+                            <div class="form-group">
+                                <label class="col-xs-5 control-label asterisk">Clinic(s)</label>
+                                <div class="col-xs-6 multi-select">
+                                    {{clinic_drop_down($user)}}
+                                    <span id="error_doctor_category_id" class="field-validation-msg"></span>
+                                </div>
+                            </div>
+                            @endif
                         {{--
                         <div class="form-group">
                            --}}

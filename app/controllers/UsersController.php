@@ -265,6 +265,17 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
                                          //Get Doctor Id
             $formIteration = Doctor::getDoctorId($currentUserId);
             $saveDoctorId = $formIteration[0]->id;
+            //                                       If user Change the Speciality box
+            if(isset($data['medical_specialty_id'])) {
+                $this->_doctor->saveDoctorSpeciality($data, $saveDoctorId);
+            }
+//                                              if Fill Qualification
+            if(isset($data['qualification_id'])) {
+                $this->_doctor->saveDoctorQualificaion($data, $saveDoctorId);
+            }
+            if(isset($data['clinic_id'])) {
+                $this->_doctor->saveDoctorClinic($data, $saveDoctorId);
+            }
 
             $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
             if ($size > 4000) {
@@ -300,7 +311,6 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
         }
         }
         else{
-
             $resultUserData = $this->_user->updateProfileDoctor($data,$currentUserId);
             $this->_doctor->updateInDoctorTable($data,$currentUserId);
             $formIteration = Doctor::getDoctorId($currentUserId);
@@ -313,6 +323,11 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
             if(isset($data['qualification_id'])) {
                 $this->_doctor->saveDoctorQualificaion($data, $saveDoctorId);
             }
+
+            if(isset($data['clinic_id'])) {
+                $this->_doctor->saveDoctorClinic($data, $saveDoctorId);
+            }
+
         }
 //        Auth::attempt($credentials);
         return Redirect::to('/');

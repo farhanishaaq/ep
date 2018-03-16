@@ -216,6 +216,25 @@ function qualifications_drop_down(User $model = null){
     }
     return Form::select('qualification_id[]',$doctorCategoryData, $selectedData,['id'=>"qualification_id", 'multiple'=>true]);
 }
+//EP Sociale
+function clinic_drop_down(User $model = null){
+    $selectedData = null;
+    $doctorClinicData = Clinic::all()->lists('name', 'id');
+    ksort($doctorClinicData);
+    if($model == null){
+        $selectedData = Form::getValueAttribute('clinic_list', null);
+    }else{
+        if($model->doctor){
+            if($model->doctor->clinics){
+                $selectedData = $model->doctor->clinics->lists('id');
+            }
+        }else{
+            $selectedData = Form::getValueAttribute('clinic_id', null);
+        }
+    }
+    return Form::select('clinic_id[]',$doctorClinicData, $selectedData,['id'=>"clinic_id", 'multiple'=>true,]);
+}
+
 
 /**
  * @param $fileName
