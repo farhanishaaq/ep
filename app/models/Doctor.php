@@ -53,6 +53,10 @@ class Doctor extends \Eloquent
         return $this->belongsToMany('Qualification', 'doctor_qualification', 'doctor_id', 'qualification_id')->withPivot(['institute', 'start_date', 'end_date']);
     }
 
+    public function clinics(){
+        return $this->hasMany("Clinic");
+    }
+
 
     /**
      * @param $data
@@ -305,6 +309,7 @@ class Doctor extends \Eloquent
 
     public static function fetchPublicDoctors(array $filterParams = null, $offset = 0, $limit = GlobalsConst::LIST_DATA_LIMIT)
     {
+
         try {
             $queryBuilder = DB::table('doctors')
                 ->leftjoin('users', 'doctors.user_id', '=', 'users.id')
@@ -313,20 +318,24 @@ class Doctor extends \Eloquent
                 ->leftjoin('qualifications', 'doctor_qualification.id', '=', 'qualifications.id')
                 ->leftjoin('cities', 'users.city_id', '=', 'cities.id')
                 ->leftjoin('doctor_medical_specialty', 'doctors.id', '=', 'doctor_medical_specialty.doctor_id')
-                ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id');
+                ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
+                ->leftJoin('clinics','doctors.clinic_id','=','clinics.id');
 
-//                                              For Selected Speciality from Left Panel of Doctors list Show
+//              For Selected Speciality from Left Panel of Doctors list Show
+            if($filterParams['hospital_id'] !=""){
 
+                $queryBuilder->where("clinics.id","=",$filterParams['hospital_id']);
+            }
             if ($filterParams['speciality'] != '')
                 $queryBuilder->where('medical_specialties.id', '=', $filterParams['speciality']);
-             elseif ($filterParams['selectSpecialities'] != '')
+            elseif ($filterParams['selectSpecialities'] != '')
                 $queryBuilder->whereIn('medical_specialties.id', [$filterParams['selectSpecialities']]);
 
 
-//                                       For Selected Cities Form Left Panel of Doctor List Show
+//                 For Selected Cities Form Left Panel of Doctor List Show
             if ($filterParams['city'] != '')
                 $queryBuilder->where('cities.id', '=', $filterParams['city']);
-             elseif ($filterParams['selectCities'] != '')
+            elseif ($filterParams['selectCities'] != '')
                 $queryBuilder->whereIn('cities.id', $filterParams['selectCities']);
 
             if ($filterParams['user_id'] != '')

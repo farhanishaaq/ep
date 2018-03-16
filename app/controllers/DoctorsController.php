@@ -149,6 +149,7 @@ class DoctorsController extends \BaseController {
         $data['speciality'] = '';
         $data['selectCities'] ='';
         $data['selectSpecialities'] = '';
+        $data['hospital_id']='';
 
         if(Input::get('cities')!=''){
 
@@ -157,7 +158,9 @@ class DoctorsController extends \BaseController {
         if(Input::get('speciality')!=''){
             $data['selectSpecialities'] =  Input::get('speciality');
         }
-
+        if (Input::get('hospital')){
+            $data['hospital_id']=Input::get('hospital');
+        }
 
         if($data['selectCities']=='' && $data['selectSpecialities']==''){
             $data['user_id'] = Input::get('user_id');

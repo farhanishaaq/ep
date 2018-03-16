@@ -1724,7 +1724,9 @@ span.field-validation-msg {
   -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
-
+@media (max-width: 768px) {
+  .w-sm-100p{width: 100%}
+}
 .modal-header {
     border-bottom: 1px solid #CDDC39;
     border-bottom: 1px solid #E8E336;
