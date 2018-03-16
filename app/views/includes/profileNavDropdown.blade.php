@@ -16,6 +16,9 @@
         @if(Auth::user()->user_type == \App\Globals\GlobalsConst::PORTAL_DOCTOR)
         <li><a href="{{route('drDutyDays')}}">My Duty Days</a></li>
         <li class="divider"></li>
+        @elseif(Auth::user()->user_type == \App\Globals\GlobalsConst::DOCTOR)
+        <li><a href="{{route('drDutyDays')}}">My Duty Days</a></li>
+                <li class="divider"></li>
         @endif
 
         <li><a href="{{route('showChangePassword')}}">Change Password</a></li>

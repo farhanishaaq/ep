@@ -17,6 +17,7 @@
             {{--@if($doctors->count()>0)--}}
             {{--"{{$doctors[0]->cityName}}"--}}
             {{--@endif--}}
+            {{--@endif--}}
         </div>
     </div>
 @stop

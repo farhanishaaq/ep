@@ -6,11 +6,13 @@ class AuthController extends \BaseController
 {
 
     private $_user;
+    private $_doctor;
     private $_city;
 
-    public function __construct(User $user, City $city)
+    public function __construct(User $user,Doctor $doctor, City $city)
     {
         $this->_user = $user;
+        $this->_doctor = $doctor;
         $this->_city = $city;
     }
 
@@ -99,12 +101,19 @@ class AuthController extends \BaseController
         }
         else{
             $data = Input::all();
+
             $massage = $this->_user->savePublicUser($data);
+
                 $credentials = array(
                     'email' => Input::get('email'),
                     'password' => Input::get('password')
                 );
                 if (Auth::attempt($credentials)) {
+                    if($data['user_type'] == GlobalsConst::PORTAL_DOCTOR){
+
+                        $massage = $this->_doctor->saveDoctorStatus();
+
+                    }
                     return Redirect::to('/');
 //                    if (Auth::user()->user_type == GlobalsConst::PORTAL_USER)
 //                    elseif(Auth::user()->user_type == GlobalsConst::PORTAL_DOCTOR) {
@@ -113,6 +122,8 @@ class AuthController extends \BaseController
 //                        return View::make('doctors.doctorInfo', compact('data', 'user','currentUserId'));
 //                    }
                 }
+
+
             }
     }
 

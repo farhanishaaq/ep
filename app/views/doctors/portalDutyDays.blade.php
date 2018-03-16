@@ -23,12 +23,14 @@
    CONTENT
    =========================================================-->
 @section('content')
-{{--{{dd($doctors)}}--}}
 <br>
-
+{{--{{dd($doctors)}}--}}
             <div class="container">
             <div class="row">
-<a href="{{route('dutyDays.create').'?'.'doctor_id='.$doctors[0]->doctorsId}}"><button class="btn btn-raised btn-sm btn-1">Add Duty Days</button></a>
+            @if(!empty($doctors))
+            @if($doctors[0]->day != '')
+            <a href="{{route('dutyDays.create').'?'.'doctor_id='.$doctors[0]->doctorsId}}"><button class="btn btn-raised btn-sm btn-1">Add Duty Days</button></a>
+            <br>
             <table class="table table-striped">
                 <thead>
                   <tr>
@@ -49,6 +51,18 @@
                   @endforeach
                 </tbody>
               </table>
+              @else
+              <div style="margin-top: 150px; margin-bottom: 200px;">
+              <a href="{{route('dutyDays.create').'?'.'doctor_id='.$doctors[0]->doctorsId}}" style=" margin-left: 45%"><button class="btn btn-raised btn-sm btn-1">Add Duty Days</button></a>
+              <h2 class="center" style="color: dimgray;">No Duty Days Set for Now!</h2>
+              </div>
+              @endif
+              @else
+              <div style="margin-top: 150px; margin-bottom: 250px;">
+                            <h2 class="center" style="color: dimgray;">Not Allowed Yet!</h2>
+                            <h6 class="center" style="color: red">Approvel Problem!</h6>
+                            </div>
+              @endif
             </div>
             </div>
 

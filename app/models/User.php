@@ -374,8 +374,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	        return json_encode($doctors);
     }
 
-    public  function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
-//            Active Funtion For Sign Up
+    public function savePublicUser(array $filterparams,$dataProcessType=GlobalsConst::DATA_SAVE){
+//            Active Function For Sign Up
         $this->company_id = "0";
         $this->business_unit_id = "1";
         $this->user_type = $filterparams['user_type'];
@@ -452,7 +452,7 @@ public function fetchemail($filterparams){
             $newDate = date("Y-m-d", strtotime($originalDate));
             $userProfile = DB::table('users')
                 ->where('id','=', Auth::user()->id )
-                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=> $newDate,'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender'],'city_id'=>$filterparams['city_id']]);
+                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=> $newDate,'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender'],'username'=>$filterparams['username'],'city_id'=>$filterparams['city_id']]);
 
                         return "Success";
 }
@@ -463,7 +463,7 @@ public function fetchemail($filterparams){
 	    $userProfile = DB::table('users')
 
                 ->where('id','=', $currentUserId )
-                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>"Dr.".$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'dob'=>$newDate,'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender']]);
+                ->update(["fname"=>$filterparams['fname'],'lname'=>$filterparams['lname'],'full_name'=>"Dr.".$filterparams['fname'] . " " . $filterparams['lname'],'phone' => $filterparams['phone'],'address'=>$filterparams['address'],'city_id'=>$filterparams['city_id'],'dob'=>$newDate,'cnic'=>$filterparams['cnic'],'gender'=>$filterparams['gender'],'username'=>$filterparams['username']]);
 
                         return "Success";
         }

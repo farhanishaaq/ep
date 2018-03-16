@@ -24,8 +24,9 @@
 @section('content')
     {{--{{dd($data)}}--}}
 @if(Auth::user()->user_type == \App\Globals\GlobalsConst::PORTAL_DOCTOR)
-    @if(!empty($data['status']))
-    @if($data['status'] == App\Globals\GlobalsConst::STATUS_OFF)
+    @if(isset($data['doctorStatus']))
+{{--    @if(!empty($data['status']))--}}
+    @if($data['doctorStatus'] == App\Globals\GlobalsConst::STATUS_OFF)
     <div style="color: #ff0000; text-align: center; background-color: whitesmoke">Profile Not Approved Yet! You Can Update Your Profile For Approval.</div>
     @else
     <div style="color: #008000; text-align: center; background-color: whitesmoke">Profile Has Been Approved And Will Show As Publicly. In Case of Update, Your Profile Will Not Able to View Until Profile Approved Again.</div>
@@ -89,7 +90,7 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">*Username</label>
                         <div class="col-xs-6">
-                           <input type="text" placeholder="User Name" name="username" id="userName" class="form-control" onblur="checkUserName(this.id)">
+                           <input type="text" placeholder="User Name" value="{{$data['username']}}" name="username" id="userName" class="form-control" onblur="checkUserName(this.id)">
                            {{--<span id="status_userName"></span>--}}
                         </div>
                     </div>
@@ -111,7 +112,7 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Phone</label>
                         <div class="col-xs-6">
-                            <input type="number" CLASS="form-control" name="phone" required="true">
+                            <input type="number" value="{{$data['phone']}}" CLASS="form-control" name="phone" required="true">
                         </div>
                     </div>
                     <div class="form-group">
@@ -133,22 +134,21 @@
                             <input type="number" name="cnic" required="true" class="form-control" value="@if(!empty($data['cnic'])){{$data['cnic']}}@endif" placeholder="CNIC">
                         </div>
                     </div>
-                    @if($data['user_type'] != "Portal Doctor")
+
                         <div class="form-group">
                             <label class="col-xs-5 control-label asterisk">City</label>
                             <div class="col-xs-6">
                                 <select class="js-example-basic-single form-control" id="city" name="city_id">
-                                    <option class="vhid">Select Cities</option>
-                                    <option selected value="">Save Same City</option>
+                                @if($data['city_id'] != 0)
+                                    <option value="{{$data['city_id']}}">Select Same City</option>
+                                    @endif
                                     @foreach($cities as $city)
                                         <option value="{{$city['id']}}">{{$city['name']}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                    @else
-                        <input type="hidden"  name="city_id" required="true" value="" >
-                    @endif
+
                     <div class="form-group">
                         <label class="col-xs-5 control-label">Gender</label>
                         <div class="col-xs-6">

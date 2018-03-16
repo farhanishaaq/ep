@@ -242,7 +242,7 @@ class Doctor extends \Eloquent
 
     public static function findDoctorId($currentUserId){
 //        Check If Record Exist Then Do Update Else Do Save
-        ;
+
 
         $result = DB::table('doctors')
         ->where('user_id','=', $currentUserId)
@@ -252,6 +252,18 @@ class Doctor extends \Eloquent
 
         else
             return "Not Exist";
+
+    }
+
+    public static function getDoctorId($currentUserId){
+//        Check If Record Exist Then Do Update Else Do Save
+
+
+        $doctorId = DB::table('doctors')
+        ->where('user_id','=', $currentUserId)
+        ->select('id')
+            ->get();
+     return $doctorId;
 
     }
 
@@ -280,9 +292,10 @@ class Doctor extends \Eloquent
             ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
             ->leftjoin('cities', 'users.city_id', '=', 'cities.id')
 //               ->join('comments','comments.doctor_id','=','doctors.id')
-            ->select('cities.name AS cityName','medical_specialties.name AS specialityName','doctors.id','min_fee', 'max_fee', 'code', 'title','qualifications.id AS qualificationId', 'qualifications.description AS qualificationsDescription', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'phone', 'address', 'email', 'photo','experience','doctors.affiliation AS doctorAffiliation','user_type','username','password','city_id','cnic','doctors.status AS doctorStatus','company_id')
-            ->where('users.id', '=', $id)
-            ->groupBy('users.id')
+            ->select('cities.name AS cityName','medical_specialties.name AS specialityName','doctors.id AS doctorId','min_fee', 'max_fee', 'code', 'title','qualifications.id AS qualificationId', 'qualifications.description AS qualificationsDescription', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'phone', 'address', 'email', 'photo','experience','doctors.affiliation AS doctorAffiliation','user_type','username','password','city_id','cnic','doctors.status AS doctorStatus','company_id')
+//
+            ->where('user_id','=', $id)
+            ->groupBy('user_id')
             ->get();
 //qualifications
         return $data;
@@ -358,13 +371,11 @@ class Doctor extends \Eloquent
 
     public function saveInDoctorTable($filterparams,$userId){
 
-        $this->user_id = $userId;
         $this->min_fee = $filterparams['min_fee'];
         $this->max_fee = $filterparams['max_fee'];
         $this->experience = $filterparams['experience'];
         $this->affiliation = $filterparams['affiliation'];
-        $this->status = GlobalsConst::STATUS_OFF;
-        if($this->save())
+        if($this->update())
         return $this->id;
     }
 
@@ -385,7 +396,6 @@ class Doctor extends \Eloquent
             $userProfile = DB::table('doctors')
                 ->where('user_id','=', $currentUserId )
                 ->update(["max_fee"=>$filterparams['max_fee'],'min_fee'=>$filterparams['min_fee'],'experience'=>$filterparams['experience'],'affiliation' => $filterparams['affiliation'],'status' =>GlobalsConst::STATUS_OFF]);
-            return "Success";
         }
 
     public function UpdateStatus($filterparams){
@@ -409,9 +419,9 @@ class Doctor extends \Eloquent
                 ->leftjoin('users', 'doctors.user_id', '=', 'users.id')
                 ->leftjoin('duty_days', 'doctors.id', '=', 'duty_days.doctor_id')
                 ->select('users.id AS userId','full_name','day' ,'start', 'end', 'doctors.id AS doctorsId')
-//                ->where('doctors.status','=',GlobalsConst::STATUS_ON)
+                ->where('doctors.status','=',GlobalsConst::STATUS_ON)
                 ->where('user_id','=',Auth::user()->id)
-                ->groupBy('user_id')->get();
+                ->groupBy('day')->get();
 //                ->groupBy('user_id')->paginate(5);
             return $queryBuilder;
 
@@ -424,6 +434,15 @@ class Doctor extends \Eloquent
             dd("exeption");
             dd($e->getMessage());
         }
+    }
+
+    public function saveDoctorStatus(){
+        $this->user_id = Auth::user()->id;
+        $this->status = GlobalsConst::STATUS_OFF;
+        $this->save();
+
+        return $this->id;
+
     }
 
 }

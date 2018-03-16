@@ -23,9 +23,9 @@ Sign Up
       <div class="col-md-6">
          <div class="login-card login-page">
 
-            <ul class="nav nav-tabs">
-               <li class="active"><a data-toggle="tab" href="#signUp"><strong style="color: #000000">SignUp As User</strong></a></li>
-               <li><a data-toggle="tab" href="#signUpDoctor"><strong style="color: #000000">SignUp As Doctor</strong></a></li>
+            <ul class="nav nav-tabs col-md-12 p0">
+               <li class="active col-md-6" style="padding: 0px"><a data-toggle="tab" href="#signUp" style="padding: 10px 0px 10px 0px;"><strong style="color: #000000">SignUp As User</strong></a></li>
+               <li class="col-md-6 p0"><a data-toggle="tab" href="#signUpDoctor" style="padding: 10px 0px 10px 0px;"><strong style="color: #000000">SignUp As Doctor</strong></a></li>
             </ul>
             <div class="tab-content">
                <div id="signUp" class="tab-pane fade in active">

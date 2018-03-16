@@ -5,8 +5,11 @@
 =========================================================-->
 <?php $id=0; ?>
 
+
 @foreach($drRecord as $profile)
-    <?php $id = $profile->id ?>
+    <?php
+     $id = $profile->id
+     ?>
 @section('title')
    {{$profile->full_name}}
 @stop
@@ -27,7 +30,7 @@
 @section('content')
     {{--<div class="container">--}}
 
-
+{{--{{dd($profile)}}--}}
     {{--</div>--}}
         <div class=" container-fluid" style="max-width: 1200px;">
             {{--{{$drRecord->fname}}--}} {{--{{ $i=0 }}--}}
