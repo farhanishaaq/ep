@@ -114,6 +114,7 @@
                     @for($i=0; $i<sizeof($doctors);$i++)
 
                     <div class="col-md-12 col-sm-12  col-lg-12 card listBox m0" style="border-radius: 5px; padding-top: 10px; margin-bottom: 5px; ">
+                    <div class="col-md-12 col-sm-12  col-lg-12">
                         <div class="col-md-2 col-sm-2 col-lg-2 p0">
 
                         {{--<div class="col-md-10 col-sm-10  col-lg-10   col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-2">--}}
@@ -148,7 +149,7 @@
                                  @endif
                                </strong></span><br>
                                {{--<span> <a href="#" style="color: red">websitk.ename.com</a> </span></p>--}}
-                                <a href="{{route('drProfile',$doctors[$i]->userId)}}"><button  class="btn btn-raised btn-sm btn-1">View Profile</button></a>
+                                {{--<a href="{{route('drProfile',$doctors[$i]->userId)}}"><button  class="btn btn-raised btn-sm btn-1">View Profile</button></a>--}}
 
                                 {{--<ul class="social-links list-inline m-t-10">--}}
                                     {{--<li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>--}}
@@ -193,6 +194,12 @@
                                     <strong>{{$doctors[$i]->max_fee}} </strong>PKR</span>
                             </div>
                         </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12  col-lg-12 mB10" style="background-color: #d3d3d3; border-radius: 5px">
+                        <div class="col-md-6 col-sm-6  col-lg-6" style="text-align: center"><a href="{{route('drProfile',$doctors[$i]->userId)}}">View Profile</a></div>
+                        <div class="col-md-6 col-sm-6  col-lg-6" style="text-align: center"><a>Ask a Question</a></div>
+                        </div>
+
                     </div>
                 @endfor
                 @else
