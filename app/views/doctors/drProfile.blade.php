@@ -3,13 +3,11 @@
 <!--========================================================
                           TITLE
 =========================================================-->
-<?php $id=0; ?>
+
 
 
 @foreach($drRecord as $profile)
-    <?php
-     $id = $profile->id
-     ?>
+ 
 @section('title')
    {{$profile->full_name}}
 @stop
@@ -220,7 +218,7 @@
                                                                                 {{--<span class="input-group-addon p0"  style="width: 20%; height: inherit"><button id="ajax" type="submit" style="width: 100%; height: inherit " onclick="submitForm()"><h5>Comment</h5></button></span>--}}
                                                                             </div>
                                                                             <br>
-                                                                            <input class="form-control" type="hidden" value="{{$id}}" name="target_Id" id="target_Id">
+                                                                            <input class="form-control" type="hidden" value="{{$profile->id}}" name="target_Id" id="target_Id">
                                                                             <input class="form-control" type="hidden" value="profile" name="type" id="type">
 
                                                                             <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -233,7 +231,7 @@
                                                                         </form>
                                                                     @endif
                                                                     <input class="form-control" type="hidden" value="profile" name="type" id="type">
-                                                                    <input class="form-control" type="hidden" value="{{$id}}" name="target_Id" id="target_Id">
+                                                                    <input class="form-control" type="hidden" value="{{$profile->id}}" name="target_Id" id="target_Id">
                                                                     <br>
                                                                     <hr>
                                                                     <div class="tab-content" id="commentSection">

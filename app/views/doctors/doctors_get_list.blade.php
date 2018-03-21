@@ -54,6 +54,7 @@
   </div>
   <div id="cities" class="collapse pL10">
      <div class="panel-body" style="padding-top: 0; border-bottom: 1px solid #01ADD5">
+
         {{--<div class="chbxs listm">--}}
             @foreach($cities as $city)
 
@@ -197,7 +198,7 @@
                         </div>
                         <div class="col-md-12 col-sm-12  col-lg-12 mB10" style="background-color: #d3d3d3; border-radius: 5px">
                         <div class="col-md-6 col-sm-6  col-lg-6" style="text-align: center"><a href="{{route('drProfile',$doctors[$i]->userId)}}">View Profile</a></div>
-                        <div class="col-md-6 col-sm-6  col-lg-6" style="text-align: center"><a>Ask a Question</a></div>
+                        <div class="col-md-6 col-sm-6  col-lg-6" style="text-align: center"><a href="{{route('drProfile',$doctors[$i]->userId)}}">Ask a Question</a></div>
                         </div>
 
                     </div>
