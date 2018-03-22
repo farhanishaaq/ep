@@ -1,4 +1,3 @@
-
 @extends('layouts.master')
 <!--========================================================
                           TITLE
@@ -7,14 +6,18 @@
     Questions Asked
 @stop
 
-@section('redBar')
-    <div >
+@section('sliderContent')
 
+@stop
+
+@section('redBar')
+    <div class = "user_logo">
+        <div class="header_1 wrap_3 color_3 login-bar">
+            Asked Question
+        </div>
     </div>
 @stop
 
-@section('sliderContent')
-@stop
 @section('headScript')
 
     {{--<link src="{{ asset('css/jquery.rateyo.min.css') }}">--}}
@@ -23,8 +26,12 @@
 
 
 @section('content')
-<div class="container">
-    <h2>Asked questions</h2>
+<div class="container"><br>
+
+<span>
+
+@if(isset($question->id))style="padding-bottom: 100px"
+  <span class=""><a  href="{{ URL::route('login')}}" type="submit" style="color: white"><button class="btn btn-raised btn-sm btn-1" > Ask A Question </button></a></span>
 
     <table class="table table-hover">
         <thead>
@@ -62,6 +69,19 @@
         <?php echo $questions->links(); ?>
 
     </div>
+
+
+
+@else
+<div style="margin-top: 150px; margin-bottom: 240px;">
+  <span class=""><a  href="{{ URL::route('login')}}" type="submit" style=" margin-left: 45%;color: white"><button class="btn btn-raised btn-sm btn-1" > Ask A Question </button></a></span>
+<h2 class="center" style="color: dimgray;">No Question History for Now!</h2>
+</div>
+@endif
+
+</span>
+
+
 
 
 
