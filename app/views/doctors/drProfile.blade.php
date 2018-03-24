@@ -1,5 +1,7 @@
 
 @extends('layouts.master')
+
+
 <?php $id = 0; ?>
 <!--========================================================
                           TITLE
@@ -572,9 +574,3 @@ rating();
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0h-b6OIqk8pmDhFmH2BiUHSlU4PmFiDU&callback=initMap">
     </script>
 @stop
-
-
-
-
-
-

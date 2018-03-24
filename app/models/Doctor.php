@@ -298,7 +298,13 @@ class Doctor extends \Eloquent
             ->leftjoin('medical_specialties', 'doctor_medical_specialty.medical_specialty_id', '=', 'medical_specialties.id')
             ->leftjoin('cities', 'users.city_id', '=', 'cities.id')
 //               ->join('comments','comments.doctor_id','=','doctors.id')
-            ->select('clinics.name AS clinicsName','clinics.address AS clinicsAddress','clinics.city_id AS clinicsCity','cities.name AS cityName','medical_specialties.name AS specialityName','doctors.id AS doctorId','min_fee', 'max_fee', 'code', 'title','qualifications.id AS qualificationId', 'qualifications.description AS qualificationsDescription', 'institute', 'fname', 'lname', 'full_name', 'dob', 'gender', 'additional_info', 'phone', 'users.address AS userAddress', 'email', 'photo','experience','doctors.affiliation AS doctorAffiliation','user_type','username','password','users.city_id AS userCity','cnic','doctors.status AS doctorStatus','company_id')
+            ->select('clinics.name AS clinicsName','clinics.address AS clinicsAddress','clinics.city_id AS clinicsCity',
+            'cities.name AS cityName','medical_specialties.name AS specialityName','doctors.id AS doctorId',
+            'min_fee', 'max_fee', 'code', 'title','qualifications.id AS qualificationId',
+            'qualifications.description AS qualificationsDescription', 'institute', 'fname', 'lname',
+             'full_name', 'dob', 'gender', 'additional_info', 'phone', 'users.address AS userAddress', 'email',
+              'photo','experience','doctors.affiliation AS doctorAffiliation','user_type','username','password',
+              'users.city_id AS userCity','cnic','doctors.status AS doctorStatus','company_id','users.id as id')
 //
             ->where('user_id','=', $id)
             ->groupBy('user_id')

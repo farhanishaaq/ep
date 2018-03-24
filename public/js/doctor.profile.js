@@ -282,14 +282,10 @@ function geocodeAddress(geocoder, resultsMap) {
     });
 }
 $( document ).ready(function() {
-         if($('#commentList ').children().length > 0)
-        $("#commentSection").show();
-    else
-             $("#commentSection").hide();
+         
 
     if($('#experience ').val().length > 0)
         $("#experienceSection").show();
     else
              $("#experienceSection").hide();
 });
-
