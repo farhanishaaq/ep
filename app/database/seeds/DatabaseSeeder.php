@@ -44,6 +44,9 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('ResourcesRolesTableSeeder');
         $this->command->info('ResourcesRoles Table seeded!');
+        
+        $this->call('ClinicsTableSeeder');
+        $this->command->info('Clinics Table seeded!');
 		
 	}
 
