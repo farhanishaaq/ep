@@ -177,14 +177,7 @@ class MedicineInfoController extends \BaseController {
 
                  }
 
-//                 elseif ($mime=="image/jpeg"){
-//
-//
-//
-//
-//
-//
-//                 }
+
 
 
                  else{
@@ -225,8 +218,26 @@ class MedicineInfoController extends \BaseController {
       }
       }
 
+      try
+      {
         $xml=simplexml_load_file($pathname);
+      }
+      catch (\Exception $e){
 
+          $params = [
+              'medicineid'=>$medicineid,
+              'xmlfile' => "There is no Record",
+              'jpgfile'        => "/images/medicines-l.jpg",
+
+              'MedicineName'        => "No Record",
+          ];
+
+
+          return View::make('medicines.medicineSearch', compact('params'));
+
+
+
+      }
 //        $components = $xml->component->structuredBody->component->section;
 
         if (isset($xml))
@@ -307,12 +318,7 @@ class MedicineInfoController extends \BaseController {
 
         $namejpge = "";
         $pathname = "";
-        $namenull ="";
-        $item1 = "";
-        $para1 = "";
-        $namecontent = "";
-        $paratd  = "";
-        $paralast  = "";
+
         $text = "";
         $medicineName = "";
 
