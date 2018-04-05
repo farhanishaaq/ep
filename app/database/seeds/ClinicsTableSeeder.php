@@ -8,12 +8,12 @@ class ClinicsTableSeeder extends Seeder
     {
         DB::table('clinics')->truncate();
         Clinic::create([
-            'city_id'=>1,
+            'city_id'=> 1,
             'name' =>'jinnah hospital',
             'address' =>'jinnah hospital Lahore',
         ]);
         Clinic::create([
-            'city_id'=>1,
+            'city_id'=> 1,
             'name' =>'omc hospital',
             'address' =>'omc hospital Lahore',
         ]);
@@ -23,7 +23,7 @@ class ClinicsTableSeeder extends Seeder
             'address' =>'punjab institute of cardiology Lahore',
         ]);
         Clinic::create([
-            'city_id'=>1,
+            'city_id'=> 1,
             'name' =>'surgimed hospital',
             'address' =>'surgimed hospital Lahore',
         ]);
