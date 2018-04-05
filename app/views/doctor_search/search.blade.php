@@ -38,12 +38,13 @@
                     <form class="col-lg-12 form-inline" method="" id="search" action="{{route('getDoctors')}}" style="margin-top: 150px">
                         <div class="col-md-9 col-md-offset-3 pd0">
                             <ul class="tabs">
-                                <li class="tab-link current" data-tab="tab-1">Search by Name</li>
-                                <li class="tab-link" data-tab="tab-2">Search by Speciality</li>
+                                <li class="tab-link current " data-tab="tab-1">By Doctor</li>
+                                <li class="tab-link " data-tab="tab-2">By Speciality</li>
+                                <li class="tab-link " data-tab="tab-3">By Hospital</li>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-3 pd0">
-                            <select class="js-example-basic-single" id="city" name="city">
+                        <div class="col-lg-3 col-md-3 pd0" >
+                            <select class="js-example-basic-single" id="city" name="city" style="width: 300px">
                                 <option class="vhid"></option>
                                 @foreach($cities as $city)
                                     <option value="{{$city['id']}}">{{$city['name']}}</option>
@@ -52,7 +53,8 @@
                         </div>
                         <div class="col-lg-7 col-md-7 pd0">
                             <div id="tab-1" class="tab-content current pd0">
-                                <select name="user_id" id="users"  class="form-control " style="width:100%">
+                                <select class="js-example-basic-single " name="user_id" id="users"   style="width:100%">
+                                    <option class="vhid"></option>
                                 </select>
                             </div>
                             <div id="tab-2" class="tab-content pd0">
@@ -63,13 +65,20 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div id="tab-3" class="tab-content pd0">
+
+                                <select class="js-example-basic-single " name="hospital" id="hospital"   style="width:100%">
+                                    <option class="vhid"></option>
+                                </select>
+                            </div>
                         </div>
+                        <div id="snackbar">Please Select City or Speciality to Search </div>
                         <!-- container -->
                         <div class="col-lg-2 col-md-2 pd0">
-                            <button type="submit" class="btn btn-style" style="">Search <span class="glyphicon glyphicon-search"></span></button>
+                            <button type="submit" class="btn btn-style" style="" id="submitButton">Search <span class="glyphicon glyphicon-search"></span></button>
                         </div>
                     </form>
-                    <div style="margin-top: 422px"></div>
+                    {{--<div style="margin-top: 150px"></div>--}}
                 </div>
             </div>
         </div>
@@ -218,6 +227,26 @@
     </section>
     <script>
         $(document).ready(function() {
+
+            function toast() {
+                var x = document.getElementById("snackbar")
+                x.className = "show";
+                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 8000);
+            }
+            $("#search").submit(function (ev) {
+                ev.preventDefault();
+                var city = $('#city');
+                var speciality =$('#speciality');
+                var user= $('#users');
+                var hospital=$('#hospital')
+                if (city.val()=="" && speciality.val()=="" && user.val()=="" && hospital.val()==""){
+                    city.attr("border-color","red")
+                    toast();
+                }else {
+                    $(this).unbind('submit').submit()
+                    // $("#search").submit() ;
+                }
+            })
             $('#city').select2({
                 allowClear: true,
                 placeholder: 'Select City'
@@ -226,13 +255,43 @@
             $('#speciality').select2({
                 allowClear: true,
                 placeholder: 'Select Doctor\'s Speciality'
+            });
 
+            $('#hospital').select2({
+                allowClear:true,
+                placeholder: "Enter Hospital Name"
+                ,
+                ajax : {
+                    url : '/searchClinic',
+                    dataType : 'json',
+                    delay : 200,
+                    data : function(params){
+                        return {
+                            name : params.term,
+                            city_id : $( "#city" ).val()
+                        };
+                    },
+                    processResults: function (data) {
+                        console.log(data)
+                        var myResults = [];
+                        $.each(data.data, function (index, item) {
+                            myResults.push({
+                                'id': item.id,
+                                'text': item.name
+                            });
+                        });
+                        return {
+                            results: myResults
+                        };
+                    }
+                },
+                minimumInputLength : 3
 
             });
             var userId=0
             $('#users').select2({
                 allowClear: true,
-                placeholder: 'Select Doctor\'s Name',
+                placeholder: 'Select Doctor Name',
                 ajax : {
                     url : '{{route('getDoctorData')}}',
                     dataType : 'json',
@@ -255,7 +314,7 @@
                         };
                     }
                 },
-                minimumInputLength : 1,
+                minimumInputLength : 2,
 
                 templateResult : function (repo){
                     imagePath = "";
@@ -278,7 +337,7 @@
                     var asset = "{{asset('')}}";
 //                    console.log(repo.photo);
                     var markup = '<div class="col-sm-1 p0">'
-                        + '<img class="img-circle" src="'
+                        + '<img style="border-radius:2px;height: 25px; width: 25px " src="'
                         + imagePath
                         + '" style="width: 100% ;max-height: 30px; position: absolute" />'
                         + '</div>'
@@ -340,7 +399,7 @@
         #multiple-datasets .league-name {
             margin: 0 20px 5px 20px;
             padding: 3px 0;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;s
         }
         .select2-search input {
             font-size: 16px;
@@ -353,8 +412,10 @@
         }
         .bgt{
             background-image: url({{asset('images/index_slide02.jpg')}});
-            background-size: 100% auto;
+            background-size: 100% ;
             background-repeat: no-repeat;
+
+
         }
         ul.tabs{
             margin: 0px;
@@ -387,7 +448,47 @@
             padding-top: 0;
             padding-bottom: 12px;
         }
+        #snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+        }
 
+        #snackbar.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @-webkit-keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
     </style>
     <div class="container">
         {{--

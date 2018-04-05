@@ -149,6 +149,7 @@ class DoctorsController extends \BaseController {
         $data['speciality'] = '';
         $data['selectCities'] ='';
         $data['selectSpecialities'] = '';
+        $data['hospital_id']='';
 
         if(Input::get('cities')!=''){
 
@@ -157,7 +158,9 @@ class DoctorsController extends \BaseController {
         if(Input::get('speciality')!=''){
             $data['selectSpecialities'] =  Input::get('speciality');
         }
-
+        if (Input::get('hospital')){
+            $data['hospital_id']=Input::get('hospital');
+        }
 
         if($data['selectCities']=='' && $data['selectSpecialities']==''){
             $data['user_id'] = Input::get('user_id');
@@ -170,24 +173,25 @@ class DoctorsController extends \BaseController {
 
             return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
 
-//        else {
-//            $doctors = NULL;
-//            dd($doctors);
-//            return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
-//        }
-
         }
 
+    public function showMedicalCategory($id){
+                                                    //Show Qualification Detail With Related Doctor List
+        $data['qualificationId'] = $id;
+        $data['city'] = '';
+        $doctors = $this->_doctor->fetchPublicDoctorsSpecialized($data);
+        return View::make('doctors.qualification',compact('doctors'));
+    }
+
+    public function showDoctorDutyDays(){
+
+
+        $doctors = $this->_doctor->fetchPublicDoctorsDutyDays();
+        return View::make('doctors.portalDutyDays',compact('doctors'));
+
+    }
 
 
 
 }
 
-
-//Some Practice
-//            $data['selectCities'] = Input::get('cities');
-//            $string = implode("','", Input::get('cities'));
-////            dd("'".$string."'");
-////            For Integer
-//            $data['selectCities'] = array_map('intval',explode(',', $string));
-//            dd($data['selectCities']);

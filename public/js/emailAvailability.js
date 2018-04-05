@@ -82,24 +82,27 @@ function checkUserName(id)
 
     function checkError() {
         var email = document.getElementById('status_email').innerHTML;
-        var userName = document.getElementById('status_userName').innerHTML;
         if (email == null || email == 0 || email == "0") {
-        if (userName == null || userName == 0 || userName == "0") {
             document.form.submit();
                 }
-            }
+        else
+            return false;
+    }
+
+    function checkUserNameError() {
+        var userName = document.getElementById('status_userName').innerHTML;
+        if (userName  == null || userName  == 0 || userName  == "0") {
+            document.form.submit();
+                }
         else
             return false;
     }
 
 function checkDoctorError() {
         var email = document.getElementById('status_doctorEmail').innerHTML;
-        var userName = document.getElementById('status_doctorUserName').innerHTML;
         if (email == null || email == 0 || email == "0") {
-        if (userName == null || userName == 0 || userName == "0") {
             document.form.submit();
                 }
-            }
         else
             return false;
     }

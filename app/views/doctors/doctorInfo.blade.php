@@ -24,17 +24,18 @@
 @section('content')
     {{--{{dd($data)}}--}}
 @if(Auth::user()->user_type == \App\Globals\GlobalsConst::PORTAL_DOCTOR)
-    @if(!empty($data['status']))
-    @if($data['status'] == App\Globals\GlobalsConst::STATUS_OFF)
-    <div class="error">Profile Not Approved Yet! You Can Update Your Profile For Approval.</div>
+    @if(isset($data['doctorStatus']))
+{{--    @if(!empty($data['status']))--}}
+    @if($data['doctorStatus'] == App\Globals\GlobalsConst::STATUS_OFF)
+    <div style="color: #ff0000; text-align: center; background-color: whitesmoke">Profile Not Approved Yet! You Can Update Your Profile For Approval.</div>
     @else
-    <div class="success">Profile Has Been Approved And Will Show As Publicly. In Case of Update, Your Profile Will Not Able to View Until Profile Approved Again.</div>
+    <div style="color: #008000; text-align: center; background-color: whitesmoke">Profile Has Been Approved And Will Show As Publicly. In Case of Update, Your Profile Will Not Able to View Until Profile Approved Again.</div>
     @endif
         @else
         @if($data['doctorStatus'] == App\Globals\GlobalsConst::STATUS_OFF)
-            <div class="error">Profile Not Approved Yet! You Can Update Your Profile For Approval.</div>
+            <div style="color: #ff0000;  text-align: center;  background-color: whitesmoke">Profile Not Approved Yet! You Can Update Your Profile For Approval.</div>
         @else
-            <div class="success">Profile Has Been Approved And Will Show As Publicly. In Case of Update, Your Profile Will Not Able to View Until Profile Approved Again.</div>
+            <div style="color: #008000;  text-align: center;  background-color: whitesmoke">Profile Has Been Approved And Will Show As Publicly. In Case of Update, Your Profile Will Not Able to View Until Profile Approved Again.</div>
         @endif
     @endif
 @endif
@@ -51,7 +52,7 @@
             @elseif(Auth::user()->user_type == "Portal Doctor")
             {{URL::route('doctorProfileUpdate')}}
             @endif
-                    " method="post" name="form">
+                    " method="post" name="form" onsubmit="return checkUserNameError()">
                 <br>
                 <section class="form-Section col-md-6
       @if($data['user_type'] == "Portal Doctor" )
@@ -89,9 +90,8 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">*Username</label>
                         <div class="col-xs-6">
-                            <input type="text" id="username" name="username" required="true" value="{{$data['username']}}" class="form-control" placeholder="Username" disabled>
-                            <input type="hidden" name="username" value="{{$data['username']}}">
-                            <span id="error_username" class="field-validation-msg"></span>
+                           <input type="text" placeholder="User Name" value="{{$data['username']}}" name="username" id="userName" class="form-control" onblur="checkUserName(this.id)">
+                           {{--<span id="status_userName"></span>--}}
                         </div>
                     </div>
                     {{--@if($data['user_type']== "Portal Doctor")--}}
@@ -112,7 +112,7 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label asterisk">Phone</label>
                         <div class="col-xs-6">
-                            <input type="number" CLASS="form-control" name="phone" required="true" value="{{$data['phone']}}">
+                            <input type="number" value="{{$data['phone']}}" CLASS="form-control" name="phone" required="true">
                         </div>
                     </div>
                     <div class="form-group">
@@ -134,28 +134,30 @@
                             <input type="number" name="cnic" required="true" class="form-control" value="@if(!empty($data['cnic'])){{$data['cnic']}}@endif" placeholder="CNIC">
                         </div>
                     </div>
-                    @if($data['user_type'] != "Portal Doctor")
+
                         <div class="form-group">
                             <label class="col-xs-5 control-label asterisk">City</label>
                             <div class="col-xs-6">
                                 <select class="js-example-basic-single form-control" id="city" name="city_id">
-                                    <option class="vhid"></option>
-                                    <option selected value="{{$data['city_id']}}">Save Same City</option>
+                                @if($data['userCity'] != 0)
+                                    <option value="{{$data['userCity']}}">Select Same City</option>
+                                    @endif
                                     @foreach($cities as $city)
                                         <option value="{{$city['id']}}">{{$city['name']}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                    @else
-                        <input type="hidden"  name="city_id" required="true" value="{{$data['city_id']}}" >
-                    @endif
+
                     <div class="form-group">
                         <label class="col-xs-5 control-label">Gender</label>
                         <div class="col-xs-6">
                             <select name="gender" class="form-control">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                            @if(isset($data['gender']))
+                                <option value="{{$data['gender']}}" selected>{{$data['gender']}}</option>
+                               @endif
+                                <option value="{{\App\Globals\GlobalsConst::MALE}}">Male</option>
+                                <option value="{{\App\Globals\GlobalsConst::FEMALE}}">Female</option>
                             </select>
                         </div>
                     </div>
@@ -175,7 +177,7 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label">Address</label>
                         <div class="col-xs-6">
-                            <textarea name="address" cols="27" rows="2" minlength="10" maxlength="200">@if(!empty($data['address'])) {{$data['address']}} @endif</textarea>
+                            <textarea name="address" cols="27" rows="2" minlength="10" maxlength="200">@if(!empty($data['userAddress'])){{$data['userAddress']}}@endif</textarea>
                         </div>
                     </div>
                     @if($data['user_type'] == "Portal Doctor")
@@ -201,6 +203,7 @@
                                 </div>
                             </div>
                         @endif
+
                         {{--
                         <div class="form-group">
                            --}}
@@ -235,6 +238,27 @@
                                 </div>
                             </div>
                         @endif
+                        @if(empty($data['cityName']))
+                        <hr class="w95p fL mT0" />
+                        <div class="form-group">
+                            <label class="col-xs-5 control-label asterisk">Clinic(s)</label>
+                            <div class="col-xs-6 multi-select">
+                                {{clinic_drop_down($user)}}
+                                <span id="error_doctor_category_id" class="field-validation-msg"></span>
+                            </div>
+                        </div>
+                        @else
+                        <hr class="w95p fL mT0" />
+                        <span style="color: gray;">Previous Clinic : {{$data['clinicsName']}}</span>
+                        <hr class="w95p fL mT0" />
+                            <div class="form-group">
+                                <label class="col-xs-5 control-label asterisk">Clinic(s)</label>
+                                <div class="col-xs-6 multi-select">
+                                    {{clinic_drop_down($user)}}
+                                    <span id="error_doctor_category_id" class="field-validation-msg"></span>
+                                </div>
+                            </div>
+                            @endif
                         {{--
                         <div class="form-group">
                            --}}
@@ -515,6 +539,7 @@
         {{--doctorsForm.initializeAll();--}}
         {{--});--}}
     </script>
+    <script src="{{asset('js/emailAvailability.js')}}"></script>
 @stop
 @endsection
 @endsection

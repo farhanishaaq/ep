@@ -172,6 +172,7 @@ class UsersController extends \BaseController {
             $userId = Auth::user()->id;
 
                 $dataResult = $this->_doctor->fetechDoctorRecord($userId);
+//            dd($dataResult);
                 if(!$dataResult){
                     $dataResult = $this->_user->fetechUserRecord($userId);
                 }
@@ -230,6 +231,7 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
 //        dd(Input::get('currentUserId'));
         if(Auth::check()){
             $currentUserId = Auth::user()->id;
+
 //            If true then Ok Filter Pass
         }else{
             $currentUserId = Input::get('currentUserId');
@@ -240,6 +242,8 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
             Auth::attempt($credentials);
         }
         $data = Input::all();
+
+
         if (!empty(Input::hasFile('image'))){
 
 
@@ -256,23 +260,21 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
                 'password' => Input::get('password')
             );
 //        Check For Additional Info Form: Fill First Time OR Update
-            $formIteration = Doctor::findDoctorId($currentUserId);
-
-            if ($formIteration == "Not Exist") {
-
-                if (!empty($currentUserId)) {
-//             Means Come For First Time
-                    $resultUserData = $this->_user->updateProfileDoctor($data,$currentUserId);
-                    $saveDoctorId = $this->_doctor->saveInDoctorTable($data, $currentUserId);
-                    $this->_doctor->saveDoctorSpeciality($data, $saveDoctorId);
-                    $this->_doctor->saveDoctorQualificaion($data, $saveDoctorId);
-                }
-            } else {
-//            come for update
-                    $resultUserData = $this->_user->updateProfileDoctor($data,$currentUserId);
-                    $saveDoctorId = $this->_doctor->updateInDoctorTable($data,$currentUserId);
-
-
+                $this->_user->updateProfileDoctor($data,$currentUserId);
+                $this->_doctor->updateInDoctorTable($data,$currentUserId);
+                                         //Get Doctor Id
+            $formIteration = Doctor::getDoctorId($currentUserId);
+            $saveDoctorId = $formIteration[0]->id;
+            //                                       If user Change the Speciality box
+            if(isset($data['medical_specialty_id'])) {
+                $this->_doctor->saveDoctorSpeciality($data, $saveDoctorId);
+            }
+//                                              if Fill Qualification
+            if(isset($data['qualification_id'])) {
+                $this->_doctor->saveDoctorQualificaion($data, $saveDoctorId);
+            }
+            if(isset($data['clinic_id'])) {
+                $this->_doctor->saveDoctorClinic($data, $saveDoctorId);
             }
 
             $supportedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg'];
@@ -310,7 +312,22 @@ $response = ['success' => false, 'error' => 'No files were processed.'];
         }
         else{
             $resultUserData = $this->_user->updateProfileDoctor($data,$currentUserId);
-            $saveDoctorId = $this->_doctor->updateInDoctorTable($data,$currentUserId);
+            $this->_doctor->updateInDoctorTable($data,$currentUserId);
+            $formIteration = Doctor::getDoctorId($currentUserId);
+            $saveDoctorId = $formIteration[0]->id;
+            //                                       If user Change the Speciality box
+            if(isset($data['medical_specialty_id'])) {
+                $this->_doctor->saveDoctorSpeciality($data, $saveDoctorId);
+            }
+//                                              if Fill Qualification
+            if(isset($data['qualification_id'])) {
+                $this->_doctor->saveDoctorQualificaion($data, $saveDoctorId);
+            }
+
+            if(isset($data['clinic_id'])) {
+                $this->_doctor->saveDoctorClinic($data, $saveDoctorId);
+            }
+
         }
 //        Auth::attempt($credentials);
         return Redirect::to('/');

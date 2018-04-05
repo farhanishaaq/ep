@@ -48,6 +48,8 @@ class UsersTableSeeder extends Seeder {
 			'gender'=> 'Male',
 			'status'=> 'Active',
 		]);
+
+        $user->roles()->attach(1);
 		Employee::create([
 			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
 			'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
@@ -217,7 +219,6 @@ class UsersTableSeeder extends Seeder {
 			'lname'=> 'Butt',
 			'full_name'=> 'Umar Butt',
 			'user_type'=> 'Doctor',
-			'photo'=> '/profileImages/3/umarButt.JPG',
 			'dob'=> '1988-12-01',
 			'cnic'=> '35200-1478048-1',
 			'phone'=> '+92-323-8406757',

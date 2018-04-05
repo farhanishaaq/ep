@@ -32,7 +32,7 @@ class GlobalsConst {
     const EP_DEMO_BUSINESS_UNIT_THREE = 3;
     const EP_DEMO_BUSINESS_UNIT_FOUR = 4;
 
-
+    const SKILLS_TABLE_ENUM=["Disease","Treatment"];
 
     const LAHORE_OF_PAK = 1;
     

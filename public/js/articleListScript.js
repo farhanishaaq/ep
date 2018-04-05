@@ -74,6 +74,6 @@ $("#imageCheck").click(function () {
 });
 //-------------------
 //Submit Form and reset field
-function submitForm() {
-    $("#commentForm")[0].reset();
-}
+//function submitForm() {
+//    $("#commentForm")[0].reset();
+//}

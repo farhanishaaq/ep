@@ -46,6 +46,8 @@ Route::group(['Public'],function (){
      * For ep social doctor profile
      */
     Route::get('drProfile/{id}', array('as'=>'drProfile','uses'=>'DoctorsController@showDoctorProfile'));
+    Route::get('drDutyDays', array('as'=>'drDutyDays','uses'=>'DoctorsController@showDoctorDutyDays'));
+    Route::get('categoryDetail/{id}', array('as'=>'categoryDetail','uses'=>'DoctorsController@showMedicalCategory'));
     Route::get('patientProfile', array('as'=>'patientProfile','uses'=>'PatientsController@getUserProfile'));
 
 
@@ -89,6 +91,12 @@ Route::group(['Public'],function (){
      */
     Route::get('remind', array('as'=>'remind','uses'=>'RemindersController@getRemind'));
     Route::controller('password', 'RemindersController');
+
+    /**
+     * Clinic routes
+     */
+    Route::resource('clinic',"ClinicController");
+    Route::get('searchClinic' ,array('as'=>'searchClinic','uses'=>'ClinicController@getClinicForSelector'));
 });
 
 
@@ -351,6 +359,7 @@ Route::post('updateComment', array('as'=>'updateComment','uses'=>'CommentsContro
 Route::get('showComment', array('as'=>'showComment','uses'=>'CommentsController@show'));
 Route::get('commentHistory', array('as'=>'commentHistory','uses'=>'CommentsController@showHistory'));
 Route::get('commentsStatus', array('as'=>'commentsStatus','uses'=>'CommentsController@index'));
+
 Route::get('comment', array('as'=>'comment','uses'=>'CommentsController@store'));
 
 Route::post('articleStore', array('as'=>'arStore','uses'=>'ArticlesController@store'));
