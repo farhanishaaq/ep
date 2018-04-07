@@ -225,7 +225,69 @@ class UsersTableSeeder extends Seeder {
 			'gender'=> 'Male',
 			'address'=> 'lawrance Road Lahore',
 			'status'=> 'Active',
-		]);
+		]      );
+        $doctorRole = 5;
+        $user->roles()->attach($doctorRole);
+        $user = User::create([
+
+                'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+                'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+                'city_id'=> GlobalsConst::LAHORE_OF_PAK,
+                'username'=> 'farhanAnees',
+                'email'=> 'farhan@easyphysicians.com',
+                'password'=> Hash::make('doctor123456'),
+                'fname'=> 'Farhan',
+                'lname'=> 'Anees',
+                'full_name'=> 'Farhan Anees',
+                'user_type'=> 'Doctor',
+                'dob'=> '1988-12-01',
+                'cnic'=> '35200-1478048-1',
+                'phone'=> '+92-323-8406757',
+                'gender'=> 'Male',
+                'address'=> 'lawrance Road Lahore',
+                'status'=> 'Active',
+            ]);
+        $doctorRole = 5;
+        $user->roles()->attach($doctorRole);
+        $user = User::create([
+                'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+                'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+                'city_id'=> GlobalsConst::LAHORE_OF_PAK,
+                'username'=> 'qamarZaman',
+                'email'=> 'qamar@easyphysicians.com',
+                'password'=> Hash::make('doctor123456'),
+                'fname'=> 'Qamar',
+                'lname'=> 'Zaman',
+                'full_name'=> 'Qamar Zaman',
+                'user_type'=> 'Doctor',
+                'dob'=> '1988-12-01',
+                'cnic'=> '35200-1478048-1',
+                'phone'=> '+92-323-8406757',
+                'gender'=> 'Male',
+                'address'=> 'lawrance Road Lahore',
+                'status'=> 'Active',
+            ]);
+        $doctorRole = 5;
+        $user->roles()->attach($doctorRole);
+        $user = User::create([
+                'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,
+                'business_unit_id'=> GlobalsConst::EP_DEMO_BUSINESS_UNIT_ONE,
+                'city_id'=> GlobalsConst::LAHORE_OF_PAK,
+                'username'=> 'ahtishamShahid',
+                'email'=> 'Ahtisham@easyphysicians.com',
+                'password'=> Hash::make('doctor123456'),
+                'fname'=> 'Ahtisham',
+                'lname'=> 'Shahid',
+                'full_name'=> 'Ahtisham Shahid',
+                'user_type'=> 'Doctor',
+                'dob'=> '1988-12-01',
+                'cnic'=> '35200-1478048-1',
+                'phone'=> '+92-323-8406757',
+                'gender'=> 'Male',
+                'address'=> 'lawrance Road Lahore',
+                'status'=> 'Active',
+            ]);
+
 		$doctorRole = 5;
 	    $user->roles()->attach($doctorRole);
 

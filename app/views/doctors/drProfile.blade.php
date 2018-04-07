@@ -181,7 +181,7 @@
                                                                     <h4 class="font-bold">Education</h4>
                                                                     <ul>
                                                                         <li>{{$profile->code}} &nbsp;
-                                                                        <a data-toggle="modal" data-target="#code"><h7>what is {{$profile->code}}?</h7></a>
+                                                                        <a data-toggle="modal" data-target="#code"><h7><i class="fa fa-info-circle" style="padding-top: 5px"></i>&nbsp;{{$profile->code}}</h7></a>
                                                                         </li>
                                                                         <li>{{$profile->title}}</li>
                                                                         <li>{{$profile->qualificationsDescription}}</li>
@@ -242,7 +242,7 @@
                                                                         <h3 class="tab-content"><strong>Doctor Reviews:</strong></h3> {{--@foreach($drComments as $comment)--}}
 
                                                                         <div class="" style="background-color: white">
-                                                                            <ul  class="commentList" id="commentList">
+                                                                            <ul  class="commentList" id="commentList" style="min-height: 350px">
 
                                                                             </ul>
                                                                         </div>

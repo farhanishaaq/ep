@@ -385,6 +385,7 @@ Route::get('medicinename',array('as'=>'medicinename','uses'=> 'MedicineInfoContr
 Route::get('medicineDetail',array('as'=>'medicineDetail','uses'=> 'MedicineInfoController@medicineDetail'));
 Route::get('medicineResutl/{id}',array('as'=>'medicineResutl','uses'=> 'MedicineInfoController@medicineResutl'));
 Route::get('question-history',array('as' => 'questionHistory', 'uses' => 'QuestionController@viewHistory'));
+Route::get('viewPublicHistory',array('as' => 'viewPublicHistory', 'uses' => 'QuestionController@viewPublicHistory'));
 Route::resource('answer','AnswerController');
 
 Route::group(array('prefix'=>'api'),function () {
@@ -393,3 +394,4 @@ Route::group(array('prefix'=>'api'),function () {
     Route::post('doSignUp', array('as'=>'doSignUp','uses'=>'AuthController@doSignUp'));
 
 });
+

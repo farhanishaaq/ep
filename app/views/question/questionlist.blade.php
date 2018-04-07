@@ -29,10 +29,12 @@
 <div class="container"><br>
 
 <span>
-
-@if(isset($question->id))style="padding-bottom: 100px"
+@if(Auth::check())
+@if(isset($question->id))
+  @if(Auth::user()->user_type != \App\Globals\GlobalsConst::DOCTOR)
   <span class=""><a  href="{{ URL::route('login')}}" type="submit" style="color: white"><button class="btn btn-raised btn-sm btn-1" > Ask A Question </button></a></span>
-
+@endif
+@endif
     <table class="table table-hover">
         <thead>
         <tr>
@@ -74,7 +76,11 @@
 
 @else
 <div style="margin-top: 150px; margin-bottom: 240px;">
-  <span class=""><a  href="{{ URL::route('login')}}" type="submit" style=" margin-left: 45%;color: white"><button class="btn btn-raised btn-sm btn-1" > Ask A Question </button></a></span>
+@if(Auth::check())
+  @if(Auth::user()->user_type != \App\Globals\GlobalsConst::DOCTOR)
+  <span class=""><a  href="{{ URL::route('login')}}" type="submit" style="color: white"><button class="btn btn-raised btn-sm btn-1" > Ask A Question </button></a></span>
+@endif
+@endif
 <h2 class="center" style="color: dimgray;">No Question History for Now!</h2>
 </div>
 @endif

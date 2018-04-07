@@ -104,14 +104,25 @@ class QuestionController extends \BaseController {
     }
 
     public function viewHistory(){
-
+        if(Auth::check()){
+            $currentId = Auth::user()->id;
+        }
 	    $questions = DB::table('questions')
-                    ->where('doctor_id',1)
+                    ->where('doctor_id',$currentId)
                     ->paginate('8');
-	    //$questions= Auth::user()->question;
 
-      //  dd($questions);
         return View::make('question.questionHistory',compact('questions'));
+
+    }
+
+    public function viewPublicHistory(){
+//dd('ksfjsd');
+	    $questions = DB::table('questions')
+            ->leftjoin('answers','questions.id','=','answers.question_id')
+            ->where('questions.patient_id',Auth::user()->id)
+//                    ->paginate('8');
+            ->get();
+        return View::make('question.questionPublicHistory',compact('questions'));
 
     }
 
