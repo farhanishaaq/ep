@@ -1,6 +1,8 @@
 /**
  * Created by bc140202163 on 1/2/2018.
  */
+
+path = "/ep/public/";
 //10 length
 $(document).ready(function(){
     var maxLength = 200;
@@ -38,7 +40,7 @@ function hitLikes(articleId,patientId)
 
         $.ajax({
             type: 'POST',
-            url: '/likePerform',
+            url: path+'likePerform',
             data: {
                 like_data : actionDo,
                 article_id : articleId,

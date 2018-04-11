@@ -289,6 +289,7 @@
 
             });
             var userId=0
+            path = "/ep/public/";
             $('#users').select2({
                 allowClear: true,
                 placeholder: 'Select Doctor Name',
@@ -320,14 +321,15 @@
                     imagePath = "";
                     if(repo.photo === null) {
                         if (repo.gender === 'Male') {
-                            imagePath = "/uploads/maleUnknown.jpg";
+                            imagePath = path+"uploads/maleUnknown.jpg";
                         }
                         else {
-                            imagePath = "/uploads/femaleUnknown.jpg";
+                            imagePath = path+"uploads/femaleUnknown.jpg";
                         }
                         }
                     else {
-                        imagePath = "/uploads/"+repo.photo;
+                        //imagePath = path+"uploads/"+repo.photo;
+                        imagePath = path+"uploads/femaleUnknown.jpg";
                     }
 
                     if(repo.loading)

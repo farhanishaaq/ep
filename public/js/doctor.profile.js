@@ -66,11 +66,12 @@
 //
 //
 //            getComments();
+path = "/ep/public/";
 function getComments() {
 
     $.ajax({
         type: 'get',
-        url: '/showComment',
+        url: path+'showComment',
         dataType: 'json',
         data: {
 
@@ -89,12 +90,12 @@ function getComments() {
                     imagePath = "";
                     if(val.photo === null) {
                         if (val.gender === 'Male')
-                            imagePath = "/uploads/maleUnknown.jpg";
+                            imagePath = path+"uploads/maleUnknown.jpg";
                         else
-                            imagePath = "/uploads/femaleUnknown.jpg";
+                            imagePath = path+"uploads/femaleUnknown.jpg";
                     }
                     else {
-                        imagePath =  "/"+val.photo;
+                        imagePath =  path+val.photo;
                     }
                     var txt2 = $(" <li>  "
                     //     +"<div>" +
@@ -184,7 +185,7 @@ $("#ajax").click(function(event) {
     if($('#comment').val().length>5){
         $.ajax({
             type: "get",
-            url: "/comment",
+            url: path+"comment",
             dataType: "json",
             data: {
                 //'_token': $('input[name=_token]').val(),
@@ -221,7 +222,7 @@ function commentsreload() {
 
     $.ajax({
         type: 'get',
-        url: '/showComment',
+        url: path+'showComment',
         dataType: 'json',
         data: {
 
