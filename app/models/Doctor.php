@@ -387,7 +387,10 @@ class Doctor extends \Eloquent
             $doctors = $queryBuilder->select('qualifications.id AS qualificationsId','users.id AS userId','max_fee', 'min_fee', 'full_name', 'medical_specialties.name AS specialityName', 'start', 'end', 'code','qualifications.description AS qualificationsDescription', 'doctors.id AS doctorsId', 'cities.name AS cityName', 'cities.id AS cityId', 'photo', 'gender')
                 ->where('doctors.status','=',GlobalsConst::STATUS_ON)
                 ->where('qualifications.id','=',$filterParams['qualificationId'])
-                ->groupBy('qualifications.id')->paginate(4);
+                ->groupBy('users.id')
+                ->paginate(4);
+//            ->get();
+//            dd($doctors);
             return $doctors;
 
 

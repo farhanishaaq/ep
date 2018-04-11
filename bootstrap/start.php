@@ -29,7 +29,7 @@ $app = new Illuminate\Foundation\Application;
 //});
 
 $env = $app->detectEnvironment( array(
-    'local'         => array('DESKTOP-AICS9VP','waqas-pc','IBM', 'Zeeshan', 'ALI-MUGHAL','LRO-SH-04','LRO-SH-21',"LRO-SH-18","umar-sharpthinker"),
+    'local'         => array('DESKTOP-AICS9VP','waqas-pc','IBM', 'Zeeshan', 'ALI-MUGHAL','LRO-SH-04','LRO-SH-21',"lro-sh-04","umar-sharpthinker"),
     'staging'         => array('WIN-1GP1HP4AQNA','ec2-user'),
     'production'    => array('http://www.easyphysicians.com/','easyphysicians.com')
 ));
