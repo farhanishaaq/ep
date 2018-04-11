@@ -44,9 +44,7 @@
                             <div class="card-body no-padding height-9">
                                 <div class="row">
                                     <div class="profile-userpic">
-
-                                        <img src="
-                                                   @if(isset($profile->photo))
+                                        <img src="@if($profile->photo!="")
                                         {{asset('/'.$profile->photo)}}
                                         @else
                                         @if($profile->gender =="Male")

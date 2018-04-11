@@ -170,7 +170,7 @@ class DoctorsController extends \BaseController {
         $doctors = $this->_doctor->fetchPublicDoctors($data);
         $cities = City::all();
         $specialities = MedicalSpecialty::all();
-
+//           dd($doctors);
             return View::make('doctors.doctors_get_list', compact('doctors', 'cities', 'specialities'));
 
         }

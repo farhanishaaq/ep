@@ -121,7 +121,7 @@
                         {{--<div class="col-md-10 col-sm-10  col-lg-10   col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-2">--}}
                             <div class="thumb-xl member-thumb " style="align-items: center">
                                 <img src="
-                           @if(isset($doctors[$i]->photo))
+                           @if($doctors[$i]->photo !="")
                             {{asset('/'.$doctors[$i]->photo)}}
                                 @else
                                         @if($doctors[$i]->gender =="Male")

@@ -262,7 +262,7 @@
                 placeholder: "Enter Hospital Name"
                 ,
                 ajax : {
-                    url : '/searchClinic',
+                    url : 'searchClinic',
                     dataType : 'json',
                     delay : 200,
                     data : function(params){

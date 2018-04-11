@@ -287,7 +287,6 @@ class Doctor extends \Eloquent
     public static function fetechDoctorRecord($id)
     {
 
-
         $data = DB::table('doctors')
             ->leftjoin('doctor_qualification', 'doctors.id', '=', 'doctor_qualification.doctor_id')
             ->leftjoin('clinic_doctor', 'doctors.id', '=', 'clinic_doctor.doctor_id')
@@ -317,7 +316,6 @@ class Doctor extends \Eloquent
 
     public static function fetchPublicDoctors(array $filterParams = null, $offset = 0, $limit = GlobalsConst::LIST_DATA_LIMIT)
     {
-
         try {
             $queryBuilder = DB::table('doctors')
                 ->leftjoin('users', 'doctors.user_id', '=', 'users.id')
@@ -352,6 +350,7 @@ class Doctor extends \Eloquent
             $doctors = $queryBuilder->select('qualifications.id AS qualificationsId','users.id AS userId','max_fee', 'min_fee', 'full_name', 'medical_specialties.name AS specialityName', 'start', 'end', 'code', 'doctors.id AS doctorsId', 'cities.name AS cityName', 'cities.id AS cityId', 'photo', 'gender')
                 ->where('doctors.status','=',GlobalsConst::STATUS_ON)
                 ->groupBy('user_id')->paginate(5);
+
             return $doctors;
 
 
