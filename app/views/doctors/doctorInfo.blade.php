@@ -139,7 +139,7 @@
                             <label class="col-xs-5 control-label asterisk">City</label>
                             <div class="col-xs-6">
                                 <select class="js-example-basic-single form-control" id="city" name="city_id">
-                                @if($data['userCity'] != 0)
+                                @if( isset($data['userCity']) )
                                     <option value="{{$data['userCity']}}">Select Same City</option>
                                     @endif
                                     @foreach($cities as $city)

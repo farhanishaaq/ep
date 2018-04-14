@@ -192,7 +192,7 @@ class UsersTableSeeder extends Seeder {
 			'dob'=> '1988-12-01',
 			'cnic'=> '35200-1478048-1',
 			'gender'=> 'Male',
-			'status'=> 'Active',
+			'statusweb'=> 'Active',
 		]);
 		Employee::create([
 			'company_id' => GlobalsConst::EP_DEMO_COMPANY_ONE,

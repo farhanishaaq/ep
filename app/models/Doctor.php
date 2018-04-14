@@ -411,6 +411,7 @@ class Doctor extends \Eloquent
             $doctors = User::where('full_name', 'LIKE', '%' . $data['q'] . '%')
             ->select('full_name', 'photo', 'id','gender')
             ->where('user_type', '=', 'Doctor')
+            ->orWhere('user_type', '=', 'Portal Doctor')
             ->paginate(10);
         }else{
             $doctors = User::where('full_name', 'LIKE', '%' . $data['q'] . '%')
@@ -418,6 +419,7 @@ class Doctor extends \Eloquent
                 ->select('full_name', 'photo', 'id','gender')
                 ->where('city_id', '=', $data['city'])
                 ->where('user_type', '=', 'Doctor')
+                ->orWhere('user_type', '=', 'Portal Doctor')
                 ->paginate(10);
 
         } ;
