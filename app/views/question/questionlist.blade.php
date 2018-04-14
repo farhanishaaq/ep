@@ -52,7 +52,7 @@
                 <td>{{$question->id}}</td>
                 <td style="max-width: 50%">{{$question->question}}</td>
                 <td>
-                    <a  class="btn btn-primary" href="{{route('answer.create')}}/?questionId={{$question->id}}">Reply</a>
+                    <a  class="btn btn-primary" href="{{url('ep/public/answer/create')}}/?questionId={{$question->id}}">Reply</a>
 
                 </td>
                 <td>

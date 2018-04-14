@@ -95,7 +95,7 @@
                                     <button type="submit" class="btn btn-circle green-bgcolor btn-sm" href="{{URL::route('getappointment')}}">Get Appointment</button>--}}
 
                                     @if($profile->company_id != 0)
-                                     <a  href="{{ URL::route('appointments.create')."?id=".$profile->id }}" type="submit" style="color: white"><button class="btn btn-raised btn-sm btn-1" > Get Appointment </button></a>
+                                     <a  href="{{ URL::route('appointments.create')."?id=".$profile->doctorId }}" type="submit" style="color: white"><button class="btn btn-raised btn-sm btn-1" > Get Appointment </button></a>
 
 
                                     @endif

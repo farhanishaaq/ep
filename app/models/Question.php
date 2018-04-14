@@ -37,9 +37,9 @@ class Question extends \Eloquent {
         if(Auth::check()){
             $questions=$this
                 ->where('status','inProcess')
-                ->orWhere('status','')
+               // ->orWhere('status','')
                 //  ->where('doctor_id',Auth::user()->id)//must be uncommented on end
-                ->where('doctor_id',1)
+                ->where('doctor_id',Auth::user()->id)
                 ->paginate('8');
             return $questions;
 
